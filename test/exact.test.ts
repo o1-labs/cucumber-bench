@@ -31,6 +31,11 @@ describe('exactGrader', () => {
       assert.equal(extractChoice('The answer is: fanciful, because it is invented.', ['generic', 'fanciful']), 'fanciful');
     });
 
+    it('should prefer a bare label on the first line over labels in the explanation', () => {
+      let out = 'descriptive\n\n"Coppertone" describes the tan, not merely suggestive or arbitrary.';
+      assert.equal(extractChoice(out, ['descriptive', 'suggestive', 'arbitrary']), 'descriptive');
+    });
+
     it('should reject output that mentions several labels', () => {
       assert.equal(extractChoice('Could be Yes or No.', ['Yes', 'No']), undefined);
     });

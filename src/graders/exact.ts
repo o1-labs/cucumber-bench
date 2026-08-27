@@ -37,6 +37,9 @@ function extractChoice(output: string, choices: string[]): string | undefined {
   let text = normalize(output);
   let labels = choices.map(normalize);
   if (labels.includes(text)) return text;
+  // chatty answers often lead with the label, then discuss the other labels
+  let firstLine = normalize(output.split('\n')[0] ?? '');
+  if (labels.includes(firstLine)) return firstLine;
   // fall back: accept the output only if exactly one choice appears in it
   let found = labels.filter((l) => new RegExp(`\\b${escapeRe(l)}\\b`, 'i').test(output));
   return found.length === 1 ? found[0] : undefined;
