@@ -1,16 +1,30 @@
 import assert from 'node:assert/strict';
 import type { ModelClient, Generation } from './types.js';
 
-export { createModelClient };
+export { createModelClient, type ModelConfig };
 
-// openai-compatible chat client; works with ollama (/v1) and hosted apis
-// config via env: BENCH_BASE_URL, BENCH_MODEL, BENCH_API_KEY, BENCH_TEMPERATURE, BENCH_TIMEOUT_MS
-function createModelClient(): ModelClient {
-  let baseUrl = process.env.BENCH_BASE_URL ?? 'http://localhost:11434/v1';
-  let model = process.env.BENCH_MODEL ?? 'qwen3:8b';
-  let apiKey = process.env.BENCH_API_KEY ?? 'none';
-  let temperature = Number(process.env.BENCH_TEMPERATURE ?? 0);
-  let timeoutMs = Number(process.env.BENCH_TIMEOUT_MS ?? 120_000);
+type ModelConfig = {
+  baseUrl: string;
+  model: string;
+  apiKey: string;
+  temperature: number;
+  timeoutMs: number;
+};
+
+// openai-compatible chat client; works with ollama (/v1) and hosted apis.
+// env vars are the defaults (BENCH_BASE_URL, BENCH_MODEL, BENCH_API_KEY,
+// BENCH_TEMPERATURE, BENCH_TIMEOUT_MS); a system may create its own client
+// with overrides, and override temperature per call
+function createModelClient(overrides: Partial<ModelConfig> = {}): ModelClient {
+  let { baseUrl, model, apiKey, temperature, timeoutMs }: ModelConfig = {
+    baseUrl: env('BENCH_BASE_URL') ?? 'http://localhost:11434/v1',
+    model: env('BENCH_MODEL') ?? 'qwen3:8b',
+    apiKey: env('BENCH_API_KEY') ?? 'none',
+    temperature: Number(env('BENCH_TEMPERATURE') ?? 0),
+    timeoutMs: Number(env('BENCH_TIMEOUT_MS') ?? 120_000),
+    ...definedOnly(overrides),
+  };
+  assert(model.trim() !== '', 'createModelClient: model is empty, set BENCH_MODEL or pass an override');
 
   return {
     model,
@@ -22,7 +36,7 @@ function createModelClient(): ModelClient {
       let res = await fetch(`${baseUrl}/chat/completions`, {
         method: 'POST',
         headers: { 'content-type': 'application/json', authorization: `Bearer ${apiKey}` },
-        body: JSON.stringify({ model, messages, temperature }),
+        body: JSON.stringify({ model, messages, temperature: opts?.temperature ?? temperature }),
         signal: AbortSignal.timeout(timeoutMs),
       });
       // read the body once; the assert message must not consume it eagerly
@@ -44,6 +58,17 @@ function createModelClient(): ModelClient {
 }
 
 // internal helpers
+
+// empty or whitespace-only env values count as unset
+function env(name: string): string | undefined {
+  let v = process.env[name]?.trim();
+  return v ? v : undefined;
+}
+
+// keys set to undefined must not clobber the defaults when spread
+function definedOnly<T extends object>(obj: T): Partial<T> {
+  return Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined)) as Partial<T>;
+}
 
 // qwen3 and other reasoning models may emit <think>...</think> before the answer
 function stripThink(text: string): string {

@@ -7,6 +7,7 @@ export { harnessSystem };
 function harnessSystem(): SystemUnderTest {
   return {
     name: 'harness',
+    info: 'placeholder two-step chain: analysis at client settings, decide call always greedy (temperature 0)',
     async run(c, ctx) {
       // step 1: free-form analysis
       let analysis = await ctx.model.generate(
@@ -15,11 +16,12 @@ function harnessSystem(): SystemUnderTest {
         { system: 'You are a careful legal analyst.' },
       );
 
-      // step 2: commit to one label
+      // step 2: commit to one label; greedy even when the benchmark samples
       let decision = await ctx.model.generate(
         `${c.instructions}\n\nCase: ${c.input}\n\nQuestion: ${c.question}\n` +
           `Analysis:\n${analysis.text}\n\n` +
           `Based on this analysis, answer with exactly one of: ${c.choices.join(', ')}. Reply with the label only.`,
+        { temperature: 0 },
       );
 
       return {

@@ -53,7 +53,7 @@ let { records } = await runSuite({
 });
 
 await writeFile(join(outDir, 'results.jsonl'), lines.join('\n') + '\n');
-let report = buildReport(runId, model.model, cases, records);
+let report = buildReport(runId, model.model, cases, records, systems);
 await writeFile(join(outDir, 'report.md'), report);
 await writeFile(join(outDir, 'chart.html'), buildChartHtml(runId, model.model, cases, records));
 

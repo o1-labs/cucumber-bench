@@ -66,6 +66,8 @@ type RunContext = {
 
 type SystemUnderTest = {
   name: string;
+  // short human-readable note on models/settings/strategy, shown in the report
+  info?: string;
   run(c: PublicCase, ctx: RunContext): Promise<RunResult>;
 };
 
@@ -78,5 +80,5 @@ type Generation = { text: string; usage: Usage };
 
 type ModelClient = {
   model: string;
-  generate(prompt: string, opts?: { system?: string }): Promise<Generation>;
+  generate(prompt: string, opts?: { system?: string; temperature?: number }): Promise<Generation>;
 };

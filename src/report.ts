@@ -1,11 +1,23 @@
 import type { Case } from './caseStore.js';
 import type { Record } from './runner.js';
+import type { SystemUnderTest } from './types.js';
 
 export { buildReport };
 
 // markdown report: one table per suite (task x system), then failures
-function buildReport(runId: string, model: string, cases: Case[], records: Record[]): string {
-  let lines = [`# Benchmark report`, '', `Run: ${runId}`, `Model: ${model}`, ''];
+function buildReport(
+  runId: string,
+  model: string,
+  cases: Case[],
+  records: Record[],
+  systems: SystemUnderTest[] = [],
+): string {
+  let lines = [`# Benchmark report`, '', `Run: ${runId}`, `Default model: ${model}`, ''];
+  if (systems.length > 0) {
+    lines.push('Systems:', '');
+    for (let s of systems) lines.push(`- ${s.name}${s.info ? ` — ${s.info}` : ''}`);
+    lines.push('');
+  }
 
   let taskOf = new Map(cases.map((c) => [c.pub.id, c.pub]));
   let suites = unique(cases.map((c) => c.pub.suite));

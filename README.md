@@ -31,6 +31,11 @@ with environment variables, or put them in a `.env` file in the repo root
 | `BENCH_TEMPERATURE` | `0` | sampling temperature |
 | `BENCH_TIMEOUT_MS` | `120000` | per model call |
 
+These are defaults. A system can create its own clients with
+`createModelClient({ model, baseUrl, temperature, ... })` and override
+temperature per call, so each harness controls its own LLM settings; the
+report lists each system's `info` line for comparability.
+
 Local default: install [Ollama](https://ollama.com), then `ollama pull qwen3:8b`.
 Hosted example: `BENCH_BASE_URL=https://openrouter.ai/api/v1 BENCH_MODEL=qwen/qwen3-32b BENCH_API_KEY=... npm run bench`.
 

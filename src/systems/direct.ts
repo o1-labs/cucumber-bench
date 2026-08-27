@@ -6,8 +6,11 @@ export { directSystem };
 function directSystem(): SystemUnderTest {
   return {
     name: 'direct',
+    info: 'one model call with the benchmark few-shot prompt, client default settings',
     async run(c, ctx) {
-      let { text, usage } = await ctx.model.generate(buildPrompt(c));
+      let { text, usage } = await ctx.model.generate(buildPrompt(c), {
+        temperature: 1,
+      });
       return {
         caseId: c.id,
         system: 'direct',
