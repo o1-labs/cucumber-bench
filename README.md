@@ -33,8 +33,11 @@ with environment variables:
 Local default: install [Ollama](https://ollama.com), then `ollama pull qwen3:8b`.
 Hosted example: `BENCH_BASE_URL=https://openrouter.ai/api/v1 BENCH_MODEL=qwen/qwen3-32b BENCH_API_KEY=... npm run bench`.
 
-Each run writes `runs/<runId>/results.jsonl` (every run + grade) and
-`runs/<runId>/report.md` (per-task accuracy, latency, tokens, model calls).
+Each run writes to `runs/<runId>/`:
+
+- `results.jsonl` — every run + grade, raw
+- `report.md` — per-task accuracy, latency, tokens, model calls
+- `chart.html` — the same numbers as a self-contained graphic (open in a browser); regenerate for an old run with `npm run chart -- runs/<runId>`
 
 ## Cases
 

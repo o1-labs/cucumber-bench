@@ -8,6 +8,7 @@ import { harnessSystem } from './systems/harness.js';
 import { exactGrader } from './graders/exact.js';
 import { runSuite } from './runner.js';
 import { buildReport } from './report.js';
+import { buildChartHtml } from './chart.js';
 
 // usage: npm run bench -- [--systems direct,harness] [--reps 1] [--cases cases] [--out runs]
 let { values } = parseArgs({
@@ -54,6 +55,7 @@ let { records } = await runSuite({
 await writeFile(join(outDir, 'results.jsonl'), lines.join('\n') + '\n');
 let report = buildReport(runId, model.model, cases, records);
 await writeFile(join(outDir, 'report.md'), report);
+await writeFile(join(outDir, 'chart.html'), buildChartHtml(runId, model.model, cases, records));
 
 console.log('\n' + report);
 console.log(`written to ${outDir}`);

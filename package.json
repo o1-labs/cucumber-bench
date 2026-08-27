@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "bench": "tsx src/cli.ts",
+    "chart": "tsx src/chartCli.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
