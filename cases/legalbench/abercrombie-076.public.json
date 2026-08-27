@@ -1,0 +1,38 @@
+{
+  "id": "abercrombie-076",
+  "suite": "legalbench",
+  "task": "abercrombie",
+  "instructions": "A mark is generic if it is the common name for the product. A mark is descriptive if it describes a purpose, nature, or attribute of the product. A mark is suggestive if it suggests or implies a quality or characteristic of the product. A mark is arbitrary if it is a real English word that has no relation to the product. A mark is fanciful if it is an invented word.",
+  "examples": [
+    {
+      "q": "The mark \"Ivory\" for a product made of elephant tusks. What is the type of mark?",
+      "a": "generic"
+    },
+    {
+      "q": "The mark \"Tasty\" for bread. What is the type of mark?",
+      "a": "descriptive"
+    },
+    {
+      "q": "The mark \"Caress\" for body soap. What is the type of mark?",
+      "a": "suggestive"
+    },
+    {
+      "q": "The mark \"Virgin\" for wireless communications. What is the type of mark?",
+      "a": "arbitrary"
+    },
+    {
+      "q": "The mark \"Aswelly\" for a taxi service. What is the type of mark?",
+      "a": "fanciful"
+    }
+  ],
+  "input": "The mark \"Madak\" for a printing company.",
+  "question": "What is the type of mark?",
+  "choices": [
+    "generic",
+    "descriptive",
+    "suggestive",
+    "arbitrary",
+    "fanciful"
+  ],
+  "_source": "nguha/legalbench, config abercrombie, test split, row index 76"
+}

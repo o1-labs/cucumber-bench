@@ -1,0 +1,35 @@
+{
+  "id": "hearsay-035",
+  "suite": "legalbench",
+  "task": "hearsay",
+  "instructions": "Hearsay is an out-of-court statement introduced to prove the truth of the matter asserted.",
+  "examples": [
+    {
+      "q": "On the issue of whether David is fast, the fact that David set a high school track record. Is there hearsay?",
+      "a": "No"
+    },
+    {
+      "q": "On the issue of whether Rebecca was ill, the fact that Rebecca told Ronald that she was unwell. Is there hearsay?",
+      "a": "Yes"
+    },
+    {
+      "q": "To prove that Tim was a soccer fan, the fact that Tim told Jimmy that \"Real Madrid was the best soccer team in the world.\" Is there hearsay?",
+      "a": "No"
+    },
+    {
+      "q": "When asked by the attorney on cross-examination, Alice testified that she had \"never seen the plaintiff before, and had no idea who she was.\" Is there hearsay?",
+      "a": "No"
+    },
+    {
+      "q": "On the issue of whether Martin punched James, the fact that Martin smiled and nodded when asked if he did so by an officer on the scene. Is there hearsay?",
+      "a": "Yes"
+    }
+  ],
+  "input": "To prove that Tom was in town, a witness testifies that her friend Susan told her Tom was in town.",
+  "question": "Is there hearsay?",
+  "choices": [
+    "Yes",
+    "No"
+  ],
+  "_source": "nguha/legalbench, config hearsay, test split, row index 35"
+}
