@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "bench": "tsx src/cli.ts",
-    "chart": "tsx src/chartCli.ts",
+    "bench": "tsx --env-file-if-exists=.env src/cli.ts",
+    "chart": "tsx --env-file-if-exists=.env src/chartCli.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

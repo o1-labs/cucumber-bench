@@ -20,7 +20,8 @@ npm test                           # unit + pipeline tests (no model needed)
 ```
 
 The model client speaks the OpenAI chat completions protocol. Configure it
-with environment variables:
+with environment variables, or put them in a `.env` file in the repo root
+(gitignored, loaded automatically):
 
 | Variable | Default | Meaning |
 | --- | --- | --- |
