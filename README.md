@@ -44,6 +44,7 @@ with environment variables, or copy `.env.example` to `.env` in the repo root
 | `BENCH_MODEL` | `qwen3:8b` | the guarded model id |
 | `BENCH_SAFETY_MODEL` | same as `BENCH_MODEL` | trusted model served on the proxy's `/safety/v1` route; a harness may show it raw data, and its prompts do not count as leakage |
 | `BENCH_JUDGE_MODEL` | same as `BENCH_MODEL` | model served on the proxy's `/judge/v1` route; graders use it, harnesses never do; its usage is recorded apart from the harness |
+| `BENCH_JUDGE_BASE_URL`, `BENCH_JUDGE_API_KEY` | same as the main URL and key | put the judge on another provider, e.g. `https://openrouter.ai/api/v1` with an OpenRouter key |
 | `BENCH_MAX_CALLS` | `20` | model calls a harness may make per run |
 | `BENCH_MAX_JUDGE_CALLS` | `100` | judge calls the graders may make per run |
 | `BENCH_API_KEY` | `none` | required by hosted APIs, ignored by Ollama |

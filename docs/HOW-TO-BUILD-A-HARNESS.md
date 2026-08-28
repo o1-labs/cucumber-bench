@@ -141,8 +141,12 @@ let graders: Grader[] = [{
 ```
 
 `grade` is async. Its fourth argument is a context with `judge(prompt)`: a
-greedy call to the judge model (`BENCH_JUDGE_MODEL`) through the proxy. The
-runner counts judge usage apart from the harness usage.
+greedy call to the judge model (`BENCH_JUDGE_MODEL`, on `BENCH_JUDGE_BASE_URL`
+with `BENCH_JUDGE_API_KEY` when it lives on another provider) through the
+proxy. The runner counts judge usage apart from the harness usage.
+`npm run regrade -- runs/<runId>` grades the stored outputs of a run again
+with the current graders and judge, without running any harness. Use it to
+compare judges on identical outputs.
 `benchmarks/redaction/graders.ts` is a deterministic example.
 `benchmarks/asqa/graders.ts` uses the judge.
 

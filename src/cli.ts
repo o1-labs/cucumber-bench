@@ -58,6 +58,8 @@ let proxy = await startProxy({
   upstreamKey: cfg.apiKey,
   safetyModel: cfg.safetyModel,
   judgeModel: cfg.judgeModel,
+  judgeUpstreamUrl: cfg.judgeBaseUrl,
+  judgeUpstreamKey: cfg.judgeApiKey,
   defaultTemperature: cfg.temperature,
   timeoutMs: cfg.timeoutMs,
   maxCalls: Number(process.env.BENCH_MAX_CALLS ?? 20),

@@ -19,6 +19,8 @@ async function startProxy(opts: {
   upstreamKey: string;
   safetyModel: string; // served on the /safety route, whatever the request asks for
   judgeModel: string; // served on the /judge route
+  judgeUpstreamUrl?: string; // the judge may live on another provider; default: upstreamUrl
+  judgeUpstreamKey?: string;
   defaultTemperature: number; // injected when a request does not set one
   timeoutMs: number;
   maxCalls: number; // per registered run, on the guarded and safety routes
@@ -56,9 +58,11 @@ async function startProxy(opts: {
       );
     }
 
-    let upstream = await fetch(`${opts.upstreamUrl}/chat/completions`, {
+    let url = route === 'judge' ? (opts.judgeUpstreamUrl ?? opts.upstreamUrl) : opts.upstreamUrl;
+    let key = route === 'judge' ? (opts.judgeUpstreamKey ?? opts.upstreamKey) : opts.upstreamKey;
+    let upstream = await fetch(`${url}/chat/completions`, {
       method: 'POST',
-      headers: { 'content-type': 'application/json', authorization: `Bearer ${opts.upstreamKey}` },
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` },
       body: JSON.stringify(body),
       signal: AbortSignal.timeout(opts.timeoutMs),
     });
