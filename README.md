@@ -30,6 +30,8 @@ with environment variables, or put them in a `.env` file in the repo root
 | `BENCH_API_KEY` | `none` | required by hosted APIs, ignored by Ollama |
 | `BENCH_TEMPERATURE` | `0` | sampling temperature |
 | `BENCH_TIMEOUT_MS` | `120000` | per model call |
+| `BENCH_COST_IN` | unset | $ per 1M input tokens; enables the cost column |
+| `BENCH_COST_OUT` | unset | $ per 1M output tokens |
 
 These are defaults. A system can create its own clients with
 `createModelClient({ model, baseUrl, temperature, ... })` and override
@@ -57,9 +59,17 @@ is a pair of files:
 
 Test cases are locked: do not tune the harness on them.
 
+Add more cases for an existing task with
+`npm run import -- --task hearsay --count 5` — pulls unused test-split rows
+from HuggingFace, balanced across gold answers, reusing the task's
+instructions from an existing case.
+
+With repetitions (`--reps 3`), the report and chart also show **consistency**:
+the average share of repetitions that give the same extracted answer per case.
+
 ## Roadmap
 
 1. ~~Skeleton: types, case store, exact grader, model client, two systems, runner, report.~~
-2. Repetitions and consistency metric, cost, LegalBench import script for more cases.
+2. ~~Repetitions and consistency metric, cost, LegalBench import script for more cases.~~
 3. CUAD suite with a span precision/recall grader.
 4. Rubric grader and custom legal workflow cases; plug in the real harness.

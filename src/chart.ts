@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import type { Case } from './caseStore.js';
 import type { Record } from './runner.js';
+import { consistencyOf, costOf } from './stats.js';
 
 export { buildChartHtml };
 
@@ -62,7 +63,8 @@ function buildChartHtml(runId: string, model: string, cases: Case[], records: Re
     fmt: (v) => `${round1(v)}s`,
   });
 
-  // kpi tiles: overall accuracy per system
+  // kpi tiles: overall accuracy per system, plus consistency when reps > 1
+  let sysRecords = (sys: string) => records.filter((r) => r.run.system === sys);
   let tiles = systems
     .map(
       (sys, i) => `
@@ -72,17 +74,36 @@ function buildChartHtml(runId: string, model: string, cases: Case[], records: Re
       </div>`,
     )
     .join('');
+  tiles += systems
+    .map((sys, i) => {
+      let cons = consistencyOf(sysRecords(sys));
+      if (cons === undefined) return '';
+      return `
+      <div class="tile">
+        <div class="tile-label"><span class="key s${i + 1}"></span>${esc(sys)} — consistency</div>
+        <div class="tile-value">${Math.round(cons * 100)}%</div>
+      </div>`;
+    })
+    .join('');
 
   // table view: the WCAG-clean twin of the charts
   let tableRows = [...tasks, 'ALL']
     .flatMap((task) =>
       systems.map((sys) => {
         let s = get(task, sys);
+        let rows = records.filter(
+          (r) => r.run.system === sys && (task === 'ALL' || taskOf.get(r.run.caseId) === task),
+        );
+        let cons = consistencyOf(rows);
+        let cost = costOf(rows);
         return `<tr>
           <td>${esc(task)}</td><td>${esc(sys)}</td><td>${s.n}</td>
-          <td>${Math.round(acc(s) * 100)}%</td><td>${round1(latS(s))}</td>
+          <td>${Math.round(acc(s) * 100)}%</td>
+          <td>${cons === undefined ? '—' : Math.round(cons * 100) + '%'}</td>
+          <td>${round1(latS(s))}</td>
           <td>${Math.round(s.tokensIn / s.n)}/${Math.round(s.tokensOut / s.n)}</td>
           <td>${round1(s.calls / s.n)}</td>
+          <td>${cost === undefined ? '—' : '$' + cost.toFixed(4)}</td>
         </tr>`;
       }),
     )
@@ -178,7 +199,7 @@ ${latChart}
   <h2>All numbers</h2>
   <p class="csub">per task and system, averaged over runs</p>
   <table>
-    <thead><tr><th>task</th><th>system</th><th>n</th><th>accuracy</th><th>latency s</th><th>tokens in/out</th><th>calls</th></tr></thead>
+    <thead><tr><th>task</th><th>system</th><th>n</th><th>accuracy</th><th>consistency</th><th>latency s</th><th>tokens in/out</th><th>calls</th><th>cost</th></tr></thead>
     <tbody>${tableRows}</tbody>
   </table>
 </div>

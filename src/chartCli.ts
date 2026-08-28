@@ -23,7 +23,7 @@ let runId = runDir.replace(/\/+$/, '').split('/').pop()!;
 let model = 'unknown';
 try {
   let report = await readFile(join(runDir, 'report.md'), 'utf8');
-  model = report.match(/^Model: (.+)$/m)?.[1] ?? model;
+  model = report.match(/^(?:Default )?[Mm]odel: (.+)$/m)?.[1] ?? model;
 } catch {}
 
 let out = join(runDir, 'chart.html');

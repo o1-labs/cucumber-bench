@@ -1,6 +1,7 @@
 import type { Case } from './caseStore.js';
 import type { Record } from './runner.js';
 import type { SystemUnderTest } from './types.js';
+import { consistencyOf, costOf } from './stats.js';
 
 export { buildReport };
 
@@ -24,8 +25,8 @@ function buildReport(
 
   for (let suite of suites) {
     lines.push(`## Suite: ${suite}`, '');
-    lines.push('| task | system | n | accuracy | avg latency ms | avg tokens in/out | avg calls |');
-    lines.push('| --- | --- | --- | --- | --- | --- | --- |');
+    lines.push('| task | system | n | accuracy | consistency | avg latency ms | avg tokens in/out | avg calls | avg cost |');
+    lines.push('| --- | --- | --- | --- | --- | --- | --- | --- | --- |');
 
     let suiteRecords = records.filter((r) => taskOf.get(r.run.caseId)?.suite === suite);
     let tasks = unique(suiteRecords.map((r) => taskOf.get(r.run.caseId)!.task));
@@ -38,11 +39,15 @@ function buildReport(
         );
         if (rows.length === 0) continue;
         let acc = rows.filter((r) => r.grade.pass).length / rows.length;
+        let cons = consistencyOf(rows);
+        let cost = costOf(rows);
         lines.push(
           `| ${task} | ${system} | ${rows.length} | ${(acc * 100).toFixed(0)}% ` +
+            `| ${cons === undefined ? '—' : (cons * 100).toFixed(0) + '%'} ` +
             `| ${avg(rows.map((r) => r.run.latencyMs)).toFixed(0)} ` +
             `| ${avg(rows.map((r) => r.run.tokensIn)).toFixed(0)}/${avg(rows.map((r) => r.run.tokensOut)).toFixed(0)} ` +
-            `| ${avg(rows.map((r) => r.run.modelCalls)).toFixed(1)} |`,
+            `| ${avg(rows.map((r) => r.run.modelCalls)).toFixed(1)} ` +
+            `| ${cost === undefined ? '—' : '$' + cost.toFixed(4)} |`,
         );
       }
     }

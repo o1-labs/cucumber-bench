@@ -55,6 +55,8 @@ type GradeResult = {
   repetition: number;
   pass: boolean;
   score: number; // 0..1
+  // the answer the grader extracted from the output, for consistency-across-reps
+  extracted?: string;
   detail?: string;
 };
 

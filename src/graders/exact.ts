@@ -23,6 +23,7 @@ function exactGrader(): Grader {
         ...base,
         pass,
         score: pass ? 1 : 0,
+        extracted,
         detail: `extracted=${extracted ?? 'none'} gold=${normalize(priv.answer)}`,
       };
     },
