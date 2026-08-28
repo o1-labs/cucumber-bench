@@ -5,11 +5,14 @@ every system running in the same sandbox under identical conditions:
 
 - `direct` — one plain model call, no safety stages (the baseline). The raw
   input goes to the model. `src/sandbox/direct-entry.mjs`.
-- `placeholder` — the custom legal AI harness slot: a pipeline of
-  input safety → agent → output safety. Currently a regex PII scrubber
-  around a two-call agent (`src/sandbox/placeholder-entry.mjs`); replace it
-  with the real harness. A system only has to speak the stdin/stdout
-  protocol described under "Sandboxed systems".
+- `placeholder` — a cheap reference harness: regex PII scrubber around a
+  two-call agent, no dependencies (`src/sandbox/placeholder-entry.mjs`).
+- `harness` — the real legal AI harness, on the Vercel AI SDK
+  (`harness/src/entry.ts`, its own package and image). Pipeline of
+  input safety → agent → output safety, where safety is hybrid: regex for
+  machine-readable identifiers, then a trusted **safety model** for names,
+  addresses and ids. A system only has to speak the stdin/stdout protocol
+  described under "Sandboxed systems".
 
 Systems only see the public case. Graders compare the released output (and,
 for safety, what reached the model) with the private gold data. See
@@ -18,8 +21,8 @@ for safety, what reached the model) with the private gold data. See
 ## Run
 
 ```sh
-npm install
-npm run bench                      # all cases, both systems, 1 repetition, child-process sandbox
+npm install && npm run harness:install
+npm run bench                      # all cases, all systems, 1 repetition, child-process sandbox
 npm run bench -- --systems direct --reps 3
 BENCH_SANDBOX=docker npm run bench # same, each run in a fresh docker container
 npm test                           # unit + pipeline tests (no model needed)
@@ -32,7 +35,8 @@ with environment variables, or put them in a `.env` file in the repo root
 | Variable | Default | Meaning |
 | --- | --- | --- |
 | `BENCH_BASE_URL` | `http://localhost:11434/v1` | Ollama local, or any hosted API |
-| `BENCH_MODEL` | `qwen3:8b` | model id |
+| `BENCH_MODEL` | `qwen3:8b` | the guarded model id |
+| `BENCH_SAFETY_MODEL` | same as `BENCH_MODEL` | trusted model served on the proxy's `/safety/v1` route; a harness may show it raw data, and its prompts do not count as leakage |
 | `BENCH_API_KEY` | `none` | required by hosted APIs, ignored by Ollama |
 | `BENCH_TEMPERATURE` | `0` | sampling temperature |
 | `BENCH_TIMEOUT_MS` | `120000` | per model call |
@@ -58,7 +62,8 @@ Every system — the baseline included — is an entry script under
 `src/sandbox/` that runs in an isolated child process; with
 `BENCH_SANDBOX=docker`, in a fresh hardened container per run (read-only fs,
 no capabilities, cpu/memory/pids caps) from one image holding only node and
-the entry scripts. Build it once with `npm run sandbox:build`.
+the entry scripts (plus a second image for `harness`, which needs the AI SDK).
+Build both with `npm run sandbox:build`.
 
 The sandbox receives exactly one public case, a proxy URL, and a per-run
 token on stdin, and returns its output plus a **trace** on stdout: the four

@@ -9,11 +9,14 @@ export { startProxy };
 // url and a per-run bearer token: never the upstream url, the real api key, or
 // anything else. the proxy does server-side accounting (tokens/calls are truth
 // recorded here, not self-reported) and enforces per-run call limits.
+// two routes: /v1 is the guarded model, whose prompts are the leakage ground
+// truth; /safety/v1 is the trusted safety model a harness may show raw data to.
 // TODO when harnesses need other services (statute dbs, rag), add per-harness
 // allowlisted routes here instead of opening the sandbox network.
 async function startProxy(opts: {
   upstreamUrl: string; // e.g. http://host:11434/v1
   upstreamKey: string;
+  safetyModel: string; // served on the /safety route, whatever the request asks for
   defaultTemperature: number; // injected when a request does not set one
   timeoutMs: number;
   maxCalls: number; // per registered run
@@ -28,9 +31,8 @@ async function startProxy(opts: {
     let token = (req.headers.authorization ?? '').replace(/^Bearer\s+/, '');
     let state = runs.get(token);
     if (!state) return reply(res, 401, 'unknown run token');
-    if (req.method !== 'POST' || req.url !== '/v1/chat/completions') {
-      return reply(res, 404, 'only POST /v1/chat/completions is allowed');
-    }
+    let route = req.method === 'POST' ? ROUTES[req.url ?? ''] : undefined;
+    if (!route) return reply(res, 404, 'only POST /v1/chat/completions and /safety/v1/chat/completions are allowed');
     if (state.usage.modelCalls >= opts.maxCalls) {
       return reply(res, 429, `run ${state.runId} exceeded the limit of ${opts.maxCalls} model calls`);
     }
@@ -39,12 +41,15 @@ async function startProxy(opts: {
     // benchmark defaults are enforced here, not trusted to the sandbox
     let body = JSON.parse(await readBody(req));
     body.temperature ??= opts.defaultTemperature;
-    // ground truth for leakage grading: the prompt text that actually went upstream
-    state.requests.push(
-      (body.messages ?? [])
-        .map((m: any) => (typeof m.content === 'string' ? m.content : JSON.stringify(m.content)))
-        .join('\n'),
-    );
+    if (route === 'safety') body.model = opts.safetyModel;
+    // ground truth for leakage grading: what actually reached the guarded model
+    if (route === 'guarded') {
+      state.requests.push(
+        (body.messages ?? [])
+          .map((m: any) => (typeof m.content === 'string' ? m.content : JSON.stringify(m.content)))
+          .join('\n'),
+      );
+    }
 
     let upstream = await fetch(`${opts.upstreamUrl}/chat/completions`, {
       method: 'POST',
@@ -88,6 +93,11 @@ async function startProxy(opts: {
 }
 
 // internal helpers
+
+const ROUTES: { [path: string]: 'guarded' | 'safety' } = {
+  '/v1/chat/completions': 'guarded',
+  '/safety/v1/chat/completions': 'safety',
+};
 
 function reply(res: ServerResponse, status: number, message: string) {
   res.writeHead(status, { 'content-type': 'application/json' });

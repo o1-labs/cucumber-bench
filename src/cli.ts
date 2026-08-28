@@ -11,10 +11,10 @@ import { runSuite } from './runner.js';
 import { buildReport } from './report.js';
 import { buildChartHtml } from './chart.js';
 
-// usage: npm run bench -- [--systems direct,placeholder] [--reps 1]
+// usage: npm run bench -- [--systems direct,placeholder,harness] [--reps 1]
 let { values } = parseArgs({
   options: {
-    systems: { type: 'string', default: 'direct,placeholder' },
+    systems: { type: 'string', default: 'direct,placeholder,harness' },
     reps: { type: 'string', default: '1' },
   },
 });
@@ -25,9 +25,15 @@ let entry = (file: string) =>
   process.env.BENCH_SANDBOX === 'docker'
     ? dockerArgv('cucumber-bench-sandbox', `/app/${file}`)
     : [process.execPath, `src/sandbox/${file}`];
+// the real harness has its own image (it needs the ai sdk); in process mode tsx runs its source
+let harnessArgv =
+  process.env.BENCH_SANDBOX === 'docker'
+    ? dockerArgv('cucumber-bench-harness', '/app/dist/entry.js')
+    : [process.execPath, 'node_modules/tsx/dist/cli.mjs', 'harness/src/entry.ts'];
 let available = {
   direct: sandboxedSystem('direct', entry('direct-entry.mjs')),
   placeholder: sandboxedSystem('placeholder', entry('placeholder-entry.mjs')),
+  harness: sandboxedSystem('harness', harnessArgv),
 };
 let systems = values.systems.split(',').map((name) => {
   let s = available[name.trim() as keyof typeof available];
@@ -42,6 +48,7 @@ let cfg = resolveModelConfig();
 let proxy = await startProxy({
   upstreamUrl: cfg.baseUrl,
   upstreamKey: cfg.apiKey,
+  safetyModel: cfg.safetyModel,
   defaultTemperature: cfg.temperature,
   timeoutMs: cfg.timeoutMs,
   maxCalls: Number(process.env.BENCH_MAX_CALLS ?? 20),

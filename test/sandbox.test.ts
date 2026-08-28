@@ -7,7 +7,8 @@ import { sandboxedSystem } from '../src/systems/sandboxed.js';
 import { loadCases } from '../src/caseStore.js';
 import type { ModelProxy } from '../src/types.js';
 
-// mock upstream: records request bodies, answers "Yes" with fixed usage
+// mock upstream: records request bodies; answers the pii-detection prompt with a
+// json list of names, everything else with "Yes"; fixed usage
 let seen: any[] = [];
 let upstream: Server;
 let proxy: ModelProxy;
@@ -17,12 +18,16 @@ beforeAll(async () => {
     let chunks: Buffer[] = [];
     req.on('data', (c) => chunks.push(c));
     req.on('end', () => {
-      seen.push(JSON.parse(Buffer.concat(chunks).toString()));
+      let body = JSON.parse(Buffer.concat(chunks).toString());
+      seen.push(body);
+      let prompt = (body.messages ?? []).map((m: any) => m.content).join('\n');
+      let content = prompt.includes('Return only a JSON array') ? '["Heder", "Sanavi"]' : 'Yes';
       res.setHeader('content-type', 'application/json');
       res.end(
         JSON.stringify({
-          choices: [{ message: { content: 'Yes' } }],
-          usage: { prompt_tokens: 50, completion_tokens: 5 },
+          id: 'x', object: 'chat.completion', created: 0, model: body.model,
+          choices: [{ index: 0, message: { role: 'assistant', content }, finish_reason: 'stop' }],
+          usage: { prompt_tokens: 50, completion_tokens: 5, total_tokens: 55 },
         }),
       );
     });
@@ -32,6 +37,7 @@ beforeAll(async () => {
   proxy = await startProxy({
     upstreamUrl: `http://127.0.0.1:${port}/v1`,
     upstreamKey: 'real-key',
+    safetyModel: 'safety-model',
     defaultTemperature: 0.3,
     timeoutMs: 5000,
     maxCalls: 3,
@@ -71,6 +77,19 @@ describe('proxy', () => {
     await call(token, { model: 'm', messages: [], temperature: 0 });
     assert.equal(seen[seen.length - 1].temperature, 0);
     assert.deepEqual(proxy.usage(token), { modelCalls: 2, tokensIn: 100, tokensOut: 10 });
+  });
+
+  it('should serve the trusted safety model on its own route, outside the leakage record', async () => {
+    let token = proxy.register('r5');
+    let res = await fetch(`${proxy.url}/safety/v1/chat/completions`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
+      body: JSON.stringify({ model: 'm', messages: [{ role: 'user', content: 'raw document' }] }),
+    });
+    assert.equal(res.status, 200);
+    assert.equal(seen[seen.length - 1].model, 'safety-model');
+    assert.deepEqual(proxy.requests(token), []);
+    assert.equal(proxy.usage(token).modelCalls, 1);
   });
 
   it('should enforce the per-run call limit', async () => {
@@ -130,5 +149,33 @@ describe('sandboxedSystem', () => {
     let system = sandboxedSystem('sandboxed', [process.execPath, '-e', 'process.exit(3)']);
     let result = await system.run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
     assert.match(result.error ?? '', /exited 3/);
+  });
+});
+
+describe('harness (vercel ai sdk entry)', () => {
+  let argv = [process.execPath, 'node_modules/tsx/dist/cli.mjs', 'harness/src/entry.ts'];
+
+  it('should run a label case through the guarded model with passthrough safety', async () => {
+    let { pub } = (await loadCases('cases/legalbench'))[0];
+    let result = await sandboxedSystem('harness', argv).run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
+    assert.equal(result.error, undefined);
+    assert.equal(result.output, 'Yes');
+    assert.equal(result.modelCalls, 2);
+    assert.deepEqual(result.trace?.stages.map((s) => s.mode), ['passthrough', 'llm', 'passthrough']);
+  });
+
+  it('should scrub regex hits and safety-model findings before the guarded model sees the document', async () => {
+    let { pub } = (await loadCases('cases/redaction')).find((c) => c.pub.id === 'pii-40805A')!;
+    let result = await sandboxedSystem('harness', argv).run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
+    assert.equal(result.error, undefined);
+    let input = result.trace!.stages[0];
+    assert.equal(input.mode, 'hybrid');
+    assert.ok(input.findings.includes('llm:Heder') && input.findings.includes('llm:Sanavi'), input.findings.join(','));
+    // three calls: detect (safety route), agent (guarded), detect on output (safety route)
+    assert.equal(result.modelCalls, 3);
+    // only the agent call is leakage ground truth, and the names never reached it
+    assert.equal(result.modelRequests!.length, 1);
+    assert.ok(!result.modelRequests![0].includes('Sanavi'));
+    assert.ok(result.modelRequests![0].includes('[REDACTED]'));
   });
 });
