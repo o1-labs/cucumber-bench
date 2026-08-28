@@ -28,14 +28,16 @@ A harness is a program that speaks a small protocol.
 ```json
 {
   "publicCase": { "id": "...", "suite": "...", "task": "...", "instructions": "...", "input": "...",
-                  "examples": [...], "question": "...", "choices": [...] },
+                  "docs": [{ "title": "...", "text": "..." }], "examples": [...], "question": "...", "choices": [...] },
   "proxyUrl": "http://127.0.0.1:PORT",
   "token": "per-run bearer token",
   "model": "the guarded model id"
 }
 ```
 
-`examples`, `question`, and `choices` exist only for label tasks.
+`docs` are context passages the answer may cite as `[1][2]`, numbered from 1
+(asqa). `examples` are worked examples. `question` and `choices` exist only
+for label tasks.
 
 **Output** — one JSON object on stdout:
 
@@ -137,13 +139,16 @@ let graders: Grader[] = [{
 }];
 ```
 
-`grade` is async, so a grader may call a model, read documents, or search.
-`benchmarks/redaction/graders.ts` is the example.
+`grade` is async. Its fourth argument is a context with `judge(prompt)`: a
+greedy call to the judge model (`BENCH_JUDGE_MODEL`) through the proxy. The
+runner counts judge usage apart from the harness usage.
+`benchmarks/redaction/graders.ts` is a deterministic example.
+`benchmarks/asqa/graders.ts` uses the judge.
 
 **The cases** go in `cases/`, one pair of files per case:
 
-- `<id>.public.json` — `id`, `suite`, `task`, `instructions`, `input`, and for
-  label tasks `examples`, `question`, `choices`. Systems see only this.
+- `<id>.public.json` — `id`, `suite`, `task`, `instructions`, `input`, and as
+  needed `docs`, `examples`, `question`, `choices`. Systems see only this.
 - `<id>.private.json` — `id`, `graders` (names, the first one is the primary
   grader), and the gold data the graders need. Only graders see this.
 
@@ -185,8 +190,10 @@ did on each case.
 Run without Docker. This uses the source files directly:
 
 ```sh
-npm run bench -- --systems legal-v1
+npm run bench -- --systems legal-v1 --suites redaction
 ```
+
+`--suites` limits the run to some benchmarks. Without it, every benchmark runs.
 
 Set a small safety model in `.env` to make the safety calls fast:
 
