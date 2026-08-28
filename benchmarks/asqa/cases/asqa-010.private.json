@@ -1,0 +1,34 @@
+{
+  "id": "asqa-010",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who played fruma sarah in the 1971 film, Fiddler on the Roof?",
+      "shortAnswers": [
+        "Ruth Madoc"
+      ]
+    },
+    {
+      "question": "Who played Fruma Sarah in the original 1964 Broadway cast of Fiddler on the Roof?",
+      "shortAnswers": [
+        "Carol Sawyer Yussel"
+      ]
+    },
+    {
+      "question": "Who is the character of Fruma Sarah in Fiddler on the Roof?",
+      "shortAnswers": [
+        "a ghostly depiction of the late wife of Lazar Wolf"
+      ]
+    },
+    {
+      "question": "Who played Fruma Sarah in the 2015-2016 Broadway Revival of Fiddler on the Roof?",
+      "shortAnswers": [
+        "Jessica Vosk"
+      ]
+    }
+  ]
+}

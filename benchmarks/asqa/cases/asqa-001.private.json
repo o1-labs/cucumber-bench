@@ -1,0 +1,34 @@
+{
+  "id": "asqa-001",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who is the original artist of sound of silence, the song, released in 1964?",
+      "shortAnswers": [
+        "Simon & Garfunkel",
+        "Paul Simon and Art Garfunkel",
+        "Art Garfunkel",
+        "Paul Simon"
+      ]
+    },
+    {
+      "question": "Who is the original artist of sound of silence, the album?",
+      "shortAnswers": [
+        "Simon & Garfunkel",
+        "Paul Simon and Art Garfunkel",
+        "Art Garfunkel",
+        "Paul Simon"
+      ]
+    },
+    {
+      "question": "Who is the original artist of sound of silence, the song, released in 2016?",
+      "shortAnswers": [
+        "Dami Im"
+      ]
+    }
+  ]
+}

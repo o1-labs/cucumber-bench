@@ -1,0 +1,46 @@
+{
+  "id": "asqa-013",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When did season 4 of jersey shore first air?",
+      "shortAnswers": [
+        "August 4, 2011"
+      ]
+    },
+    {
+      "question": "When did season 4 of jersey shore last air?",
+      "shortAnswers": [
+        "October 20, 2011"
+      ]
+    },
+    {
+      "question": "When did season 5 of jersey shore first air?",
+      "shortAnswers": [
+        "January 5, 2012"
+      ]
+    },
+    {
+      "question": "When did season 5 of jersey shore last air?",
+      "shortAnswers": [
+        "March 15, 2012"
+      ]
+    },
+    {
+      "question": "When did season 6 of jersey shore first air?",
+      "shortAnswers": [
+        "October 4, 2012"
+      ]
+    },
+    {
+      "question": "When did season 6 of jersey shore last air?",
+      "shortAnswers": [
+        "December 20, 2012"
+      ]
+    }
+  ]
+}

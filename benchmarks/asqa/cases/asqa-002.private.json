@@ -1,0 +1,34 @@
+{
+  "id": "asqa-002",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When was the first apple i phone released?",
+      "shortAnswers": [
+        "June 29, 2007"
+      ]
+    },
+    {
+      "question": "When was the first apple i phone for beta testing made?",
+      "shortAnswers": [
+        "2004"
+      ]
+    },
+    {
+      "question": "When was the first apple i phone 1 made?",
+      "shortAnswers": [
+        "June 29, 2007."
+      ]
+    },
+    {
+      "question": "When was the first apple i phone beta made?",
+      "shortAnswers": [
+        "2004."
+      ]
+    }
+  ]
+}

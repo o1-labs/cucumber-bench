@@ -1,0 +1,34 @@
+{
+  "id": "asqa-014",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What season of Grey's Anatomy was the plane crash involving six doctors?",
+      "shortAnswers": [
+        "season 8"
+      ]
+    },
+    {
+      "question": "What season of Grey's Anatomy was the plane crash in Seattle that brought memories of a previous plane crash?",
+      "shortAnswers": [
+        "season 11"
+      ]
+    },
+    {
+      "question": "What season of Grey's Anatomy was the plane crash that claimed the life of Lexie Grey?",
+      "shortAnswers": [
+        "8"
+      ]
+    },
+    {
+      "question": "What season of Grey's Anatomy was the plane crash in downtown Seattle?",
+      "shortAnswers": [
+        "11"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "asqa-005",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who are the teams that performed in competition at the champions league final 2018?",
+      "shortAnswers": [
+        "Real Madrid and Liverpool",
+        "Liverpool",
+        "Real Madrid"
+      ]
+    },
+    {
+      "question": "Who performed best at the champions league final 2018, winning man of the match?",
+      "shortAnswers": [
+        "Gareth Bale",
+        "Bale"
+      ]
+    },
+    {
+      "question": "Who performed at the opening ceremony of the champions league final 2018?",
+      "shortAnswers": [
+        "Dua Lipa",
+        "Sean Paul",
+        "Dua Lipa and Sean Paul"
+      ]
+    },
+    {
+      "question": "Who performed the anthem at the champions league final 2018?",
+      "shortAnswers": [
+        "2Cellos",
+        "Luka Šulić and Stjepan Hauser",
+        "Luka Šulić",
+        "2CΞLLOS",
+        "Stjepan Hauser"
+      ]
+    }
+  ]
+}

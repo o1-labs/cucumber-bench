@@ -1,0 +1,46 @@
+{
+  "id": "asqa-003",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who played  Bill weasley in Harry Potter and the Prisoner of Azkaban?",
+      "shortAnswers": [
+        "Richard Fish"
+      ]
+    },
+    {
+      "question": "Who played percy weasley in harry potter?",
+      "shortAnswers": [
+        "Chris Rankin"
+      ]
+    },
+    {
+      "question": "Who played fred weasley in harry potter?",
+      "shortAnswers": [
+        "James Phelps"
+      ]
+    },
+    {
+      "question": "Who played ron weasley in harry potter?",
+      "shortAnswers": [
+        "Rupert Grint"
+      ]
+    },
+    {
+      "question": "Who played george weasley in harry potter?",
+      "shortAnswers": [
+        "Oliver Phelps"
+      ]
+    },
+    {
+      "question": "Who played  Bill weasley in harry potter (2001-2011)?",
+      "shortAnswers": [
+        "Domhnall Gleeson"
+      ]
+    }
+  ]
+}

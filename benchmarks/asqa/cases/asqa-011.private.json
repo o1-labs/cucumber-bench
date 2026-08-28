@@ -1,0 +1,23 @@
+{
+  "id": "asqa-011",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What date did toronto host the mlb all-star game?",
+      "shortAnswers": [
+        "July 9, 1991"
+      ]
+    },
+    {
+      "question": "Which all-star game did toronto host?",
+      "shortAnswers": [
+        "1991 Major League Baseball All-Star Game",
+        "the 62nd playing of the midsummer classic"
+      ]
+    }
+  ]
+}

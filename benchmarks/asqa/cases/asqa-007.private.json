@@ -1,0 +1,22 @@
+{
+  "id": "asqa-007",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who does Charlie Day play on It's Always Sunny in Philadelphia?",
+      "shortAnswers": [
+        "Charlie Kelly"
+      ]
+    },
+    {
+      "question": "Who plays Charlie Kelly on It's Always Sunny in Philadelphia?",
+      "shortAnswers": [
+        "Charlie Day"
+      ]
+    }
+  ]
+}

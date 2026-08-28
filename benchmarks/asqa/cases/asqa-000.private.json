@@ -1,0 +1,31 @@
+{
+  "id": "asqa-000",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who has the highest goals in men's world international football?",
+      "shortAnswers": [
+        "Daei",
+        "Ali Daei"
+      ]
+    },
+    {
+      "question": "Who has the highest goals all-time in men's football?",
+      "shortAnswers": [
+        "Bican",
+        "Josef Bican"
+      ]
+    },
+    {
+      "question": "Who has the highest goals in women's world international football?",
+      "shortAnswers": [
+        "Sinclair",
+        "Christine Sinclair"
+      ]
+    }
+  ]
+}

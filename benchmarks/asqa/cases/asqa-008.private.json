@@ -1,0 +1,28 @@
+{
+  "id": "asqa-008",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "As of 2017, how many times have the lakers won the finals?",
+      "shortAnswers": [
+        "16"
+      ]
+    },
+    {
+      "question": "As of 2016, how many times have the Lakers won the finals?",
+      "shortAnswers": [
+        "16"
+      ]
+    },
+    {
+      "question": "As of 2015, how many times have the Lakers won the finals?",
+      "shortAnswers": [
+        "16"
+      ]
+    }
+  ]
+}

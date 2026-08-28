@@ -1,0 +1,23 @@
+{
+  "id": "asqa-012",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What kind of car in to catch a thief in terms of model?",
+      "shortAnswers": [
+        "Sunbeam Alpine",
+        "1953 Sunbeam Alpine Mk I"
+      ]
+    },
+    {
+      "question": "What kind of car in to catch a thief in terms of automobile make?",
+      "shortAnswers": [
+        "Rootes Group"
+      ]
+    }
+  ]
+}

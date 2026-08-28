@@ -1,0 +1,22 @@
+{
+  "id": "asqa-009",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "How many states plus territories in india are under congress?",
+      "shortAnswers": [
+        "7"
+      ]
+    },
+    {
+      "question": "How many states alone in india are under congress?",
+      "shortAnswers": [
+        "5"
+      ]
+    }
+  ]
+}
