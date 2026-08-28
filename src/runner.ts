@@ -8,8 +8,10 @@ export { runSuite, type Record };
 // judge is the model usage of the graders for this run, apart from the harness usage
 type Record = { run: RunResult; grades: GradeResult[]; judge: Usage };
 
-// runs every system on every case, grades each run, returns all records.
-// systems only ever see the public case; graders get the private one.
+// runs every system on every case, grades each run, returns all records in a
+// fixed order (system, repetition, case). systems only ever see the public case;
+// graders get the private one. concurrency > 1 runs that many cases at once,
+// which suits a hosted model; keep 1 for a single local gpu.
 async function runSuite(opts: {
   runId: string;
   cases: Case[];
@@ -18,16 +20,20 @@ async function runSuite(opts: {
   model: string;
   proxy: ModelProxy;
   repetitions: number;
+  concurrency?: number;
   onRecord?: (r: Record) => void;
 }): Promise<Record[]> {
-  let { runId, cases, systems, graders, model, proxy, repetitions } = opts;
+  let { runId, cases, systems, graders, model, proxy, repetitions, concurrency = 1 } = opts;
   assert(repetitions >= 1, `runSuite: repetitions must be >= 1, got ${repetitions}`);
+  assert(concurrency >= 1, `runSuite: concurrency must be >= 1, got ${concurrency}`);
 
   let records: Record[] = [];
   for (let system of systems) {
     for (let rep = 1; rep <= repetitions; rep++) {
       let mine = system.suites ? cases.filter((c) => system.suites!.includes(c.pub.suite)) : cases;
-      for (let { pub, priv } of mine) {
+      let slot = records.length;
+      records.length += mine.length;
+      await pool(mine, concurrency, async ({ pub, priv }, i) => {
         let ctx = { runId, repetition: rep, model, proxy };
         let t0 = Date.now();
         let result: Omit<RunResult, 'latencyMs'>;
@@ -56,10 +62,24 @@ async function runSuite(opts: {
           grades.push(await grader.grade(pub, priv, run, gradeCtx));
         }
         let record = { run, grades, judge: proxy.usage(judgeToken) };
-        records.push(record);
+        records[slot + i] = record;
         opts.onRecord?.(record);
-      }
+      });
     }
   }
   return records;
+}
+
+// internal helpers
+
+// runs fn over items with at most n in flight
+async function pool<T>(items: T[], n: number, fn: (item: T, i: number) => Promise<void>) {
+  let next = 0;
+  let workers = Array.from({ length: Math.min(n, items.length) }, async () => {
+    while (next < items.length) {
+      let i = next++;
+      await fn(items[i], i);
+    }
+  });
+  await Promise.all(workers);
 }

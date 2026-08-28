@@ -19,15 +19,16 @@ function citationRecallGrader(): Grader {
       if (result.error) return { grader: 'citation-recall', pass: false, score: 0, detail: `error: ${result.error}` };
       let sents = sentences(result.output);
       if (sents.length === 0) return { grader: 'citation-recall', pass: false, score: 0, detail: 'no sentences' };
-      let supported = 0, uncited = 0;
-      for (let sent of sents) {
-        let refs = citationsOf(sent, docs.length);
-        if (refs.length === 0) {
-          uncited++;
-          continue;
-        }
-        if (await entails(ctx, result, passages(docs, refs), removeCitations(sent))) supported++;
-      }
+      // all sentences are judged at once; the judge model handles the parallel calls
+      let verdicts = await Promise.all(
+        sents.map(async (sent) => {
+          let refs = citationsOf(sent, docs.length);
+          if (refs.length === 0) return 'uncited';
+          return (await entails(ctx, result, passages(docs, refs), removeCitations(sent))) ? 'supported' : 'unsupported';
+        }),
+      );
+      let supported = verdicts.filter((v) => v === 'supported').length;
+      let uncited = verdicts.filter((v) => v === 'uncited').length;
       let score = supported / sents.length;
       return {
         grader: 'citation-recall',
@@ -49,22 +50,27 @@ function citationPrecisionGrader(): Grader {
       let docs = docsOf(pub);
       if (result.error) return { grader: 'citation-precision', pass: false, score: 0, detail: `error: ${result.error}` };
       let total = 0, precise = 0;
-      for (let sent of sentences(result.output)) {
-        let refs = citationsOf(sent, docs.length);
-        if (refs.length === 0) continue;
-        total += refs.length;
-        let claim = removeCitations(sent);
-        if (!(await entails(ctx, result, passages(docs, refs), claim))) continue;
-        if (refs.length === 1) {
-          precise++;
-          continue;
-        }
-        for (let ref of refs) {
-          if (await entails(ctx, result, passages(docs, [ref]), claim)) precise++;
-          else if (!(await entails(ctx, result, passages(docs, refs.filter((r) => r !== ref)), claim))) precise++;
-          // else: the others support the claim without this one, so it is over-citation
-        }
-      }
+      // sentences, and the citations within a sentence, are judged in parallel
+      await Promise.all(
+        sentences(result.output).map(async (sent) => {
+          let refs = citationsOf(sent, docs.length);
+          if (refs.length === 0) return;
+          total += refs.length;
+          let claim = removeCitations(sent);
+          if (!(await entails(ctx, result, passages(docs, refs), claim))) return;
+          if (refs.length === 1) {
+            precise++;
+            return;
+          }
+          await Promise.all(
+            refs.map(async (ref) => {
+              if (await entails(ctx, result, passages(docs, [ref]), claim)) precise++;
+              else if (!(await entails(ctx, result, passages(docs, refs.filter((r) => r !== ref)), claim))) precise++;
+              // else: the others support the claim without this one, so it is over-citation
+            }),
+          );
+        }),
+      );
       return {
         grader: 'citation-precision',
         pass: total > 0 && precise === total,

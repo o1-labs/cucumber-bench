@@ -34,10 +34,12 @@ describe('runSuite', () => {
     assert.equal(cases.length, 9);
 
     let records = await runSuite({
-      runId: 'test', cases, systems: [fakeSystem('Yes')], graders: [exactGrader()], model: 'm', proxy, repetitions: 1,
+      runId: 'test', cases, systems: [fakeSystem('Yes')], graders: [exactGrader()], model: 'm', proxy, repetitions: 1, concurrency: 4,
     });
 
     assert.equal(records.length, 9);
+    // concurrent runs still land in case order
+    assert.deepEqual(records.map((r) => r.run.caseId), cases.map((c) => c.pub.id));
     assert.deepEqual(records[0].judge, { modelCalls: 0, tokensIn: 0, tokensOut: 0 });
     // fake answers "Yes"; exactly the two Yes-labeled cases pass
     assert.equal(records.filter((r) => r.grades[0].pass).length, 2);

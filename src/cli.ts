@@ -10,13 +10,15 @@ import { runSuite } from './runner.js';
 import { buildReport } from './report.js';
 import { buildChartHtml } from './chart.js';
 
-// usage: npm run bench -- [--systems direct,legal-v1] [--suites asqa] [--reps 1]
-// systems default to every harness under harnesses/, suites to every benchmark
+// usage: npm run bench -- [--systems direct,legal-v1] [--suites asqa] [--reps 1] [--concurrency 1]
+// systems default to every harness under harnesses/, suites to every benchmark.
+// concurrency: cases in flight at once; raise it for a hosted model, keep 1 for a local gpu
 let { values } = parseArgs({
   options: {
     systems: { type: 'string' },
     suites: { type: 'string' },
     reps: { type: 'string', default: '1' },
+    concurrency: { type: 'string', default: '1' },
   },
 });
 
@@ -69,7 +71,7 @@ let runId = new Date().toISOString().replace(/[:.]/g, '-');
 let outDir = join('runs', runId);
 await mkdir(outDir, { recursive: true });
 
-console.log(`run ${runId}: ${cases.length} cases, systems [${systems.map((s) => s.name).join(', ')}], model ${cfg.model}, reps ${values.reps}`);
+console.log(`run ${runId}: ${cases.length} cases, systems [${systems.map((s) => s.name).join(', ')}], model ${cfg.model}, reps ${values.reps}, concurrency ${values.concurrency}`);
 
 let lines: string[] = [];
 let records = await runSuite({
@@ -80,6 +82,7 @@ let records = await runSuite({
   model: cfg.model,
   proxy,
   repetitions: Number(values.reps),
+  concurrency: Number(values.concurrency),
   onRecord({ run, grades, judge }) {
     let verdict = grades.map((g) => `${g.pass ? 'PASS' : 'FAIL'} ${g.grader}`).join(', ');
     console.log(
