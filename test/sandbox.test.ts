@@ -85,10 +85,7 @@ describe('proxy', () => {
 describe('sandboxedSystem', () => {
   it('should run the placeholder entry as a child process end to end', async () => {
     let { pub } = (await loadCases('cases'))[0];
-    let system = sandboxedSystem({
-      name: 'sandboxed',
-      argv: [process.execPath, 'src/sandbox/placeholder-entry.mjs'],
-    });
+    let system = sandboxedSystem('sandboxed', [process.execPath, 'src/sandbox/placeholder-entry.mjs']);
     let model = { model: 'test-model' } as ModelClient;
     let result = await system.run(pub, { runId: 't', repetition: 1, model, proxy });
     assert.equal(result.output, 'Yes');
@@ -102,10 +99,7 @@ describe('sandboxedSystem', () => {
 
   it('should report a sandbox that dies as an errored run', async () => {
     let { pub } = (await loadCases('cases'))[0];
-    let system = sandboxedSystem({
-      name: 'sandboxed',
-      argv: [process.execPath, '-e', 'process.exit(3)'],
-    });
+    let system = sandboxedSystem('sandboxed', [process.execPath, '-e', 'process.exit(3)']);
     let model = { model: 'test-model' } as ModelClient;
     let result = await system.run(pub, { runId: 't', repetition: 1, model, proxy });
     assert.match(result.error ?? '', /exited 3/);

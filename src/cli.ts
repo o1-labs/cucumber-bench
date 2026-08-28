@@ -4,7 +4,6 @@ import { parseArgs } from 'node:util';
 import { loadCases } from './caseStore.js';
 import { createModelClient, resolveModelConfig } from './modelClient.js';
 import { directSystem } from './systems/direct.js';
-import { harnessSystem } from './systems/harness.js';
 import { dockerArgv, sandboxedSystem } from './systems/sandboxed.js';
 import { startProxy } from './proxy.js';
 import { exactGrader } from './graders/exact.js';
@@ -12,35 +11,29 @@ import { runSuite } from './runner.js';
 import { buildReport } from './report.js';
 import { buildChartHtml } from './chart.js';
 
-// usage: npm run bench -- [--systems direct,harness] [--reps 1] [--cases cases] [--out runs]
+// usage: npm run bench -- [--systems direct,sandboxed] [--reps 1]
 let { values } = parseArgs({
   options: {
-    systems: { type: 'string', default: 'direct,harness' },
+    systems: { type: 'string', default: 'direct,sandboxed' },
     reps: { type: 'string', default: '1' },
-    cases: { type: 'string', default: 'cases' },
-    out: { type: 'string', default: 'runs' },
   },
 });
 
-// sandboxed placeholder: child process by default, docker with BENCH_SANDBOX=docker
-let useDocker = process.env.BENCH_SANDBOX === 'docker';
-let sandboxed = sandboxedSystem({
-  name: 'sandboxed',
-  info: `placeholder chain in a ${useDocker ? 'docker container' : 'child process'}, model access through the proxy only`,
-  argv: useDocker
-    ? dockerArgv(process.env.BENCH_SANDBOX_IMAGE ?? 'cucumber-bench-placeholder')
+// sandboxed placeholder: child process by default, docker container with BENCH_SANDBOX=docker
+let sandboxed = sandboxedSystem(
+  'sandboxed',
+  process.env.BENCH_SANDBOX === 'docker'
+    ? dockerArgv('cucumber-bench-placeholder')
     : [process.execPath, 'src/sandbox/placeholder-entry.mjs'],
-  rewriteHost: useDocker,
-});
-
-let available = { direct: directSystem(), harness: harnessSystem(), sandboxed };
+);
+let available = { direct: directSystem(), sandboxed };
 let systems = values.systems.split(',').map((name) => {
   let s = available[name.trim() as keyof typeof available];
   if (!s) throw Error(`unknown system: ${name}. available: ${Object.keys(available).join(', ')}`);
   return s;
 });
 
-let cases = await loadCases(values.cases);
+let cases = await loadCases('cases');
 let model = createModelClient();
 
 // sandboxed systems reach the model only through the accounting proxy
@@ -56,13 +49,13 @@ if (systems.includes(sandboxed)) {
   });
 }
 let runId = new Date().toISOString().replace(/[:.]/g, '-');
-let outDir = join(values.out, runId);
+let outDir = join('runs', runId);
 await mkdir(outDir, { recursive: true });
 
 console.log(`run ${runId}: ${cases.length} cases, systems [${systems.map((s) => s.name).join(', ')}], model ${model.model}, reps ${values.reps}`);
 
 let lines: string[] = [];
-let { records } = await runSuite({
+let records = await runSuite({
   runId,
   cases,
   systems,
@@ -81,7 +74,7 @@ let { records } = await runSuite({
 
 await proxy?.close();
 await writeFile(join(outDir, 'results.jsonl'), lines.join('\n') + '\n');
-let report = buildReport(runId, model.model, cases, records, systems);
+let report = buildReport(runId, model.model, cases, records);
 await writeFile(join(outDir, 'report.md'), report);
 await writeFile(join(outDir, 'chart.html'), buildChartHtml(runId, model.model, cases, records));
 

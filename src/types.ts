@@ -5,12 +5,10 @@ export type {
   Usage,
   RunResult,
   GradeResult,
-  RunContext,
   SystemUnderTest,
   Grader,
   ModelClient,
   ModelProxy,
-  Generation,
 };
 
 // visible to every system under test
@@ -35,7 +33,6 @@ type PrivateCase = {
   id: string;
   grader: 'exact';
   answer: string;
-  aliases?: string[];
 };
 
 type Usage = { modelCalls: number; tokensIn: number; tokensOut: number };
@@ -45,7 +42,7 @@ type RunResult = Usage & {
   system: string;
   repetition: number;
   output: string;
-  // latencyMs is wall time of run(), set by the runner
+  // wall time of run(), set by the runner
   latencyMs: number;
   error?: string;
 };
@@ -55,33 +52,18 @@ type GradeResult = {
   system: string;
   repetition: number;
   pass: boolean;
-  score: number; // 0..1
-  // the answer the grader extracted from the output, for consistency-across-reps
-  extracted?: string;
+  // the answer extracted from the output, '(none)' if there was none; drives consistency across reps
+  extracted: string;
   detail?: string;
-};
-
-type RunContext = {
-  runId: string;
-  repetition: number;
-  model: ModelClient;
-  // set by the runner when sandboxed systems are in play; sandboxes reach the
-  // model only through this proxy, which holds the real key and does accounting
-  proxy?: ModelProxy;
-};
-
-type ModelProxy = {
-  url: string;
-  register(runId: string): string; // returns the bearer token for one run
-  usage(token: string): Usage;
-  close(): Promise<void>;
 };
 
 type SystemUnderTest = {
   name: string;
-  // short human-readable note on models/settings/strategy, shown in the report
-  info?: string;
-  run(c: PublicCase, ctx: RunContext): Promise<RunResult>;
+  run(
+    c: PublicCase,
+    // sandboxed systems reach the model only through the proxy, which holds the real key
+    ctx: { runId: string; repetition: number; model: ModelClient; proxy?: ModelProxy },
+  ): Promise<Omit<RunResult, 'latencyMs'>>;
 };
 
 type Grader = {
@@ -89,9 +71,14 @@ type Grader = {
   grade(pub: PublicCase, priv: PrivateCase, result: RunResult): GradeResult;
 };
 
-type Generation = { text: string; usage: Usage };
-
 type ModelClient = {
   model: string;
-  generate(prompt: string, opts?: { system?: string; temperature?: number }): Promise<Generation>;
+  generate(prompt: string, opts?: { temperature?: number }): Promise<{ text: string; usage: Usage }>;
+};
+
+type ModelProxy = {
+  url: string;
+  register(runId: string): string; // returns the bearer token for one run
+  usage(token: string): Usage;
+  close(): Promise<void>;
 };

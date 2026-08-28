@@ -3,7 +3,7 @@ import { randomBytes } from 'node:crypto';
 import type { AddressInfo } from 'node:net';
 import type { ModelProxy, Usage } from './types.js';
 
-export { startProxy, type ProxyOpts };
+export { startProxy };
 
 // model gateway for sandboxed systems. the sandbox only ever sees the proxy
 // url and a per-run bearer token: never the upstream url, the real api key, or
@@ -11,18 +11,14 @@ export { startProxy, type ProxyOpts };
 // recorded here, not self-reported) and enforces per-run call limits.
 // TODO when harnesses need other services (statute dbs, rag), add per-harness
 // allowlisted routes here instead of opening the sandbox network.
-type ProxyOpts = {
+async function startProxy(opts: {
   upstreamUrl: string; // e.g. http://host:11434/v1
   upstreamKey: string;
   defaultTemperature: number; // injected when a request does not set one
   timeoutMs: number;
   maxCalls: number; // per registered run
-};
-
-type RunState = { runId: string; usage: Usage };
-
-async function startProxy(opts: ProxyOpts): Promise<ModelProxy> {
-  let runs = new Map<string, RunState>();
+}): Promise<ModelProxy> {
+  let runs = new Map<string, { runId: string; usage: Usage }>();
 
   let server = createServer((req, res) => {
     handle(req, res).catch((err) => reply(res, 502, `proxy: ${String(err?.message ?? err)}`));

@@ -13,19 +13,11 @@ function exactGrader(): Grader {
     grade(pub, priv, result) {
       let base = { caseId: result.caseId, system: result.system, repetition: result.repetition };
       if (result.error) {
-        return { ...base, pass: false, score: 0, detail: `error: ${result.error}` };
+        return { ...base, pass: false, extracted: '(none)', detail: `error: ${result.error}` };
       }
-      // aliases count as extractable labels too, so alias-worded output still grades
-      let extracted = extractChoice(result.output, [...pub.choices, ...(priv.aliases ?? [])]);
-      let accepted = [priv.answer, ...(priv.aliases ?? [])].map(normalize);
-      let pass = extracted !== undefined && accepted.includes(extracted);
-      return {
-        ...base,
-        pass,
-        score: pass ? 1 : 0,
-        extracted,
-        detail: `extracted=${extracted ?? 'none'} gold=${normalize(priv.answer)}`,
-      };
+      let extracted = extractChoice(result.output, pub.choices) ?? '(none)';
+      let gold = normalize(priv.answer);
+      return { ...base, pass: extracted === gold, extracted, detail: `extracted=${extracted} gold=${gold}` };
     },
   };
 }

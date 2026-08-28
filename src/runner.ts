@@ -1,18 +1,10 @@
 import assert from 'node:assert/strict';
-import type {
-  GradeResult,
-  Grader,
-  ModelClient,
-  ModelProxy,
-  RunResult,
-  SystemUnderTest,
-} from './types.js';
+import type { GradeResult, Grader, ModelClient, ModelProxy, RunResult, SystemUnderTest } from './types.js';
 import type { Case } from './caseStore.js';
 
-export { runSuite, type SuiteResult, type Record };
+export { runSuite, type Record };
 
 type Record = { run: RunResult; grade: GradeResult };
-type SuiteResult = { runId: string; records: Record[] };
 
 // runs every system on every case, grades each run, returns all records.
 // systems only ever see the public case; graders get the private one.
@@ -25,7 +17,7 @@ async function runSuite(opts: {
   proxy?: ModelProxy;
   repetitions: number;
   onRecord?: (r: Record) => void;
-}): Promise<SuiteResult> {
+}): Promise<Record[]> {
   let { runId, cases, systems, graders, model, repetitions } = opts;
   assert(repetitions >= 1, `runSuite: repetitions must be >= 1, got ${repetitions}`);
 
@@ -35,33 +27,30 @@ async function runSuite(opts: {
       for (let { pub, priv } of cases) {
         let ctx = { runId, repetition: rep, model, proxy: opts.proxy };
         let t0 = Date.now();
-        let run: RunResult;
+        let result: Omit<RunResult, 'latencyMs'>;
         try {
-          run = await system.run(pub, ctx);
+          result = await system.run(pub, ctx);
         } catch (err: any) {
-          run = {
+          result = {
             caseId: pub.id,
             system: system.name,
             repetition: rep,
             output: '',
             error: String(err?.message ?? err),
-            latencyMs: 0,
             modelCalls: 0,
             tokensIn: 0,
             tokensOut: 0,
           };
         }
-        run.latencyMs = Date.now() - t0;
+        let run = { ...result, latencyMs: Date.now() - t0 };
 
         let grader = graders.find((g) => g.name === priv.grader);
         assert(grader, `runSuite: no grader named ${priv.grader} for case ${priv.id}`);
-        let grade = grader.grade(pub, priv, run);
-
-        let record = { run, grade };
+        let record = { run, grade: grader.grade(pub, priv, run) };
         records.push(record);
         opts.onRecord?.(record);
       }
     }
   }
-  return { runId, records };
+  return records;
 }

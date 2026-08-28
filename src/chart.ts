@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import type { Case } from './caseStore.js';
 import type { Record } from './runner.js';
-import { consistencyOf, costOf } from './stats.js';
+import { summarize, type Row } from './stats.js';
 
 export { buildChartHtml };
 
@@ -9,35 +9,16 @@ export { buildChartHtml };
 const SERIES_LIGHT = ['#2a78d6', '#eb6834', '#1baf7a'];
 const SERIES_DARK = ['#3987e5', '#d95926', '#199e70'];
 
-type Agg = { n: number; pass: number; latencyMs: number; tokensIn: number; tokensOut: number; calls: number };
-
 // self-contained chart page for one run: KPI tiles, accuracy + latency grouped
 // columns with hover/focus tooltips, and a table view of every number
 function buildChartHtml(runId: string, model: string, cases: Case[], records: Record[]): string {
-  let taskOf = new Map(cases.map((c) => [c.pub.id, c.pub.task]));
-  let tasks = unique(cases.map((c) => c.pub.task));
-  let systems = unique(records.map((r) => r.run.system));
+  let rows = summarize(cases, records);
+  let tasks = [...new Set(rows.filter((r) => r.task !== 'ALL').map((r) => r.task))];
+  let systems = [...new Set(rows.map((r) => r.system))];
   assert(systems.length <= SERIES_LIGHT.length, `chart supports up to ${SERIES_LIGHT.length} systems, got ${systems.length}`);
   let reps = Math.max(...records.map((r) => r.run.repetition));
-
-  // aggregate per task x system, plus ALL per system
-  let stats = new Map<string, Agg>();
-  for (let { run, grade } of records) {
-    for (let task of [taskOf.get(run.caseId)!, 'ALL']) {
-      let key = `${task}|${run.system}`;
-      let s = stats.get(key) ?? { n: 0, pass: 0, latencyMs: 0, tokensIn: 0, tokensOut: 0, calls: 0 };
-      s.n++;
-      s.pass += grade.pass ? 1 : 0;
-      s.latencyMs += run.latencyMs;
-      s.tokensIn += run.tokensIn;
-      s.tokensOut += run.tokensOut;
-      s.calls += run.modelCalls;
-      stats.set(key, s);
-    }
-  }
-  let get = (task: string, system: string) => stats.get(`${task}|${system}`)!;
-  let acc = (s: Agg) => (s.n === 0 ? 0 : s.pass / s.n);
-  let latS = (s: Agg) => (s.n === 0 ? 0 : s.latencyMs / s.n / 1000);
+  let row = (task: string, system: string): Row | undefined =>
+    rows.find((r) => r.task === task && r.system === system);
 
   // charts
   let accChart = columnsChart({
@@ -45,67 +26,50 @@ function buildChartHtml(runId: string, model: string, cases: Case[], records: Re
     subtitle: `share of passing runs, ${reps} repetition${reps > 1 ? 's' : ''} per case`,
     tasks,
     systems,
-    value: (t, sys) => acc(get(t, sys)) * 100,
+    value: (t, sys) => (row(t, sys)?.accuracy ?? 0) * 100,
     yMax: 100,
     ticks: [0, 25, 50, 75, 100],
     fmt: (v) => `${Math.round(v)}%`,
   });
-  let maxLat = Math.max(...tasks.flatMap((t) => systems.map((sys) => latS(get(t, sys)))));
-  let latTicks = niceTicks(maxLat);
+  let latS = (t: string, sys: string) => (row(t, sys)?.latencyMs ?? 0) / 1000;
+  let latTicks = niceTicks(Math.max(...tasks.flatMap((t) => systems.map((sys) => latS(t, sys)))));
   let latChart = columnsChart({
     title: 'Latency by task',
     subtitle: 'average wall time per run, seconds',
     tasks,
     systems,
-    value: (t, sys) => latS(get(t, sys)),
+    value: latS,
     yMax: latTicks[latTicks.length - 1],
     ticks: latTicks,
     fmt: (v) => `${round1(v)}s`,
   });
 
   // kpi tiles: overall accuracy per system, plus consistency when reps > 1
-  let sysRecords = (sys: string) => records.filter((r) => r.run.system === sys);
-  let tiles = systems
-    .map(
-      (sys, i) => `
+  let tile = (i: number, sys: string, label: string, value: number) => `
       <div class="tile">
-        <div class="tile-label"><span class="key s${i + 1}"></span>${esc(sys)} — overall accuracy</div>
-        <div class="tile-value">${Math.round(acc(get('ALL', sys)) * 100)}%</div>
-      </div>`,
-    )
-    .join('');
+        <div class="tile-label"><span class="key s${i + 1}"></span>${esc(sys)} — ${label}</div>
+        <div class="tile-value">${Math.round(value * 100)}%</div>
+      </div>`;
+  let tiles = systems.map((sys, i) => tile(i, sys, 'overall accuracy', row('ALL', sys)?.accuracy ?? 0)).join('');
   tiles += systems
     .map((sys, i) => {
-      let cons = consistencyOf(sysRecords(sys));
-      if (cons === undefined) return '';
-      return `
-      <div class="tile">
-        <div class="tile-label"><span class="key s${i + 1}"></span>${esc(sys)} — consistency</div>
-        <div class="tile-value">${Math.round(cons * 100)}%</div>
-      </div>`;
+      let cons = row('ALL', sys)?.consistency;
+      return cons === undefined ? '' : tile(i, sys, 'consistency', cons);
     })
     .join('');
 
   // table view: the WCAG-clean twin of the charts
-  let tableRows = [...tasks, 'ALL']
-    .flatMap((task) =>
-      systems.map((sys) => {
-        let s = get(task, sys);
-        let rows = records.filter(
-          (r) => r.run.system === sys && (task === 'ALL' || taskOf.get(r.run.caseId) === task),
-        );
-        let cons = consistencyOf(rows);
-        let cost = costOf(rows);
-        return `<tr>
-          <td>${esc(task)}</td><td>${esc(sys)}</td><td>${s.n}</td>
-          <td>${Math.round(acc(s) * 100)}%</td>
-          <td>${cons === undefined ? '—' : Math.round(cons * 100) + '%'}</td>
-          <td>${round1(latS(s))}</td>
-          <td>${Math.round(s.tokensIn / s.n)}/${Math.round(s.tokensOut / s.n)}</td>
-          <td>${round1(s.calls / s.n)}</td>
-          <td>${cost === undefined ? '—' : '$' + cost.toFixed(4)}</td>
-        </tr>`;
-      }),
+  let tableRows = rows
+    .map(
+      (r) => `<tr>
+          <td>${esc(r.task)}</td><td>${esc(r.system)}</td><td>${r.n}</td>
+          <td>${Math.round(r.accuracy * 100)}%</td>
+          <td>${r.consistency === undefined ? '—' : Math.round(r.consistency * 100) + '%'}</td>
+          <td>${round1(r.latencyMs / 1000)}</td>
+          <td>${Math.round(r.tokensIn)}/${Math.round(r.tokensOut)}</td>
+          <td>${round1(r.calls)}</td>
+          <td>${r.costUsd === undefined ? '—' : '$' + r.costUsd.toFixed(4)}</td>
+        </tr>`,
     )
     .join('\n');
 
@@ -361,10 +325,6 @@ function wrapLabel(s: string): [string, string?] {
 
 function round1(v: number): number {
   return Math.round(v * 10) / 10;
-}
-
-function unique<T>(xs: T[]): T[] {
-  return [...new Set(xs)];
 }
 
 function esc(s: string): string {

@@ -3,9 +3,10 @@
 Legal AI benchmark runner. It compares two systems on the same fixed cases:
 
 - `direct` — one plain model call with the benchmark's own few-shot prompt (the baseline).
-- `harness` — the custom legal AI harness. Currently a two-call placeholder in
-  `src/systems/harness.ts`; replace it with the real harness. It only has to
-  implement the `SystemUnderTest` contract from `src/types.ts`.
+- `sandboxed` — the custom legal AI harness slot. Currently a two-call
+  placeholder (`src/sandbox/placeholder-entry.mjs`) that runs isolated from
+  the runner; replace it with the real harness. It only has to speak the
+  stdin/stdout protocol described under "Sandboxed systems".
 
 Systems only see the public case. Graders compare the output with the private
 gold answer. See `legal-ai-benchmark-system-one-pager.pdf` for the design.
@@ -33,10 +34,9 @@ with environment variables, or put them in a `.env` file in the repo root
 | `BENCH_COST_IN` | unset | $ per 1M input tokens; enables the cost column |
 | `BENCH_COST_OUT` | unset | $ per 1M output tokens |
 
-These are defaults. A system can create its own clients with
-`createModelClient({ model, baseUrl, temperature, ... })` and override
-temperature per call, so each harness controls its own LLM settings; the
-report lists each system's `info` line for comparability.
+These are the benchmark defaults. A sandboxed harness controls its own LLM
+settings by what it sends in each request; the proxy fills in the defaults
+for anything it leaves out.
 
 Local default: install [Ollama](https://ollama.com), then `ollama pull qwen3:8b`.
 Hosted example: `BENCH_BASE_URL=https://openrouter.ai/api/v1 BENCH_MODEL=qwen/qwen3-32b BENCH_API_KEY=... npm run bench`.

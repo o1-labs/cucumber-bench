@@ -51,16 +51,18 @@ describe('exactGrader', () => {
     assert.equal(grader.grade(pub, priv, result('No')).pass, false);
   });
 
-  it('should accept aliases', () => {
+  it('should record (none) when nothing could be extracted', () => {
     let grader = exactGrader();
-    let withAlias: PrivateCase = { ...priv, aliases: ['correct'] };
-    assert.equal(grader.grade(pub, withAlias, result('correct')).pass, true);
+    let g = grader.grade(pub, priv, result('I am not sure.'));
+    assert.equal(g.pass, false);
+    assert.equal(g.extracted, '(none)');
   });
 
   it('should fail an errored run', () => {
     let grader = exactGrader();
     let g = grader.grade(pub, priv, result('', 'timeout'));
     assert.equal(g.pass, false);
+    assert.equal(g.extracted, '(none)');
     assert.match(g.detail ?? '', /timeout/);
   });
 });

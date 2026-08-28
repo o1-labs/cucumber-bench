@@ -1,22 +1,17 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import assert from 'node:assert/strict';
-import { parseArgs } from 'node:util';
 import { loadCases } from './caseStore.js';
 import { buildChartHtml } from './chart.js';
 import type { Record } from './runner.js';
 
-// usage: npm run chart -- runs/<runId> [--cases cases]
-let { values, positionals } = parseArgs({
-  options: { cases: { type: 'string', default: 'cases' } },
-  allowPositionals: true,
-});
-let runDir = positionals[0];
-assert(runDir, 'usage: npm run chart -- runs/<runId> [--cases cases]');
+// usage: npm run chart -- runs/<runId>
+let runDir = process.argv[2];
+assert(runDir, 'usage: npm run chart -- runs/<runId>');
 
 let jsonl = await readFile(join(runDir, 'results.jsonl'), 'utf8');
 let records: Record[] = jsonl.trim().split('\n').map((line) => JSON.parse(line));
-let cases = await loadCases(values.cases);
+let cases = await loadCases('cases');
 let runId = runDir.replace(/\/+$/, '').split('/').pop()!;
 
 // model name from the report if present, otherwise unknown
