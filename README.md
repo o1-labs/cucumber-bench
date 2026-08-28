@@ -28,7 +28,7 @@ for safety, what reached the model) with the private gold data. See
 ```sh
 npm install && npm run harness:install
 npm run bench                      # all cases, all systems, 1 repetition, child-process sandbox
-npm run bench -- --systems direct,legal-v1 --reps 3
+npm run bench -- --systems direct,legal-v1 --suites asqa --reps 3
 BENCH_SANDBOX=docker npm run bench # same, each run in a fresh docker container
 npm test                           # unit + pipeline tests (no model needed)
 ```
@@ -42,6 +42,9 @@ with environment variables, or put them in a `.env` file in the repo root
 | `BENCH_BASE_URL` | `http://localhost:11434/v1` | Ollama local, or any hosted API |
 | `BENCH_MODEL` | `qwen3:8b` | the guarded model id |
 | `BENCH_SAFETY_MODEL` | same as `BENCH_MODEL` | trusted model served on the proxy's `/safety/v1` route; a harness may show it raw data, and its prompts do not count as leakage |
+| `BENCH_JUDGE_MODEL` | same as `BENCH_MODEL` | model served on the proxy's `/judge/v1` route; graders use it, harnesses never do; its usage is recorded apart from the harness |
+| `BENCH_MAX_CALLS` | `20` | model calls a harness may make per run |
+| `BENCH_MAX_JUDGE_CALLS` | `100` | judge calls the graders may make per run |
 | `BENCH_API_KEY` | `none` | required by hosted APIs, ignored by Ollama |
 | `BENCH_TEMPERATURE` | `0` | sampling temperature |
 | `BENCH_TIMEOUT_MS` | `120000` | per model call |
@@ -109,6 +112,15 @@ Suites:
   `leakage` — no protected span reached the model, measured from the proxy's
   request log, not from the harness's claims (strict);
   `retention` — at least 90% of the non-protected content survives.
+- `benchmarks/asqa/` — 15 questions from [ALCE](https://github.com/princeton-nlp/ALCE)
+  (Gao et al. 2023), dataset ASQA: an ambiguous question plus the top-5 retrieved
+  Wikipedia passages; the answer must cite passages inline as `[1][2]`. Two
+  demonstrations from ALCE's default prompt are the worked examples. Graders:
+  `str-em` (core) — every gold short answer appears in the output;
+  `citation-recall` and `citation-precision` (`benchmarks/asqa/graders.ts`) —
+  ALCE's citation metrics, with the judge model answering the entailment
+  question that ALCE puts to an NLI model. Import more with
+  `npx tsx benchmarks/asqa/import.ts --data <asqa_eval_gtr_top100.json> --count N`.
 
 Test cases are locked: do not tune the harness on them.
 
