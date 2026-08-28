@@ -19,6 +19,7 @@ async function loadCases(dir: string): Promise<Case[]> {
     let privFile = file.replace(/\.public\.json$/, '.private.json');
     let priv: PrivateCase = JSON.parse(await readFile(join(dir, privFile), 'utf8'));
     assert(pub.id === priv.id, `loadCases: id mismatch in ${file}: ${pub.id} vs ${priv.id}`);
+    assert(Array.isArray(priv.graders) && priv.graders.length > 0, `loadCases: ${privFile} must list graders`);
     cases.push({ pub, priv });
   }
   return cases;

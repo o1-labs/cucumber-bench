@@ -19,14 +19,18 @@ function buildChartHtml(runId: string, model: string, cases: Case[], records: Re
   let reps = Math.max(...records.map((r) => r.run.repetition));
   let row = (task: string, system: string): Row | undefined =>
     rows.find((r) => r.task === task && r.system === system);
+  // the headline chart plots the primary (first) grader; the table shows all of them
+  let graders = [...new Set(rows.flatMap((r) => Object.keys(r.graders)))];
+  let primary = graders[0] ?? 'pass';
+  let passRate = (r?: Row) => r?.graders[primary]?.pass ?? 0;
 
   // charts
   let accChart = columnsChart({
-    title: 'Accuracy by task',
+    title: `${primary} pass rate by task`,
     subtitle: `share of passing runs, ${reps} repetition${reps > 1 ? 's' : ''} per case`,
     tasks,
     systems,
-    value: (t, sys) => (row(t, sys)?.accuracy ?? 0) * 100,
+    value: (t, sys) => passRate(row(t, sys)) * 100,
     yMax: 100,
     ticks: [0, 25, 50, 75, 100],
     fmt: (v) => `${Math.round(v)}%`,
@@ -50,7 +54,7 @@ function buildChartHtml(runId: string, model: string, cases: Case[], records: Re
         <div class="tile-label"><span class="key s${i + 1}"></span>${esc(sys)} — ${label}</div>
         <div class="tile-value">${Math.round(value * 100)}%</div>
       </div>`;
-  let tiles = systems.map((sys, i) => tile(i, sys, 'overall accuracy', row('ALL', sys)?.accuracy ?? 0)).join('');
+  let tiles = systems.map((sys, i) => tile(i, sys, `${primary} pass rate`, passRate(row('ALL', sys)))).join('');
   tiles += systems
     .map((sys, i) => {
       let cons = row('ALL', sys)?.consistency;
@@ -58,12 +62,14 @@ function buildChartHtml(runId: string, model: string, cases: Case[], records: Re
     })
     .join('');
 
-  // table view: the WCAG-clean twin of the charts
+  // table view: the WCAG-clean twin of the charts, one column per grader
+  let gradeCell = (g?: Row['graders'][string]) =>
+    !g ? '—' : Math.abs(g.pass - g.score) > 0.005 ? `${Math.round(g.pass * 100)}% (${Math.round(g.score * 100)}%)` : `${Math.round(g.pass * 100)}%`;
   let tableRows = rows
     .map(
       (r) => `<tr>
           <td>${esc(r.task)}</td><td>${esc(r.system)}</td><td>${r.n}</td>
-          <td>${Math.round(r.accuracy * 100)}%</td>
+          ${graders.map((g) => `<td>${gradeCell(r.graders[g])}</td>`).join('')}
           <td>${r.consistency === undefined ? '—' : Math.round(r.consistency * 100) + '%'}</td>
           <td>${round1(r.latencyMs / 1000)}</td>
           <td>${Math.round(r.tokensIn)}/${Math.round(r.tokensOut)}</td>
@@ -163,7 +169,7 @@ ${latChart}
   <h2>All numbers</h2>
   <p class="csub">per task and system, averaged over runs</p>
   <table>
-    <thead><tr><th>task</th><th>system</th><th>n</th><th>accuracy</th><th>consistency</th><th>latency s</th><th>tokens in/out</th><th>calls</th><th>cost</th></tr></thead>
+    <thead><tr><th>task</th><th>system</th><th>n</th>${graders.map((g) => `<th>${esc(g)}</th>`).join('')}<th>consistency</th><th>latency s</th><th>tokens in/out</th><th>calls</th><th>cost</th></tr></thead>
     <tbody>${tableRows}</tbody>
   </table>
 </div>

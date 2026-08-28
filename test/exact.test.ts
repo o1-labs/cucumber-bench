@@ -5,7 +5,8 @@ import type { PublicCase, PrivateCase, RunResult } from '../src/types.js';
 
 describe('exactGrader', () => {
   let pub = { id: 'c1', choices: ['Yes', 'No'] } as PublicCase;
-  let priv: PrivateCase = { id: 'c1', grader: 'exact', answer: 'Yes' };
+  let priv: PrivateCase = { id: 'c1', graders: ['exact'], answer: 'Yes' };
+  let grader = exactGrader();
 
   function result(output: string, error?: string): RunResult {
     return {
@@ -45,22 +46,20 @@ describe('exactGrader', () => {
     });
   });
 
-  it('should pass on exact answer and fail on wrong answer', () => {
-    let grader = exactGrader();
-    assert.equal(grader.grade(pub, priv, result('Yes.')).pass, true);
-    assert.equal(grader.grade(pub, priv, result('No')).pass, false);
+  it('should pass on exact answer and fail on wrong answer', async () => {
+    assert.equal((await grader.grade(pub, priv, result('Yes.'))).pass, true);
+    assert.equal((await grader.grade(pub, priv, result('No'))).pass, false);
   });
 
-  it('should record (none) when nothing could be extracted', () => {
-    let grader = exactGrader();
-    let g = grader.grade(pub, priv, result('I am not sure.'));
+  it('should record (none) when nothing could be extracted', async () => {
+    let g = await grader.grade(pub, priv, result('I am not sure.'));
     assert.equal(g.pass, false);
+    assert.equal(g.score, 0);
     assert.equal(g.extracted, '(none)');
   });
 
-  it('should fail an errored run', () => {
-    let grader = exactGrader();
-    let g = grader.grade(pub, priv, result('', 'timeout'));
+  it('should fail an errored run', async () => {
+    let g = await grader.grade(pub, priv, result('', 'timeout'));
     assert.equal(g.pass, false);
     assert.equal(g.extracted, '(none)');
     assert.match(g.detail ?? '', /timeout/);

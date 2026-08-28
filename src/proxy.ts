@@ -18,7 +18,7 @@ async function startProxy(opts: {
   timeoutMs: number;
   maxCalls: number; // per registered run
 }): Promise<ModelProxy> {
-  let runs = new Map<string, { runId: string; usage: Usage }>();
+  let runs = new Map<string, { runId: string; usage: Usage; requests: string[] }>();
 
   let server = createServer((req, res) => {
     handle(req, res).catch((err) => reply(res, 502, `proxy: ${String(err?.message ?? err)}`));
@@ -39,6 +39,12 @@ async function startProxy(opts: {
     // benchmark defaults are enforced here, not trusted to the sandbox
     let body = JSON.parse(await readBody(req));
     body.temperature ??= opts.defaultTemperature;
+    // ground truth for leakage grading: the prompt text that actually went upstream
+    state.requests.push(
+      (body.messages ?? [])
+        .map((m: any) => (typeof m.content === 'string' ? m.content : JSON.stringify(m.content)))
+        .join('\n'),
+    );
 
     let upstream = await fetch(`${opts.upstreamUrl}/chat/completions`, {
       method: 'POST',
@@ -65,12 +71,15 @@ async function startProxy(opts: {
     url: `http://127.0.0.1:${port}`,
     register(runId) {
       let token = randomBytes(16).toString('hex');
-      runs.set(token, { runId, usage: { modelCalls: 0, tokensIn: 0, tokensOut: 0 } });
+      runs.set(token, { runId, usage: { modelCalls: 0, tokensIn: 0, tokensOut: 0 }, requests: [] });
       return token;
     },
     usage(token) {
       let state = runs.get(token);
       return state ? { ...state.usage } : { modelCalls: 0, tokensIn: 0, tokensOut: 0 };
+    },
+    requests(token) {
+      return [...(runs.get(token)?.requests ?? [])];
     },
     close() {
       return new Promise((resolve, reject) => server.close((err) => (err ? reject(err) : resolve())));

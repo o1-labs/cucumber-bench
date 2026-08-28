@@ -11,7 +11,8 @@ type Row = {
   task: string; // 'ALL' is the suite total
   system: string;
   n: number;
-  accuracy: number; // 0..1
+  // per grader: pass rate and mean score, both 0..1
+  graders: { [name: string]: { pass: number; score: number } };
   consistency?: number; // 0..1, undefined with a single repetition
   latencyMs: number;
   tokensIn: number;
@@ -33,12 +34,17 @@ function summarize(cases: Case[], records: Record[]): Row[] {
           (r) => r.run.system === system && (task === 'ALL' || caseOf.get(r.run.caseId)!.task === task),
         );
         if (rs.length === 0) continue;
+        let graders: Row['graders'] = {};
+        for (let name of unique(rs.flatMap((r) => r.grades.map((g) => g.grader)))) {
+          let gs = rs.flatMap((r) => r.grades.filter((g) => g.grader === name));
+          graders[name] = { pass: avg(gs.map((g) => (g.pass ? 1 : 0))), score: avg(gs.map((g) => g.score)) };
+        }
         rows.push({
           suite,
           task,
           system,
           n: rs.length,
-          accuracy: rs.filter((r) => r.grade.pass).length / rs.length,
+          graders,
           consistency: consistencyOf(rs),
           latencyMs: avg(rs.map((r) => r.run.latencyMs)),
           tokensIn: avg(rs.map((r) => r.run.tokensIn)),
@@ -54,13 +60,14 @@ function summarize(cases: Case[], records: Record[]): Row[] {
 
 // internal helpers
 
-// average majority share of extracted answers per case across repetitions:
-// 1 means every repetition gave the same answer. undefined with a single rep.
+// average majority share of answers per case across repetitions: 1 means every
+// repetition gave the same answer. the answer is the primary grader's extracted
+// label, or the whole output for tasks without one. undefined with a single rep.
 function consistencyOf(rows: Record[]): number | undefined {
   let byCase = new Map<string, string[]>();
   for (let r of rows) {
     let answers = byCase.get(r.run.caseId) ?? [];
-    answers.push(r.grade.extracted);
+    answers.push(r.grades[0]?.extracted ?? r.run.output.trim());
     byCase.set(r.run.caseId, answers);
   }
   let shares: number[] = [];

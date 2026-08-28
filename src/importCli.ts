@@ -75,7 +75,7 @@ for (let row of picked) {
     choices: template.choices,
     _source: `nguha/legalbench, config ${task}, test split, row index ${row.index}`,
   };
-  let priv = { id, grader: 'exact', answer: row.answer };
+  let priv = { id, graders: ['exact'], answer: row.answer };
   await writeFile(join(values.out, `${id}.public.json`), JSON.stringify(pub, null, 2) + '\n');
   await writeFile(join(values.out, `${id}.private.json`), JSON.stringify(priv, null, 2) + '\n');
   console.log(`${id}: ${row.answer}`);

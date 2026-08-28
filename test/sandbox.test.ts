@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { startProxy } from '../src/proxy.js';
 import { sandboxedSystem } from '../src/systems/sandboxed.js';
 import { loadCases } from '../src/caseStore.js';
-import type { ModelClient, ModelProxy } from '../src/types.js';
+import type { ModelProxy } from '../src/types.js';
 
 // mock upstream: records request bodies, answers "Yes" with fixed usage
 let seen: any[] = [];
@@ -83,25 +83,52 @@ describe('proxy', () => {
 });
 
 describe('sandboxedSystem', () => {
+  it('should run the direct baseline entry: one few-shot call, the raw input reaches the model', async () => {
+    let { pub } = (await loadCases('cases/legalbench'))[0];
+    let system = sandboxedSystem('direct', [process.execPath, 'src/sandbox/direct-entry.mjs']);
+    let result = await system.run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
+    assert.equal(result.output, 'Yes');
+    assert.equal(result.modelCalls, 1);
+    assert.equal(result.trace, undefined);
+    assert.ok(result.modelRequests![0].includes(pub.input));
+    assert.ok(result.modelRequests![0].includes('A:'));
+  });
+
   it('should run the placeholder entry as a child process end to end', async () => {
-    let { pub } = (await loadCases('cases'))[0];
+    let { pub } = (await loadCases('cases/legalbench'))[0];
     let system = sandboxedSystem('sandboxed', [process.execPath, 'src/sandbox/placeholder-entry.mjs']);
-    let model = { model: 'test-model' } as ModelClient;
-    let result = await system.run(pub, { runId: 't', repetition: 1, model, proxy });
+    let result = await system.run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
     assert.equal(result.output, 'Yes');
     assert.equal(result.error, undefined);
     // two chain steps, accounted by the proxy, not self-reported
     assert.equal(result.modelCalls, 2);
     assert.equal(result.tokensIn, 100);
+    assert.equal(result.modelRequests?.length, 2);
     // the sandbox got the proxy, not the upstream: it sent our bearer token
     assert.equal(seen[seen.length - 1].model, 'test-model');
+    // legalbench has no safety policy: both safety stages are recorded as passthrough
+    assert.deepEqual(result.trace?.stages.map((s) => `${s.name}:${s.mode}:${s.decision}`), [
+      'input-safety:passthrough:pass', 'agent:llm:pass', 'output-safety:passthrough:pass',
+    ]);
+  });
+
+  it('should scrub regex-detectable pii before the model on redaction cases', async () => {
+    let { pub } = (await loadCases('cases/redaction')).find((c) => c.pub.id === 'pii-40790C')!;
+    let system = sandboxedSystem('sandboxed', [process.execPath, 'src/sandbox/placeholder-entry.mjs']);
+    let result = await system.run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
+    let input = result.trace!.stages[0];
+    assert.equal(input.mode, 'regex');
+    assert.equal(input.decision, 'modified');
+    assert.ok(input.findings.some((f) => f.startsWith('email:K@tutanota.com')));
+    // what reached the model no longer contains the email
+    assert.ok(!result.modelRequests![0].includes('K@tutanota.com'));
+    assert.ok(result.modelRequests![0].includes('[REDACTED]'));
   });
 
   it('should report a sandbox that dies as an errored run', async () => {
-    let { pub } = (await loadCases('cases'))[0];
+    let { pub } = (await loadCases('cases/legalbench'))[0];
     let system = sandboxedSystem('sandboxed', [process.execPath, '-e', 'process.exit(3)']);
-    let model = { model: 'test-model' } as ModelClient;
-    let result = await system.run(pub, { runId: 't', repetition: 1, model, proxy });
+    let result = await system.run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
     assert.match(result.error ?? '', /exited 3/);
   });
 });

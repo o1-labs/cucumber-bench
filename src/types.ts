@@ -5,9 +5,10 @@ export type {
   Usage,
   RunResult,
   GradeResult,
+  Stage,
+  Trace,
   SystemUnderTest,
   Grader,
-  ModelClient,
   ModelProxy,
 };
 
@@ -16,26 +17,45 @@ type PublicCase = {
   id: string;
   suite: string;
   task: string;
-  // task definition, e.g. what hearsay is
+  // what to do: the task definition, a redaction instruction, ...
   instructions: string;
-  // few-shot examples from the benchmark's base prompt
-  examples: { q: string; a: string }[];
-  // the case-specific text to analyze
+  // the case-specific text: a fact pattern, a document, ...
   input: string;
-  // question appended after the input, e.g. "Is there hearsay?"
-  question: string;
-  // allowed answer labels
-  choices: string[];
+  // label tasks only (legalbench): few-shot examples, the question, the allowed labels
+  examples?: { q: string; a: string }[];
+  question?: string;
+  choices?: string[];
 };
 
-// never passed to a system under test
+// never passed to a system under test. graders[0] is the primary (task) grader;
+// each grader reads the gold field(s) it needs
 type PrivateCase = {
   id: string;
-  grader: 'exact';
-  answer: string;
+  graders: string[];
+  answer?: string; // exact: the gold label
+  protected?: string[]; // removal / leakage / retention: spans that must not survive or reach the model
 };
 
 type Usage = { modelCalls: number; tokensIn: number; tokensOut: number };
+
+// one step inside a harness (input safety, agent, output safety), self-reported by the harness
+type Stage = {
+  name: string;
+  module: string;
+  version: string;
+  policy?: string;
+  mode: 'passthrough' | 'regex' | 'llm' | 'hybrid';
+  findings: string[];
+  decision: 'pass' | 'modified' | 'blocked';
+};
+
+type Trace = {
+  source: string;
+  transformedSource: string;
+  rawOutput: string;
+  releasedOutput: string;
+  stages: Stage[];
+};
 
 type RunResult = Usage & {
   caseId: string;
@@ -45,15 +65,17 @@ type RunResult = Usage & {
   // wall time of run(), set by the runner
   latencyMs: number;
   error?: string;
+  // what actually reached the model: recorded by the proxy for sandboxes
+  modelRequests?: string[];
+  trace?: Trace;
 };
 
 type GradeResult = {
-  caseId: string;
-  system: string;
-  repetition: number;
+  grader: string;
   pass: boolean;
-  // the answer extracted from the output, '(none)' if there was none; drives consistency across reps
-  extracted: string;
+  score: number; // 0..1
+  // the answer extracted from the output, for label tasks; drives consistency across reps
+  extracted?: string;
   detail?: string;
 };
 
@@ -61,24 +83,21 @@ type SystemUnderTest = {
   name: string;
   run(
     c: PublicCase,
-    // sandboxed systems reach the model only through the proxy, which holds the real key
-    ctx: { runId: string; repetition: number; model: ModelClient; proxy?: ModelProxy },
+    // model is the name to request; the proxy is the only way to reach it
+    ctx: { runId: string; repetition: number; model: string; proxy: ModelProxy },
   ): Promise<Omit<RunResult, 'latencyMs'>>;
 };
 
+// async so that future graders may call a model, read documents, or search
 type Grader = {
   name: string;
-  grade(pub: PublicCase, priv: PrivateCase, result: RunResult): GradeResult;
-};
-
-type ModelClient = {
-  model: string;
-  generate(prompt: string, opts?: { temperature?: number }): Promise<{ text: string; usage: Usage }>;
+  grade(pub: PublicCase, priv: PrivateCase, result: RunResult): Promise<GradeResult>;
 };
 
 type ModelProxy = {
   url: string;
   register(runId: string): string; // returns the bearer token for one run
   usage(token: string): Usage;
+  requests(token: string): string[]; // prompt texts that went through, in order
   close(): Promise<void>;
 };

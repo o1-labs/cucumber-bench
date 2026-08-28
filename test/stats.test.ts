@@ -4,11 +4,11 @@ import { consistencyOf, costOf, summarize } from '../src/stats.js';
 import type { Record } from '../src/runner.js';
 import type { Case } from '../src/caseStore.js';
 
-function record(caseId: string, rep: number, extracted: string, opts: { pass?: boolean; tokens?: number; system?: string } = {}): Record {
-  let { pass = true, tokens = 0, system = 's' } = opts;
+function record(caseId: string, rep: number, extracted: string, opts: { pass?: boolean; score?: number; tokens?: number; system?: string } = {}): Record {
+  let { pass = true, score = pass ? 1 : 0, tokens = 0, system = 's' } = opts;
   return {
     run: { caseId, system, repetition: rep, output: '', latencyMs: 100, modelCalls: 1, tokensIn: tokens, tokensOut: tokens },
-    grade: { caseId, system, repetition: rep, pass, extracted },
+    grades: [{ grader: 'exact', pass, score, extracted }],
   };
 }
 
@@ -57,23 +57,23 @@ describe('costOf', () => {
 });
 
 describe('summarize', () => {
-  it('should produce one row per task and system plus an ALL row per system', () => {
+  it('should produce one row per task and system plus an ALL row, with per-grader pass rate and mean score', () => {
     let pub = (id: string, task: string) =>
-      ({ pub: { id, suite: 'lb', task, instructions: '', examples: [], input: '', question: '', choices: [] }, priv: { id, grader: 'exact', answer: 'yes' } }) as Case;
+      ({ pub: { id, suite: 'lb', task, instructions: '', input: '' }, priv: { id, graders: ['exact'], answer: 'yes' } }) as Case;
     let cases = [pub('a', 't1'), pub('b', 't1'), pub('c', 't2')];
     let records = [
-      record('a', 1, 'yes'), record('b', 1, 'no', { pass: false }), record('c', 1, 'yes'),
+      record('a', 1, 'yes'), record('b', 1, 'no', { pass: false, score: 0.5 }), record('c', 1, 'yes'),
       record('a', 1, 'yes', { system: 'x' }), record('b', 1, 'yes', { system: 'x' }), record('c', 1, 'yes', { system: 'x' }),
     ];
     let rows = summarize(cases, records);
     assert.deepEqual(rows.map((r) => `${r.task}/${r.system}`), ['t1/s', 't1/x', 't2/s', 't2/x', 'ALL/s', 'ALL/x']);
     let t1s = rows.find((r) => r.task === 't1' && r.system === 's')!;
     assert.equal(t1s.n, 2);
-    assert.equal(t1s.accuracy, 0.5);
+    assert.deepEqual(t1s.graders, { exact: { pass: 0.5, score: 0.75 } });
     assert.equal(t1s.consistency, undefined);
     assert.equal(t1s.latencyMs, 100);
     let all = rows.find((r) => r.task === 'ALL' && r.system === 's')!;
     assert.equal(all.n, 3);
-    assert.equal(Math.round(all.accuracy * 100), 67);
+    assert.equal(Math.round(all.graders.exact.pass * 100), 67);
   });
 });
