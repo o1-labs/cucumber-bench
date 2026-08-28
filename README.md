@@ -28,7 +28,8 @@ for safety, what reached the model) with the private gold data. See
 ```sh
 npm install && npm run harness:install
 npm run bench                      # all cases, all systems, 1 repetition, child-process sandbox
-npm run bench -- --systems direct,legal-v1 --suites asqa --reps 3
+npm run bench -- --systems direct,legal-v1 --reps 3   # only these harnesses
+npm run bench -- --suites asqa                        # every harness that lists asqa, on asqa only
 BENCH_SANDBOX=docker npm run bench # same, each run in a fresh docker container
 npm test                           # unit + pipeline tests (no model needed)
 ```

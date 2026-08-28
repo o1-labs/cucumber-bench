@@ -43,6 +43,12 @@ let systems = (values.systems?.split(',') ?? [...available.keys()]).map((name) =
   if (!s) throw Error(`unknown system: ${name}. available: ${[...available.keys()].join(', ')}`);
   return s;
 });
+// with --suites, only harnesses that list one of those suites run
+if (values.suites) {
+  let wanted = values.suites.split(',').map((s) => s.trim());
+  systems = systems.filter((s) => s.suites?.some((suite) => wanted.includes(suite)));
+  if (systems.length === 0) throw Error(`no selected harness lists a suite in ${values.suites}`);
+}
 
 let cfg = resolveModelConfig();
 
@@ -72,13 +78,13 @@ let records = await runSuite({
   model: cfg.model,
   proxy,
   repetitions: Number(values.reps),
-  onRecord({ run, grades }) {
+  onRecord({ run, grades, judge }) {
     let verdict = grades.map((g) => `${g.pass ? 'PASS' : 'FAIL'} ${g.grader}`).join(', ');
     console.log(
       `  ${verdict} ${run.caseId} [${run.system}, rep ${run.repetition}] ${run.latencyMs}ms ` +
         `${grades.map((g) => g.detail ?? '').join('; ')}${run.error ? ` error: ${run.error}` : ''}`,
     );
-    lines.push(JSON.stringify({ run, grades }));
+    lines.push(JSON.stringify({ run, grades, judge }));
   },
 });
 
