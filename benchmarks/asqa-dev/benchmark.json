@@ -1,0 +1,4 @@
+{
+  "name": "asqa-dev",
+  "graders": ["str-em", "../asqa/graders.ts"]
+}

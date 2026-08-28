@@ -1,0 +1,46 @@
+{
+  "id": "asqa-dev-503",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who wrote the song \"Total Eclipse of the Heart\"?",
+      "shortAnswers": [
+        "Jim Steinman"
+      ]
+    },
+    {
+      "question": "Who produced the song \"Total Eclipse of the Heart\"?",
+      "shortAnswers": [
+        "Jim Steinman"
+      ]
+    },
+    {
+      "question": "Who recorded the original song \"Total Eclipse of the Heart\"?",
+      "shortAnswers": [
+        "Bonnie Tyler"
+      ]
+    },
+    {
+      "question": "Who originally recorded \"Total Eclipse of The Heart\"?",
+      "shortAnswers": [
+        "Bonnie Tyler"
+      ]
+    },
+    {
+      "question": "Who wrote the song \"Total Eclipse of The Heart\"?",
+      "shortAnswers": [
+        "Jim Steinman"
+      ]
+    },
+    {
+      "question": "Who produced the song \"Total Eclipse of The Heart\"?",
+      "shortAnswers": [
+        "Jim Steinman"
+      ]
+    }
+  ]
+}

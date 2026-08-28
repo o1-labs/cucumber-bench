@@ -3,7 +3,8 @@ import { join } from 'node:path';
 import assert from 'node:assert/strict';
 import { parseArgs } from 'node:util';
 
-// usage: npx tsx benchmarks/asqa/import.ts --data <path to asqa_eval_gtr_top100.json> [--count 15] [--ndoc 5] [--shot 2]
+// usage: npx tsx benchmarks/asqa/import.ts --data <path to asqa_eval_gtr_top100.json> [--count 15] [--offset 0] [--ndoc 5] [--shot 2] [--suite asqa] [--out benchmarks/asqa/cases]
+// a development set: --offset 500 --suite asqa-dev --out benchmarks/asqa-dev/cases
 // the data file is inside ALCE-data.tar, see https://github.com/princeton-nlp/ALCE (bash download_data.sh).
 // the prompt (instruction + demonstrations) is fetched from the ALCE repository.
 const PROMPT_URL = 'https://raw.githubusercontent.com/princeton-nlp/ALCE/main/prompts/asqa_default.json';
@@ -12,13 +13,15 @@ let { values } = parseArgs({
   options: {
     data: { type: 'string' },
     count: { type: 'string', default: '15' },
+    offset: { type: 'string', default: '0' },
     ndoc: { type: 'string', default: '5' },
     shot: { type: 'string', default: '2' },
+    suite: { type: 'string', default: 'asqa' },
     out: { type: 'string', default: 'benchmarks/asqa/cases' },
   },
 });
 assert(values.data, 'usage: npx tsx benchmarks/asqa/import.ts --data <asqa_eval_gtr_top100.json> [--count n] [--ndoc n] [--shot n]');
-let count = Number(values.count), ndoc = Number(values.ndoc), shot = Number(values.shot);
+let count = Number(values.count), offset = Number(values.offset), ndoc = Number(values.ndoc), shot = Number(values.shot);
 
 let items: any[] = JSON.parse(await readFile(values.data, 'utf8'));
 let res = await fetch(PROMPT_URL);
@@ -36,13 +39,13 @@ let examples = prompt.demos.slice(0, shot).map((d: any) => ({
 }));
 
 await mkdir(values.out, { recursive: true });
-for (let i = 0; i < Math.min(count, items.length); i++) {
+for (let i = offset; i < Math.min(offset + count, items.length); i++) {
   let item = items[i];
   let docs = pick(item.docs);
-  let id = `asqa-${String(i).padStart(3, '0')}`;
+  let id = `${values.suite}-${String(i).padStart(3, '0')}`;
   let pub = {
     id,
-    suite: 'asqa',
+    suite: values.suite,
     task: 'asqa',
     instructions: prompt.instruction,
     examples,

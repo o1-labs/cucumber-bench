@@ -1,0 +1,34 @@
+{
+  "id": "asqa-dev-513",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When was Sojourner Truth's \"Ain't I a Woman?\" speech delivered?",
+      "shortAnswers": [
+        "May 29, 1851"
+      ]
+    },
+    {
+      "question": "When was Sojourner Truth's \"Ain't I a Woman?\" speech written down in the Anti Slavery Bugle?",
+      "shortAnswers": [
+        "June 21, 1851"
+      ]
+    },
+    {
+      "question": "When was Sojourner Truth's \"Ain't I a Woman?\" speech first written down by Frances Dana Barker Gage?",
+      "shortAnswers": [
+        "May 1863"
+      ]
+    },
+    {
+      "question": "When was the book Ain't I a Woman? Black Women and Feminism written?",
+      "shortAnswers": [
+        "1981"
+      ]
+    }
+  ]
+}

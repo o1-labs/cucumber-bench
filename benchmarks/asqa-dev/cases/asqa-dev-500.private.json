@@ -1,0 +1,23 @@
+{
+  "id": "asqa-dev-500",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What network channel will rick and morty season 3 be on?",
+      "shortAnswers": [
+        "Cartoon Network"
+      ]
+    },
+    {
+      "question": "What specific network will rick and morty season 3 be on?",
+      "shortAnswers": [
+        "[adult swim]",
+        "Adult Swim"
+      ]
+    }
+  ]
+}

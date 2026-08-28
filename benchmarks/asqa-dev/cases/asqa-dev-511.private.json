@@ -1,0 +1,39 @@
+{
+  "id": "asqa-dev-511",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who won the very first medal in asian games 2018 for india?",
+      "shortAnswers": [
+        "Punia",
+        "Bajrang Punia"
+      ]
+    },
+    {
+      "question": "Who won 1st gold medal in asian games 2018 for india?",
+      "shortAnswers": [
+        "Punia",
+        "Bajrang Punia"
+      ]
+    },
+    {
+      "question": "Who won 1st silver medal in asian games 2018 for india?",
+      "shortAnswers": [
+        "Deepak Kumar",
+        "Kumar"
+      ]
+    },
+    {
+      "question": "Who won 1st bronze medal in asian games 2018 for india?",
+      "shortAnswers": [
+        "Ravi Kumar and Apurvi Chandela",
+        "Ravi Kumar",
+        "Apurvi Chandela"
+      ]
+    }
+  ]
+}

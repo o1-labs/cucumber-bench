@@ -1,0 +1,49 @@
+{
+  "id": "asqa-dev-512",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "In which state do the rivers Niger and Benue meet?",
+      "shortAnswers": [
+        "Kogi state",
+        "Kogi"
+      ]
+    },
+    {
+      "question": "Where do the rivers Benue and Niger meet?",
+      "shortAnswers": [
+        "Nigeria",
+        "Lokoja",
+        "Lokoja, Nigeria",
+        "Lokoja, Kogi state, Nigeria",
+        "Federal Republic of Nigeria"
+      ]
+    },
+    {
+      "question": "In what country does river benue and river niger meet?|What country does river benue and river niger meet?",
+      "shortAnswers": [
+        "Nigeria",
+        "Federal Republic of Nigeria"
+      ]
+    },
+    {
+      "question": "In which state does river benue and river niger meet?|What state does the river Benue and river Niger meet?",
+      "shortAnswers": [
+        "Kogi state",
+        "Kogi"
+      ]
+    },
+    {
+      "question": "In what city does river benue and river niger meet?|What city does river benue and river niger meet?|In what city does river Benue and river Niger meet in West Africa?",
+      "shortAnswers": [
+        "Lokoja in Kogi state",
+        "Lokoja",
+        "Lokoja in Nigeria"
+      ]
+    }
+  ]
+}

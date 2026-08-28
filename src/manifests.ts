@@ -36,7 +36,7 @@ async function loadHarnesses(root: string): Promise<HarnessManifest[]> {
   return out;
 }
 
-// graders are named core graders, or './module.ts' files exporting { graders: Grader[] }
+// graders are named core graders, or module paths ('./graders.ts', '../asqa/graders.ts') exporting { graders: Grader[] }
 async function loadBenchmarks(root: string): Promise<BenchmarkManifest[]> {
   let out: BenchmarkManifest[] = [];
   for (let dir of await subdirs(root)) {
@@ -44,7 +44,7 @@ async function loadBenchmarks(root: string): Promise<BenchmarkManifest[]> {
     assert(m.name && Array.isArray(m.graders), `${dir}/benchmark.json needs name and graders`);
     let graders: Grader[] = [];
     for (let g of m.graders as string[]) {
-      if (g.startsWith('./')) {
+      if (g.startsWith('./') || g.startsWith('../')) {
         let mod = await import(pathToFileURL(resolve(dir, g)).href);
         assert(Array.isArray(mod.graders), `${dir}/${g} must export { graders }`);
         graders.push(...mod.graders);

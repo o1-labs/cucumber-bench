@@ -1,0 +1,40 @@
+{
+  "id": "asqa-dev-502",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When did the 2017 film justice league come out in canada?",
+      "shortAnswers": [
+        "November 17, 2017"
+      ]
+    },
+    {
+      "question": "When did the 2001 TV series justice league come out in canada?",
+      "shortAnswers": [
+        "November 17, 2001"
+      ]
+    },
+    {
+      "question": "When did justice league unlimited come out in canada?",
+      "shortAnswers": [
+        "July 31, 2004"
+      ]
+    },
+    {
+      "question": "When did justice league: Crisis on Two Earths come out in canada?",
+      "shortAnswers": [
+        "February 23, 2010"
+      ]
+    },
+    {
+      "question": "When did justice league: War come out in canada?",
+      "shortAnswers": [
+        "January 21, 2014"
+      ]
+    }
+  ]
+}

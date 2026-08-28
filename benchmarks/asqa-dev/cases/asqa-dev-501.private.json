@@ -1,0 +1,34 @@
+{
+  "id": "asqa-dev-501",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When did texas city, texas become incorporated as part of united states?",
+      "shortAnswers": [
+        "1911"
+      ]
+    },
+    {
+      "question": "When did texas county, Missouri become part of united states by changing its name to Texas?",
+      "shortAnswers": [
+        "February 14, 1845"
+      ]
+    },
+    {
+      "question": "When did texas county, Oklahoma become part of united states?",
+      "shortAnswers": [
+        "16 November 1907"
+      ]
+    },
+    {
+      "question": "When did the state texas become part of united states?",
+      "shortAnswers": [
+        "December 29, 1845"
+      ]
+    }
+  ]
+}

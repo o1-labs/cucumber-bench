@@ -1,0 +1,49 @@
+{
+  "id": "asqa-dev-514",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who is the current agriculture minister of india in 2017?",
+      "shortAnswers": [
+        "Singh",
+        "Radha Mohan Singh"
+      ]
+    },
+    {
+      "question": "Who is the current agriculture minister of india in 2016?",
+      "shortAnswers": [
+        "Singh",
+        "Radha Mohan Singh"
+      ]
+    },
+    {
+      "question": "Who is the current agriculture minister of india in 2015?",
+      "shortAnswers": [
+        "Singh",
+        "Radha Mohan Singh"
+      ]
+    },
+    {
+      "question": "Who is the current agriculture minister of india in 2019?",
+      "shortAnswers": [
+        "Narendra Singh Tomar"
+      ]
+    },
+    {
+      "question": "Who is the current agriculture minister of india in 2014?",
+      "shortAnswers": [
+        "Radha Mohan Singh"
+      ]
+    },
+    {
+      "question": "Who is the current agriculture minister of india in 2004?",
+      "shortAnswers": [
+        "Sharad Pawar"
+      ]
+    }
+  ]
+}

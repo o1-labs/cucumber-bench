@@ -1,0 +1,22 @@
+{
+  "id": "asqa-dev-507",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who was the winner of Britain's Got Talent in 2015?",
+      "shortAnswers": [
+        "Jules O'Dwyer & Matisse"
+      ]
+    },
+    {
+      "question": "What was Britain's Got Talent winning act in 2015?",
+      "shortAnswers": [
+        "Dog Tricks"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "asqa-dev-506",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "How many times did the chicago cubs franchise play in the world series as of 2016, including seasons as the Chicago white stockings?",
+      "shortAnswers": [
+        "17"
+      ]
+    },
+    {
+      "question": "How many times did the chicago cubs franchise play in the world series as of 2015, including seasons as the Chicago white stockings?",
+      "shortAnswers": [
+        "16"
+      ]
+    },
+    {
+      "question": "How many times have the Chicago Cubs went to the World series since becoming the Chicago Cubs?",
+      "shortAnswers": [
+        "11"
+      ]
+    },
+    {
+      "question": "How many total games were played by the Chicago Cubs in the World Series since becoming the Chicago Cubs?",
+      "shortAnswers": [
+        "59"
+      ]
+    }
+  ]
+}

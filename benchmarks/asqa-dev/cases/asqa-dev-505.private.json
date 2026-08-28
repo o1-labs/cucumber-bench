@@ -1,0 +1,22 @@
+{
+  "id": "asqa-dev-505",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who sings lead vocals in \"Next to Me\" by Imagine Dragons?",
+      "shortAnswers": [
+        "Dan Reynolds"
+      ]
+    },
+    {
+      "question": "Who sings background vocals in \"Next to Me\" by Imagine Dragons?",
+      "shortAnswers": [
+        "YEBBA"
+      ]
+    }
+  ]
+}

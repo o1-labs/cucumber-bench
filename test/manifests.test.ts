@@ -19,6 +19,7 @@ describe('manifests', () => {
     let bs = await loadBenchmarks('benchmarks');
     assert.deepEqual(bs.map((b) => [b.name, b.graders.map((g) => g.name)]), [
       ['asqa', ['str-em', 'citation-recall', 'citation-precision']],
+      ['asqa-dev', ['str-em', 'citation-recall', 'citation-precision']],
       ['legalbench', ['exact']],
       ['redaction', ['removal', 'leakage', 'retention']],
     ]);

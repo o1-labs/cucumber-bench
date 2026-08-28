@@ -1,0 +1,52 @@
+{
+  "id": "asqa-dev-504",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who is the minister of trade and industry in south africa in 2017?",
+      "shortAnswers": [
+        "Davies",
+        "Robert Haydn Davies",
+        "Rob Davies"
+      ]
+    },
+    {
+      "question": "Who is the minister of trade and industry in south africa in 2016?",
+      "shortAnswers": [
+        "Davies",
+        "Robert Haydn Davies",
+        "Rob Davies"
+      ]
+    },
+    {
+      "question": "Who is the minister of trade and industry in south africa in 2015?",
+      "shortAnswers": [
+        "Davies",
+        "Robert Haydn Davies",
+        "Rob Davies"
+      ]
+    },
+    {
+      "question": "Who was the minister of trade and industry in South Africa in 2017?",
+      "shortAnswers": [
+        "Rob Davies"
+      ]
+    },
+    {
+      "question": "Who was the minister of trade and industry in South Africa in 2016?",
+      "shortAnswers": [
+        "Rob Davies"
+      ]
+    },
+    {
+      "question": "Who was the minister of trade and industry in South Africa in 2015?",
+      "shortAnswers": [
+        "Rob Davies"
+      ]
+    }
+  ]
+}

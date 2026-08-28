@@ -1,0 +1,36 @@
+{
+  "id": "asqa-dev-509",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "From what companies does walmart get its great value products?",
+      "shortAnswers": [
+        "a number of agricultural and food corporations, such as ConAgra, and Sara Lee"
+      ]
+    },
+    {
+      "question": "From what country does walmart contend it gets its great value products?",
+      "shortAnswers": [
+        "United States"
+      ]
+    },
+    {
+      "question": "Where are Great Value products manufactured?",
+      "shortAnswers": [
+        "United States"
+      ]
+    },
+    {
+      "question": "Where source does Walmart get its Great Value products from?",
+      "shortAnswers": [
+        "ConAgra",
+        "Sara Lee",
+        "a number of agricultural and food corporations"
+      ]
+    }
+  ]
+}

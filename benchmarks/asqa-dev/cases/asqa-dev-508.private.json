@@ -1,0 +1,23 @@
+{
+  "id": "asqa-dev-508",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who plays ruths mum in home and away in 1989?",
+      "shortAnswers": [
+        "Alison Mulvaney"
+      ]
+    },
+    {
+      "question": "Who plays ruths mum in home and away since 2018?",
+      "shortAnswers": [
+        "Giblin",
+        "Belinda Giblin"
+      ]
+    }
+  ]
+}

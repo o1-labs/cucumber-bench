@@ -1,0 +1,34 @@
+{
+  "id": "asqa-dev-510",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Which person won the men's us open golf in 2017?",
+      "shortAnswers": [
+        "Brooks Koepka"
+      ]
+    },
+    {
+      "question": "Which country won the men's us open golf in 2017?",
+      "shortAnswers": [
+        "United States"
+      ]
+    },
+    {
+      "question": "Which person won the women's us open golf in 2017?",
+      "shortAnswers": [
+        "Park Sung-hyun"
+      ]
+    },
+    {
+      "question": "Which country won the women's us open golf in 2017?",
+      "shortAnswers": [
+        "South Korea"
+      ]
+    }
+  ]
+}
