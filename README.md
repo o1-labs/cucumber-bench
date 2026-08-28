@@ -47,6 +47,24 @@ Each run writes to `runs/<runId>/`:
 - `report.md` — per-task accuracy, latency, tokens, model calls
 - `chart.html` — the same numbers as a self-contained graphic (open in a browser); regenerate for an old run with `npm run chart -- runs/<runId>`
 
+## Sandboxed systems
+
+The `sandboxed` system runs a harness in an isolated child process — with
+`BENCH_SANDBOX=docker`, a fresh hardened container per run (read-only fs,
+no capabilities, cpu/memory/pids caps). Build the image once with
+`npm run sandbox:build`.
+
+The sandbox receives exactly one public case, a proxy URL, and a per-run
+token on stdin, and returns its output on stdout. It never sees private
+cases, the API key, or the upstream URL: all model calls go through the
+runner's proxy (`src/proxy.ts`), which injects the real key, enforces the
+per-run call limit (`BENCH_MAX_CALLS`, default 20) and benchmark default
+settings, and records tokens/calls server-side — usage is measured, not
+self-reported. To sandbox a new harness, implement the stdin/stdout
+protocol (see `src/sandbox/placeholder-entry.mjs`) and register it in
+`src/cli.ts`. Hard egress lockdown (internal docker network + proxy
+sidecar) is planned for the Linux-server deployment.
+
 ## Cases
 
 `cases/legalbench/` holds 9 cases from three LegalBench tasks (hearsay,

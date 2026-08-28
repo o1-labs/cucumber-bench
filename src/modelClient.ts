@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import type { ModelClient, Generation } from './types.js';
 
-export { createModelClient, type ModelConfig };
+export { createModelClient, resolveModelConfig, type ModelConfig };
 
 type ModelConfig = {
   baseUrl: string;
@@ -11,12 +11,10 @@ type ModelConfig = {
   timeoutMs: number;
 };
 
-// openai-compatible chat client; works with ollama (/v1) and hosted apis.
 // env vars are the defaults (BENCH_BASE_URL, BENCH_MODEL, BENCH_API_KEY,
-// BENCH_TEMPERATURE, BENCH_TIMEOUT_MS); a system may create its own client
-// with overrides, and override temperature per call
-function createModelClient(overrides: Partial<ModelConfig> = {}): ModelClient {
-  let { baseUrl, model, apiKey, temperature, timeoutMs }: ModelConfig = {
+// BENCH_TEMPERATURE, BENCH_TIMEOUT_MS); overrides beat them
+function resolveModelConfig(overrides: Partial<ModelConfig> = {}): ModelConfig {
+  let cfg: ModelConfig = {
     baseUrl: env('BENCH_BASE_URL') ?? 'http://localhost:11434/v1',
     model: env('BENCH_MODEL') ?? 'qwen3:8b',
     apiKey: env('BENCH_API_KEY') ?? 'none',
@@ -24,7 +22,14 @@ function createModelClient(overrides: Partial<ModelConfig> = {}): ModelClient {
     timeoutMs: Number(env('BENCH_TIMEOUT_MS') ?? 120_000),
     ...definedOnly(overrides),
   };
-  assert(model.trim() !== '', 'createModelClient: model is empty, set BENCH_MODEL or pass an override');
+  assert(cfg.model.trim() !== '', 'resolveModelConfig: model is empty, set BENCH_MODEL or pass an override');
+  return cfg;
+}
+
+// openai-compatible chat client; works with ollama (/v1) and hosted apis.
+// a system may create its own client with overrides, and override temperature per call
+function createModelClient(overrides: Partial<ModelConfig> = {}): ModelClient {
+  let { baseUrl, model, apiKey, temperature, timeoutMs } = resolveModelConfig(overrides);
 
   return {
     model,

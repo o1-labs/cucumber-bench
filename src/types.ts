@@ -9,6 +9,7 @@ export type {
   SystemUnderTest,
   Grader,
   ModelClient,
+  ModelProxy,
   Generation,
 };
 
@@ -64,6 +65,16 @@ type RunContext = {
   runId: string;
   repetition: number;
   model: ModelClient;
+  // set by the runner when sandboxed systems are in play; sandboxes reach the
+  // model only through this proxy, which holds the real key and does accounting
+  proxy?: ModelProxy;
+};
+
+type ModelProxy = {
+  url: string;
+  register(runId: string): string; // returns the bearer token for one run
+  usage(token: string): Usage;
+  close(): Promise<void>;
 };
 
 type SystemUnderTest = {

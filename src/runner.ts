@@ -3,6 +3,7 @@ import type {
   GradeResult,
   Grader,
   ModelClient,
+  ModelProxy,
   RunResult,
   SystemUnderTest,
 } from './types.js';
@@ -21,6 +22,7 @@ async function runSuite(opts: {
   systems: SystemUnderTest[];
   graders: Grader[];
   model: ModelClient;
+  proxy?: ModelProxy;
   repetitions: number;
   onRecord?: (r: Record) => void;
 }): Promise<SuiteResult> {
@@ -31,7 +33,7 @@ async function runSuite(opts: {
   for (let system of systems) {
     for (let rep = 1; rep <= repetitions; rep++) {
       for (let { pub, priv } of cases) {
-        let ctx = { runId, repetition: rep, model };
+        let ctx = { runId, repetition: rep, model, proxy: opts.proxy };
         let t0 = Date.now();
         let run: RunResult;
         try {
