@@ -10,11 +10,12 @@ import { runSuite } from './runner.js';
 import { buildReport } from './report.js';
 import { buildChartHtml } from './chart.js';
 
-// usage: npm run bench -- [--systems direct,legal-v1] [--reps 1]
-// systems default to every harness under harnesses/
+// usage: npm run bench -- [--systems direct,legal-v1] [--suites asqa] [--reps 1]
+// systems default to every harness under harnesses/, suites to every benchmark
 let { values } = parseArgs({
   options: {
     systems: { type: 'string' },
+    suites: { type: 'string' },
     reps: { type: 'string', default: '1' },
   },
 });
@@ -22,6 +23,11 @@ let { values } = parseArgs({
 let harnesses = await loadHarnesses('harnesses');
 let benchmarks = await loadBenchmarks('benchmarks');
 let cases = await loadCases('benchmarks');
+if (values.suites) {
+  let wanted = values.suites.split(',').map((s) => s.trim());
+  cases = cases.filter((c) => wanted.includes(c.pub.suite));
+  if (cases.length === 0) throw Error(`no cases in suites ${values.suites}. available: ${benchmarks.map((b) => b.name).join(', ')}`);
+}
 let graders = benchmarks.flatMap((b) => b.graders);
 
 // every harness is a sandbox entry script: child process by default,
@@ -45,9 +51,11 @@ let proxy = await startProxy({
   upstreamUrl: cfg.baseUrl,
   upstreamKey: cfg.apiKey,
   safetyModel: cfg.safetyModel,
+  judgeModel: cfg.judgeModel,
   defaultTemperature: cfg.temperature,
   timeoutMs: cfg.timeoutMs,
   maxCalls: Number(process.env.BENCH_MAX_CALLS ?? 20),
+  maxJudgeCalls: Number(process.env.BENCH_MAX_JUDGE_CALLS ?? 100),
 });
 let runId = new Date().toISOString().replace(/[:.]/g, '-');
 let outDir = join('runs', runId);

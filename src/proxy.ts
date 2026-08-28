@@ -9,17 +9,20 @@ export { startProxy };
 // url and a per-run bearer token: never the upstream url, the real api key, or
 // anything else. the proxy does server-side accounting (tokens/calls are truth
 // recorded here, not self-reported) and enforces per-run call limits.
-// two routes: /v1 is the guarded model, whose prompts are the leakage ground
-// truth; /safety/v1 is the trusted safety model a harness may show raw data to.
+// three routes: /v1 is the guarded model, whose prompts are the leakage ground
+// truth; /safety/v1 is the trusted safety model a harness may show raw data to;
+// /judge/v1 is the judge model that graders use, never a harness.
 // TODO when harnesses need other services (statute dbs, rag), add per-harness
 // allowlisted routes here instead of opening the sandbox network.
 async function startProxy(opts: {
   upstreamUrl: string; // e.g. http://host:11434/v1
   upstreamKey: string;
   safetyModel: string; // served on the /safety route, whatever the request asks for
+  judgeModel: string; // served on the /judge route
   defaultTemperature: number; // injected when a request does not set one
   timeoutMs: number;
-  maxCalls: number; // per registered run
+  maxCalls: number; // per registered run, on the guarded and safety routes
+  maxJudgeCalls: number; // per registered run on the judge route; citation graders ask many questions
 }): Promise<ModelProxy> {
   let runs = new Map<string, { runId: string; usage: Usage; requests: string[] }>();
 
@@ -32,9 +35,10 @@ async function startProxy(opts: {
     let state = runs.get(token);
     if (!state) return reply(res, 401, 'unknown run token');
     let route = req.method === 'POST' ? ROUTES[req.url ?? ''] : undefined;
-    if (!route) return reply(res, 404, 'only POST /v1/chat/completions and /safety/v1/chat/completions are allowed');
-    if (state.usage.modelCalls >= opts.maxCalls) {
-      return reply(res, 429, `run ${state.runId} exceeded the limit of ${opts.maxCalls} model calls`);
+    if (!route) return reply(res, 404, 'only POST {,/safety,/judge}/v1/chat/completions is allowed');
+    let limit = route === 'judge' ? opts.maxJudgeCalls : opts.maxCalls;
+    if (state.usage.modelCalls >= limit) {
+      return reply(res, 429, `run ${state.runId} exceeded the limit of ${limit} model calls`);
     }
     state.usage.modelCalls++;
 
@@ -42,6 +46,7 @@ async function startProxy(opts: {
     let body = JSON.parse(await readBody(req));
     body.temperature ??= opts.defaultTemperature;
     if (route === 'safety') body.model = opts.safetyModel;
+    if (route === 'judge') body.model = opts.judgeModel;
     // ground truth for leakage grading: what actually reached the guarded model
     if (route === 'guarded') {
       state.requests.push(
@@ -94,9 +99,10 @@ async function startProxy(opts: {
 
 // internal helpers
 
-const ROUTES: { [path: string]: 'guarded' | 'safety' } = {
+const ROUTES: { [path: string]: 'guarded' | 'safety' | 'judge' } = {
   '/v1/chat/completions': 'guarded',
   '/safety/v1/chat/completions': 'safety',
+  '/judge/v1/chat/completions': 'judge',
 };
 
 function reply(res: ServerResponse, status: number, message: string) {

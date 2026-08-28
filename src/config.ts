@@ -1,7 +1,7 @@
 export { resolveModelConfig };
 
-// env config: BENCH_BASE_URL, BENCH_MODEL, BENCH_SAFETY_MODEL, BENCH_API_KEY,
-// BENCH_TEMPERATURE, BENCH_TIMEOUT_MS. the values feed the proxy; no system ever sees them.
+// env config: BENCH_BASE_URL, BENCH_MODEL, BENCH_SAFETY_MODEL, BENCH_JUDGE_MODEL,
+// BENCH_API_KEY, BENCH_TEMPERATURE, BENCH_TIMEOUT_MS. the values feed the proxy; no system ever sees them.
 function resolveModelConfig() {
   let model = env('BENCH_MODEL') ?? 'qwen3:8b';
   return {
@@ -9,6 +9,8 @@ function resolveModelConfig() {
     model,
     // the trusted safety model a harness may show raw data to; same model unless configured
     safetyModel: env('BENCH_SAFETY_MODEL') ?? model,
+    // the model graders use as a judge; same model unless configured
+    judgeModel: env('BENCH_JUDGE_MODEL') ?? model,
     apiKey: env('BENCH_API_KEY') ?? 'none',
     temperature: Number(env('BENCH_TEMPERATURE') ?? 0),
     timeoutMs: Number(env('BENCH_TIMEOUT_MS') ?? 120_000),

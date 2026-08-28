@@ -38,9 +38,11 @@ beforeAll(async () => {
     upstreamUrl: `http://127.0.0.1:${port}/v1`,
     upstreamKey: 'real-key',
     safetyModel: 'safety-model',
+    judgeModel: 'judge-model',
     defaultTemperature: 0.3,
     timeoutMs: 5000,
     maxCalls: 3,
+    maxJudgeCalls: 5,
   });
 });
 
@@ -95,6 +97,18 @@ describe('proxy', () => {
     assert.equal(seen[seen.length - 1].model, 'safety-model');
     assert.deepEqual(proxy.requests(token), []);
     assert.equal(proxy.usage(token).modelCalls, 1);
+  });
+
+  it('should serve the judge model on its own route, outside the leakage record', async () => {
+    let token = proxy.register('r6');
+    let res = await fetch(`${proxy.url}/judge/v1/chat/completions`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
+      body: JSON.stringify({ model: 'm', messages: [{ role: 'user', content: 'Premise: x' }] }),
+    });
+    assert.equal(res.status, 200);
+    assert.equal(seen[seen.length - 1].model, 'judge-model');
+    assert.deepEqual(proxy.requests(token), []);
   });
 
   it('should enforce the per-run call limit', async () => {

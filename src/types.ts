@@ -5,6 +5,7 @@ export type {
   Usage,
   RunResult,
   GradeResult,
+  GradeContext,
   Stage,
   Trace,
   SystemUnderTest,
@@ -21,7 +22,9 @@ type PublicCase = {
   instructions: string;
   // the case-specific text: a fact pattern, a document, ...
   input: string;
-  // label tasks only (legalbench): few-shot examples, the question, the allowed labels
+  // context passages the answer may cite, numbered from 1 in order (asqa; cuad later)
+  docs?: { title: string; text: string }[];
+  // worked examples (few-shot); label tasks also carry the question and the allowed labels
   examples?: { q: string; a: string }[];
   question?: string;
   choices?: string[];
@@ -34,6 +37,7 @@ type PrivateCase = {
   graders: string[];
   answer?: string; // exact: the gold label
   protected?: string[]; // removal / leakage / retention: spans that must not survive or reach the model
+  qaPairs?: { question: string; shortAnswers: string[] }[]; // str-em: the sub-questions of an ambiguous question
 };
 
 type Usage = { modelCalls: number; tokensIn: number; tokensOut: number };
@@ -90,12 +94,15 @@ type SystemUnderTest = {
   ): Promise<Omit<RunResult, 'latencyMs'>>;
 };
 
-// async so that future graders may call a model, read documents, or search
+// what a grader may use beyond the case and the result: a greedy judge model behind
+// the proxy, on a token of its own so grading cost is counted apart from the harness
+type GradeContext = { judge: (prompt: string) => Promise<string> };
+
 type Grader = {
   name: string;
   // one sentence for the chart glossary
   description?: string;
-  grade(pub: PublicCase, priv: PrivateCase, result: RunResult): Promise<GradeResult>;
+  grade(pub: PublicCase, priv: PrivateCase, result: RunResult, ctx: GradeContext): Promise<GradeResult>;
 };
 
 type ModelProxy = {

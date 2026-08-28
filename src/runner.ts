@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
-import type { GradeResult, Grader, ModelProxy, RunResult, SystemUnderTest } from './types.js';
+import type { GradeResult, Grader, ModelProxy, RunResult, SystemUnderTest, Usage } from './types.js';
 import type { Case } from './caseStore.js';
+import { judgeVia } from './judge.js';
 
 export { runSuite, type Record };
 
-type Record = { run: RunResult; grades: GradeResult[] };
+// judge is the model usage of the graders for this run, apart from the harness usage
+type Record = { run: RunResult; grades: GradeResult[]; judge: Usage };
 
 // runs every system on every case, grades each run, returns all records.
 // systems only ever see the public case; graders get the private one.
@@ -45,13 +47,15 @@ async function runSuite(opts: {
         }
         let run = { ...result, latencyMs: Date.now() - t0 };
 
+        let judgeToken = proxy.register(`${runId}/${pub.id}/rep${rep}/judge`);
+        let gradeCtx = { judge: judgeVia(proxy, judgeToken, model) };
         let grades: GradeResult[] = [];
         for (let name of priv.graders) {
           let grader = graders.find((g) => g.name === name);
           assert(grader, `runSuite: no grader named ${name} for case ${priv.id}`);
-          grades.push(await grader.grade(pub, priv, run));
+          grades.push(await grader.grade(pub, priv, run, gradeCtx));
         }
-        let record = { run, grades };
+        let record = { run, grades, judge: proxy.usage(judgeToken) };
         records.push(record);
         opts.onRecord?.(record);
       }

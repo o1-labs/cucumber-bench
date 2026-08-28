@@ -7,6 +7,7 @@ describe('exactGrader', () => {
   let pub = { id: 'c1', choices: ['Yes', 'No'] } as PublicCase;
   let priv: PrivateCase = { id: 'c1', graders: ['exact'], answer: 'Yes' };
   let grader = exactGrader();
+  let ctx = { judge: async () => 'no' };
 
   function result(output: string, error?: string): RunResult {
     return {
@@ -47,19 +48,19 @@ describe('exactGrader', () => {
   });
 
   it('should pass on exact answer and fail on wrong answer', async () => {
-    assert.equal((await grader.grade(pub, priv, result('Yes.'))).pass, true);
-    assert.equal((await grader.grade(pub, priv, result('No'))).pass, false);
+    assert.equal((await grader.grade(pub, priv, result('Yes.'), ctx)).pass, true);
+    assert.equal((await grader.grade(pub, priv, result('No'), ctx)).pass, false);
   });
 
   it('should record (none) when nothing could be extracted', async () => {
-    let g = await grader.grade(pub, priv, result('I am not sure.'));
+    let g = await grader.grade(pub, priv, result('I am not sure.'), ctx);
     assert.equal(g.pass, false);
     assert.equal(g.score, 0);
     assert.equal(g.extracted, '(none)');
   });
 
   it('should fail an errored run', async () => {
-    let g = await grader.grade(pub, priv, result('', 'timeout'));
+    let g = await grader.grade(pub, priv, result('', 'timeout'), ctx);
     assert.equal(g.pass, false);
     assert.equal(g.extracted, '(none)');
     assert.match(g.detail ?? '', /timeout/);

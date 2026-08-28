@@ -4,6 +4,7 @@ import { pathToFileURL } from 'node:url';
 import assert from 'node:assert/strict';
 import type { Grader } from './types.js';
 import { exactGrader } from './graders/exact.js';
+import { strEmGrader } from './graders/strEm.js';
 
 export { loadHarnesses, loadBenchmarks, type HarnessManifest, type BenchmarkManifest };
 
@@ -23,7 +24,7 @@ type HarnessManifest = {
 type BenchmarkManifest = { name: string; dir: string; graders: Grader[] };
 
 // graders that live in the core and can be named in benchmark.json
-const CORE_GRADERS: { [name: string]: () => Grader } = { exact: exactGrader };
+const CORE_GRADERS: { [name: string]: () => Grader } = { exact: exactGrader, 'str-em': strEmGrader };
 
 async function loadHarnesses(root: string): Promise<HarnessManifest[]> {
   let out: HarnessManifest[] = [];

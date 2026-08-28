@@ -9,6 +9,7 @@ function record(caseId: string, rep: number, extracted: string, opts: { pass?: b
   return {
     run: { caseId, system, repetition: rep, output: '', latencyMs: 100, modelCalls: 1, tokensIn: tokens, tokensOut: tokens },
     grades: [{ grader: 'exact', pass, score, extracted }],
+    judge: { modelCalls: 0, tokensIn: 0, tokensOut: 0 },
   };
 }
 

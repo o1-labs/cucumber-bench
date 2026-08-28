@@ -6,8 +6,14 @@ import { exactGrader } from '../src/graders/exact.js';
 import { leakageGrader, removalGrader, retentionGrader } from '../benchmarks/redaction/graders.js';
 import type { ModelProxy, SystemUnderTest } from '../src/types.js';
 
-// the runner never talks to the proxy itself; systems do
-let proxy = {} as ModelProxy;
+// the runner uses the proxy only for the graders' judge token; nothing calls it here
+let proxy: ModelProxy = {
+  url: 'http://127.0.0.1:1',
+  register: () => 'judge-token',
+  usage: () => ({ modelCalls: 0, tokensIn: 0, tokensOut: 0 }),
+  requests: () => [],
+  close: async () => {},
+};
 
 // fake system: fixed output, echoes the raw input as what it sent to the model
 function fakeSystem(output: string): SystemUnderTest {
@@ -32,6 +38,7 @@ describe('runSuite', () => {
     });
 
     assert.equal(records.length, 9);
+    assert.deepEqual(records[0].judge, { modelCalls: 0, tokensIn: 0, tokensOut: 0 });
     // fake answers "Yes"; exactly the two Yes-labeled cases pass
     assert.equal(records.filter((r) => r.grades[0].pass).length, 2);
     for (let { run, grades } of records) {
