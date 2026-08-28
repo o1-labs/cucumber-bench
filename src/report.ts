@@ -1,11 +1,13 @@
 import type { Case } from './caseStore.js';
 import type { Record } from './runner.js';
 import { summarize, type Row } from './stats.js';
+import type { Grader } from './types.js';
 
 export { buildReport };
 
-// markdown report: one table per suite (task x system, one column per grader), then failures
-function buildReport(runId: string, model: string, cases: Case[], records: Record[]): string {
+// markdown report: one table per suite (task x system, one column per grader), the
+// grader glossary, then failures
+function buildReport(runId: string, model: string, cases: Case[], records: Record[], graders: Grader[] = []): string {
   let lines = [`# Benchmark report`, '', `Run: ${runId}`, `Default model: ${model}`, ''];
   let rows = summarize(cases, records);
 
@@ -23,6 +25,14 @@ function buildReport(runId: string, model: string, cases: Case[], records: Recor
           `| ${r.costUsd === undefined ? '—' : '$' + r.costUsd.toFixed(4)} |`,
       );
     }
+    lines.push('');
+  }
+
+  let used = new Set(rows.flatMap((r) => Object.keys(r.graders)));
+  let glossary = graders.filter((g) => used.has(g.name));
+  if (glossary.length > 0) {
+    lines.push('Graders (a cell is the pass rate; a value in parentheses is the mean score when it differs):', '');
+    for (let g of glossary) lines.push(`- ${g.name} — ${g.description}`);
     lines.push('');
   }
 

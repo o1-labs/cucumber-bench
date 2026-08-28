@@ -132,8 +132,9 @@ The module exports `{ graders }`, an array of grader objects:
 ```ts
 let graders: Grader[] = [{
   name: 'my-grader',
-  description: 'One sentence for the chart glossary.',
-  async grade(pub, priv, result) {
+  // required: one sentence that says what passes. it appears in the report and the chart glossary
+  description: 'Every claim in the output has a source.',
+  async grade(pub, priv, result, ctx) {
     return { grader: 'my-grader', pass: true, score: 1, detail: 'why' };
   },
 }];

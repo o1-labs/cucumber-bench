@@ -100,8 +100,8 @@ type GradeContext = { judge: (prompt: string) => Promise<string> };
 
 type Grader = {
   name: string;
-  // one sentence for the chart glossary
-  description?: string;
+  // one sentence that says what passes: shown in the report and chart glossary
+  description: string;
   grade(pub: PublicCase, priv: PrivateCase, result: RunResult, ctx: GradeContext): Promise<GradeResult>;
 };
 

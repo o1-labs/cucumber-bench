@@ -90,7 +90,7 @@ let records = await runSuite({
 
 await proxy.close();
 await writeFile(join(outDir, 'results.jsonl'), lines.join('\n') + '\n');
-let report = buildReport(runId, cfg.model, cases, records);
+let report = buildReport(runId, cfg.model, cases, records, graders);
 await writeFile(join(outDir, 'report.md'), report);
 let help = {
   systems: Object.fromEntries(harnesses.map((h) => [h.name, h.description ?? ''])),

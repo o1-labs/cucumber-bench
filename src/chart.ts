@@ -22,25 +22,37 @@ function buildChartHtml(runId: string, model: string, cases: Case[], records: Re
   let reps = Math.max(...records.map((r) => r.run.repetition));
   let row = (task: string, system: string): Row | undefined =>
     rows.find((r) => r.task === task && r.system === system);
-  // the headline chart plots the primary (first) grader; the table shows all of them
+  // every grader of the run, for the table columns
   let graders = [...new Set(rows.flatMap((r) => Object.keys(r.graders)))];
-  let primary = graders[0] ?? 'pass';
-  let passRate = (r?: Row) => r?.graders[primary]?.pass ?? 0;
 
-  // charts
-  let missingPrimary = tasks.some((t) => !systems.some((sys) => row(t, sys)?.graders[primary]));
-  let accChart = columnsChart({
-    title: `Pass rate by task (grader: ${primary})`,
-    subtitle:
-      `Each column is one system. The height is the share of runs that passed the ${primary} grader for that task. Higher is better.` +
-      (missingPrimary ? ' Tasks without this grader show no column. See the table.' : ''),
-    tasks,
-    systems,
-    value: (t, sys) => passRate(row(t, sys)) * 100,
-    yMax: 100,
-    ticks: [0, 25, 50, 75, 100],
-    fmt: (v) => `${Math.round(v)}%`,
-  });
+  // charts: per suite, the pass rate of every grader; and per task when a suite has several tasks
+  let pct = { yMax: 100, ticks: [0, 25, 50, 75, 100], fmt: (v: number) => `${Math.round(v)}%` };
+  let suiteCharts = '';
+  for (let suite of [...new Set(rows.map((r) => r.suite))]) {
+    let sRows = rows.filter((r) => r.suite === suite);
+    let sTasks = [...new Set(sRows.filter((r) => r.task !== 'ALL').map((r) => r.task))];
+    let sGraders = [...new Set(sRows.flatMap((r) => Object.keys(r.graders)))];
+    let sRow = (task: string, sys: string) => sRows.find((r) => r.task === task && r.system === sys);
+    suiteCharts += columnsChart({
+      title: `${suite}: pass rate by grader`,
+      subtitle: 'Each group is one grader, each column one system. The height is the share of runs that passed. Higher is better.',
+      tasks: sGraders,
+      systems,
+      value: (g, sys) => (sRow('ALL', sys)?.graders[g]?.pass ?? 0) * 100,
+      ...pct,
+    });
+    if (sTasks.length > 1) {
+      let sPrimary = sGraders[0];
+      suiteCharts += columnsChart({
+        title: `${suite}: ${sPrimary} pass rate by task`,
+        subtitle: `Each column is one system. The height is the share of runs that passed the ${sPrimary} grader for that task. Higher is better.`,
+        tasks: sTasks,
+        systems,
+        value: (t, sys) => (sRow(t, sys)?.graders[sPrimary]?.pass ?? 0) * 100,
+        ...pct,
+      });
+    }
+  }
   let latS = (t: string, sys: string) => (row(t, sys)?.latencyMs ?? 0) / 1000;
   let latTicks = niceTicks(Math.max(...tasks.flatMap((t) => systems.map((sys) => latS(t, sys)))));
   let latChart = columnsChart({
@@ -56,13 +68,22 @@ function buildChartHtml(runId: string, model: string, cases: Case[], records: Re
     fmt: (v) => `${round1(v)}s`,
   });
 
-  // kpi tiles: overall accuracy per system, plus consistency when reps > 1
+  // kpi tiles: the pass rate of every grader per system (one row per suite), plus consistency when reps > 1
   let tile = (i: number, sys: string, label: string, value: number) => `
       <div class="tile">
         <div class="tile-label"><span class="key s${i + 1}"></span>${esc(sys)} — ${label}</div>
         <div class="tile-value">${Math.round(value * 100)}%</div>
       </div>`;
-  let tiles = systems.map((sys, i) => tile(i, sys, `${primary} pass rate`, passRate(row('ALL', sys)))).join('');
+  let suites = [...new Set(rows.map((r) => r.suite))];
+  let tiles = systems
+    .flatMap((sys, i) =>
+      rows
+        .filter((r) => r.task === 'ALL' && r.system === sys)
+        .flatMap((r) =>
+          Object.entries(r.graders).map(([g, v]) => tile(i, sys, `${suites.length > 1 ? `${r.suite} ` : ''}${g}`, v.pass)),
+        ),
+    )
+    .join('');
   tiles += systems
     .map((sys, i) => {
       let cons = row('ALL', sys)?.consistency;
@@ -175,17 +196,18 @@ tr.total td { font-weight: 600; }
 </head>
 <body>
 <h1>cucumber-bench</h1>
-<p class="sub">run ${esc(runId)} · model ${esc(model)} · ${cases.length} cases · ${reps} repetition${reps > 1 ? 's' : ''}</p>
+<p class="sub">run ${esc(runId)} · model ${esc(model)} · ${new Set(records.map((r) => r.run.caseId)).size} cases · ${reps} repetition${reps > 1 ? 's' : ''}</p>
 <div class="card help">
   <h2>How to read this page</h2>
   <p>Each system received the same cases. A <b>grader</b> compares each output with private gold data and returns pass or fail.
-  The <b>pass rate</b> is the share of runs that passed. The tiles show the pass rate of the primary grader (<b>${esc(primary)}</b>).
-  The charts show the pass rate and the time per task. The table shows all numbers. Move the pointer over a column to see its numbers.</p>
+  The <b>pass rate</b> is the share of runs that passed. Each tile is the pass rate of one grader for one system.
+  Each benchmark has a chart with one group per grader. A benchmark with several tasks also has a chart per task for its first grader.
+  The table shows all numbers. Move the pointer over a column to see its numbers.</p>
   <ul>${systems.map((sys, i) => `<li><span class="key s${i + 1}"></span> <b>${esc(sys)}</b> — ${esc(help.systems[sys] || 'A system under test.')}</li>`).join('')}</ul>
 </div>
 <div class="tiles">${tiles}</div>
-<p class="tiles-help">Pass rate: the share of runs that passed the ${esc(primary)} grader. Higher is better.${reps > 1 ? ' Consistency: the share of repetitions that gave the same answer for a case, averaged over cases. Higher is better.' : ''}</p>
-${accChart}
+<p class="tiles-help">Each tile: the share of runs that passed that grader. Higher is better.${reps > 1 ? ' Consistency: the share of repetitions that gave the same answer for a case, averaged over cases. Higher is better.' : ''}</p>
+${suiteCharts}
 ${latChart}
 <div class="card">
   <h2>All numbers</h2>
@@ -196,7 +218,7 @@ ${latChart}
   </table></div>
   <ul class="defs">
     <li><b>n</b> — the number of runs in the row.</li>
-    ${graders.map((g) => `<li><b>${esc(g)}</b> — ${esc(help.graders[g] || 'A grader.')} The cell shows the pass rate. A value in parentheses is the mean score, when it differs from the pass rate. Higher is better.</li>`).join('\n    ')}
+    ${graders.map((g) => `<li><b>${esc(g)}</b> — ${esc(help.graders[g] || 'No description.')} The cell shows the pass rate. A value in parentheses is the mean score, when it differs from the pass rate. Higher is better.</li>`).join('\n    ')}
     <li><b>consistency</b> — the share of repetitions that gave the same answer for a case, averaged over cases. Shown as — with one repetition. Higher is better.</li>
     <li><b>latency s</b> — the average wall time of one run, in seconds. Lower is better.</li>
     <li><b>tokens in/out</b> — the average number of tokens sent to and received from the model per run. The proxy counts them. Lower is better.</li>
