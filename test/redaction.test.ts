@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
-import { containsSpan, leakageGrader, removalGrader, retentionGrader, tokens } from '../src/graders/redaction.js';
+import { containsSpan, leakageGrader, removalGrader, retentionGrader, tokens } from '../benchmarks/redaction/graders.js';
 import type { PublicCase, PrivateCase, RunResult } from '../src/types.js';
 
 let source = 'Patient Ann Kowalski (ann.k@example.com, +41 79 123 45 67) reports chest pain since Monday. Plan: ECG and troponin.';

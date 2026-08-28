@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
-import type { GradeResult, Grader, PrivateCase } from '../types.js';
+import type { GradeResult, Grader, PrivateCase } from '../../src/types.js';
 
-export { removalGrader, leakageGrader, retentionGrader };
+// the graders of the redaction benchmark, loaded through benchmark.json
+export { graders };
 // internal API, exported for tests
-export { containsSpan, tokens };
+export { removalGrader, leakageGrader, retentionGrader, containsSpan, tokens };
 
 // utility passes when this share of the non-protected content survives
 const RETENTION_PASS = 0.9;
@@ -12,6 +13,7 @@ const RETENTION_PASS = 0.9;
 function removalGrader(): Grader {
   return {
     name: 'removal',
+    description: 'No protected span survives in the released output.',
     async grade(_pub, priv, result) {
       let spans = protectedOf(priv);
       let survived = spans.filter((s) => containsSpan(result.output, s));
@@ -25,6 +27,7 @@ function removalGrader(): Grader {
 function leakageGrader(): Grader {
   return {
     name: 'leakage',
+    description: 'No protected span reached the guarded model. The proxy measures this.',
     async grade(_pub, priv, result) {
       let spans = protectedOf(priv);
       let sent = (result.modelRequests ?? []).join('\n');
@@ -39,6 +42,7 @@ function leakageGrader(): Grader {
 function retentionGrader(): Grader {
   return {
     name: 'retention',
+    description: 'At least 90% of the non-protected content survives in the output.',
     async grade(pub, priv, result) {
       let context = pub.input;
       for (let s of protectedOf(priv)) context = context.split(s).join(' ');
@@ -55,6 +59,8 @@ function retentionGrader(): Grader {
     },
   };
 }
+
+let graders: Grader[] = [removalGrader(), leakageGrader(), retentionGrader()];
 
 // internal helpers
 

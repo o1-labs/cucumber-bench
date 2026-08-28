@@ -11,6 +11,7 @@ export { extractChoice, normalize };
 function exactGrader(): Grader {
   return {
     name: 'exact',
+    description: 'The label in the output equals the gold label.',
     async grade(pub, priv, result) {
       assert(pub.choices && priv.answer !== undefined, `exact: case ${priv.id} needs choices and a gold answer`);
       if (result.error) {

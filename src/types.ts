@@ -81,6 +81,8 @@ type GradeResult = {
 
 type SystemUnderTest = {
   name: string;
+  // the benchmark suites this system runs on; all of them when absent
+  suites?: string[];
   run(
     c: PublicCase,
     // model is the name to request; the proxy is the only way to reach it
@@ -91,6 +93,8 @@ type SystemUnderTest = {
 // async so that future graders may call a model, read documents, or search
 type Grader = {
   name: string;
+  // one sentence for the chart glossary
+  description?: string;
   grade(pub: PublicCase, priv: PrivateCase, result: RunResult): Promise<GradeResult>;
 };
 

@@ -49,6 +49,11 @@ afterAll(async () => {
   await new Promise((r) => upstream.close(r));
 });
 
+// typescript entries run under tsx in process mode, as the cli does
+function tsx(entry: string) {
+  return [process.execPath, 'node_modules/tsx/dist/cli.mjs', entry];
+}
+
 function call(token: string, body: any = { model: 'm', messages: [] }) {
   return fetch(`${proxy.url}/v1/chat/completions`, {
     method: 'POST',
@@ -103,8 +108,8 @@ describe('proxy', () => {
 
 describe('sandboxedSystem', () => {
   it('should run the direct baseline entry: one few-shot call, the raw input reaches the model', async () => {
-    let { pub } = (await loadCases('cases/legalbench'))[0];
-    let system = sandboxedSystem('direct', [process.execPath, 'src/sandbox/direct-entry.mjs']);
+    let { pub } = (await loadCases('benchmarks/legalbench'))[0];
+    let system = sandboxedSystem('direct', tsx('harnesses/direct/src/entry.ts'));
     let result = await system.run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
     assert.equal(result.output, 'Yes');
     assert.equal(result.modelCalls, 1);
@@ -114,8 +119,8 @@ describe('sandboxedSystem', () => {
   });
 
   it('should run the placeholder entry as a child process end to end', async () => {
-    let { pub } = (await loadCases('cases/legalbench'))[0];
-    let system = sandboxedSystem('sandboxed', [process.execPath, 'src/sandbox/placeholder-entry.mjs']);
+    let { pub } = (await loadCases('benchmarks/legalbench'))[0];
+    let system = sandboxedSystem('sandboxed', tsx('harnesses/placeholder/src/entry.ts'));
     let result = await system.run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
     assert.equal(result.output, 'Yes');
     assert.equal(result.error, undefined);
@@ -132,8 +137,8 @@ describe('sandboxedSystem', () => {
   });
 
   it('should scrub regex-detectable pii before the model on redaction cases', async () => {
-    let { pub } = (await loadCases('cases/redaction')).find((c) => c.pub.id === 'pii-40790C')!;
-    let system = sandboxedSystem('sandboxed', [process.execPath, 'src/sandbox/placeholder-entry.mjs']);
+    let { pub } = (await loadCases('benchmarks/redaction')).find((c) => c.pub.id === 'pii-40790C')!;
+    let system = sandboxedSystem('sandboxed', tsx('harnesses/placeholder/src/entry.ts'));
     let result = await system.run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
     let input = result.trace!.stages[0];
     assert.equal(input.mode, 'regex');
@@ -145,19 +150,19 @@ describe('sandboxedSystem', () => {
   });
 
   it('should report a sandbox that dies as an errored run', async () => {
-    let { pub } = (await loadCases('cases/legalbench'))[0];
+    let { pub } = (await loadCases('benchmarks/legalbench'))[0];
     let system = sandboxedSystem('sandboxed', [process.execPath, '-e', 'process.exit(3)']);
     let result = await system.run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
     assert.match(result.error ?? '', /exited 3/);
   });
 });
 
-describe('harness (vercel ai sdk entry)', () => {
-  let argv = [process.execPath, 'node_modules/tsx/dist/cli.mjs', 'harness/src/entry.ts'];
+describe('legal-v1 (vercel ai sdk harness)', () => {
+  let argv = tsx('harnesses/legal-v1/src/entry.ts');
 
   it('should run a label case through the guarded model with passthrough safety', async () => {
-    let { pub } = (await loadCases('cases/legalbench'))[0];
-    let result = await sandboxedSystem('harness', argv).run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
+    let { pub } = (await loadCases('benchmarks/legalbench'))[0];
+    let result = await sandboxedSystem('legal-v1', argv).run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
     assert.equal(result.error, undefined);
     assert.equal(result.output, 'Yes');
     assert.equal(result.modelCalls, 2);
@@ -165,8 +170,8 @@ describe('harness (vercel ai sdk entry)', () => {
   });
 
   it('should scrub regex hits and safety-model findings before the guarded model sees the document', async () => {
-    let { pub } = (await loadCases('cases/redaction')).find((c) => c.pub.id === 'pii-40805A')!;
-    let result = await sandboxedSystem('harness', argv).run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
+    let { pub } = (await loadCases('benchmarks/redaction')).find((c) => c.pub.id === 'pii-40805A')!;
+    let result = await sandboxedSystem('legal-v1', argv).run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
     assert.equal(result.error, undefined);
     let input = result.trace!.stages[0];
     assert.equal(input.mode, 'hybrid');

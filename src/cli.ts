@@ -3,45 +3,41 @@ import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { loadCases } from './caseStore.js';
 import { resolveModelConfig } from './config.js';
+import { loadBenchmarks, loadHarnesses, type HarnessManifest } from './manifests.js';
 import { dockerArgv, sandboxedSystem } from './systems/sandboxed.js';
 import { startProxy } from './proxy.js';
-import { exactGrader } from './graders/exact.js';
-import { leakageGrader, removalGrader, retentionGrader } from './graders/redaction.js';
 import { runSuite } from './runner.js';
 import { buildReport } from './report.js';
 import { buildChartHtml } from './chart.js';
 
-// usage: npm run bench -- [--systems direct,placeholder,harness] [--reps 1]
+// usage: npm run bench -- [--systems direct,legal-v1] [--reps 1]
+// systems default to every harness under harnesses/
 let { values } = parseArgs({
   options: {
-    systems: { type: 'string', default: 'direct,placeholder,harness' },
+    systems: { type: 'string' },
     reps: { type: 'string', default: '1' },
   },
 });
 
-// every system is a sandbox entry script: child process by default,
-// a docker container from the same image with BENCH_SANDBOX=docker
-let entry = (file: string) =>
-  process.env.BENCH_SANDBOX === 'docker'
-    ? dockerArgv('cucumber-bench-sandbox', `/app/${file}`)
-    : [process.execPath, `src/sandbox/${file}`];
-// the real harness has its own image (it needs the ai sdk); in process mode tsx runs its source
-let harnessArgv =
-  process.env.BENCH_SANDBOX === 'docker'
-    ? dockerArgv('cucumber-bench-harness', '/app/dist/entry.js')
-    : [process.execPath, 'node_modules/tsx/dist/cli.mjs', 'harness/src/entry.ts'];
-let available = {
-  direct: sandboxedSystem('direct', entry('direct-entry.mjs')),
-  placeholder: sandboxedSystem('placeholder', entry('placeholder-entry.mjs')),
-  harness: sandboxedSystem('harness', harnessArgv),
-};
-let systems = values.systems.split(',').map((name) => {
-  let s = available[name.trim() as keyof typeof available];
-  if (!s) throw Error(`unknown system: ${name}. available: ${Object.keys(available).join(', ')}`);
+let harnesses = await loadHarnesses('harnesses');
+let benchmarks = await loadBenchmarks('benchmarks');
+let cases = await loadCases('benchmarks');
+let graders = benchmarks.flatMap((b) => b.graders);
+
+// every harness is a sandbox entry script: child process by default,
+// a docker container with BENCH_SANDBOX=docker
+function argvFor(h: HarnessManifest): string[] {
+  if (process.env.BENCH_SANDBOX === 'docker') return dockerArgv(h.image, h.imageEntry);
+  let entry = join(h.dir, h.entry);
+  return entry.endsWith('.ts') ? [process.execPath, 'node_modules/tsx/dist/cli.mjs', entry] : [process.execPath, entry];
+}
+let available = new Map(harnesses.map((h) => [h.name, sandboxedSystem(h.name, argvFor(h), h.suites)]));
+let systems = (values.systems?.split(',') ?? [...available.keys()]).map((name) => {
+  let s = available.get(name.trim());
+  if (!s) throw Error(`unknown system: ${name}. available: ${[...available.keys()].join(', ')}`);
   return s;
 });
 
-let cases = await loadCases('cases');
 let cfg = resolveModelConfig();
 
 // systems reach the model only through the accounting proxy
@@ -64,7 +60,7 @@ let records = await runSuite({
   runId,
   cases,
   systems,
-  graders: [exactGrader(), removalGrader(), leakageGrader(), retentionGrader()],
+  graders,
   model: cfg.model,
   proxy,
   repetitions: Number(values.reps),
@@ -82,7 +78,11 @@ await proxy.close();
 await writeFile(join(outDir, 'results.jsonl'), lines.join('\n') + '\n');
 let report = buildReport(runId, cfg.model, cases, records);
 await writeFile(join(outDir, 'report.md'), report);
-await writeFile(join(outDir, 'chart.html'), buildChartHtml(runId, cfg.model, cases, records));
+let help = {
+  systems: Object.fromEntries(harnesses.map((h) => [h.name, h.description ?? ''])),
+  graders: Object.fromEntries(graders.map((g) => [g.name, g.description ?? ''])),
+};
+await writeFile(join(outDir, 'chart.html'), buildChartHtml(runId, cfg.model, cases, records, help));
 
 console.log('\n' + report);
 console.log(`written to ${outDir}`);

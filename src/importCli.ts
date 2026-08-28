@@ -4,14 +4,14 @@ import assert from 'node:assert/strict';
 import { parseArgs } from 'node:util';
 import { loadCases } from './caseStore.js';
 
-// usage: npm run import -- --task hearsay [--count 5] [--out cases/legalbench]
+// usage: npm run import -- --task hearsay [--count 5] [--out benchmarks/legalbench/cases]
 // pulls new test-split rows for a task we already have cases for; task metadata
 // (instructions, examples, question, choices) is copied from an existing case
 let { values } = parseArgs({
   options: {
     task: { type: 'string' },
     count: { type: 'string', default: '5' },
-    out: { type: 'string', default: 'cases/legalbench' },
+    out: { type: 'string', default: 'benchmarks/legalbench/cases' },
   },
 });
 assert(values.task, 'usage: npm run import -- --task <legalbench task> [--count n] [--out dir]');
@@ -19,9 +19,9 @@ let task = values.task;
 let count = Number(values.count);
 assert(count >= 1, `import: count must be >= 1, got ${values.count}`);
 
-let existing = await loadCases('cases');
+let existing = await loadCases('benchmarks');
 let template = existing.find((c) => c.pub.task === task)?.pub;
-assert(template, `import: no case with task ${task} under cases/ to copy instructions from`);
+assert(template, `import: no case with task ${task} under benchmarks/ to copy instructions from`);
 
 // skip ids we already have, in cases/ or in the output dir
 let have = new Set(existing.map((c) => c.pub.id));

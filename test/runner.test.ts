@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { loadCases } from '../src/caseStore.js';
 import { runSuite } from '../src/runner.js';
 import { exactGrader } from '../src/graders/exact.js';
-import { leakageGrader, removalGrader, retentionGrader } from '../src/graders/redaction.js';
+import { leakageGrader, removalGrader, retentionGrader } from '../benchmarks/redaction/graders.js';
 import type { ModelProxy, SystemUnderTest } from '../src/types.js';
 
 // the runner never talks to the proxy itself; systems do
@@ -24,7 +24,7 @@ function fakeSystem(output: string): SystemUnderTest {
 
 describe('runSuite', () => {
   it('should run the legalbench cases, grade every run, and measure latency', async () => {
-    let cases = await loadCases('cases/legalbench');
+    let cases = await loadCases('benchmarks/legalbench');
     assert.equal(cases.length, 9);
 
     let records = await runSuite({
@@ -42,7 +42,7 @@ describe('runSuite', () => {
   });
 
   it('should grade redaction cases with all three graders; sending the raw input leaks everything', async () => {
-    let cases = await loadCases('cases/redaction');
+    let cases = await loadCases('benchmarks/redaction');
     let records = await runSuite({
       runId: 'test', cases, systems: [fakeSystem('[REDACTED]')],
       graders: [removalGrader(), leakageGrader(), retentionGrader()], model: 'm', proxy, repetitions: 1,
@@ -57,7 +57,7 @@ describe('runSuite', () => {
   });
 
   it('should record a failing grade when a system throws', async () => {
-    let cases = (await loadCases('cases/legalbench')).slice(0, 1);
+    let cases = (await loadCases('benchmarks/legalbench')).slice(0, 1);
     let broken: SystemUnderTest = {
       name: 'broken',
       async run() {

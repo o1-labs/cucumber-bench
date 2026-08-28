@@ -9,22 +9,12 @@ export { buildChartHtml };
 const SERIES_LIGHT = ['#2a78d6', '#eb6834', '#1baf7a'];
 const SERIES_DARK = ['#3987e5', '#d95926', '#199e70'];
 
-// short definitions shown on the page, in simplified technical english
-const SYSTEM_HELP: { [name: string]: string } = {
-  direct: 'One model call. The raw input goes to the model. There is no safety stage. This is the baseline.',
-  placeholder: 'Three stages: input safety, agent, output safety. The safety stages use only regular expressions.',
-  harness: 'Three stages. The safety stages use regular expressions and a trusted safety model. This is the real harness.',
-};
-const GRADER_HELP: { [name: string]: string } = {
-  exact: 'The label in the output equals the gold label.',
-  removal: 'No protected span survives in the released output.',
-  leakage: 'No protected span reached the guarded model. The proxy measures this.',
-  retention: 'At least 90% of the non-protected content survives in the output.',
-};
+// one-sentence definitions for the page, from the harness and benchmark manifests
+type Help = { systems: { [name: string]: string }; graders: { [name: string]: string } };
 
 // self-contained chart page for one run: KPI tiles, accuracy + latency grouped
 // columns with hover/focus tooltips, and a table view of every number
-function buildChartHtml(runId: string, model: string, cases: Case[], records: Record[]): string {
+function buildChartHtml(runId: string, model: string, cases: Case[], records: Record[], help: Help = { systems: {}, graders: {} }): string {
   let rows = summarize(cases, records);
   let tasks = [...new Set(rows.filter((r) => r.task !== 'ALL').map((r) => r.task))];
   let systems = [...new Set(rows.map((r) => r.system))];
@@ -191,7 +181,7 @@ tr.total td { font-weight: 600; }
   <p>Each system received the same cases. A <b>grader</b> compares each output with private gold data and returns pass or fail.
   The <b>pass rate</b> is the share of runs that passed. The tiles show the pass rate of the primary grader (<b>${esc(primary)}</b>).
   The charts show the pass rate and the time per task. The table shows all numbers. Move the pointer over a column to see its numbers.</p>
-  <ul>${systems.map((sys, i) => `<li><span class="key s${i + 1}"></span> <b>${esc(sys)}</b> — ${esc(SYSTEM_HELP[sys] ?? 'A system under test.')}</li>`).join('')}</ul>
+  <ul>${systems.map((sys, i) => `<li><span class="key s${i + 1}"></span> <b>${esc(sys)}</b> — ${esc(help.systems[sys] || 'A system under test.')}</li>`).join('')}</ul>
 </div>
 <div class="tiles">${tiles}</div>
 <p class="tiles-help">Pass rate: the share of runs that passed the ${esc(primary)} grader. Higher is better.${reps > 1 ? ' Consistency: the share of repetitions that gave the same answer for a case, averaged over cases. Higher is better.' : ''}</p>
@@ -206,7 +196,7 @@ ${latChart}
   </table></div>
   <ul class="defs">
     <li><b>n</b> — the number of runs in the row.</li>
-    ${graders.map((g) => `<li><b>${esc(g)}</b> — ${esc(GRADER_HELP[g] ?? 'A grader.')} The cell shows the pass rate. A value in parentheses is the mean score, when it differs from the pass rate. Higher is better.</li>`).join('\n    ')}
+    ${graders.map((g) => `<li><b>${esc(g)}</b> — ${esc(help.graders[g] || 'A grader.')} The cell shows the pass rate. A value in parentheses is the mean score, when it differs from the pass rate. Higher is better.</li>`).join('\n    ')}
     <li><b>consistency</b> — the share of repetitions that gave the same answer for a case, averaged over cases. Shown as — with one repetition. Higher is better.</li>
     <li><b>latency s</b> — the average wall time of one run, in seconds. Lower is better.</li>
     <li><b>tokens in/out</b> — the average number of tokens sent to and received from the model per run. The proxy counts them. Lower is better.</li>

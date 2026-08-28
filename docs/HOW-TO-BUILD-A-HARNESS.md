@@ -2,10 +2,24 @@
 
 A **harness** is a system under test. It receives one case, does its work, and
 returns one output. The benchmark runs every harness in the same sandbox and
-grades every output with the same graders. This guide shows how to build one,
-run it, read the results, and tune it.
+grades every output with the graders of the benchmark. This guide shows how to
+build one, run it, read the results, and tune it.
 
-## 1. The contract
+## 1. The layout
+
+```
+src/                     core framework: runner, proxy, sandbox adapter, stats, report, chart, cli
+src/graders/             reusable graders (exact)
+harnesses/<name>/        one folder per harness: harness.json + src/entry.ts
+harnesses/lib.ts         shared protocol plumbing for harnesses without dependencies
+benchmarks/<suite>/      one folder per benchmark: benchmark.json + cases/ (+ graders.ts)
+```
+
+A harness never imports core code at runtime. A benchmark declares its graders.
+A harness declares the benchmarks it runs on. You add a harness or a benchmark
+without a change to `src/`.
+
+## 2. The contract
 
 A harness is a program that speaks a small protocol.
 
@@ -29,7 +43,7 @@ A harness is a program that speaks a small protocol.
 { "output": "the released output", "trace": { ... } }
 ```
 
-or `{ "error": "message" }`. The trace is optional but recommended. See section 4.
+or `{ "error": "message" }`. The trace is optional but recommended. See section 5.
 
 **Model access** — only through the proxy, with the token:
 
@@ -45,46 +59,95 @@ the default temperature. It counts calls and tokens. It stops a run after
 
 The harness never sees private cases, API keys, or the upstream URL.
 
-## 2. Create the harness
+## 3. Create the harness
 
-Two ways exist.
+Make a folder `harnesses/<name>/` with a manifest and an entry.
 
-**Dependency-free (plain JavaScript).** Add one file under `src/sandbox/`.
-Use `lib.mjs` for the protocol plumbing:
+**The manifest** `harness.json`:
 
-```js
-import { readInput, generateVia, respond } from './lib.mjs';
+```json
+{
+  "name": "my-harness",
+  "description": "One sentence for the chart. What does this harness do?",
+  "entry": "src/entry.ts",
+  "suites": ["legalbench", "redaction"]
+}
+```
+
+`suites` lists the benchmarks the harness runs on. The runner skips the others.
+
+**The entry**, in TypeScript. Without dependencies, use `harnesses/lib.ts`:
+
+```ts
+import { readInput, generateVia, respond } from '../../lib.js';
 
 let { publicCase: c, proxyUrl, token, model } = await readInput();
 let generate = generateVia(proxyUrl, token, model);
 try {
   respond({ output: await generate(`${c.instructions}\n\n${c.input}`) });
-} catch (err) {
+} catch (err: any) {
   respond({ error: String(err?.message ?? err) });
 }
 ```
 
 `generate(prompt, temperature?)` calls the guarded model. Leave `temperature`
-undefined to use the benchmark default. `src/sandbox/direct-entry.mjs` is the
-minimum example. `src/sandbox/placeholder-entry.mjs` is the three-stage example.
+undefined to use the benchmark default. `generateVia(proxyUrl, token, model,
+'/safety/v1')` gives a function for the safety model. `harnesses/direct` is the
+minimum example. `harnesses/placeholder` is the three-stage example.
 
-**With dependencies (TypeScript, Vercel AI SDK).** Use `harness/` as the
-template: `package.json`, `tsconfig.json`, `src/entry.ts`, and
-`docker/harness.Dockerfile`. The entry uses `createOpenAICompatible` with
-`baseURL: proxyUrl + '/v1'` (guarded) or `proxyUrl + '/safety/v1'` (safety) and
-`apiKey: token`.
+The CLI discovers the folder. There is no list to edit. A `.ts` entry runs
+under `tsx`. A `.mjs` entry runs under `node`.
 
-## 3. Register the harness
+**With dependencies** (for example the Vercel AI SDK), add `package.json`,
+`tsconfig.json`, and a `Dockerfile` to the folder, and name the image in the
+manifest:
 
-Add the harness to `available` in `src/cli.ts`:
-
-```ts
-myHarness: sandboxedSystem('my-harness', entry('my-entry.mjs')),
+```json
+{
+  "image": "cucumber-harness-my-harness",
+  "imageEntry": "/app/dist/entry.js",
+  "dockerfile": "Dockerfile"
+}
 ```
 
-For a harness with its own image, give both argv forms, as `harnessArgv` does.
+`harnesses/legal-v1` is the template. Its Dockerfile builds with `tsc` and
+keeps only production dependencies. Install its dependencies once with
+`npm --prefix harnesses/<name> ci`.
 
-## 4. The three stages and the trace
+## 4. Create a benchmark
+
+Make a folder `benchmarks/<suite>/` with a manifest and the cases.
+
+**The manifest** `benchmark.json` names the graders:
+
+```json
+{ "name": "legalbench", "graders": ["exact"] }
+```
+
+A grader is a core grader by name, or a module path such as `"./graders.ts"`.
+The module exports `{ graders }`, an array of grader objects:
+
+```ts
+let graders: Grader[] = [{
+  name: 'my-grader',
+  description: 'One sentence for the chart glossary.',
+  async grade(pub, priv, result) {
+    return { grader: 'my-grader', pass: true, score: 1, detail: 'why' };
+  },
+}];
+```
+
+`grade` is async, so a grader may call a model, read documents, or search.
+`benchmarks/redaction/graders.ts` is the example.
+
+**The cases** go in `cases/`, one pair of files per case:
+
+- `<id>.public.json` — `id`, `suite`, `task`, `instructions`, `input`, and for
+  label tasks `examples`, `question`, `choices`. Systems see only this.
+- `<id>.private.json` — `id`, `graders` (names, the first one is the primary
+  grader), and the gold data the graders need. Only graders see this.
+
+## 5. The three stages and the trace
 
 A harness with safety requirements has three stages:
 
@@ -101,31 +164,10 @@ Record each stage in the trace:
   "rawOutput": "the agent output",
   "releasedOutput": "the output after output safety",
   "stages": [
-    {
-      "name": "input-safety",
-      "module": "regex+safety-model",
-      "version": "1",
-      "policy": "pii-hybrid-v1",
-      "mode": "hybrid",
-      "findings": ["email:a@b.c", "llm:Heder"],
-      "decision": "modified"
-    },
-    {
-      "name": "agent",
-      "module": "document-task",
-      "version": "1",
-      "mode": "llm",
-      "findings": [],
-      "decision": "pass"
-    },
-    {
-      "name": "output-safety",
-      "module": "...",
-      "version": "1",
-      "mode": "hybrid",
-      "findings": [],
-      "decision": "pass"
-    }
+    { "name": "input-safety", "module": "regex+safety-model", "version": "1", "policy": "pii-hybrid-v1",
+      "mode": "hybrid", "findings": ["email:a@b.c", "llm:Heder"], "decision": "modified" },
+    { "name": "agent", "module": "document-task", "version": "1", "mode": "llm", "findings": [], "decision": "pass" },
+    { "name": "output-safety", "module": "...", "version": "1", "mode": "hybrid", "findings": [], "decision": "pass" }
   ]
 }
 ```
@@ -138,12 +180,12 @@ The graders do not trust the trace. They grade the released output and the
 prompts the proxy recorded. The trace is for you: it shows what the harness
 did on each case.
 
-## 5. The fast loop
+## 6. The fast loop
 
 Run without Docker. This uses the source files directly:
 
 ```sh
-npm run bench -- --systems harness
+npm run bench -- --systems legal-v1
 ```
 
 Set a small safety model in `.env` to make the safety calls fast:
@@ -152,7 +194,7 @@ Set a small safety model in `.env` to make the safety calls fast:
 BENCH_SAFETY_MODEL=qwen3:30b-a3b-instruct-2507-q4_K_M
 ```
 
-## 6. Read the results
+## 7. Read the results
 
 `runs/<runId>/report.md` has the numbers. The Failures list names each span
 that survived or that reached the model. That list tells you what to fix.
@@ -162,7 +204,7 @@ that survived or that reached the model. That list tells you what to fix.
 To see what the harness did on one case:
 
 ```sh
-jq 'select(.run.caseId=="pii-40813B" and .run.system=="harness")
+jq 'select(.run.caseId=="pii-40813B" and .run.system=="legal-v1")
     | {stages: .run.trace.stages, sent: .run.modelRequests, out: .run.output}' runs/<runId>/results.jsonl
 ```
 
@@ -170,14 +212,14 @@ jq 'select(.run.caseId=="pii-40813B" and .run.system=="harness")
 the guarded model. Compare `sent` with `.run.trace.source` to see what
 slipped through.
 
-## 7. Test the harness
+## 8. Test the harness
 
 `npm test` runs every harness against a mock model in under one second.
 The harness tests are in `test/sandbox.test.ts`. Add a test when you add a
 rule. The mock answers the PII-detection prompt with a fixed JSON list and
 everything else with `Yes`.
 
-## 8. The official run
+## 9. The official run
 
 When the numbers are good, build the images and run in Docker with
 repetitions:
@@ -187,18 +229,19 @@ npm run sandbox:build
 BENCH_SANDBOX=docker npm run bench -- --reps 3
 ```
 
-Each run then starts in a fresh container: read-only file system, no
-capabilities, resource caps.
+`sandbox:build` builds the shared base image and one image per harness that
+has a Dockerfile. Each run then starts in a fresh container: read-only file
+system, no capabilities, resource caps.
 
-## 9. Controls
+## 10. Controls
 
-- Tune only on development cases. The cases under `cases/` are the test set.
-  A score on cases you tuned on means less.
+- Tune only on development cases. The cases under `benchmarks/` are the test
+  set. A score on cases you tuned on means less.
 - Do not change the graders or the cases to make a harness pass.
 - Keep the model ids, temperatures, and case files fixed between the runs you
   compare. The report records them.
 
-## 10. Tuning checklist
+## 11. Tuning checklist
 
 For a PII policy:
 

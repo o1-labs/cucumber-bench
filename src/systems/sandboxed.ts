@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import type { SystemUnderTest } from '../types.js';
 
 export { sandboxedSystem, dockerArgv };
@@ -11,17 +11,21 @@ const TIMEOUT_MS = 300_000;
 // token, model} as json, stdout returns {output, trace?} or {error}. the child
 // never receives private cases, api keys, or the upstream url; usage and the
 // prompts that reached the model come from the proxy, not from the child.
-function sandboxedSystem(name: string, argv: string[]): SystemUnderTest {
+function sandboxedSystem(name: string, argv: string[], suites?: string[]): SystemUnderTest {
   // a container reaches the host proxy through the gateway name, not loopback
   let docker = argv[0] === 'docker';
   return {
     name,
+    suites,
     async run(c, ctx) {
       let token = ctx.proxy.register(`${ctx.runId}/${c.id}/rep${ctx.repetition}`);
       let proxyUrl = docker ? ctx.proxy.url.replace('127.0.0.1', 'host.docker.internal') : ctx.proxy.url;
       let payload = JSON.stringify({ publicCase: c, proxyUrl, token, model: ctx.model });
 
-      let { stdout, error } = await runChild(argv, payload);
+      // a named container can be killed on timeout; killing the docker cli alone leaves it running
+      let container = docker ? `bench-${ctx.runId}-${c.id}-r${ctx.repetition}`.replace(/[^a-zA-Z0-9_.-]/g, '-') : undefined;
+      let cmd = container ? [argv[0], argv[1], '--name', container, ...argv.slice(2)] : argv;
+      let { stdout, error } = await runChild(cmd, payload, container);
       let output = '', trace;
       if (!error) {
         try {
@@ -64,11 +68,19 @@ function dockerArgv(image: string, script: string): string[] {
 
 // internal helpers
 
-function runChild(argv: string[], stdin: string): Promise<{ stdout: string; error?: string }> {
+function runChild(argv: string[], stdin: string, container?: string): Promise<{ stdout: string; error?: string }> {
   return new Promise((resolve) => {
-    let child = spawn(argv[0], argv.slice(1), { stdio: ['pipe', 'pipe', 'pipe'] });
+    // detached: the child leads its own process group, so a timeout kills its helpers too
+    let child = spawn(argv[0], argv.slice(1), { stdio: ['pipe', 'pipe', 'pipe'], detached: true });
     let stdout = '', stderr = '';
-    let timer = setTimeout(() => child.kill('SIGKILL'), TIMEOUT_MS);
+    let timer = setTimeout(() => {
+      if (container) spawnSync('docker', ['kill', container], { stdio: 'ignore' });
+      try {
+        process.kill(-child.pid!, 'SIGKILL');
+      } catch {
+        child.kill('SIGKILL');
+      }
+    }, TIMEOUT_MS);
     child.stdout.on('data', (d) => (stdout += d));
     child.stderr.on('data', (d) => (stderr += d));
     child.on('error', (err) => {

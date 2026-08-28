@@ -24,7 +24,8 @@ async function runSuite(opts: {
   let records: Record[] = [];
   for (let system of systems) {
     for (let rep = 1; rep <= repetitions; rep++) {
-      for (let { pub, priv } of cases) {
+      let mine = system.suites ? cases.filter((c) => system.suites!.includes(c.pub.suite)) : cases;
+      for (let { pub, priv } of mine) {
         let ctx = { runId, repetition: rep, model, proxy };
         let t0 = Date.now();
         let result: Omit<RunResult, 'latencyMs'>;

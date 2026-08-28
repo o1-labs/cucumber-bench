@@ -4,4 +4,4 @@ runs/
 
 .omc
 
-*.pdfharness/dist/
+*.pdfharnesses/*/dist/

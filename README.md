@@ -4,15 +4,20 @@ Legal AI benchmark runner. It compares systems on the same fixed cases,
 every system running in the same sandbox under identical conditions:
 
 - `direct` — one plain model call, no safety stages (the baseline). The raw
-  input goes to the model. `src/sandbox/direct-entry.mjs`.
+  input goes to the model. `harnesses/direct/`.
 - `placeholder` — a cheap reference harness: regex PII scrubber around a
-  two-call agent, no dependencies (`src/sandbox/placeholder-entry.mjs`).
-- `harness` — the real legal AI harness, on the Vercel AI SDK
-  (`harness/src/entry.ts`, its own package and image). Pipeline of
+  two-call agent, no dependencies (`harnesses/placeholder/`).
+- `legal-v1` — the real legal AI harness, on the Vercel AI SDK
+  (`harnesses/legal-v1/`, its own package and image). Pipeline of
   input safety → agent → output safety, where safety is hybrid: regex for
   machine-readable identifiers, then a trusted **safety model** for names,
-  addresses and ids. A system only has to speak the stdin/stdout protocol
-  described under "Sandboxed systems".
+  addresses and ids.
+
+Layout: `src/` is the core framework only. `harnesses/<name>/` holds one
+harness each, with a `harness.json` that names its entry, image, and the
+benchmarks it runs on. `benchmarks/<suite>/` holds one benchmark each, with a
+`benchmark.json` that names its graders and a `cases/` folder. The CLI
+discovers both. See `docs/HOW-TO-BUILD-A-HARNESS.md`.
 
 Systems only see the public case. Graders compare the released output (and,
 for safety, what reached the model) with the private gold data. See
@@ -23,7 +28,7 @@ for safety, what reached the model) with the private gold data. See
 ```sh
 npm install && npm run harness:install
 npm run bench                      # all cases, all systems, 1 repetition, child-process sandbox
-npm run bench -- --systems direct --reps 3
+npm run bench -- --systems direct,legal-v1 --reps 3
 BENCH_SANDBOX=docker npm run bench # same, each run in a fresh docker container
 npm test                           # unit + pipeline tests (no model needed)
 ```
@@ -59,11 +64,12 @@ Each run writes to `runs/<runId>/`:
 ## Sandboxed systems
 
 Every system — the baseline included — is an entry script under
-`src/sandbox/` that runs in an isolated child process; with
+`harnesses/<name>/` that runs in an isolated child process; with
 `BENCH_SANDBOX=docker`, in a fresh hardened container per run (read-only fs,
-no capabilities, cpu/memory/pids caps) from one image holding only node and
-the entry scripts (plus a second image for `harness`, which needs the AI SDK).
-Build both with `npm run sandbox:build`.
+no capabilities, cpu/memory/pids caps). Harnesses without dependencies share
+one base image (node + tsx + the harness sources); a harness with
+dependencies, like `legal-v1`, names its own Dockerfile and image in its
+manifest. `npm run sandbox:build` builds all of them.
 
 The sandbox receives exactly one public case, a proxy URL, and a per-run
 token on stdin, and returns its output plus a **trace** on stdout: the four
@@ -75,9 +81,8 @@ cases, the API key, or the upstream URL: all model calls go through the
 runner's proxy (`src/proxy.ts`), which injects the real key, enforces the
 per-run call limit (`BENCH_MAX_CALLS`, default 20) and benchmark default
 settings, and records tokens/calls server-side — usage is measured, not
-self-reported. To add a harness, write an entry script (see
-`src/sandbox/direct-entry.mjs` for the minimum, `lib.mjs` for the shared
-protocol/proxy plumbing) and register it in `src/cli.ts`. Hard egress lockdown (internal docker network + proxy
+self-reported. To add a harness, make a folder under `harnesses/` with a `harness.json`
+and an entry script. See `docs/HOW-TO-BUILD-A-HARNESS.md`. Hard egress lockdown (internal docker network + proxy
 sidecar) is planned for the Linux-server deployment.
 
 ## Cases and graders
@@ -92,14 +97,14 @@ Each case is a pair of files:
 
 Suites:
 
-- `cases/legalbench/` — 9 label cases from three LegalBench tasks (hearsay,
+- `benchmarks/legalbench/` — 9 label cases from three LegalBench tasks (hearsay,
   abercrombie, personal_jurisdiction), test split of
   [nguha/legalbench](https://huggingface.co/datasets/nguha/legalbench).
-  Grader `exact`: the extracted label must equal the gold label.
-- `cases/redaction/` — 5 PII-redaction documents from
+  Grader `exact` (core): the extracted label must equal the gold label.
+- `benchmarks/redaction/` — 5 PII-redaction documents from
   [ai4privacy/pii-masking-300k](https://huggingface.co/datasets/ai4privacy/pii-masking-300k)
   (validation split; protected spans = the dataset's identifier labels, quasi-identifiers
-  such as sex, country, time dropped). Three graders measure safety and utility together:
+  such as sex, country, time dropped). Three custom graders (`benchmarks/redaction/graders.ts`) measure safety and utility together:
   `removal` — no protected span survives in the released output (strict);
   `leakage` — no protected span reached the model, measured from the proxy's
   request log, not from the harness's claims (strict);

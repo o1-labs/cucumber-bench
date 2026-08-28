@@ -1,0 +1,4 @@
+{
+  "name": "redaction",
+  "graders": ["./graders.ts"]
+}

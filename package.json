@@ -6,8 +6,8 @@
     "bench": "tsx --env-file-if-exists=.env src/cli.ts",
     "chart": "tsx --env-file-if-exists=.env src/chartCli.ts",
     "import": "tsx src/importCli.ts",
-    "sandbox:build": "docker build -f docker/sandbox.Dockerfile -t cucumber-bench-sandbox . && docker build -f docker/harness.Dockerfile -t cucumber-bench-harness .",
-    "harness:install": "npm --prefix harness ci",
+    "sandbox:build": "tsx src/buildCli.ts",
+    "harness:install": "npm --prefix harnesses/legal-v1 ci",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
