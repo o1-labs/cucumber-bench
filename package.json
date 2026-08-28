@@ -8,7 +8,7 @@
     "regrade": "tsx --env-file-if-exists=.env src/regradeCli.ts",
     "import": "tsx src/importCli.ts",
     "sandbox:build": "tsx src/buildCli.ts",
-    "harness:install": "npm --prefix harnesses/legal-v1 ci",
+    "harness:install": "for d in harnesses/*/package.json; do npm --prefix $(dirname $d) ci; done",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

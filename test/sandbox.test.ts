@@ -198,3 +198,22 @@ describe('legal-v1 (vercel ai sdk harness)', () => {
     assert.ok(result.modelRequests![0].includes('[REDACTED]'));
   });
 });
+
+describe('cite-v1 (citation harness)', () => {
+  it('step 1: should send the plain few-shot prompt with the passages, like direct', async () => {
+    let { pub } = (await loadCases('benchmarks/asqa')).find((c) => c.pub.id === 'asqa-000')!;
+    let system = sandboxedSystem('cite-v1', tsx('harnesses/cite-v1/src/entry.ts'));
+    let result = await system.run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
+    assert.equal(result.error, undefined);
+    assert.equal(result.output, 'Yes');
+    assert.equal(result.modelCalls, 1);
+    let prompt = result.modelRequests![0];
+    assert.ok(prompt.startsWith(pub.instructions));
+    assert.ok(prompt.includes('Document [1]'));
+    assert.ok(prompt.endsWith('Answer:'));
+    assert.deepEqual(result.trace?.stages.map((s) => s.mode), ['passthrough', 'llm', 'passthrough']);
+    // byte-identical to what direct sends for the same case
+    let direct = await sandboxedSystem('direct', tsx('harnesses/direct/src/entry.ts')).run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
+    assert.equal(prompt, direct.modelRequests![0]);
+  });
+});

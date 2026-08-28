@@ -5,7 +5,7 @@ import { loadBenchmarks, loadHarnesses } from '../src/manifests.js';
 describe('manifests', () => {
   it('should discover every harness with its suites and image', async () => {
     let hs = await loadHarnesses('harnesses');
-    assert.deepEqual(hs.map((h) => h.name), ['direct', 'legal-v1', 'placeholder']);
+    assert.deepEqual(hs.map((h) => h.name), ['cite-v1', 'direct', 'legal-v1', 'placeholder']);
     let legal = hs.find((h) => h.name === 'legal-v1')!;
     assert.equal(legal.image, 'cucumber-harness-legal-v1');
     assert.equal(legal.imageEntry, '/app/dist/entry.js');

@@ -4,10 +4,10 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "strict": true,
-    "noEmit": true,
+    "outDir": "dist",
+    "rootDir": "src",
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["src", "test", "harnesses", "benchmarks"],
-  "exclude": ["harnesses/legal-v1", "harnesses/cite-v1", "**/node_modules", "**/dist"]
+  "include": ["src"]
 }

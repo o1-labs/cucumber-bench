@@ -1,0 +1,9 @@
+{
+  "name": "cite-v1",
+  "description": "The citation harness. Step 1: the plain few-shot answer, same as direct. Later steps add coverage of every reading of the question and a citation check before release.",
+  "entry": "src/entry.ts",
+  "suites": ["asqa", "asqa-dev"],
+  "image": "cucumber-harness-cite-v1",
+  "imageEntry": "/app/dist/entry.js",
+  "dockerfile": "Dockerfile"
+}
