@@ -1,0 +1,14 @@
+{
+  "id": "pii-40823A",
+  "graders": [
+    "removal",
+    "leakage",
+    "retention"
+  ],
+  "protected": [
+    "Marialucia",
+    "4af6:bdf:7bf1:9547:3ce4:b12a:d4df:162b",
+    "13th August 2024",
+    "Simi"
+  ]
+}

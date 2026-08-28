@@ -1,0 +1,16 @@
+{
+  "id": "pii-40790C",
+  "graders": [
+    "removal",
+    "leakage",
+    "retention"
+  ],
+  "protected": [
+    "K@tutanota.com",
+    "VIKAS 606107 9 539",
+    "+16 079 662 2565",
+    "78T@hotmail.com",
+    "TALEB 509298 9 758",
+    "0189 621046013"
+  ]
+}

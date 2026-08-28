@@ -1,0 +1,8 @@
+{
+  "id": "pii-40813B",
+  "suite": "redaction",
+  "task": "pii-redaction",
+  "instructions": "Remove all personal data from the document: names, usernames, email addresses, phone numbers, identification, license and passport numbers, dates of birth, street addresses, and IP addresses. Replace each removed item with [REDACTED] and leave everything else unchanged.",
+  "input": "nformation:**\n\n1. Participant from Great Britain:\n   - First Name: Not Applicable\n   - Last Name: Not Applicable\n   - Country: United Kingdom\n   - Building Number: 303\n   - Street: Chipping Norton Road\n   - City: Chipping Norton\n   - State: ENG\n   - Postcode: OX7 3NT\n   - Secondary Address: Not Applicable\n   - IP Address: 1fb3:ead5:de9d:79e3:8ac6:9993:c788:8278\n\n2. Participant from Great Britain:\n   - First Name: Not Applicable\n   - Last Name: Not Applicab",
+  "_source": "ai4privacy/pii-masking-300k, validation split, id 40813B; protected = privacy_mask values with labels ['CITY', 'IP', 'POSTCODE', 'STREET']"
+}

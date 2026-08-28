@@ -1,5 +1,7 @@
 {
   "id": "hearsay-035",
-  "grader": "exact",
+  "graders": [
+    "exact"
+  ],
   "answer": "Yes"
 }

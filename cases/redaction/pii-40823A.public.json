@@ -1,0 +1,8 @@
+{
+  "id": "pii-40823A",
+  "suite": "redaction",
+  "task": "pii-redaction",
+  "instructions": "Remove all personal data from the document: names, usernames, email addresses, phone numbers, identification, license and passport numbers, dates of birth, street addresses, and IP addresses. Replace each removed item with [REDACTED] and leave everything else unchanged.",
+  "input": "Sustainability Performance Evaluation Assessment Report\n\n---\n\n**Organization Name**: [Marialucia]\n\n**IP Address**: [4af6:bdf:7bf1:9547:3ce4:b12a:d4df:162b]\n\n**Evaluation Time**: [14:31]\n\n---\n\nThe sustainability performance evaluation assessment for [Marialucia]'s organization was conducted on [13th August 2024] at [20]. \n\n---\n\n**Key Findings**:\n\n1. **Sustainability Initiatives**: [Simi] and",
+  "_source": "ai4privacy/pii-masking-300k, validation split, id 40823A; protected = privacy_mask values with labels ['DATE', 'GIVENNAME1', 'IP']"
+}

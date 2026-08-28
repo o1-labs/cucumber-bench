@@ -1,0 +1,15 @@
+{
+  "id": "pii-40793A",
+  "graders": [
+    "removal",
+    "leakage",
+    "retention"
+  ],
+  "protected": [
+    "30/09/1967",
+    "ajyrkyfiwul901050@gmail.com",
+    "231.576.7658",
+    "HF37561UG",
+    "+969.235.884 3115"
+  ]
+}

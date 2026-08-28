@@ -1,0 +1,15 @@
+{
+  "id": "pii-40805A",
+  "graders": [
+    "removal",
+    "leakage",
+    "retention"
+  ],
+  "protected": [
+    "Heder",
+    "Sanavi",
+    "1943HS",
+    "873-878-0248",
+    "HEDER 401163 9 973"
+  ]
+}

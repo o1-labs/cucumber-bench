@@ -1,0 +1,8 @@
+{
+  "id": "pii-40793A",
+  "suite": "redaction",
+  "task": "pii-redaction",
+  "instructions": "Remove all personal data from the document: names, usernames, email addresses, phone numbers, identification, license and passport numbers, dates of birth, street addresses, and IP addresses. Replace each removed item with [REDACTED] and leave everything else unchanged.",
+  "input": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<financial_filing>\n    <filing>\n        <individual>\n            <personal_info>\n                <sex>O</sex>\n                <birth_date>30/09/1967</birth_date>\n                <email>ajyrkyfiwul901050@gmail.com</email>\n                <social_number>231.576.7658</social_number>\n                <id_card>HF37561UG</id_card>\n                <telephone>+969.235.884 3115</telephone>\n                <country>GB</country",
+  "_source": "ai4privacy/pii-masking-300k, validation split, id 40793A; protected = privacy_mask values with labels ['BOD', 'EMAIL', 'IDCARD', 'SOCIALNUMBER', 'TEL']"
+}

@@ -1,5 +1,7 @@
 {
   "id": "personal_jurisdiction-000",
-  "grader": "exact",
+  "graders": [
+    "exact"
+  ],
   "answer": "No"
 }

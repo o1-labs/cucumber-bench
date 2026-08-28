@@ -1,0 +1,8 @@
+{
+  "id": "pii-40790C",
+  "suite": "redaction",
+  "task": "pii-redaction",
+  "instructions": "Remove all personal data from the document: names, usernames, email addresses, phone numbers, identification, license and passport numbers, dates of birth, street addresses, and IP addresses. Replace each removed item with [REDACTED] and leave everything else unchanged.",
+  "input": "Seasonal Planting:** Planning and executing seasonal planting to add color and variety to the grounds.\n\n**Team Members:**\n- **Contact Person A:**\n    - Email: K@tutanota.com\n    - Driver License: VIKAS 606107 9 539\n    - Phone: +16 079 662 2565\n    \n- **Contact Person B:**\n    - Email: 78T@hotmail.com\n    - Driver License: TALEB 509298 9 758\n    - Phone: 0189 621046013\n\n- **Contact Person C:**\n    - Email: xi",
+  "_source": "ai4privacy/pii-masking-300k, validation split, id 40790C; protected = privacy_mask values with labels ['DRIVERLICENSE', 'EMAIL', 'TEL']"
+}

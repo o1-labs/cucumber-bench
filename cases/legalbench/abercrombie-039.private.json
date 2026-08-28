@@ -1,5 +1,7 @@
 {
   "id": "abercrombie-039",
-  "grader": "exact",
+  "graders": [
+    "exact"
+  ],
   "answer": "suggestive"
 }
