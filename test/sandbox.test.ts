@@ -200,20 +200,20 @@ describe('legal-v1 (vercel ai sdk harness)', () => {
 });
 
 describe('cite-v1 (citation harness)', () => {
-  it('step 1: should send the plain few-shot prompt with the passages, like direct', async () => {
+  it('step 2: should plan the readings greedily, then answer with the few-shot prompt plus the coverage requirement', async () => {
     let { pub } = (await loadCases('benchmarks/asqa')).find((c) => c.pub.id === 'asqa-000')!;
     let system = sandboxedSystem('cite-v1', tsx('harnesses/cite-v1/src/entry.ts'));
     let result = await system.run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
     assert.equal(result.error, undefined);
     assert.equal(result.output, 'Yes');
-    assert.equal(result.modelCalls, 1);
-    let prompt = result.modelRequests![0];
-    assert.ok(prompt.startsWith(pub.instructions));
-    assert.ok(prompt.includes('Document [1]'));
-    assert.ok(prompt.endsWith('Answer:'));
-    assert.deepEqual(result.trace?.stages.map((s) => s.mode), ['passthrough', 'llm', 'passthrough']);
-    // byte-identical to what direct sends for the same case
+    assert.equal(result.modelCalls, 2);
+    let [plan, answer] = result.modelRequests!;
+    assert.ok(plan.includes('list the distinct readings') && plan.includes(pub.input));
+    assert.equal(seen[seen.length - 2].temperature, 0);
+    // the answer prompt is direct's prompt with the plan inserted before "Answer:"
     let direct = await sandboxedSystem('direct', tsx('harnesses/direct/src/entry.ts')).run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
-    assert.equal(prompt, direct.modelRequests![0]);
+    let expected = direct.modelRequests![0].replace(/\nAnswer:$/, '\n\nCover each of these readings in one or two sentences, each with its citations:\nYes\nAnswer:');
+    assert.equal(answer, expected);
+    assert.deepEqual(result.trace?.stages[1].findings, ['Yes']);
   });
 });
