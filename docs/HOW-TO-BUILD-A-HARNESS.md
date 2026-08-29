@@ -82,8 +82,8 @@ Make a folder `harnesses/<name>/` with a manifest and an entry.
 
 `suites` lists the benchmarks the harness runs on. The runner skips the others.
 `models` names the models the harness calls: `main` on the guarded route,
-`safety` on the safety route. Both are optional; `BENCH_MODEL` and
-`BENCH_SAFETY_MODEL` fill the gaps. The model is part of the harness: the
+`safety` on the safety route. `main` is required; `safety` defaults to `main`.
+The env never names these models. The model is part of the harness: the
 report shows which models every system actually used.
 
 **The entry**, in TypeScript. Without dependencies, use `harnesses/lib.ts`:
@@ -213,10 +213,10 @@ npm run bench -- --systems legal-v1 --suites redaction
 
 `--suites` limits the run to some benchmarks. Without it, every benchmark runs.
 
-Set a small safety model in `.env` to make the safety calls fast:
+Name a small safety model in `harness.json` to make the safety calls fast:
 
 ```
-BENCH_SAFETY_MODEL=qwen3:30b-a3b-instruct-2507-q4_K_M
+"models": { "main": "qwen/qwen3.6-35b-a3b", "safety": "qwen/qwen3-30b-a3b-instruct-2507" }
 ```
 
 ## 7. Read the results

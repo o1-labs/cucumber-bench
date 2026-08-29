@@ -3,6 +3,7 @@
   "description": "Three stages. The safety stages use regular expressions and a trusted safety model. This is the real harness.",
   "entry": "src/entry.ts",
   "suites": ["legalbench", "redaction"],
+  "models": { "main": "qwen/qwen3.6-35b-a3b" },
   "image": "cucumber-harness-legal-v1",
   "imageEntry": "/app/dist/entry.js",
   "dockerfile": "Dockerfile"

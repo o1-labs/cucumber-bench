@@ -2,5 +2,6 @@
   "name": "direct",
   "description": "One model call. The raw input goes to the model. There is no safety stage. This is the baseline.",
   "entry": "src/entry.ts",
-  "suites": ["legalbench", "redaction", "asqa", "asqa-dev", "cuad", "cuad-dev"]
+  "suites": ["legalbench", "redaction", "asqa", "asqa-dev", "cuad", "cuad-dev"],
+  "models": { "main": "qwen/qwen3.6-35b-a3b" }
 }

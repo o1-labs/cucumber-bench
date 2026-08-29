@@ -2,5 +2,6 @@
   "name": "placeholder",
   "description": "Three stages: input safety, agent, output safety. The safety stages use only regular expressions.",
   "entry": "src/entry.ts",
-  "suites": ["legalbench", "redaction"]
+  "suites": ["legalbench", "redaction"],
+  "models": { "main": "qwen/qwen3.6-35b-a3b" }
 }

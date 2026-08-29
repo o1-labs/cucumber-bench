@@ -9,15 +9,15 @@ describe('resolveModelConfig', () => {
   });
 
   it('should treat blank env values as unset', () => {
-    process.env.BENCH_MODEL = '   ';
-    assert.equal(resolveModelConfig().model, 'qwen3:8b');
+    process.env.BENCH_JUDGE_MODEL = '   ';
+    assert.equal(resolveModelConfig().judgeModel, 'qwen3:8b');
   });
 
   it('should read the env values', () => {
-    process.env.BENCH_MODEL = 'm';
+    process.env.BENCH_JUDGE_MODEL = 'm';
     process.env.BENCH_TEMPERATURE = '0.7';
     let cfg = resolveModelConfig();
-    assert.equal(cfg.model, 'm');
+    assert.equal(cfg.judgeModel, 'm');
     assert.equal(cfg.temperature, 0.7);
   });
 });

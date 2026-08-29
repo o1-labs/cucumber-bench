@@ -39,7 +39,7 @@ npm test                           # unit + pipeline tests (no model needed)
 Ownership: a **harness** names its own models in `harness.json` (`models.main`,
 `models.safety`); a **benchmark** names its judge in `benchmark.json`
 (`judge.model`); the **environment** holds providers (URLs, keys) and the
-defaults for anything a manifest leaves out. The report shows the models every
+judge default for a benchmark that names none. The report shows the models every
 system and judge actually used, as the proxy recorded them.
 
 The proxy speaks the OpenAI chat completions protocol upstream. Configure it
@@ -49,9 +49,7 @@ with environment variables, or copy `.env.example` to `.env` in the repo root
 | Variable | Default | Meaning |
 | --- | --- | --- |
 | `BENCH_BASE_URL` | `http://localhost:11434/v1` | Ollama local, or any hosted API |
-| `BENCH_MODEL` | `qwen3:8b` | default main model for a harness whose manifest names none |
-| `BENCH_SAFETY_MODEL` | same as `BENCH_MODEL` | default safety model (the `/safety/v1` route: a harness may show it raw data, and its prompts do not count as leakage) for a harness whose manifest names none |
-| `BENCH_JUDGE_MODEL` | same as `BENCH_MODEL` | default judge model (the `/judge/v1` route: graders use it, harnesses never do) for a benchmark whose manifest names none; `npm run regrade -- <run> --judge <model>` overrides every benchmark |
+| `BENCH_JUDGE_MODEL` | `qwen3:8b` | default judge model (the `/judge/v1` route: graders use it, harnesses never do) for a benchmark whose manifest names none; `npm run regrade -- <run> --judge <model>` overrides every benchmark |
 | `BENCH_JUDGE_BASE_URL`, `BENCH_JUDGE_API_KEY` | same as the main URL and key | put the judge on another provider, e.g. `https://openrouter.ai/api/v1` with an OpenRouter key |
 | `BENCH_MAX_CALLS` | `20` | model calls a harness may make per run |
 | `BENCH_MAX_JUDGE_CALLS` | `100` | judge calls the graders may make per run |
@@ -66,7 +64,8 @@ settings by what it sends in each request; the proxy fills in the defaults
 for anything it leaves out.
 
 Local default: install [Ollama](https://ollama.com), then `ollama pull qwen3:8b`.
-Hosted example: `BENCH_BASE_URL=https://openrouter.ai/api/v1 BENCH_MODEL=qwen/qwen3-32b BENCH_API_KEY=... npm run bench`.
+Hosted example: `BENCH_BASE_URL=https://openrouter.ai/api/v1 BENCH_API_KEY=... npm run bench`, with the model ids in the harness manifests.
+The main and safety models are never set in the env: every harness names them in its `harness.json`, so switching the model of one harness is an edit of that file.
 
 Each run writes to `runs/<runId>/`:
 
@@ -132,6 +131,17 @@ Suites:
   question that ALCE puts to an NLI model. Import more with
   `npx tsx benchmarks/asqa/import.ts --data <asqa_eval_gtr_top100.json> --count N --ndoc 20`.
   `benchmarks/asqa-dev/` holds 15 more questions (items 500–514) for tuning; report on `asqa` only.
+- `benchmarks/cuad/` — 100 clause questions over contracts from
+  [CUAD](https://github.com/TheAtticusProject/cuad) (Hendrycks et al. 2021, CC BY 4.0):
+  a contract of at most 6,000 words split into numbered passages of about 200 words, and
+  one question of the form "does the contract contain a Non-Compete clause?" over 12 clause
+  types; 30% of the cases ask about a clause the contract does not have. The private case holds
+  the gold clause text and the passages that contain it. Graders (`benchmarks/cuad/graders.ts`):
+  `clause-recall` — a passage that contains the clause is cited, for every clause (absent
+  clause: the answer states the absence); `clause-precision` — every cited passage contains the
+  clause (absent: nothing is cited); `citation-support` — every cited sentence is supported by
+  its passages (judge). Import with `npx tsx benchmarks/cuad/import.ts --data <CUADv1.json> --count 100`.
+  `benchmarks/cuad-dev/` holds 15 more cases from other contracts for tuning.
 
 Test cases are locked: do not tune the harness on them.
 
@@ -147,5 +157,5 @@ the average share of repetitions that give the same extracted answer per case.
 
 1. ~~Skeleton: types, case store, exact grader, model client, two systems, runner, report.~~
 2. ~~Repetitions and consistency metric, cost, LegalBench import script for more cases.~~
-3. CUAD suite with a span precision/recall grader.
+3. ~~CUAD suite with a span precision/recall grader.~~
 4. Rubric grader and custom legal workflow cases; plug in the real harness.

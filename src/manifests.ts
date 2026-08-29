@@ -15,7 +15,7 @@ type HarnessManifest = {
   entry: string; // relative to dir; .ts runs under tsx, .mjs under node
   description?: string;
   suites: string[]; // the benchmarks this harness runs on
-  models?: { main?: string; safety?: string }; // the harness's own model choice; env defaults fill the gaps
+  models: { main: string; safety?: string }; // the harness's models: main on the guarded route, safety on the safety route (default: main)
   image: string; // docker image; the shared base image unless the harness has its own
   imageEntry: string; // the entry path inside the image
   dockerfile?: string; // relative to dir; present when the harness builds its own image
@@ -37,6 +37,7 @@ async function loadHarnesses(root: string): Promise<HarnessManifest[]> {
   for (let dir of await subdirs(root)) {
     let m = JSON.parse(await readFile(join(dir, 'harness.json'), 'utf8'));
     assert(m.name && m.entry && Array.isArray(m.suites), `${dir}/harness.json needs name, entry, suites`);
+    assert(typeof m.models?.main === 'string', `${dir}/harness.json needs models.main: the harness names its own model`);
     out.push({ dir, image: 'cucumber-harness-base', imageEntry: `/app/${m.name}/${m.entry}`, ...m });
   }
   return out;

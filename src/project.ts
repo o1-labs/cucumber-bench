@@ -28,10 +28,10 @@ async function loadProject(opts: { judgeOverride?: string } = {}): Promise<Proje
   let cases = await loadCases('benchmarks');
   let graders = benchmarks.flatMap((b) => b.graders);
 
-  // a harness names its models; the env supplies defaults for what it leaves out
+  // a harness names its models; the safety model defaults to the main one
   let systems = new Map(
     harnesses.map((h) => {
-      let models = { main: h.models?.main ?? cfg.model, safety: h.models?.safety ?? h.models?.main ?? cfg.safetyModel };
+      let models = { main: h.models.main, safety: h.models.safety ?? h.models.main };
       return [h.name, sandboxedSystem(h.name, argvFor(h), models, h.suites)];
     }),
   );
