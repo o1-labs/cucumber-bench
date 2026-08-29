@@ -15,12 +15,22 @@ const VERSION = '4';
 // a sentence must not merge facts from different documents
 const RULES =
   'State only facts that the documents state. Do not add details, dates or qualifiers the documents do not contain. ' +
-  'Use the wording of the documents. Put facts from different documents in separate sentences, each with its own citation.';
+  'Use the wording of the documents. Put facts from different documents in separate sentences, each with its own citation. ' +
+  'If a document gives a fact as the claim or statement of a person, say who made the claim.';
 
+// the check must return a minimal set: the graders count a citation as redundant when the
+// other cited passages already support the sentence
 const VERIFY_PROMPT =
-  'Below are numbered passages and one claim. List the numbers of the passages that together support ' +
-  'every fact in the claim. Every fact, date and qualifier in the claim must be stated in the passages. If any part is not, answer none. Use the smallest set that is enough. Answer only with the numbers as [n], ' +
-  'for example [2] or [1][4]. If no passage supports the claim, answer none.\n\n';
+  'Below are numbered passages and one claim. Decide which passages support the claim.\n' +
+  'Rules:\n' +
+  '- A passage supports the claim only if it states every fact, date and qualifier in the claim.\n' +
+  '- A fact that a passage gives as the claim, statement or opinion of a person does not support ' +
+  'the same fact stated as plain fact.\n' +
+  '- If one passage alone supports the claim, answer with that one number only, for example [2].\n' +
+  '- Answer with several numbers, for example [1][4], only if no single passage supports the claim ' +
+  'and each listed passage is necessary.\n' +
+  '- If no passage or set of passages supports the claim, answer none.\n' +
+  'Answer only with the numbers or none.\n\n';
 
 type Doc = { title: string; text: string };
 type PublicCase = {

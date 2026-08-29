@@ -28,7 +28,7 @@ async function mockUpstream(): Promise<Mock> {
       let prompt = (body.messages ?? []).map((m: any) => m.content).join('\n');
       let content = prompt.includes('Return only a JSON array')
         ? '["Heder", "Sanavi"]'
-        : prompt.includes('List the numbers of the passages')
+        : prompt.includes('Decide which passages support the claim')
           ? (prompt.includes('Claim: Alpha') ? '[2][7]' : 'none')
           : prompt.includes('Answer:')
             ? 'Alpha holds the record [1][2][3]. Beta is unsupported [4].'
