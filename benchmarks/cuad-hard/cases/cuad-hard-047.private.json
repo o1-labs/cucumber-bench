@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-047",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Licensee hereby acknowledges the validity of Licensor's Trademarks and Licensor's exclusive right, title and interest in and to the Trademarks.",
+      "passages": [
+        60
+      ]
+    }
+  ]
+}

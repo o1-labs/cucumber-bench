@@ -2,12 +2,7 @@
   "name": "cite-v1",
   "description": "The citation harness. Step 4: the same answer as direct, then a greedy check of every sentence: the citations become the smallest set of passages that supports it, and a sentence no passage supports is dropped.",
   "entry": "src/entry.ts",
-  "suites": [
-    "asqa",
-    "asqa-dev",
-    "cuad",
-    "cuad-dev"
-  ],
+  "suites": ["asqa", "asqa-dev", "cuad", "cuad-dev", "cuad-hard", "cuad-hard-dev"],
   "models": { "main": "qwen/qwen3.6-35b-a3b" },
   "image": "cucumber-harness-cite-v1",
   "imageEntry": "/app/dist/entry.js",

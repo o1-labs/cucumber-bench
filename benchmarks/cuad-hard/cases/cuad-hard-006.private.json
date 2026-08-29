@@ -1,0 +1,28 @@
+{
+  "id": "cuad-hard-006",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Women.com acknowledges that eDiets owns all right, title and interest in and to the eDiets Content, and Women.com shall not now or in the future contest the validity of the eDiets' ownership rights in and to the eDiets Content.",
+      "passages": [
+        11
+      ]
+    },
+    {
+      "text": "At no time during the term of the Agreement or thereafter shall Women.com attack, challenge or file any application with respect to any eDiets Mark.",
+      "passages": [
+        15
+      ]
+    },
+    {
+      "text": "At no time during the term of the Agreement or thereafter shall eDiets attack, challenge or file any application with respect to any Women.com Mark.",
+      "passages": [
+        15
+      ]
+    }
+  ]
+}

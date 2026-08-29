@@ -1,0 +1,28 @@
+{
+  "id": "cuad-hard-017",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "RevMed shall pay Sanofi such royalties until the earlier of (x) expiration of the Post-Termination Royalty Term therefor and (y) a Change of Control of Sanofi.",
+      "passages": [
+        125
+      ]
+    },
+    {
+      "text": "RevMed will notify Sanofi in writing as soon as possible after RevMed announces publicly any information regarding any proposed Change of Control of RevMed (or if the Change of Control will not be publicly announced, then no later than [***] after the signing of the Change of Control).",
+      "passages": [
+        118
+      ]
+    },
+    {
+      "text": "Sanofi will have the option to either (A) terminate this Agreement in its entirety upon written notice to RevMed provided to RevMed within [***] of the effective date of such Change of Control; or (B) [***].",
+      "passages": [
+        118
+      ]
+    }
+  ]
+}

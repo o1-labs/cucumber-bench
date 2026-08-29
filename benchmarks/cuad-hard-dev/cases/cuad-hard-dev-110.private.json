@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-dev-110",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "In case of violation of this article, the Party shall pay to the other Party an equivalent of eighteen (18) months gross salary of the respective employee.",
+      "passages": [
+        43
+      ]
+    }
+  ]
+}

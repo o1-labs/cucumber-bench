@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-080",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "(b) an Operator Change of Control;",
+      "passages": [
+        13
+      ]
+    },
+    {
+      "text": "Owner may terminate this Agreement at any time upon the occurrence of any of the following:",
+      "passages": [
+        11
+      ]
+    }
+  ]
+}

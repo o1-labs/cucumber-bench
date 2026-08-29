@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-074",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "In the event the closing does not occur, the Conversion is terminated or otherwise abandoned, or the terms of the Conversion are substantially amended so as to materially and adversely change the role of Capital Resources, Capital Resources shall be reimbursed for all reasonable legal fees and out-of-pocket expenses for rendering financial advice to the Association concerning the structure of the Conversion, preparing a market and financial analysis, performing due diligence and assisting in the preparation of the Application for Conversion and the Registration Statement, which shall be paid upon such termination, abandonment or amendment or within five days of such event.",
+      "passages": [
+        5
+      ]
+    }
+  ]
+}

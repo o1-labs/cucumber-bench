@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-046",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Such sums of money will be paid by HealthGate to the Publishers not as a penalty but as and for the ascertained and liquidated damages owing and payable by HealthGate to the Publishers by reason of such failure to meet the System Completion Date.",
+      "passages": [
+        4
+      ]
+    },
+    {
+      "text": "If HealthGate fails to complete the System development by the System Completion Date, unless such failure results from the Publishers' default in performing its obligations under this Agreement or from an extension of time agreed in writing, the Publishers may in their discretion notify HealthGate accordingly, and if such failure is not remedied within 28 calendar days, HealthGate, recognising the loss caused to the Publishers, will on demand from the Publishers pay to the Publishers a sum calculated at the rate of 1% of the value of the contract in respect of every 28 days which elapse from the System Completion Date to the actual date of completion of the System. Such sums of money will be paid by HealthGate to the Publishers not as a penalty but as and for the ascertained and liquidated damages owing and payable by HealthGate to the Publishers by reason of such failure to meet the System Completion Date.",
+      "passages": [
+        4
+      ]
+    }
+  ]
+}

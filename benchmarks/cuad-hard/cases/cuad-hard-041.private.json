@@ -1,0 +1,28 @@
+{
+  "id": "cuad-hard-041",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Roche shall exclusively own, and FMI shall assign to Roche, all intellectual property arising from the Immunotherapy Testing Platform Development that Covers methods of treatment, stratifying patients, or identifying patients that would benefit from a particular treatment, and all other methods useful in connection with the therapeutic treatment of a patient.",
+      "passages": [
+        70
+      ]
+    },
+    {
+      "text": "Roche shall exclusively own all information, results, and intellectual property from Advanced Genomic Analyses performed on Roche samples (\"Roche-Owned Advanced Genomic Analysis Results\"), and any inventions arising from the Roche-Owned Advanced Genomic Analysis Results, and FMI will assign all rights to any such inventions to Roche (except for FMI Improvements).",
+      "passages": [
+        70
+      ]
+    },
+    {
+      "text": "FMI shall assign to Roche its rights to any intellectual property in or arising from the Sample Results (except for FMI Improvements).",
+      "passages": [
+        70
+      ]
+    }
+  ]
+}

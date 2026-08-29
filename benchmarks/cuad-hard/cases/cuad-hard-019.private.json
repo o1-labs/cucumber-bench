@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-019",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "During the term hereof, any division, merger, dissolution, liquidation, bankruptcy or other events that lead to changes of Party B in the company nature, qualification and capacity for civil acts shall be notified to Party A in time, and subject to the provisions hereunder about the exit grace period.",
+      "passages": [
+        44
+      ]
+    },
+    {
+      "text": "In case of division or merger of Party B, this Agreement shall terminate, and the successor company (or other entity) to Party B's wireless value added business hereunder shall re-apply for business opening to Party A, and timely modify Party B's enterprise identifier code and other information existing on Party A's business system or other business management system.",
+      "passages": [
+        44
+      ]
+    }
+  ]
+}

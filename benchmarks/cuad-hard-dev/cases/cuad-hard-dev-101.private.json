@@ -1,0 +1,34 @@
+{
+  "id": "cuad-hard-dev-101",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "The right, title and interest in and to the Company-Skype Branded Content shall be owned by Skype to the extent made up of the Skype Rights which have been integrated into the Company-Skype Branded Content, and by the Online Group to the extent made up of the Group Rights which have been integrated into the Company-Skype Branded Content.",
+      "passages": [
+        29
+      ]
+    },
+    {
+      "text": "The Company and Online BVI each assign to Skype, with full title guarantee, all copyrights, patents, trade marks, service marks, rights of publicity, authors' rights, contract and licensing rights, goodwill and all other intellectual property rights in and to the foregoing translations as may exist now and/or hereafter come into existence and arising under the laws of any jurisdiction for the entire term of such rights and all renewals, revivals and extensions thereof.",
+      "passages": [
+        28
+      ]
+    },
+    {
+      "text": "if such rights comprise any data specifically provided to the Group by Customers during the billing process (\"Billing Data\"), then such rights shall be owned exclusively by the Online Group and neither Skype nor the Company will grant, nor claim for itself or its affiliated entities, independent contractors, or employees, either expressly or impliedly, any rights, title, interest, or licenses to such rights and each assigns to Online BVI, with full title guarantee, all copyrights, patents, trade marks, service marks, rights of publicity, authors' rights, contract and licensing rights, goodwill and all other intellectual property rights in and to the same as may exist now and/or hereafter come into existence and arising under the laws of any jurisdiction for the entire term of such rights and all renewals, revivals and extensions thereof.",
+      "passages": [
+        30
+      ]
+    },
+    {
+      "text": "if such rights comprise (i) intellectual property that constitutes predominantly communication software or related communication hardware or other technology, including without limitation, any upgrades and Improvements thereof, or (ii) any \"user\" names, and other \"user profile\" information included within the Company-Skype Branded Application (i.e., dates of birth, addresses, languages spoken, etc.), of Company-Skype Branded Customers collected as part of the registration process for the Company-Skype Branded Application (it being understood that Skype will make such user information available to Online BVI and the Company for use consistent with the applicable privacy policies and the EULA) and any database incorporating the same, then such rights shall be owned exclusively by Skype and neither Online BVI nor the Company will grant, nor claim for itself or its affiliated entities, independent contractors, or employees, either expressly or impliedly, any rights, title, interest, or licenses to such rights and each assigns to Skype, with full title guarantee, all copyrights, patents, trade marks, service marks, rights of publicity, authors' rights, contract and licensing rights, goodwill and all other intellectual property rights in and to the same as may exist now and/or hereafter come into existence and arising under the laws of any jurisdiction for the entire term of such rights and all renewals, revivals and extensions thereof.",
+      "passages": [
+        29
+      ]
+    }
+  ]
+}

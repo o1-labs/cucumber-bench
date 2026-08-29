@@ -1,0 +1,76 @@
+{
+  "id": "cuad-hard-029",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Promptly after any public announcement regarding any proposed transaction that would result in a Change in Circumstances, Buyer/Buyer Affiliates shall notify Seller/ExxonMobil Selling Affiliates, in writing, of the nature of such transaction, the parties thereto and the proposed date of consummation",
+      "passages": [
+        12
+      ]
+    },
+    {
+      "text": "If Seller elects to exercise any of its rights under the preceding paragraph, Seller shall so notify Buyer, in writing, within forty-five (45) days after receipt of Buyer's notice.",
+      "passages": [
+        20
+      ]
+    },
+    {
+      "text": "As used above, \"Change in Circumstances\" means any of the following: (i) any transaction, or series of transactions, that would result in the transfer of at least twenty-five percent (25%) of the equity interest in Buyer/Buyer Affiliates (or of at least twenty-five percent (25%) of the equity interest in any business entity that owns or controls, directly or indirectly, at least fifty percent (50%) of the equity interest in Buyer/Buyer Affiliates (\"Buyer's Parent\")) to a single transferee or multiple transferees under common control; (ii) any transaction that would result in Buyer's /Buyer Affiliates' (or Buyer's Parent's) merging with one or more other entities; or (iii) any transaction not in the ordinary course of Buyer's/Buyer Affiliates (or Buyer's Parent's) business that calls for the sale, purchase or other transfer of one or more significant assets, including (without limitation) manufacturing facilities and ownership interests in other business entities.",
+      "passages": [
+        13
+      ]
+    },
+    {
+      "text": "Promptly after any public announcement regarding any proposed transaction that would result in a Change in Circumstances, Buyer shall notify Seller, in writing, of the nature of such transaction, the parties thereto and the proposed date of consummation.",
+      "passages": [
+        20
+      ]
+    },
+    {
+      "text": "Together with such notification, the Affected Party will supply the other party with sufficient information to allow that other party to reasonably assess the impact that such Change of Control may have on it and/or its Affiliates, on the Affected Party's creditworthiness, and on the Affected Party's ability to perform its obligations under this Agreement.",
+      "passages": [
+        54
+      ]
+    },
+    {
+      "text": "In the event that the other party concludes in its sole discretion that such Change of Control, if it is implemented: (a) may result in it and/or its Affiliates being subjected to any fact, matter, event, circumstance, condition or change which materially and adversely affects, or could reasonably be expected to materially and adversely affect, individually or in aggregate, the business, operations, assets, liabilities, condition (whether financial, trading or otherwise), prospects or operating results of it and/or its Affiliates; (b) that the Affected Party's creditworthiness may be reduced; and/or (c) that the Affected Party's ability to perform its obligations under the Agreement may be negatively affected; then the other party may (but is not obliged to) terminate this Agreement forthwith upon notice to the Affected Party. Such termination is without prejudice to the rights and obligations of the parties that have accrued up to and including the date of termination.",
+      "passages": [
+        54
+      ]
+    },
+    {
+      "text": "If Seller/ExxonMobil Selling Affiliates elects to exercise any of its rights under the preceding paragraph, Seller/ExxonMobil Selling Affiliates shall so notify Buyer/Buyer Affiliates, in writing, within forty-five (45) days after receipt of Buyer's/Buyer Affiliates' notice.",
+      "passages": [
+        12
+      ]
+    },
+    {
+      "text": "In connection with any Change in Circumstances (as defined below), and without limiting Seller's other rights under this Agreement or applicable law, Seller shall have the right: (i) to terminate this Agreement and accelerate all amounts due from Buyer hereunder, making them immediately payable; (ii) to modify the payment terms hereunder; and/or (iii) to require Buyer to pay in advance for shipments hereunder.",
+      "passages": [
+        19
+      ]
+    },
+    {
+      "text": "Notwithstanding anything to the contrary in Attachments A, G or H, in connection with any Change in Circumstances (as defined below), and without limiting Seller's/ExxonMobil Selling Affiliate's other rights under this Agreement or applicable law, Seller/ExxonMobil Selling Affiliates shall have the right: (i) only if required to enable Seller/ExxonMobil Selling Affiliate to comply with applicable laws and regulations, to terminate this Agreement and accelerate all amounts due from Buyer hereunder, making them immediately payable (ii) to modify the payment terms hereunder; and/or (iii) to require that Buyer/Buyer Affiliates pay in advance for shipments hereunder.",
+      "passages": [
+        12
+      ]
+    },
+    {
+      "text": "To the extent permitted by law, in the event that a party becomes aware that it will or may undergo a Change of Control (\"Affected Party\") within the following three (3) Months, the Affected Party will notify the other party without delay after it becomes so aware.",
+      "passages": [
+        53
+      ]
+    },
+    {
+      "text": "As used above, \"Change of Control\" means any of the following: (i) any transaction, or series of transactions, that would result in the transfer of at least fifty percent (50%) of the equity interest in a party (or of at least fifty percent (50%) of the equity interest in any business entity that owns or controls, directly or indirectly, at least fifty percent (50%) of the equity interest in a party (\"Party's Parent\")) to a single transferee or multiple transferees under common control; (ii) any transaction that would result in a Party's (or Party's Parent's) merging with one or more other entities.",
+      "passages": [
+        55
+      ]
+    }
+  ]
+}

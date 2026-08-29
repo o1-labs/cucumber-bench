@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-010",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "in (a) or (b) above, the otherwise applicable royalty rate with respect to Products shall thereafter be [ * ] for the [ * ]",
+      "passages": [
+        144
+      ]
+    },
+    {
+      "text": "In the event that Array (a) [ * ] during [ * ], or (b) intentionally conceals or falsifies a material result and/or material item of data concerning the safety or efficacy of the Product, which concealment or falsification (i) is undertaken to induce Ono to not terminate this Agreement and (ii) results in a substantial reduction to the value of the Product in the Ono Territory, then, as an alternative to its right to terminate this Agreement pursuant to Section 13.3 above, Ono may in its discretion elect to continue this Agreement, in which case (A) Ono shall be relieved of its due diligence obligations under this Agreement; and (B) as liquidated damages for the breaches described",
+      "passages": [
+        144
+      ]
+    }
+  ]
+}

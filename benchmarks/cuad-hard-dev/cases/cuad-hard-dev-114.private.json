@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-dev-114",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "For purposes of the preceding sentence, Licensor will be deemed to have reasonably withheld its consent to a Change of Control if any person or entity who would acquire direct or indirect control (as defined below) of Licensee pursuant to such Change of Control then conducts a business that is directly or indirectly competitive with a business then conducted by Licensor or any of its Affiliates and/or Licensor reasonably believes that Licensor's interests will be adversely effected by the continuing of this Agreement upon such a Change in Control.",
+      "passages": [
+        24
+      ]
+    },
+    {
+      "text": "Upon the occurrence of any Change of Control (as defined below) this Agreement and all Licensee's rights and licenses hereunder shall automatically terminate unless, prior to the occurrence of such Change of Control, Licensor has consented to such Change of Control in a writing executed by an officer of Licensor; provided that Licensor will not unreasonably withhold its consent to the consummation of a Change of Control.",
+      "passages": [
+        24
+      ]
+    }
+  ]
+}

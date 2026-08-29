@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-dev-113",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "In the event of a Change of Control of the Licensee, the Agreement may be terminated by Licensor with immediate effect without any compensation to Licensee or to any other parties.",
+      "passages": [
+        34
+      ]
+    },
+    {
+      "text": "In the event of a Change of Control of the Licensor, the Agreement may be terminated by Licensee",
+      "passages": [
+        34
+      ]
+    }
+  ]
+}

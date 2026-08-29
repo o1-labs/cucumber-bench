@@ -1,0 +1,34 @@
+{
+  "id": "cuad-hard-001",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Franchisor reserves the right to approve or disapprove any Transfer as its sole and absolute right.",
+      "passages": [
+        29
+      ]
+    },
+    {
+      "text": "For purposes of this Section, a sale of stock, or any membership or partnership interest in Developer, or a merger or other combination of Developer shall be considered a transfer of Developer's interest prohibited hereunder.",
+      "passages": [
+        24
+      ]
+    },
+    {
+      "text": "The following events shall constitute a default by Developer, which shall result in El Pollo Loco's right to declare the termination of this Agreement, if such default is not cured within thirty (30) days after written notice by Franchisor to Developer:",
+      "passages": [
+        28
+      ]
+    },
+    {
+      "text": "d. Any change, transfer or conveyance (\"Transfer\") in the ownership of Developer, which Transfer has not been approved in advance by Franchisor.",
+      "passages": [
+        29
+      ]
+    }
+  ]
+}

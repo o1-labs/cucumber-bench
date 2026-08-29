@@ -22,6 +22,8 @@ describe('manifests', () => {
       ['asqa-dev', ['str-em', 'citation-recall', 'citation-precision']],
       ['cuad', ['clause-recall', 'clause-precision', 'citation-support']],
       ['cuad-dev', ['clause-recall', 'clause-precision', 'citation-support']],
+      ['cuad-hard', ['clause-recall', 'clause-precision', 'citation-support']],
+      ['cuad-hard-dev', ['clause-recall', 'clause-precision', 'citation-support']],
       ['legalbench', ['exact']],
       ['redaction', ['removal', 'leakage', 'retention']],
     ]);

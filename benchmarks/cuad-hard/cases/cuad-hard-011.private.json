@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-011",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Without affecting Section 10 or the respective obligations of the parties under the Confidentiality Agreement and except for any liability (i) relating to any breach associated with the unauthorized use of Intellectual Property, (ii) arising from the intentional breach or willful misconduct of a party, or (iii) arising from the non-compliance with any mandatory applicable law or regulation, the total aggregate liability of one party to another party for any claim relating to any breach of this Agreement (or any Purchase Order or other agreement entered into in connection with this Agreement) (a \"Claim\") shall be limited to the aggregate amount of the purchase prices paid by Distributor to Accuray for Products pursuant to this Agreement (or any Purchase Order or other Agreement entered into in connection with this Agreement) during the twelve calendar months preceding the date of the notification to the other party of such Claim less any amounts paid or payable in respect of any other Claim of which the other party was notified during such twelve month period.",
+      "passages": [
+        41
+      ]
+    },
+    {
+      "text": "WITHOUT AFFECTING STRICT PRODUCT LIABILITY UNDER MANDATORY APPLICABLE LAW, SECTION 10, OR THE RESPECTIVE OBLIGATIONS OF THE PARTIES UNDER THE CONFIDENTIAILITY AGREEMENT AND EXCEPT FOR BREACHES ASSOCIATED WITH THE UNAUTHORIZED USE OF INTELLECTUAL PROPERTY, IN NO EVENT SHALL EITHER PARTY BE LIABLE TO THE OTHER PARTY FOR SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR TORT DAMAGES, INCLUDING WITHOUT LIMITATION, ANY DAMAGES RESULTING FROM LOSS OF USE, LOSS OF DATA, LOSS OF PROFITS OR LOSS OF BUSINESS ARISING OUT OF OR IN CONNECTION WITH THE MATTERS CONTEMPLATED BY THIS AGREEMENT, WHETHER OR NOT A PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.",
+      "passages": [
+        40
+      ]
+    }
+  ]
+}

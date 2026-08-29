@@ -1,0 +1,28 @@
+{
+  "id": "cuad-hard-051",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "(c) the Intellectual Property Rights are Performer Foreground-Undelivered IPR conceived or created in the course of services concerning which the Assignor Party or another member of the Assignor Group was the Requester, and the Assignee Party or another member of the Assignee Group was the Performer (collectively, \"Assigned Intellectual Property Rights\").",
+      "passages": [
+        13
+      ]
+    },
+    {
+      "text": "Without limiting the foregoing, and subject to Section 4.2, Otis and Carrier, on behalf of themselves and the other members of, respectively, the Otis Group and the Carrier Group, hereby irrevocably assign to UTC, and agree and promise to assign to UTC, (a) any and all rights, title and interest in and to the United Technologies Trademarks, including all goodwill appurtenant thereto held by them and the other members of the Otis Group and the Carrier Group, and (b) any and all registrations and applications for registration of Trademarks consisting of or containing any of the United Technologies Trademarks, anywhere in the world, to which Otis, Carrier or another member of the Otis Group or the Carrier Group holds a legal or equitable interest as of the Effective Time.",
+      "passages": [
+        17
+      ]
+    },
+    {
+      "text": "Subject to Section 3.2, each Assignor Party, on behalf of itself and the other members of the Assignor Group, hereby irrevocably assigns to the applicable Assignee Party, and agrees to irrevocably assign to the applicable Assignee Party, all of its and the other members of the Assignor Group's rights, title and interest in and to any and all Intellectual Property Rights owned by the Assignor Party or another member of the Assignor Group that meets one or more of the following descriptions: (a) the Intellectual Property Rights are Requester Foreground IPR conceived or created in the course of services concerning which the Assignee Party or another member of the Assignee Group was the Requester, and the Assignor Party or another member of the Assignor Group was the Performer; or (b) the Intellectual Property Rights are Performer Foreground-Delivered IPR conceived or created in the course of services concerning which the Assignee Party or another member of the Assignee Group was the Requester, and the Assignor Party or another member of the Assignor Group was the Performer; or",
+      "passages": [
+        13
+      ]
+    }
+  ]
+}

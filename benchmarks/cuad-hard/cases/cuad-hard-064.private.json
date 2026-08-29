@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-064",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "JANA agrees that, from the date of this Agreement until the earliest of (i) the date that is thirty (30) calendar days prior to any applicable deadline by which a shareholder must give notice to the Company of its intention to nominate a director for election at or bring other business before the 2015 Annual Meeting under the Company's By­Laws and (ii) any material breach of this Agreement by the Company (provided that the Company shall have three (3) business days following written notice from JANA of material breach to remedy such material breach if capable of remedy) (such period, the \"Cooperation Period\"), neither it nor any of its Affiliates or Associates will in any manner, directly or indirectly, make, or cause to be made, or in any way encourage any other person to make or cause to be made, any statement or announcement that relates to and constitutes an ad hominem attack on, or relates to and otherwise disparages, the Company, any of its officers or directors or any person who has served as an officer or director of the Company, including: (i) in any document or report filed with or furnished to the Securities and Exchange Commission (the \"SEC\") or any other governmental agency, (ii) in any press release or other publicly available format or (iii) to any journalist or member of the media (including without limitation, in a television, radio, newspaper or magazine interview), or otherwise; provided, that if the Company makes any material announcement prior to the March Board Meeting, JANA will be permitted to make objective statements that solely reflect JANA's view, as a shareholder, with respect to such announcement.",
+      "passages": [
+        7
+      ]
+    },
+    {
+      "text": "The Company agrees that, from the date of this Agreement until the earliest of (i) the date that is thirty (30) calendar days prior to any applicable deadline by which a shareholder must give notice to the Company of its intention to nominate a director for election at or bring other business before the 2015 Annual Meeting under the Company's By­Laws and (ii) any material breach of this Agreement by JANA (provided that JANA shall have three (3) business days following written notice from the Company of material breach to remedy such material breach if capable of remedy), neither it nor any of its Affiliates or Associates will in any manner, directly or indirectly make, or cause to be made, or in any way encourage any other person to make or cause to be made, any statement or announcement that relates to and constitutes an ad hominem attack on, or relates to and otherwise disparages, JANA, any of its members, officers or directors or any person who has served as a member, officer or director of JANA, including: (i) in any document or report filed with or furnished to the SEC or any other governmental agency, (ii) in any press release or other publicly available format or (iii) to any journalist or member of the media (including without limitation, in a television, radio, newspaper or magazine interview), or otherwise.",
+      "passages": [
+        8
+      ]
+    }
+  ]
+}

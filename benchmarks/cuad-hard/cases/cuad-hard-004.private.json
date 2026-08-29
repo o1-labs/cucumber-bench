@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-004",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "A Party may assign the whole of its rights under this Agreement to a successor by law, Subsidiary or Affiliate of such Party, or a corporation or an entity jointly controlling or under the same common control as such Party, provided that the assigning Party shall remain jointly and severally liable with the assignee for the performance of this Agreement for the duration of the Agreement.",
+      "passages": [
+        53
+      ]
+    }
+  ]
+}

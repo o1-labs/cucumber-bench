@@ -1,0 +1,40 @@
+{
+  "id": "cuad-hard-009",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "EFS hereby irrevocably assigns, and Client hereby accepts, all right, title and interest in and to each and every Authorized Modification, and EFS agrees to cooperate with all reasonable requests by Client to effect or perfect such assignment.",
+      "passages": [
+        50
+      ]
+    },
+    {
+      "text": "In the event that EFS creates any modifications, alterations or other derivative works of any Playboy Content (\"Derivative Works\"), EFS hereby irrevocably assigns to Client all right, title and interest in and to all of those Derivative Works, including the copyrights and other proprietary rights therein.",
+      "passages": [
+        47
+      ]
+    },
+    {
+      "text": "To the extent that EFS is deemed to obtain any interest or ownership rights in the Client Property, EFS hereby assigns, transfers and conveys to Client, to the maximum extent permitted by applicable Law, all of EFS' right, title and interest therein used or created by EFS under or in connection with this Agreement so that Client will be the sole owner of all rights therein and further agrees to cooperate with Client during and after the Term to effect and perfect all assignments.",
+      "passages": [
+        56
+      ]
+    },
+    {
+      "text": "To the extent that Client is deemed to obtain any interest or ownership rights in the EFS Property, Client hereby assigns, transfers and conveys to EFS, to the maximum extent permitted by applicable Law, all of Client's right, title and interest therein used by Client under or in connection with this Agreement so that EFS will be the sole owner of all rights therein and further agrees to cooperate with EFS during and after the Term to effect and perfect all assignments.",
+      "passages": [
+        55
+      ]
+    },
+    {
+      "text": "Client shall own all content produced pursuant to Section 1.1(f) (whether or not actually used), and EFS hereby assigns to Client all right, title and interest, including all rights in copyright, in and to the photographs and materials, and agrees to cooperate with all reasonable requests by Client, and take all reasonable actions, to effect or perfect such assignment.",
+      "passages": [
+        9
+      ]
+    }
+  ]
+}

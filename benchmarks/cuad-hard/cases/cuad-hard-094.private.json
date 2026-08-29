@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-094",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "For each Default Month, the Party in default shall pay a penalty equal to five (5) times the Party not in default's corporate average yield during the Default Month for each shipment below the performance commitment",
+      "passages": [
+        19
+      ]
+    },
+    {
+      "text": "In the event a Party has, in any twelve (12) month period, more than three (3) Monthly Performance Failures, then the defaulting Party shall pay a penalty to the Party not in default, which the Parties acknowledge is a pre-estimation of damages suffered by the non-defaulting Party due to the current month's Monthly Performance Failure (\"Default Month\").",
+      "passages": [
+        19
+      ]
+    }
+  ]
+}

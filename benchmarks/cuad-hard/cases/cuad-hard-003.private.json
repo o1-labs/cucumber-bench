@@ -1,0 +1,34 @@
+{
+  "id": "cuad-hard-003",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Subject to Section 17(c), in no event shall either Party be liable to the other for any consequential, incidental, exemplary or punitive damages even if advised in advance of the possibility of such damages.",
+      "passages": [
+        49
+      ]
+    },
+    {
+      "text": "Notwithstanding Sections 17(a) and 17(b), neither Party excludes or limits any liability for: (i) personal injury or death to the extent that such injury or death results from the negligence or wilful misconduct of a Party or its employees or subcontractors; (ii) fraud, fraudulent misrepresentation or fraudulent concealment; (iii) the Party's obligations set out in Sections 2(c), 5(b), 5(c), 6(b), 11, 13 or 16; (iv) CHT's payment obligations under Section 7; or (v) willful misconduct or gross negligence.",
+      "passages": [
+        49
+      ]
+    },
+    {
+      "text": "Further, subject to Section 17(c), neither Party shall not be liable to the other Party for any lost revenue, lost profit or lost savings.",
+      "passages": [
+        49
+      ]
+    },
+    {
+      "text": "Subject to Section 17(c), in no event shall either Party's liability under this Agreement exceed the aggregate of all amounts paid under this Agreement and amounts that have accrued but not yet been paid in the twelve (12) months preceding the event giving rise to the claim.",
+      "passages": [
+        49
+      ]
+    }
+  ]
+}

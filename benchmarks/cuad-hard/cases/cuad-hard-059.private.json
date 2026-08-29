@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-059",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Except for liability for (i) breach of the confidentiality obligations described in Article 14, (ii) misappropriation or infringement by a Party of the other Party's Intellectual Property Rights, or (iii) gross negligence or willful misconduct: (a) IN NO EVENT SHALL A PARTY BE LIABLE FOR ANY PUNITIVE, EXEMPLARY, INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OR EXPENSES, INCLUDING LOSS OF PROFITS, REVENUE, DATA, OR USE, WHETHER IN AN ACTION IN CONTRACT OR TORT (INCLUDING ERRORS OR OMISSIONS OR BREACH OF WARRANTY), EVEN IF SUCH PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES;",
+      "passages": [
+        93
+      ]
+    },
+    {
+      "text": "IN NO ONE EVENT SHALL EITHER PARTY'S AGGREGATE LIABILITY FOR DAMAGES OR LOSSES UNDER THIS AGREEMENT EXCEED THE AGGREGATE AMOUNT OF THE PRODUCT PRICES PAID BY BELLICUM FOR THE MILTENYI PRODUCT(S) DURING THE TWELVE (12) MONTH PERIOD IMMEDIATELY PRECEDING THE EVENT GIVING RISE TO SUCH LIABILITY; AND FURTHER PROVIDED THAT SUCH AGGREGATE LIABILITY DURING SUCH PERIOD ALSO SHALL NOT EXCEED THE AMOUNT OF SUCH PARTY'S INSURANCE COVERAGE FOR SUCH AGGREGATE LIABILITY.",
+      "passages": [
+        93
+      ]
+    }
+  ]
+}

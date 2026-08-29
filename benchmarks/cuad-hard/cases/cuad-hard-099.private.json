@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-099",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "This Agreement may be terminated as follows:",
+      "passages": [
+        21
+      ]
+    },
+    {
+      "text": "(d) by any party if the SMBC Unit-Holders cease to hold any Partnership Interests as a result of sale or transfer pursuant to Section 12.4 of this Agreement or Section 8.4 of the Moelis Holdings Agreement, such termination to be effective six (6) months following the date on which the other parties receive written notice of such party's election to terminate this Agreement;",
+      "passages": [
+        21
+      ]
+    }
+  ]
+}

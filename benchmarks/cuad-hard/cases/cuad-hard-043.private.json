@@ -1,0 +1,28 @@
+{
+  "id": "cuad-hard-043",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "In addition, ISO shall provide written notice to SERVICERS within three (3) Business Days of any Change of Control of ISO.",
+      "passages": [
+        50
+      ]
+    },
+    {
+      "text": "SERVICERS may terminate this Agreement prior to its expiration for cause upon prior written notice to ISO as follows:",
+      "passages": [
+        41
+      ]
+    },
+    {
+      "text": "(l) Upon a Change of Control of ISO with one hundred eighty (180) days prior written notice to ISO, unless the SERVICERS had previously consented to such change in control.",
+      "passages": [
+        41
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "cuad-hard-015",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": []
+}

@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-083",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "In the event that Party B breaches this covenant, Party A has the right to terminate this Agreement at any time and require Party B to pay 30% of Party A's share of revenues as liquidated damages.",
+      "passages": [
+        8
+      ]
+    }
+  ]
+}

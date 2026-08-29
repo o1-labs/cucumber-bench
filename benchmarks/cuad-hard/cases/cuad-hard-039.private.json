@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-039",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "If at any time on or prior to the earlier of (i) December 31, 2007, or (ii) the date on which Global Energy completes an initial public offering (\"IPO\") of its common stock, Global Energy sells additional common shares or other financial instruments convertible into its common shares, or enters into any similar transaction for the sale of an ownership interest in Global Energy which is the same or substantially the same as that sold to Oxbow under Section 1 of this Agreement, and the price of which is less than $200.00 per share, Global Energy shall issue additional common shares to Oxbow such that Oxbow's adjusted per-share price for its stockholdings shall be no greater than the lowest price paid by any such subsequent purchaser of its shares",
+      "passages": [
+        23
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "id": "cuad-hard-073",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "In this case, Party B shall pay additional deposit equivalent to the liquidated damages when it pays the liquidated damages.",
+      "passages": [
+        14
+      ]
+    },
+    {
+      "text": "If Party B shall pay liquidated damages for breach of this Agreement or violation of the platform rules, Party A is entitled to request Party B to pay the liquidated damages.",
+      "passages": [
+        14
+      ]
+    },
+    {
+      "text": "The following acts constitute Class C breaches. In the event of any breach below by Party B, Party B shall immediately remedy the breach, and Party A is entitled to request Party B to pay the liquidated damages of an amount from RMB5,000 (RMB FIVE THOUSAND) to RMB50,000 (RMB FIFTY THOUSAND) based on the consequences of the breach, and send the Confirmation Letter on the Breach of the Partner of Xiaoju Online Ride-hailing Marketplace to Party B.",
+      "passages": [
+        24
+      ]
+    },
+    {
+      "text": "The following acts constitute Class B breaches. In the event of any breach below by Party B, Party B shall immediately remedy the breach, and Party A is entitled to request Party B to pay the liquidated damages of an amount from RMB1,000 (RMB ONE THOUSAND) to RMB 5,000 (RMB FIVE THOUSAND) based on the consequences of the breach, and send the Confirmation Letter on the Breach of the Partner of Xiaoju Online Ride-hailing Marketplace to Party B.",
+      "passages": [
+        22
+      ]
+    },
+    {
+      "text": "For example, if Party B shall pay liquidated damages as much as RMB N, it shall pay additional RMB N to increase the deposit paid in accordance with Article 4.2 after it pays the liquidated damages or Party A deducts the liquidated damages from the deposit.",
+      "passages": [
+        14
+      ]
+    },
+    {
+      "text": "Any violation of this article by Party B shall be considered as a material breach of the this Agreement, and Party A is entitled to immediately terminate this Agreement and the cooperation relationship between the Parties, and request Party B to pay the liquidated damages of RMB 50,000 (RMB FIFTY THOUSAND) and indemnify for all losses incurred to Party A thereby.",
+      "passages": [
+        35
+      ]
+    },
+    {
+      "text": "In case that the Driver User unilaterally terminates the Financial Leasing Agreement in advance, Party B shall collect the liquidated damages from the Driver User within 30% of the \"down payment + total monthly rent + last payment\" stipulated in the Financial Leasing Agreement;",
+      "passages": [
+        10
+      ]
+    },
+    {
+      "text": "The following acts constitute Class D breaches. In the event of any breach below by Party B, Party B shall immediately remedy the breach, and Party A is entitled to request Party B to pay the liquidated damages of not less than RMB50,000 (RMB FIFTY THOUSAND) based on the consequences of the breach, and send the Confirmation Letter on the Breach of the Partner of Xiaoju Online Ride-hailing Marketplace to Party B, and terminate the Agreement.",
+      "passages": [
+        26
+      ]
+    },
+    {
+      "text": "In such case, Party A is entitled to immediately terminate the Agreement and the cooperation relationship between the Parties, and request Party B to pay the liquidated damages of RMB50,000 (RMB FIFTY THOUSAND) and indemnify for all losses incurred to Party A thereby.",
+      "passages": [
+        35
+      ]
+    },
+    {
+      "text": "In the case of a written notice 15 days in advance from either party to the other Party And a payment of the liquidated damages of RMB10,000 (RMB TEN THOUSAND), this Agreement shall terminate as of the date of termination stated in the notice of termination.",
+      "passages": [
+        20
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "cuad-hard-007",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Rubicon shall make full and prompt disclosure to ISA of all Works as they are made (whether or not conceived or made jointly with others).",
+      "passages": [
+        11
+      ]
+    },
+    {
+      "text": "As regards Intellectual Property created by Rubicon, Rubicon acknowledges and agrees that those Works, as defined below, shall belong exclusively to ISA subject to payment in accordance with clause 4.2",
+      "passages": [
+        10
+      ]
+    },
+    {
+      "text": "Works means, collectively, any work product (of any type), software, developments, processes, improvements, and all works of authorship, in whole or in part, whether patentable or not and whether copyrightable or not created as services provided directly to ISA or on behalf of ISA by Rubicon, which (i) are conceived or made by Rubicon, its employees, contractors, consultants or agents during the Term and relate directly to the business in which ISA and Rubicon(during the Term by ISA) are, had been or were proposing to be engaged in; or (ii) are conceived or made by Rubicon, its employees, contractors, consultants or agents during or after the Term and are made through the use of any ISA Confidential Information, or which result from any work performed by Rubicon, its employees, contractors, consultants or agents for ISA.",
+      "passages": [
+        10
+      ]
+    },
+    {
+      "text": "To the extent copyrightable, all Works shall be deemed to be \"works for hire\" and ISA shall be deemed to be the author thereof under the U.S. Copyright Act.",
+      "passages": [
+        11
+      ]
+    },
+    {
+      "text": "With respect to Works that do not constitute \"works for hire,\" Rubicon, its employees, contractors, consultants and agents do hereby assign to ISA or its designee all of their respective right, title and interest in and to such Works and all related patents, patent applications, copyrights and copyright applications and does hereby agree that these obligations are binding upon their respective assigns, executors, administrators and other legal representatives.",
+      "passages": [
+        11
+      ]
+    }
+  ]
+}

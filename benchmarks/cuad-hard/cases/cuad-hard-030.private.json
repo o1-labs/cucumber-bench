@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-030",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Any invention (whether patentable or not), discoveries, improvements, works-of-authorship or other intellectual property made, conceived or reduced to practice by Bachem in connection with its performance under this Agreement or any Project Plan, which expressly excludes Bachem Intellectual Property (\"Magenta Developed Intellectual Property\"), shall be exclusively owned by Magenta.",
+      "passages": [
+        32
+      ]
+    },
+    {
+      "text": "Bachem hereby assigns, and agrees to assign, to Magenta all of its right, title and interest to and in any Magenta Developed Intellectual Property, including all related intellectual property rights.",
+      "passages": [
+        33
+      ]
+    }
+  ]
+}

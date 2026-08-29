@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-033",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Except with regard to the foregoing joint Inventions or methods, each party hereby assigns to the other, by way of present and future assignment, all of the right, title and interest (including all Intellectual Property Rights therein) that it has or may have in any such Invention that is jointly Derived and that is subject to ownership by the other party.",
+      "passages": [
+        32
+      ]
+    },
+    {
+      "text": "Any Invention that is neither PcoMed Technology nor Integra Technology but that is Derived during the Term jointly by the parties relating to this Agreement shall be the property of (i) PcoMed if it relates primarily to the PcoMed Technology and (ii) Integra if it relates primarily to the Integra Products; provided that the parties may agree that an Invention that is Derived during the Term jointly may become the property of both parties, including Inventions or methods related to the surface preparation of Integra Products",
+      "passages": [
+        32
+      ]
+    }
+  ]
+}

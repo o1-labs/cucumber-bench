@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-034",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "(c) dispute or deny the validity of any of the Intellectual Property Rights (including any attempt to register or record the same in any jurisdiction), (d) do any act or omit to do any act whereby TouchStar's right, title, and interest in the Intellectual Property Rights may become invalidated or otherwise adversely affected",
+      "passages": [
+        27
+      ]
+    },
+    {
+      "text": "In particular, and without limitation, Reseller shall not",
+      "passages": [
+        27
+      ]
+    }
+  ]
+}

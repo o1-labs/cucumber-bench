@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-060",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "To the extent that any such ACSI Derivative Works or Company Derivative Works are not \"works made for hire\", Company hereby assigns and agrees to assign to ACSI (or such of its Affiliates as it may designate) all right, title and interest to all ACSI Derivative Works and all associated Intellectual Property Rights, and ACSI hereby assigns and agrees to assign to Company (or such of its Affiliates as it may designate) all right, title and interest in and to all Company Derivative Works and all associated Intellectual Property Rights. Each Party shall take, at the other Party's expense, any actions (including, without limitation, execution and delivery of affidavits and other documents) reasonably requested by such other Party to effect, perfect or confirm its or its designee's ownership rights as set forth in this Section 6.1.3 [Ownership].",
+      "passages": [
+        26
+      ]
+    },
+    {
+      "text": "To the maximum extent permitted by applicable Laws, any ACSI Derivative Works or Company Derivative Works, to the extent created by or for the other Party, shall be deemed \"works made for hire\", and all right, title and interest therein shall vest in ACSI (in the case of ACSI Derivative Works) or Company (in the case of Company Derivative Works) immediately upon creation thereof.",
+      "passages": [
+        25
+      ]
+    }
+  ]
+}

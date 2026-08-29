@@ -1,0 +1,7 @@
+{
+  "name": "cuad-hard",
+  "graders": ["../cuad/graders.ts"],
+  "judge": {
+    "model": "deepseek/deepseek-v4-flash-0731"
+  }
+}

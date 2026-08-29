@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-071",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "EXCEPT UNDER SECTIONS 13(a) AND 13(b), THE LIABILITY OF EITHER PARTY FOR DAMAGES OR ALLEGED DAMAGES HEREUNDER, WHETHER IN CONTRACT, TORT OR ANY OTHER LEGAL THEORY, IS LIMITED TO, AND WILL NOT EXCEED, THE AMOUNTS TO BE PAID BY CLIENT TO EXCITE HEREUNDER.",
+      "passages": [
+        24
+      ]
+    }
+  ]
+}

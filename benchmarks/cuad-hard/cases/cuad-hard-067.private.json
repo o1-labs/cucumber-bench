@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-067",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "In addition to and without limiting any other provision of this Agreement, if a Change of Control occurs at any time during the Term, PFHOF shall have the right to terminate this Agreement immediately upon giving notice of such termination to the Village Media Company.",
+      "passages": [
+        18
+      ]
+    },
+    {
+      "text": "For purposes of this Section 4.4, a \"Change of Control\" shall mean any transaction or series of related transactions that results in (including by way of merger or consolidation), or that is in connection with, the Village Media Company no longer being controlled (as defined in Section 1.2) by or under common control (as defined in Section 1.2) with HOFV.",
+      "passages": [
+        18
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-079",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Notwithstanding the foregoing, in the event Sutro undergoes a Change of Control or Sutro permits any third party to acquire Extract directly from an Alternate Supplier established under the Transfer Addendum, then SutroVax shall thereafter have the right to establish a supply agreement with and obtain supply of Extract directly from such Alternate Supplier.",
+      "passages": [
+        19
+      ]
+    }
+  ]
+}

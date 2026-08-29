@@ -1,0 +1,46 @@
+{
+  "id": "cuad-hard-dev-106",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Parent shall, and shall cause the applicable members of its Group to, contribute, assign, transfer, convey and deliver to SpinCo, or to the applicable SpinCo Designees, and SpinCo shall, and shall cause such SpinCo Designees to, accept from Parent and the applicable members of the Parent Group, all of Parent's and such Parent Group member's respective direct or indirect right, title and interest in and to all of the SpinCo IP Assets (it being understood that if any SpinCo IP Asset shall be held by a Transferred Entity or a wholly owned Subsidiary of a Transferred Entity, such SpinCo IP Asset may be assigned, transferred, conveyed and delivered to SpinCo as a result of the transfer of all of the equity interests in such Transferred Entity from Parent or the applicable members of the Parent Group to SpinCo or the applicable SpinCo Designee);",
+      "passages": [
+        9
+      ]
+    },
+    {
+      "text": "In addition, the member of the Parent Group retaining such Delayed SpinCo IP Asset or such Delayed SpinCo IP Liability shall, insofar as reasonably possible and to the extent permitted by applicable Law, treat such Delayed SpinCo IP Asset or Delayed SpinCo IP Liability in the ordinary course of business in accordance with past practice and take such other actions as may be reasonably requested by the member of the SpinCo Group to whom such Delayed SpinCo IP Asset is to be transferred or assigned, or which will assume such Delayed SpinCo IP Liability, as the case may be, in order to place such member of the SpinCo Group in a substantially similar position as if such Delayed SpinCo IP Asset or Delayed SpinCo IP Liability had been transferred, assigned or assumed as contemplated hereby and so that all the benefits and burdens relating to such Delayed SpinCo IP Asset or Delayed SpinCo IP Liability, as the case may be, including use, non- abandonment, avoidance from contribution to the public domain, risk of loss, potential for gain, and dominion, control and command over such Delayed SpinCo IP Asset or Delayed SpinCo IP Liability, as the case may be, and all costs and expenses related thereto, shall inure from and after the Effective Time to the SpinCo Group.",
+      "passages": [
+        12
+      ]
+    },
+    {
+      "text": "If and when any such consent, substitution, approval, amendment or release shall be obtained or the Unreleased SpinCo IP Liabilities shall otherwise become assignable or able to be novated, Parent shall promptly assign, or cause to be assigned, and SpinCo or the applicable SpinCo Group member shall assume, such Unreleased SpinCo IP Liabilities without exchange of further consideration.",
+      "passages": [
+        15
+      ]
+    },
+    {
+      "text": "Each of Parent and SpinCo, at the request of the other, shall use its commercially reasonable efforts to obtain, or to cause to be obtained, as soon as reasonably practicable, any consent, substitution, approval or amendment required to novate or assign all SpinCo IP Liabilities and obtain in writing the unconditional release of each member of the Parent Group that is a party to any such arrangements, so that, in any such case, the members of the SpinCo Group shall be solely responsible for such SpinCo IP Liabilities; provided, however, that, except as otherwise expressly provided in this Agreement or any of the Ancillary Agreements, neither Parent nor SpinCo shall be obligated to contribute any capital or pay any consideration in any form (including providing any letter of credit, guaranty or other financial accommodation) to any third Person from whom any such consent, substitution, approval, amendment or release is requested.",
+      "passages": [
+        14
+      ]
+    },
+    {
+      "text": "If Parent or SpinCo is unable to obtain, or to cause to be obtained, any such required consent, substitution, approval, amendment or release as set forth in Section 2.4(a) and the applicable member of the Parent Group continues to be bound by such agreement, lease, license or other obligation or Liability (each, an \"Unreleased SpinCo IP Liability\"), SpinCo shall, to the extent not prohibited by Law, as indemnitor, guarantor, agent or subcontractor for such member of the Parent Group, as the case may be, (i) pay, perform and discharge fully all the obligations or other Liabilities of such member of the Parent Group that constitute Unreleased SpinCo IP Liabilities from and after the Effective Time and (ii) use its commercially reasonable efforts to effect such payment, performance or discharge prior to any demand for such payment, performance or discharge is permitted to be made by the obligee thereunder on any member of the Parent Group.",
+      "passages": [
+        14
+      ]
+    },
+    {
+      "text": "If any transfer or assignment of any SpinCo IP Asset (or a portion thereof) or any assumption of any SpinCo IP Liability (or a portion thereof) intended to be transferred, assigned or assumed hereunder, as the case may be, is not consummated on or prior to the Effective Time, whether as a result of the provisions of Section 2.3(b) or for any other reason (any such SpinCo IP Asset (or a portion thereof), a \"Delayed SpinCo IP Asset\" and any such SpinCo IP Liability (or a portion thereof), a \"Delayed SpinCo IP Liability\"), then, insofar as reasonably possible and subject to applicable Law, the member of the Parent Group retaining such Delayed SpinCo IP Asset or such Delayed SpinCo IP Liability, as the case may be, shall thereafter hold such Delayed SpinCo IP Asset or Delayed SpinCo IP Liability, as the case may be, for the use and benefit of the member of the SpinCo Group entitled thereto (at the expense of the member of the SpinCo Group entitled thereto).",
+      "passages": [
+        11
+      ]
+    }
+  ]
+}

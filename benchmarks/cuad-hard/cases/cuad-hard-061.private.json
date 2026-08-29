@@ -1,0 +1,34 @@
+{
+  "id": "cuad-hard-061",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Neither you nor any of your owners, principals, or other persons acting on your behalf will directly or indirectly contest the validity or our ownership of the Proprietary Marks, nor will you, directly or indirectly, seek to register the Proprietary Marks with any government agency (unless we have given you our express prior written consent to do so).",
+      "passages": [
+        51
+      ]
+    },
+    {
+      "text": "If you make any unauthorized or improper use of the Proprietary Marks, or if you or any of your Principals use the Proprietary Marks in a manner that we do not permit (whether under this Agreement and/or otherwise) or that is inconsistent with our direction, or if you or any of your Principals directly or indirectly contest the validity of our ownership of the Proprietary Marks, our right to use and to license others to use the Proprietary Marks, or seek to (or actually do) register any of our Proprietary Marks with any agency (public or private) for any purpose without our prior written consent to do so.",
+      "passages": [
+        105
+      ]
+    },
+    {
+      "text": "You (on behalf of yourself and your parent, subsidiaries and affiliates and their respective past and present members, officers, directors, members, managers, shareholders, agents and employees, in their corporate and individual capacities) and all guarantors of your obligations under this Agreement (collectively, \"Releasors\") freely and without any influence forever release and covenant not to sue us, our parent, subsidiaries and affiliates and their respective past and present officers, directors, shareholders, agents and employees, in their corporate and individual capacities (collectively \"Releasees\"), with respect to any and all claims, demands, liabilities and causes of action of whatever kind or nature, whether known or unknown, vested or contingent, suspected or unsuspected (collectively, \"claims\"), which any Releasor now owns or holds or may at any time have owned or held, including, without limitation, claims arising under federal, state and local laws, rules and ordinances and claims arising out of, or relating to this Agreement and all other agreements between any Releasor and any Releasee, the sale of any franchise to any Releasor, the development and operation of the Goosehead Businesses and the development and operation of all other businesses operated by any Releasor that are franchised by any Releasee.",
+      "passages": [
+        139
+      ]
+    },
+    {
+      "text": "If any one or more of the following events occur, then you will be in default under this Agreement, and we will have the right to terminate this Agreement and all rights granted under this Agreement, without affording you any opportunity to cure the default, effective immediately upon the delivery of our written notice to you (in the manner provided in Section 24 below):",
+      "passages": [
+        105
+      ]
+    }
+  ]
+}

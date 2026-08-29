@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-021",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "NCM shall not engage in any conduct which may place Network Affiliate or any Network Affiliate Mark in a negative light or context,",
+      "passages": [
+        35
+      ]
+    },
+    {
+      "text": "Network Affiliate shall not engage in any conduct which may place NCM or any NCM Mark in a negative light or context,",
+      "passages": [
+        32
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-dev-103",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Each of the HOF Entities or Constellation may terminate this Agreement at any time without liability if association with another Party could, in such Party's reasonable opinion, materially damage its reputation or image or in the event a Party breaches Section 3.3 hereof, which breach is not cured within sixty (60).",
+      "passages": [
+        17
+      ]
+    },
+    {
+      "text": "No Party will make, issue or release any statement which results in any defamation or disparagement of the Village, the City of Canton, the other Party, or any team, person, performer or organization involved in events at the Village.",
+      "passages": [
+        31
+      ]
+    }
+  ]
+}

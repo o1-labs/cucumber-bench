@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-050",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "SCIEN agrees that it will not during the term of this Agreement, or thereafter, attack the title or any rights of HEMISPHERX in and to Interferon alfa-n3 (human leukocyte derived) or attack the validity of the license granted herein by HEMISPHERX and solely owned by HEMISPHERX.",
+      "passages": [
+        20
+      ]
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "id": "cuad-hard-049",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "The \"Estimated Remaining Value\" means the mathematical product of (a) the average monthly fee paid by Customer with respect to the Initial Services during the twelve (12) months immediately preceding the Effective Date of Termination, multiplied by (b) the number of unexpired whole months remaining between the Effective Date of Termination and the expiration of the Initial Term.",
+      "passages": [
+        28
+      ]
+    },
+    {
+      "text": "The Termination Fee shall be an amount equal to a percentage of the Estimated Remaining Value as set forth below.",
+      "passages": [
+        28
+      ]
+    },
+    {
+      "text": "If the Commencement Date does not occur on or before such date (the \"Scheduled Conversion Date\") solely as a result of Metavante's failure to perform any of its obligations under this Agreement or the Conversion Plan (including the satisfactory completion of the identified Enhancements) and not as a result of any failure by Customer or any Third Party, Customer shall recover liquidated damages equal to the following: 1. Metavante shall pay Customer $10,000.00 for each month or portion thereof that Metavante fails to have the Commencement Date occur on the Scheduled Conversion Date provided that such amount shall be prorated for any partial month. Metavante will establish a new Scheduled Conversion Date if the above date is missed, subject to Customer's approval, which shall not be unreasonably withheld.",
+      "passages": [
+        10,
+        11
+      ]
+    },
+    {
+      "text": "For example, if the Customer chose to terminate for convenience on an agreement with a Commencement Date of January 01, 2007 and provided written notice on July 15, 2009 for a termination date of January 15, 2010, the Estimated Remaining Value would be the average monthly fee during 2009 multiplied by 47 and the Termination Fee would be the Estimated Remaining Value.",
+      "passages": [
+        28
+      ]
+    },
+    {
+      "text": "If Customer breaches the foregoing covenant, the same shall constitute a partial termination of this Agreement, and Customer shall pay Metavante the Termination Fee for the affected Service, as liquidated damages and not as a penalty.",
+      "passages": [
+        26
+      ]
+    },
+    {
+      "text": "Customer may elect to terminate this Agreement for any reason upon six months written notice to Metavante, provided Customer shall pay Metavante the \"Termination Fee\" defined and computed in accordance with the table below.",
+      "passages": [
+        28
+      ]
+    },
+    {
+      "text": "Customer acknowledges that the Termination Fee is a reasonable approximation of such damages and shall be deemed to be liquidated damages and not a penalty.",
+      "passages": [
+        31
+      ]
+    },
+    {
+      "text": "The parties acknowledge that the foregoing payments constitute reasonable and commercial liquidated damages.",
+      "passages": [
+        11
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-093",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "The Agent shall not use or facilitate the use of promotional materials which disparage Roundup Products or Industrial Property.",
+      "passages": [
+        81
+      ]
+    },
+    {
+      "text": "The parties will ensure that marketing, promotional and selling plans promote the sale of the Natural Products in a manner that is consistent with this Agreement and complementary to Roundup Products, and does not directly or indirectly disparage or advertise against Roundup Products, as set forth in this Agreement.",
+      "passages": [
+        66
+      ]
+    }
+  ]
+}

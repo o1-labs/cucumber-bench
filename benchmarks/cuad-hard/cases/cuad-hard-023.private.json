@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-023",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Except in the event of (i) a Party's gross negligence or willful misconduct and/or (ii) a Party's breach of its confidentiality obligation, the total liability of one Party to the other Party (and its Affiliates) arising out of or in connection with this Agreement or the Products, whether in contract, tort (including negligence), statute or otherwise, shall, to the maximum extent permitted by Applicable Law, be limited to the amount of revenues it receives under this Agreement.",
+      "passages": [
+        26
+      ]
+    }
+  ]
+}

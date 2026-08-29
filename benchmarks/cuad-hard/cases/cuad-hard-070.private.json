@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-070",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "\"Liquidated Damages Amount\" shall mean the difference between (i) the aggregate amount of the Co-Hosting Fee paid by Co-Host (the \"Aggregate Fee\") and (ii) the Aggregate Fee multiplied by a number the numerator of which shall be the actual Aggregate Revenue through the effective date of termination of the Agreement and the denominator of which shall be the aggregate of the Minimum Revenue Targets through the effective date of the termination.",
+      "passages": [
+        18
+      ]
+    },
+    {
+      "text": "Termination or expiration of this Agreement if by reason of material breach by Co-Host shall not affect any of Co-Host's payment obligations, all of which survive termination of this Agreement; provided that, in (i) the event of termination of this Agreement by Co-Host due to a material default by NAI, NAI shall pay to the Co-Host the Liquidated Damages Amount (as defined in Part 2 of Exhibit \"A",
+      "passages": [
+        10
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-044",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Each Investor agrees that, until the earlier of (i) the expiration of the Standstill Period or (ii) any material breach of this Agreement by the Company (provided that the Company shall have three (3) business days following written notice from such Investor of any material breach to remedy such material breach if capable of remedy), neither it nor any of its Affiliates or Associates will, and it will cause each of its Affiliates and Associates not to, directly or indirectly, publicly make, express, transmit, speak, write, verbalize or otherwise publicly communicate in any way (or cause, further, assist, solicit, encourage, support or participate in any of the foregoing), any remark, comment, message, information, declaration, communication or other statement of any kind, whether verbal or in writing, that might reasonably be construed to be derogatory or critical of, or negative toward, the Company or any of its directors, officers, Affiliates, Associates, subsidiaries, employees, agents or representatives (collectively, the \"Company Representatives\"), or that reveals, discloses, incorporates, is based upon, discusses, includes or otherwise involves any confidential or proprietary information of the Company or its subsidiaries or Affiliates or Associates, or to malign, harm, disparage, defame or damage the reputation or good name of the Company, its business or any of the Company Representatives.",
+      "passages": [
+        16
+      ]
+    },
+    {
+      "text": "The Company hereby agrees that, until the earlier of (i) the expiration of the Standstill Period or (ii) any material breach of this Agreement by an Investor (provided that such Investor shall have three (3) business days following written notice from the Company of any material breach to remedy such material breach if capable of remedy), neither it nor any of its Affiliates will, and it will cause each of its Affiliates not to, directly or indirectly, publicly make, express, transmit, speak, write, verbalize or otherwise publicly communicate in any way (or cause, further, assist, solicit, encourage, support or participate in any of the foregoing), any remark, comment, message, information, declaration, communication or other statement of any kind, whether verbal or in writing, that might reasonably be construed to be derogatory or critical of, or negative toward, the Investors or their Affiliates or Associates or any of their agents or representatives (collectively, the \"Investor Agents\"), or that reveals, discloses, incorporates, is based upon, discusses, includes or otherwise involves any confidential or proprietary information of any Investor or its Affiliates or Associates, or to malign, harm, disparage, defame or damage the reputation or good name of any Investor, its business or any of the Investor Agents.",
+      "passages": [
+        17
+      ]
+    }
+  ]
+}

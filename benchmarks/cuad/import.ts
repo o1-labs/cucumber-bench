@@ -4,7 +4,9 @@ import assert from 'node:assert/strict';
 import { parseArgs } from 'node:util';
 
 // usage: npx tsx benchmarks/cuad/import.ts --data <path to CUADv1.json> [--count 100] [--skip 0] [--suite cuad] [--out benchmarks/cuad/cases]
+//        [--min-words 0] [--max-words 6000] [--types "Governing Law,..."] [--prefer-multi]
 // a development set: --count 15 --skip 100 --suite cuad-dev --out benchmarks/cuad-dev/cases
+// the hard set: --min-words 6000 --max-words 100000 --types hard --prefer-multi --suite cuad-hard --out benchmarks/cuad-hard/cases
 // the data file is data.zip from https://github.com/TheAtticusProject/cuad (CC BY 4.0), Hendrycks et al. 2021.
 // one case = one contract split into numbered passages + one clause question. the cases form one
 // deterministic sequence (seeded shuffle of the contracts); --skip takes the dev set from later in it,
@@ -18,21 +20,33 @@ let { values } = parseArgs({
     skip: { type: 'string', default: '0' },
     suite: { type: 'string', default: 'cuad' },
     out: { type: 'string', default: 'benchmarks/cuad/cases' },
+    'min-words': { type: 'string', default: '0' },
+    'max-words': { type: 'string', default: '6000' },
+    types: { type: 'string' },
+    'prefer-multi': { type: 'boolean', default: false },
   },
 });
 assert(values.data, 'usage: npx tsx benchmarks/cuad/import.ts --data <CUADv1.json> [--count n] [--skip n] [--suite s] [--out dir]');
 let count = Number(values.count), skip = Number(values.skip);
+// the contract length window in words. the default set stops at 6000: about 30 passages, the
+// size of an asqa prompt. the hard set takes everything above that, up to 47,733 words
+let minWords = Number(values['min-words']), maxWords = Number(values['max-words']);
+let preferMulti = values['prefer-multi'];
 
-// contracts longer than this are left out: about 30 passages, the size of an asqa prompt
-const MAX_WORDS = 6000;
 const PASSAGE_WORDS = 200;
-// the clause types with enough answered questions among the short contracts; the five
-// metadata types (document name, parties, dates) are not clauses and are left out
-const TYPES = [
+// the default clause types: those with enough answered questions among the short contracts.
+// the five metadata types (document name, parties, dates) are not clauses and are left out
+const DEFAULT_TYPES = [
   'Governing Law', 'Anti-Assignment', 'License Grant', 'Cap On Liability', 'Termination For Convenience',
   'Renewal Term', 'Revenue/Profit Sharing', 'Exclusivity', 'Audit Rights', 'Post-Termination Services',
   'Minimum Commitment', 'Non-Compete',
 ];
+// the hard set: types whose decision needs the legal definition, not a keyword
+const HARD_TYPES = [
+  'Change Of Control', 'Ip Ownership Assignment', 'Most Favored Nation', 'Non-Disparagement',
+  'Covenant Not To Sue', 'Liquidated Damages', 'Uncapped Liability',
+];
+let TYPES = values.types === 'hard' ? HARD_TYPES : values.types ? values.types.split(',').map((t) => t.trim()) : DEFAULT_TYPES;
 // case indexes i with i % 10 in this set ask about a clause the contract does not have: 30%
 const ABSENT_AT = [2, 5, 8];
 
@@ -55,12 +69,10 @@ let contracts: Contract[] = raw.data.map((d: any) => ({
     answers: q.answers,
   })),
 }));
-contracts = contracts.filter((c) => c.context.split(/\s+/).length <= MAX_WORDS);
 contracts.sort((a, b) => (a.title < b.title ? -1 : 1));
-shuffle(contracts, 20260829);
 
-// the worked examples: the shortest contract with one of the clauses, and the shortest other
-// contract without one
+// the worked examples: the shortest contract (of any length) with one of the clauses, and the
+// shortest other contract without one
 let byLength = [...contracts].sort((a, b) => a.context.length - b.context.length);
 let demoContracts: Contract[] = [];
 let examples = [true, false].map((want) => {
@@ -70,6 +82,10 @@ let examples = [true, false].map((want) => {
   let { docs, clauses } = build(c, q);
   return { q: prompt(c, q, docs), a: demoAnswer(q, clauses) };
 });
+// the pool: the contracts in the length window, in a seeded order, without the demo contracts
+let words = (c: Contract) => c.context.split(/\s+/).length;
+contracts = contracts.filter((c) => words(c) >= minWords && words(c) <= maxWords);
+shuffle(contracts, 20260829);
 contracts = contracts.filter((c) => !demoContracts.includes(c));
 
 await mkdir(values.out, { recursive: true });
@@ -83,6 +99,8 @@ for (let c of contracts) {
   // the set stays balanced; counted over skipped cases too, so --skip continues the same sequence
   let fitting = c.qas.filter((q) => TYPES.includes(q.category) && (q.answers.length > 0) !== absent);
   if (fitting.length === 0) continue;
+  // --prefer-multi: a question with two or more clause instances wins when the contract has one
+  if (preferMulti && fitting.some((q) => q.answers.length > 1)) fitting = fitting.filter((q) => q.answers.length > 1);
   let q = fitting.sort((a, b) => (used.get(a.category) ?? 0) - (used.get(b.category) ?? 0) || TYPES.indexOf(a.category) - TYPES.indexOf(b.category))[0];
   used.set(q.category, (used.get(q.category) ?? 0) + 1);
   emitted++;
@@ -114,13 +132,16 @@ console.log(`written to ${values.out}`);
 // the contract as passages of about PASSAGE_WORDS words, cut at sentence ends, with the
 // gold clauses mapped to the passages that contain them (by character offsets)
 function build(c: Contract, q: Contract['qas'][number]) {
+  // a sentence ends at punctuation followed by whitespace, so "section 4.4" is never cut
   let bounds: { start: number; end: number }[] = [];
-  let start = 0, words = 0;
-  for (let m of c.context.matchAll(/[^.!?]*[.!?]+\s*|[^.!?]+$/g)) {
-    words += m[0].split(/\s+/).filter(Boolean).length;
+  let start = 0, words = 0, last = 0;
+  for (let m of c.context.matchAll(/[.!?]+\s+/g)) {
+    let end = m.index! + m[0].length;
+    words += c.context.slice(last, end).split(/\s+/).filter(Boolean).length;
+    last = end;
     if (words >= PASSAGE_WORDS) {
-      bounds.push({ start, end: m.index! + m[0].length });
-      start = m.index! + m[0].length;
+      bounds.push({ start, end });
+      start = end;
       words = 0;
     }
   }

@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-020",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Except in the event of (i) Third Party Claims subject to a Party's indemnification obligations pursuant to Section 10.1, (ii) Third Party Claims subject to a Party's indemnification obligations pursuant to Section 10.2, (iii) the gross negligence, fraud or willful misconduct of a Party or its Personnel, (iv) a Party's willful breach of this Agreement, (v) a breach of Section 13 or (vi) customer liabilities pursuant to, and subject to the limitations set forth in, Section 2.5(e), neither Party's aggregate liability to the other Party (or its Personnel that are indemnitees under Section 10.1 or Section 10.2, as applicable) under this Agreement for the initial twelve (12) month period immediately following the Effective Date, and for any twelve (12) month period thereafter during the Term, shall exceed, on a cumulative basis, the amount that is one and one half (11∕2) times the aggregate amounts paid or payable pursuant to this Agreement in the preceding twelve (12) month period preceding the loss date by Customer to Manufacturer but solely with respect to the supply hereunder of Product (or Products) for which such corresponding liability arose (the \"Affected Products\") and not any other Products (or if, as of the time the liability arises, this Agreement has not been in effect for twelve (12) months, then the amounts paid or payable by Customer to Manufacturer hereunder during the period from the Effective Date until such time the liability arises, shall be annualized to a full twelve (12) months but solely with respect to the supply hereunder of the Affected Product(s) and not any other Products).",
+      "passages": [
+        110
+      ]
+    },
+    {
+      "text": "NOTWITHSTANDING ANY OTHER PROVISION OF THIS AGREEMENT TO THE CONTRARY, EXCEPT FOR DAMAGES OR CLAIMS ARISING OUT OF (I) A BREACH OF SECTION 13 OF THIS AGREEMENT, (II) CUSTOMER LIABILITIES PURSUANT TO, AND SUBJECT TO THE LIMITATIONS SET FORTH IN, SECTION 2.5(E), (III) A PARTY'S OR ITS PERSONNEL'S GROSS NEGLIGENCE, FRAUD OR WILLFUL MISCONDUCT, (IV) A PARTY'S WILLFUL BREACH OF THIS AGREEMENT, OR (V) A PARTY'S INDEMNIFICATION OBLIGATION WITH RESPECT TO THIRD PARTY CLAIMS UNDER SECTION 10.1 OR SECTION 10.2, IN NO EVENT SHALL EITHER PARTY BE LIABLE TO THE OTHER PARTY OR ANY INDEMNIFIED PARTY HEREUNDER FOR ANY CONSEQUENTIAL DAMAGES, SPECIAL DAMAGES, INCIDENTAL OR INDIRECT DAMAGES, LOSS OF REVENUE OR PROFITS, DIMINUTION IN VALUE, DAMAGES BASED ON MULTIPLE OF REVENUE OR EARNINGS OR OTHER PERFORMANCE METRIC, LOSS OF BUSINESS REPUTATION, PUNITIVE AND EXEMPLARY DAMAGES OR ANY SIMILAR DAMAGES ARISING OR RESULTING FROM OR RELATING TO THIS AGREEMENT, WHETHER SUCH ACTION IS BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE OR STRICT LIABILITY) OR OTHERWISE.",
+      "passages": [
+        111
+      ]
+    }
+  ]
+}

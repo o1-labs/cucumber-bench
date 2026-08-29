@@ -1,0 +1,28 @@
+{
+  "id": "cuad-hard-086",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "In addition, VerticalNet shall not now or in the future contest the validity of PaperExchange's Intellectual Property.",
+      "passages": [
+        19
+      ]
+    },
+    {
+      "text": "Except for claims under Sections 12.4 [Indemnification by PaperExchange] and 12.5 [Indemnification by VerticalNet] hereof, neither party may bring a claim or action regardless of form, arising out of or related to this Agreement, including any claim of fraud or misrepresentation, more than two years after the cause of action accrues or becomes known, whichever is later.",
+      "passages": [
+        32
+      ]
+    },
+    {
+      "text": "In addition, PaperExchange shall not now or in the future contest the validity of VerticalNet's Intellectual Property.",
+      "passages": [
+        19
+      ]
+    }
+  ]
+}

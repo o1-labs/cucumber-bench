@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-016",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "However, if, after the Initial Term, BNL terminates this Agreement during an Extended Term by giving less than six (6) months notice, in addition to any other sums due VIP under this Agreement, BNL shall pay to VIP a cancellation fee equal to the greater of (i) the Minimum Fee multiplied by the remaining number of months in the then current term, (ii) the average of the monthly billings for the six (6) month period immediately preceding the date upon which the notice of termination is received by VIP from BNL multiplied by the remaining number of months in the then current term or (iii) thirty thousand dollars ($30, 000).",
+      "passages": [
+        20
+      ]
+    }
+  ]
+}

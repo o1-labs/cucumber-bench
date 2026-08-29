@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-dev-104",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Subject to the terms and conditions of this Agreement, Igene shall transfer and assign, or cause to be transferred and assigned, to the Operating Company the Transferred Assets described in Appendix 3.2.",
+      "passages": [
+        8
+      ]
+    }
+  ]
+}

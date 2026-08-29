@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-036",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Without limitation to the foregoing, Arizona shall not file applications to register any Company Licensed IP or assist any person in doing the same, or contest, challenge, or otherwise take any action adverse to the Company's and its Affiliates' ownership of or rights in and to the Company Licensed IP, or assist any person in doing the same.",
+      "passages": [
+        13
+      ]
+    },
+    {
+      "text": "Without limitation to the foregoing, the Company shall not file applications to register any Arizona Licensed IP or assist any person in doing the same, or contest, challenge, or otherwise take any action adverse to Arizona's and its Affiliates' ownership of or rights in and to the Arizona Licensed IP, or assist any person in doing the same.",
+      "passages": [
+        12
+      ]
+    }
+  ]
+}

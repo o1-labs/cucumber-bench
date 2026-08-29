@@ -1,0 +1,28 @@
+{
+  "id": "cuad-hard-024",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "If Shipper fails to notify MPL within one hundred and eighty (180) days of the Project's in-service date or if MPL is unsuccessful in obtaining additional volume commitments as provided for in Section 3.8 to",
+      "passages": [
+        26
+      ]
+    },
+    {
+      "text": "fully replace Shipper's original volume commitment as submitted in its Capacity Request Form in Exhibit C, Shipper will reimburse MPL for Shipper's pro rata portion of actual and committed Construction Costs, plus, an administrative fee of ten (10) percent of said costs (such reimbursement is hereinafter referred to as the \"Construction Cost Reimbursement\").",
+      "passages": [
+        26
+      ]
+    },
+    {
+      "text": "The Parties agree that the Construction Cost Reimbursement shall be deemed liquidated damages and that such amount shall not be deemed a penalty, but rather represents a reasonable amount of liquidated damages in light of the anticipated or actual harm caused by Shipper's termination of this Agreement as stated, the difficulties of proof of loss, and the inconvenience or non- feasibility of otherwise obtaining an adequate remedy, and that the payment of such amount shall be MPL's sole and exclusive remedy for such termination by Shipper.",
+      "passages": [
+        27
+      ]
+    }
+  ]
+}

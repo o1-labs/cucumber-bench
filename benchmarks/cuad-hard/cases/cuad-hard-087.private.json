@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-087",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "VerticalNet shall register and own the domain name and the URL used in connection with the Co-Branded Training and Education Center, subject, however, to Neoforma's agreement on the name to be used for the URL, which domain name and URL shall be mutually agreed upon by the Parties.",
+      "passages": [
+        17
+      ]
+    },
+    {
+      "text": "VerticalNet shall register and own the domain name and the URL used in connection with the Co-Branded Career Center, subject, however, to Neoforma's agreement on the name to be used for the URL, which domain name and URL shall be mutually agreed upon by the Parties.",
+      "passages": [
+        15
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-097",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Without limiting the generality of the foregoing, Biocept owns, and Life Technologies acknowledges Biocept's ownership of, (i) the Assay and the Selector technology, and (ii) all Intellectual Property Rights in the Assay and the Selector technology, and Life Technologies agrees that it shall not do or suffer to be done any act or thing or undertake any action anywhere that in any manner might infringe, or impair the validity, scope, or title of Biocept in the Assay, the Selector technology or Intellectual Property Rights owned by Biocept.",
+      "passages": [
+        32
+      ]
+    }
+  ]
+}

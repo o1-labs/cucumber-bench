@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-014",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Valeant shall not at any time during the Term knowingly do or allow to be done any act or thing which will in any way impair or diminish the rights of Dova in or to the Dova Trademarks and Copyrights.",
+      "passages": [
+        22
+      ]
+    },
+    {
+      "text": "During the Term, Valeant will not contest the ownership of the Dova Trademarks and Copyrights, their validity, or the validity of any registration therefor.",
+      "passages": [
+        22
+      ]
+    }
+  ]
+}

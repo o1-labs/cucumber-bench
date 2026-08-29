@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-013",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "The Parties acknowledge that Defra is expected to assign or license exclusively to IGER any rights in Intellectual Property which would vest in Defra or the Crown or the Secretary of State pursuant to the DEFRA agreement NF 0426.",
+      "passages": [
+        49
+      ]
+    },
+    {
+      "text": "In case [Party] has made or contributed to any invention forming part of the Results, [Party] shall promptly inform [CERES/IGER] thereof in writing and shall assign its rights and cause its employees and staff members to assign their rights in any such invention to [CERES/IGER].",
+      "passages": [
+        56
+      ]
+    }
+  ]
+}

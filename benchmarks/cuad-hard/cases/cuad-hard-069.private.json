@@ -1,0 +1,28 @@
+{
+  "id": "cuad-hard-069",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "common stock of the Company (calculated on an as-converted basis and as adjusted for any stock split, stock dividend, recapitalization or similar transaction).",
+      "passages": [
+        9
+      ]
+    },
+    {
+      "text": "The Company may, at its option, terminate the exclusivity provisions set forth in this Section 3(d) [Exclusivity] upon the occurrence of any of the following events:",
+      "passages": [
+        9
+      ]
+    },
+    {
+      "text": "(B) MBE ceases to own at least [***]* shares of",
+      "passages": [
+        9
+      ]
+    }
+  ]
+}

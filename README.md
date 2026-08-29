@@ -142,6 +142,13 @@ Suites:
   clause (absent: nothing is cited); `citation-support` — every cited sentence is supported by
   its passages (judge). Import with `npx tsx benchmarks/cuad/import.ts --data <CUADv1.json> --count 100`.
   `benchmarks/cuad-dev/` holds 15 more cases from other contracts for tuning.
+- `benchmarks/cuad-hard/` — the same task on the hard end of CUAD: 100 contracts of 6,000–47,000
+  words (median 52 passages, up to 205), seven clause types whose decision needs the legal
+  definition (Change of Control, IP Ownership Assignment, Most Favored Nation, Non-Disparagement,
+  Covenant Not to Sue, Liquidated Damages, Uncapped Liability), and questions with two or more
+  clause instances preferred (51 of the 70 present cases). Same graders. Import with
+  `--min-words 6000 --max-words 100000 --types hard --prefer-multi`. `benchmarks/cuad-hard-dev/`
+  holds 15 more for tuning. No contract appears in more than one of the four cuad sets.
 
 Test cases are locked: do not tune the harness on them.
 

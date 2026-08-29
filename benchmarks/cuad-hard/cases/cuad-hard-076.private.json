@@ -1,0 +1,28 @@
+{
+  "id": "cuad-hard-076",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "MD Anderson shall promptly make full written disclosure to LBIO, shall hold in trust for the sole right and benefit of LBIO, and hereby assigns, transfers and conveys to LBIO, or its designee, all of MD Anderson's worldwide right, title and interest in and to any and all Inventions and all Intellectual Property Rights therein and relating thereto[, provided that MD Anderson shall retain the right to use any such Invention for internal research, academic, and patient care purposes]",
+      "passages": [
+        28
+      ]
+    },
+    {
+      "text": "MD Anderson further acknowledges and agrees that all original works of authorship that are made by MD Anderson (solely or jointly with others) in the performance of the Research, excluding any publication made in accordance with Section 6.4 (a \"Work\") and that are protectable by copyright are \"works made for hire,\" as that term is defined in the United States Copyright Act.",
+      "passages": [
+        29
+      ]
+    },
+    {
+      "text": "However, to the extent that any Work may not, by operation of any Laws, be a work made for hire, MD Anderson hereby assigns, transfers and conveys to LBIO all of MD Anderson's worldwide right, title and interest in and to such Work, including all Intellectual Property Rights therein and relating thereto, subject to MD Anderson's right to use such Work for internal research, academic, and non-commercial patient care purposes prior to publication or public disclosure.",
+      "passages": [
+        29
+      ]
+    }
+  ]
+}

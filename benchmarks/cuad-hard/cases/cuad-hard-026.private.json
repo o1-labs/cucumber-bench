@@ -1,0 +1,34 @@
+{
+  "id": "cuad-hard-026",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "[ * ] expected to experience, or [ * ] is experiencing, such Change of Control shall notify [ * ] in writing of this before or within [ * ] after the Change of Control.",
+      "passages": [
+        16
+      ]
+    },
+    {
+      "text": "[ * ] may terminate this Agreement immediately upon written notice if there is a Change of Control of [ * ]. In this Clause the term \"Control\" shall mean the possession by any person(s) directly or indirectly of the power to direct or cause the direction of another person and \"Change of Control\" is to be construed accordingly.",
+      "passages": [
+        15
+      ]
+    },
+    {
+      "text": "For the avoidance of doubt, if following [ * ] there is a transfer of shareholding or interests in Distributor to any existing or new shareholder(s) which results in any person or persons subsequently gaining Control of Distributor, then Google may exercise its right to terminate in accordance with this clause 5.4.",
+      "passages": [
+        16
+      ]
+    },
+    {
+      "text": "For the avoidance of doubt, a Change of Control shall be deemed an assignment hereunder unless [ * ] does not exercise its [ * ].",
+      "passages": [
+        28
+      ]
+    }
+  ]
+}

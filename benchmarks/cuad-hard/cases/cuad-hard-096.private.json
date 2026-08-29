@@ -1,0 +1,28 @@
+{
+  "id": "cuad-hard-096",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "In the event that a majority of Application Provider's assets are merged, acquired or sold to an Excite@Home Named Competitor, or to an entity controlling or controlled by an Excite@Home Named Competitor, then Excite@Home may terminate this Agreement by providing thirty (30) days written notice.",
+      "passages": [
+        30
+      ]
+    },
+    {
+      "text": "In the event that the Agreement is terminated pursuant to Section 16.a.v. due to e-centives' acquisition by an Excite@Home Named Competitor, or by an entity controlling or controlled by an Excite@Home Named Competitor, e-centives or its assigns or designates may not contact any Users for whom User Data has been provided pursuant to this Agreement, excluding those that have opted out in accordance with Section 5(a) of Exhibit D.",
+      "passages": [
+        35
+      ]
+    },
+    {
+      "text": "In the event that the Agreement is terminated pursuant to Section 16.a.v due to e-centives' acquisition by an Excite@Home Named Competitor, or by an entity controlling or controlled by an Excite@Home Named Competitor, e-centives shall transfer all of its right, title and interest in and to the Payment-Eligible User Data to Excite.",
+      "passages": [
+        16
+      ]
+    }
+  ]
+}

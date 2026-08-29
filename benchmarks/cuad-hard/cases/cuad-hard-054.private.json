@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-054",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "EXCEPT FOR [*] CAUSED BY A [*] OF",
+      "passages": [
+        22
+      ]
+    },
+    {
+      "text": "SECTION [*], NEITHER PARTY SHALL BE [*] (IN [*] WITH OR PURSUANT TO THIS AGREEMENT AND THE ANCILLARY AGREEMENTS TAKEN AS A WHOLE) FOR ANY [*], [*] OR [*] [*] (INCLUDING [*]) [*] OF [*] ([*]) [*] OF THE [*] OF [*], EVEN IF [*] HAD BEEN [*] OF THE [*] OF SUCH [*].",
+      "passages": [
+        22
+      ]
+    }
+  ]
+}

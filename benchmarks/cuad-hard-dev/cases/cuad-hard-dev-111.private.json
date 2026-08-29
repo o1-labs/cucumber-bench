@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-dev-111",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "CytoDyn shall have the right to terminate this Agreement in its entirety upon written notice to Vyera on the occurrence of any of the following: (a) Vyera or any of its Affiliates directly or indirectly, challenges, disputes, or assists any Third Party to dispute or challenge, in a legal or administrative proceeding the patentability, enforceability or validity of any CytoDyn Patents;",
+      "passages": [
+        76
+      ]
+    },
+    {
+      "text": "Neither Vyera, nor any of its Affiliates shall directly or indirectly, challenge, or assist any Third Party to dispute or challenge, in a legal or administrative proceeding the patentability, enforceability or validity of any CytoDyn Patents.",
+      "passages": [
+        65
+      ]
+    }
+  ]
+}

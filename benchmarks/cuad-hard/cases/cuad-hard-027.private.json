@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-027",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "This Agreement and any rights or authority granted hereunder shall not be assigned or transferred by either Party, including by operation of law, merger or otherwise, without the express written consent of the other Party, provided that Licensor may assign this Agreement without consent to any of its Affiliates and Licensee may assign this Agreement without consent to SINA Leju or an Affiliate of Licensee that is controlled by SINA Leju.",
+      "passages": [
+        23
+      ]
+    },
+    {
+      "text": "Licensor may terminate this Agreement by providing prior written notice to Licensee upon the occurrence of a Change of Control.",
+      "passages": [
+        15
+      ]
+    }
+  ]
+}

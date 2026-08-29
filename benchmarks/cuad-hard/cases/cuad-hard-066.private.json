@@ -1,0 +1,22 @@
+{
+  "id": "cuad-hard-066",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "EXCEPT TO THE EXTENT DIRECT FORESEEABLE DAMAGES, IN NO EVENT SHALL DIVERSINET BE LIABLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES (INCLUDING WITHOUT LIMITATION ANY COMMERCIAL DAMAGES OR LOSSES) AS A RESULT OF THE USE, SALE OR DISTRIBUTION OF THE BUNDLED PRODUCT, WHETHER BY WAY OF A LEGAL THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE), PRODUCT LIABILITY, STRICT LIABILITY, OR ANY OTHER THEORY, EVEN IF DIVERSINET HAS BEEN INFORMED OF THE POSSIBILITY OF SUCH DAMAGES.",
+      "passages": [
+        20
+      ]
+    },
+    {
+      "text": "The limitations set forth in Section 15(a), (b), (c), (d) and (e) shall not apply in respect of (i) breach of confidentiality obligations; (ii) breach of privacy provisions as detailed in Schedule 6; (iii) the intellectual property indemnity; (iv) any Abandonment committed by Diversinet; or (v) any willful gross misconduct (including fraud). \"Abandonment\" means Diversinet's cessation or suspension of, or refusal to perform, its obligations under this Agreement, and such cessation, suspension or refusal (i) was knowingly intended by Diversinet to cause harm to Reseller, and (ii) was not the result of a termination of this Agreement by Diversinet in accordance with Section 4 (Termination).",
+      "passages": [
+        22
+      ]
+    }
+  ]
+}

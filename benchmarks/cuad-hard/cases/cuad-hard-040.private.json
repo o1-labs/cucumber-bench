@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-040",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "The Company shall immediately inform HOC and provide HOC with a copy of any other standstill provisions in any agreement pertaining to the matters set forth in this Article 6, entered into by the Company with another person subsequent to the date hereof, and notwithstanding delivery of such notice and a copy of any such provisions, HOC shall have the full benefit of any materially more favourable terms, in the opinion of HOC, contained in such standstill and Section 6.1 shall be deemed to be amended accordingly.",
+      "passages": [
+        18
+      ]
+    }
+  ]
+}

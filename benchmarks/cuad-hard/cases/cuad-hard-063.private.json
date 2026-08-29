@@ -1,0 +1,28 @@
+{
+  "id": "cuad-hard-063",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "If MBRK terminates the Agreement in years 2 or 3 prior to the period 60 days before the anniversary date, then MBRK will pay DD only the Early Termination Fee.",
+      "passages": [
+        29
+      ]
+    },
+    {
+      "text": "\"Early Termination Fee\" means that amount equal to the most recent month's Promotion Fee prior to termination, multiplied by the number of unexpired months remaining in the current year of the Agreement.",
+      "passages": [
+        2
+      ]
+    },
+    {
+      "text": "If MBRK terminates this Agreement in the first year of the Agreement for any reason, then MBRK will pay DD a) an Early Termination Fee plus b) the End of Agreement Fee.",
+      "passages": [
+        29
+      ]
+    }
+  ]
+}

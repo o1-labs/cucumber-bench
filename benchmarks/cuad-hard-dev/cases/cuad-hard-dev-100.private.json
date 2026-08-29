@@ -1,0 +1,16 @@
+{
+  "id": "cuad-hard-dev-100",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Notwithstanding the preceding sentences, this Subsection will not limit the liability of a Party for any amount or type of damages for: (1) the defense and indemnification of an Indemnified Claim on which the Party is the Indemnifying Party; (2) infringement by the Party on the intellectual property of the other Party; (3) the unauthorized disclosure or use by the Party of the Confidential Information of the other Party; (4) payment or reimbursement of any amount expressly required to be paid or reimbursed by the Party under a provision of this Agreement; or (5) the intentional misconduct of the Party in violation of Applicable Laws.",
+      "passages": [
+        17
+      ]
+    }
+  ]
+}
