@@ -27,7 +27,9 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
   // every grader of the run, for the table columns
   let graders = [...new Set(rows.flatMap((r) => Object.keys(r.graders)))];
 
-  // charts: per suite, the pass rate of every grader; and per task when a suite has several tasks
+  // charts: one per suite. the bar is the mean score of a grader (how close the runs
+  // came), the dot on it is the pass rate (how often a run was complete). a suite with
+  // several tasks also gets the same chart per task for its first grader
   let pct = { yMax: 100, ticks: [0, 25, 50, 75, 100], fmt: (v: number) => `${Math.round(v)}%` };
   let suites = [...new Set(rows.map((r) => r.suite))];
   let suiteCharts = '';
@@ -36,59 +38,32 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
     let sTasks = [...new Set(sRows.filter((r) => r.task !== 'ALL').map((r) => r.task))];
     let sGraders = [...new Set(sRows.flatMap((r) => Object.keys(r.graders)))];
     let sRow = (task: string, sys: string) => sRows.find((r) => r.task === task && r.system === sys);
-    suiteCharts += columnsChart({
-      title: `${suite}: pass rate by grader`,
-      subtitle: 'Each group is one grader, each column one system. The height is the share of runs that passed. Higher is better.',
-      tasks: sGraders,
-      systems,
-      value: (g, sys) => (sRow('ALL', sys)?.graders[g]?.pass ?? 0) * 100,
-      ...pct,
-    });
-    // a grader with partial credit also gets its mean score plotted: the pass rate hides small differences
-    let partial = sRows.some((r) => Object.values(r.graders).some((g) => Math.abs(g.pass - g.score) > 0.005));
-    if (partial) {
-      suiteCharts += columnsChart({
-        title: `${suite}: mean score by grader`,
-        subtitle:
-          'Each group is one grader, each column one system. The height is the mean score over runs, where a run scores between 0 and 1. ' +
-          'It shows small differences that the pass rate hides. Higher is better.',
-        tasks: sGraders,
+    let resultsChart = (title: string, tasks: string[], grader: (t: string, sys: string) => { pass: number; score: number } | undefined) =>
+      columnsChart({
+        title,
+        subtitle: 'Bar: mean score, how close the runs came on average. Dot: pass rate, the share of runs that fully passed. Higher is better for both.',
+        tasks,
         systems,
-        value: (g, sys) => (sRow('ALL', sys)?.graders[g]?.score ?? 0) * 100,
+        value: (t, sys) => (grader(t, sys)?.score ?? 0) * 100,
+        marker: (t, sys) => (grader(t, sys)?.pass ?? 0) * 100,
+        tip: (t, sys) => {
+          let v = grader(t, sys);
+          return v ? `${Math.round(v.score * 100)}% mean · ${Math.round(v.pass * 100)}% pass` : '—';
+        },
+        legendNote: 'bar = mean score · dot = pass rate',
         ...pct,
       });
-    }
+    suiteCharts += resultsChart(`${suite}: results by grader`, sGraders, (name, sys) => sRow('ALL', sys)?.graders[name]);
     if (sTasks.length > 1) {
-      let sPrimary = sGraders[0];
-      suiteCharts += columnsChart({
-        title: `${suite}: ${sPrimary} pass rate by task`,
-        subtitle: `Each column is one system. The height is the share of runs that passed the ${sPrimary} grader for that task. Higher is better.`,
-        tasks: sTasks,
-        systems,
-        value: (t, sys) => (sRow(t, sys)?.graders[sPrimary]?.pass ?? 0) * 100,
-        ...pct,
-      });
+      let first = sGraders[0];
+      suiteCharts += resultsChart(`${suite}: ${first} by task`, sTasks, (t, sys) => sRow(t, sys)?.graders[first]);
     }
   }
-  let latS = (t: string, sys: string) => (row(t, sys)?.latencyMs ?? 0) / 1000;
-  let latTicks = niceTicks(Math.max(...tasks.flatMap((t) => systems.map((sys) => latS(t, sys)))));
-  let latChart = columnsChart({
-    title: 'Latency by task',
-    subtitle:
-      'Each column is one system. The height is the average wall time of one run, in seconds. Lower is better. ' +
-      'This includes the container start, all model calls, and the safety stages.',
-    tasks,
-    systems,
-    value: latS,
-    yMax: latTicks[latTicks.length - 1],
-    ticks: latTicks,
-    fmt: (v) => `${round1(v)}s`,
-  });
 
   // comparison tables: one per suite, one column per system, one row per metric;
   // the best value in a row is bold (a second cue beside the number, never color alone)
   let fmtGrade = (g?: Row['graders'][string]) =>
-    !g ? '—' : Math.abs(g.pass - g.score) > 0.005 ? `${Math.round(g.pass * 100)}% (${Math.round(g.score * 100)}%)` : `${Math.round(g.pass * 100)}%`;
+    !g ? '—' : Math.abs(g.pass - g.score) > 0.005 ? `${Math.round(g.score * 100)}% (pass ${Math.round(g.pass * 100)}%)` : `${Math.round(g.pass * 100)}%`;
   let tables = '';
   for (let suite of suites) {
     let sRows = rows.filter((r) => r.suite === suite);
@@ -98,8 +73,8 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
     // a metric row: label, the value per system, and the direction that is better
     type Metric = { label: string; values: (number | undefined)[]; cells: string[]; higher: boolean };
     let metrics: Metric[] = [];
-    // best by pass rate; an equal pass rate is decided by the mean score
-    let rank = (v?: { pass: number; score: number }) => (v ? v.pass * 10 + v.score : undefined);
+    // best by mean score; an equal mean is decided by the pass rate
+    let rank = (v?: { pass: number; score: number }) => (v ? v.score * 10 + v.pass : undefined);
     let gradeMetric = (label: string, task: string, g: string) =>
       metrics.push({
         label,
@@ -123,27 +98,13 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
       });
     num('consistency ↑', true, (r) => r?.consistency, (v) => `${Math.round(v * 100)}%`);
     num('latency s ↓', false, (r) => r?.latencyMs, (v) => `${round1(v / 1000)}`);
-    num('tokens in/out ↓', false, (r) => (r ? r.tokensIn + r.tokensOut : undefined), () => '');
-    metrics[metrics.length - 1].cells = systems.map((sys) => {
-      let r = at('ALL', sys);
-      return r ? `${Math.round(r.tokensIn)}/${Math.round(r.tokensOut)}` : '—';
-    });
-    num('calls ↓', false, (r) => r?.calls, (v) => `${round1(v)}`);
+    num('model calls per run ↓', false, (r) => r?.calls, (v) => `${round1(v)}`);
     let n = systems.map((sys) => at('ALL', sys)?.n ?? 0);
     let usd4 = (v: number) => `$${v.toFixed(4)}`;
-    let usd2 = (v: number) => `$${v.toFixed(2)}`;
     num('harness cost per run ↓', false, (r) => r?.costUsd, usd4);
-    num('judge calls per run ↓', false, (r) => r?.judgeCalls, (v) => `${round1(v)}`);
-    num('judge tokens in/out ↓', false, (r) => (r ? r.judgeTokensIn + r.judgeTokensOut : undefined), () => '');
-    metrics[metrics.length - 1].cells = systems.map((sys) => {
-      let r = at('ALL', sys);
-      return r ? `${Math.round(r.judgeTokensIn)}/${Math.round(r.judgeTokensOut)}` : '—';
-    });
     num('judge cost per run ↓', false, (r) => r?.judgeCostUsd, usd4);
-    // the bill for this system over all its runs: per-run cost times the number of runs
-    num(`harness cost, all ${n[0]} runs ↓`, false, (r) => (r?.costUsd === undefined ? undefined : r.n * r.costUsd), usd2);
-    num(`judge cost, all ${n[0]} runs ↓`, false, (r) => (r?.judgeCostUsd === undefined ? undefined : r.n * r.judgeCostUsd), usd2);
-    num(`total cost, all ${n[0]} runs ↓`, false, (r) => (r && r.costUsd !== undefined ? r.n * (r.costUsd + (r.judgeCostUsd ?? 0)) : undefined), usd2);
+    // the bill for this system: per-run cost (harness + judge) times the number of runs
+    num(`total cost, all ${n[0]} runs ↓`, false, (r) => (r && r.costUsd !== undefined ? r.n * (r.costUsd + (r.judgeCostUsd ?? 0)) : undefined), (v) => `$${v.toFixed(2)}`);
 
     let body = metrics
       .map((m) => {
@@ -158,7 +119,7 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
       .join('\n');
     tables += `<div class="card">
   <h2>${esc(suite)}: comparison</h2>
-  <p class="csub">One column per system, one row per metric. ↑ means higher is better, ↓ lower. Bold marks the best value in a row; for a grader, an equal pass rate is decided by the mean score in parentheses. Runs per system: ${systems.map((sys, i) => `${esc(sys)} ${n[i]}`).join(', ')}.</p>
+  <p class="csub">One column per system, one row per metric. A grader cell is the mean score, with the pass rate in parentheses. ↑ higher is better, ↓ lower. Bold marks the best value in a row. Runs per system: ${systems.map((sys, i) => `${esc(sys)} ${n[i]}`).join(', ')}.</p>
   <div class="scroll"><table>
     <thead><tr><th>metric</th>${systems.map((sys, i) => `<th><span class="key s${i + 1}"></span> ${esc(sys)}</th>`).join('')}</tr></thead>
     <tbody>${body}</tbody>
@@ -217,6 +178,7 @@ h1 { font-size: 18px; font-weight: 600; }
 .help b, .defs b { color: var(--ink); font-weight: 600; }
 .legend { display: flex; gap: 16px; margin: 6px 0 2px; font-size: 12px; color: var(--ink-2); }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend .note { color: var(--muted); margin-left: auto; }
 .key { width: 12px; height: 12px; border-radius: 3px; display: inline-block; flex: none; }
 ${SERIES_LIGHT.map((_, i) => `.s${i + 1} { background: var(--s${i + 1}); }`).join('\n')}
 svg { width: 100%; height: auto; display: block; }
@@ -251,26 +213,23 @@ th .key { vertical-align: -1px; }
 <p class="sub">run ${esc(runId)} · ${new Set(records.map((r) => r.run.caseId)).size} cases · ${reps} repetition${reps > 1 ? 's' : ''}</p>
 <div class="card help">
   <h2>How to read this page</h2>
-  <p>Each system received the same cases. A <b>grader</b> compares each output with private gold data and returns pass or fail.
-  The <b>pass rate</b> is the share of runs that passed.
-  Each benchmark has a chart with one group per grader, and a second one with the mean score when a grader gives partial credit. A benchmark with several tasks also has a chart per task for its first grader.
-  The comparison table has one column per system and marks the best value in a row in bold. Move the pointer over a chart column to see its numbers.</p>
+  <p>Every system answered the same cases. A <b>grader</b> compares each answer with private gold data and gives a
+  <b>score</b> from 0 to 1 and a <b>pass</b> (yes or no). The <b>mean score</b> says how close the answers came on average;
+  the <b>pass rate</b> says how often an answer was fully correct. A grader with no partial credit has the same value for both.
+  Tune by the mean score; claim by the pass rate. In each chart the bar is the mean score and the dot is the pass rate.</p>
   <ul>${systems.map((sys, i) => `<li><span class="key s${i + 1}"></span> <b>${esc(sys)}</b> — ${esc(help.systems[sys] || 'A system under test.')} Models used: ${esc(modelsOf(sys).join(', ') || 'none recorded')}.</li>`).join('')}</ul>
 </div>
 ${suiteCharts}
-${latChart}
 ${tables}
 <div class="card">
   <h2>Glossary</h2>
   <ul class="defs">
-        ${graders.map((g) => `<li><b>${esc(g)}</b> — ${esc(help.graders[g] || 'No description.')} The cell shows the pass rate. A value in parentheses is the mean score, when it differs from the pass rate. Higher is better.</li>`).join('\n    ')}
-    <li><b>consistency</b> — the share of repetitions that gave the same answer for a case, averaged over cases. Shown as — with one repetition. Higher is better.</li>
-    <li><b>latency s</b> — the average wall time of one run, in seconds. Lower is better.</li>
-    <li><b>tokens in/out</b> — the average number of tokens sent to and received from the model per run. The proxy counts them. Lower is better.</li>
-    <li><b>calls</b> — the average number of model calls per run. Calls to the safety model are included. Lower is better.</li>
-    <li><b>harness cost per run</b> — the average cost of one harness run in dollars, as the provider reported it (OpenRouter), else from the configured prices. Shown as — for a free local model. Lower is better.</li>
-    <li><b>judge calls, judge tokens, judge cost per run</b> — what the graders spent on the judge model to grade one run. This is the cost of measuring, not of the harness. Lower is better.</li>
-    <li><b>harness cost, judge cost, total cost, all runs</b> — the per-run cost times the number of runs (cases × repetitions). Total is harness plus judge: the bill for this system in this benchmark. Lower is better.</li>
+    ${graders.map((g) => `<li><b>${esc(g)}</b> — ${esc(help.graders[g] || 'No description.')}</li>`).join('\n    ')}
+    <li><b>consistency</b> — the share of repetitions that gave the same answer for a case, averaged over cases. — with one repetition.</li>
+    <li><b>latency s</b> — average wall time of one run, in seconds, including the sandbox start.</li>
+    <li><b>model calls per run</b> — average model calls a run made, safety-model calls included.</li>
+    <li><b>harness cost, judge cost per run</b> — average cost of one run and of grading it, as the provider reported it. — for a free local model.</li>
+    <li><b>total cost, all runs</b> — (harness + judge cost per run) × the number of runs: the bill for this system in this benchmark.</li>
   </ul>
 </div>
 <div id="tip" role="status"></div>
@@ -339,11 +298,16 @@ function columnsChart(opts: {
   tasks: string[];
   systems: string[];
   value: (task: string, system: string) => number;
+  // a second measure on the same scale, drawn as a dot on the column (e.g. pass rate on a mean-score bar)
+  marker?: (task: string, system: string) => number;
+  tip?: (task: string, system: string) => string;
+  legendNote?: string;
   yMax: number;
   ticks: number[];
   fmt: (v: number) => string;
 }): string {
-  let { tasks, systems, value, yMax, ticks, fmt } = opts;
+  let { tasks, systems, value, marker, yMax, ticks, fmt } = opts;
+  let tip = opts.tip ?? ((t: string, sys: string) => fmt(value(t, sys)));
   let W = 640, H = 240;
   let ml = 44, mr = 8, mt = 12, mb = 40;
   let plotW = W - ml - mr, plotH = H - mt - mb;
@@ -363,7 +327,7 @@ function columnsChart(opts: {
   for (let ti = 0; ti < tasks.length; ti++) {
     let x0 = ml + ti * band + (band - groupW) / 2;
     // rows for this task's tooltip: every series at this x
-    let rows = systems.map((sys, si) => ({ key: `s${si + 1}`, name: sys, value: fmt(value(tasks[ti], sys)) }));
+    let rows = systems.map((sys, si) => ({ key: `s${si + 1}`, name: sys, value: tip(tasks[ti], sys) }));
     let tipData = esc(JSON.stringify({ task: label(tasks[ti]), rows }));
     let aria = `${label(tasks[ti])}: ${rows.map((r) => `${r.name} ${r.value}`).join(', ')}`;
 
@@ -372,6 +336,10 @@ function columnsChart(opts: {
       let x = x0 + si * (colW + gap);
       let colId = `${chartId}-${ti}-${si}`;
       if (v > 0) parts.push(`<path id="${colId}" fill="var(--s${si + 1})" d="${columnPath(x, y(v), colW, y(0) - y(v))}"/>`);
+      if (marker) {
+        // >= 8px dot with a 2px surface ring, so it stays legible on the column
+        parts.push(`<circle cx="${x + colW / 2}" cy="${y(marker(tasks[ti], systems[si]))}" r="5" fill="var(--s${si + 1})" stroke="var(--surface)" stroke-width="2"/>`);
+      }
       // hit target wider than the mark, full plot height, keyboard-focusable
       parts.push(
         `<rect class="hit" x="${x - 2}" y="${mt}" width="${colW + 4}" height="${plotH}" ` +
@@ -390,6 +358,7 @@ function columnsChart(opts: {
   let legend = opts.systems
     .map((sys, i) => `<span><span class="key s${i + 1}"></span>${esc(sys)}</span>`)
     .join('');
+  if (opts.legendNote) legend += `<span class="note">${esc(opts.legendNote)}</span>`;
 
   return `<div class="card">
   <h2>${esc(opts.title)}</h2>
@@ -404,15 +373,6 @@ function columnPath(x: number, top: number, w: number, h: number): string {
   let r = Math.min(4, w / 2, h);
   let bottom = top + h;
   return `M ${x} ${bottom} L ${x} ${top + r} Q ${x} ${top} ${x + r} ${top} L ${x + w - r} ${top} Q ${x + w} ${top} ${x + w} ${top + r} L ${x + w} ${bottom} Z`;
-}
-
-function niceTicks(max: number): number[] {
-  let steps = [0.5, 1, 2, 4, 5, 10, 20, 25, 50, 100];
-  let step = steps.find((s) => max / s <= 4) ?? 10 ** Math.ceil(Math.log10(max / 4));
-  let top = Math.ceil(max / step) * step;
-  let ticks = [];
-  for (let t = 0; t <= top; t += step) ticks.push(t);
-  return ticks;
 }
 
 function label(task: string): string {
