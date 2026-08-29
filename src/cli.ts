@@ -58,6 +58,7 @@ console.log(
 
 // every record is appended to results.jsonl at once, so a crash keeps what is done
 let resultsPath = join(outDir, 'results.jsonl');
+let started = Date.now();
 let records = await runSuite({
   runId,
   cases,
@@ -69,8 +70,9 @@ let records = await runSuite({
   concurrency: Number(values.concurrency),
   onRecord({ run, grades, judge }) {
     let verdict = grades.map((g) => `${g.pass ? 'PASS' : 'FAIL'} ${g.grader}`).join(', ');
+    // +Ns: seconds since the run started, to see the overlap of the jobs
     console.log(
-      `  ${verdict} ${run.caseId} [${run.system}, rep ${run.repetition}] ${run.latencyMs}ms ` +
+      `  +${Math.round((Date.now() - started) / 1000)}s ${verdict} ${run.caseId} [${run.system}, rep ${run.repetition}] ${run.latencyMs}ms ` +
         `${grades.map((g) => g.detail ?? '').join('; ')}${run.error ? ` error: ${run.error}` : ''}`,
     );
     appendFileSync(resultsPath, JSON.stringify({ run, grades, judge }) + '\n');

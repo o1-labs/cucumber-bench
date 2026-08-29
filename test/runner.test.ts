@@ -84,6 +84,26 @@ describe('runSuite', () => {
     assert.ok(Date.now() - t0 < 4 * 60, 'four repetitions took as long as one');
   });
 
+  it('should run two systems in one pool, records still in (system, repetition, case) order', async () => {
+    let cases = (await loadCases('benchmarks/legalbench')).slice(0, 2);
+    let slow = (name: string): SystemUnderTest => ({
+      ...fakeSystem('Yes'),
+      name,
+      async run(c, ctx) {
+        await new Promise((r) => setTimeout(r, 60));
+        return { ...(await fakeSystem('Yes').run(c, ctx)), system: name };
+      },
+    });
+    let t0 = Date.now();
+    let records = await runSuite({
+      runId: 'test', cases, systems: [slow('a'), slow('b')], graders: [exactGrader()], proxy, judgeFor: () => 'j', repetitions: 1, concurrency: 4,
+    });
+    assert.deepEqual(records.map((r) => `${r.run.system}/${r.run.caseId}`), [
+      `a/${cases[0].pub.id}`, `a/${cases[1].pub.id}`, `b/${cases[0].pub.id}`, `b/${cases[1].pub.id}`,
+    ]);
+    assert.ok(Date.now() - t0 < 2 * 60, 'the second system waited for the first');
+  });
+
   it('should record a failed grade, not crash, when a grader throws', async () => {
     let cases = (await loadCases('benchmarks/legalbench')).slice(0, 2);
     let broken = { name: 'exact', description: 'x', async grade() { throw Error('judge down'); } };

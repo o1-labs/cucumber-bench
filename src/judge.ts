@@ -4,8 +4,9 @@ import type { ModelProxy } from './types.js';
 export { judgeVia };
 
 // at most this many judge calls in flight across the whole run; hosted judges
-// slow down and time out when every parallel case fires ten questions at once
-const MAX_IN_FLIGHT = 16;
+// slow down and time out when every parallel case fires ten questions at once.
+// 64: a judge call takes 2-11 s and ten parallel cases fire about 40 at once
+const MAX_IN_FLIGHT = 64;
 let inFlight = 0;
 let waiting: (() => void)[] = [];
 
