@@ -66,6 +66,24 @@ describe('runSuite', () => {
     }
   });
 
+  it('should run repetitions of one case in parallel under concurrency', async () => {
+    let cases = (await loadCases('benchmarks/legalbench')).slice(0, 1);
+    let slow: SystemUnderTest = {
+      ...fakeSystem('Yes'),
+      async run(c, ctx) {
+        await new Promise((r) => setTimeout(r, 60));
+        return fakeSystem('Yes').run(c, ctx);
+      },
+    };
+    let t0 = Date.now();
+    let records = await runSuite({
+      runId: 'test', cases, systems: [slow], graders: [exactGrader()], proxy, judgeFor: () => 'j', repetitions: 4, concurrency: 4,
+    });
+    assert.equal(records.length, 4);
+    assert.deepEqual(records.map((r) => r.run.repetition), [1, 2, 3, 4]);
+    assert.ok(Date.now() - t0 < 4 * 60, 'four repetitions took as long as one');
+  });
+
   it('should record a failed grade, not crash, when a grader throws', async () => {
     let cases = (await loadCases('benchmarks/legalbench')).slice(0, 2);
     let broken = { name: 'exact', description: 'x', async grade() { throw Error('judge down'); } };

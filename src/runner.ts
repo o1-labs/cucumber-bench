@@ -30,11 +30,14 @@ async function runSuite(opts: {
 
   let records: RunRecord[] = [];
   for (let system of systems) {
-    for (let rep = 1; rep <= repetitions; rep++) {
-      let mine = system.suites ? cases.filter((c) => system.suites!.includes(c.pub.suite)) : cases;
-      let slot = records.length;
-      records.length += mine.length;
-      await pool(mine, concurrency, async ({ pub, priv }, i) => {
+    let mine = system.suites ? cases.filter((c) => system.suites!.includes(c.pub.suite)) : cases;
+    // every (repetition, case) pair is one job, so concurrency also covers one case run many times
+    let jobs: { rep: number; pub: Case['pub']; priv: Case['priv'] }[] = [];
+    for (let rep = 1; rep <= repetitions; rep++) for (let { pub, priv } of mine) jobs.push({ rep, pub, priv });
+    let slot = records.length;
+    records.length += jobs.length;
+    await pool(jobs, concurrency, async ({ rep, pub, priv }, i) => {
+      {
         let ctx = { runId, repetition: rep, proxy };
         let t0 = Date.now();
         let result: Omit<RunResult, 'latencyMs'>;
@@ -72,8 +75,8 @@ async function runSuite(opts: {
         let record = { run, grades, judge: proxy.usage(judgeToken) };
         records[slot + i] = record;
         opts.onRecord?.(record);
-      });
-    }
+      }
+    });
   }
   return records;
 }
