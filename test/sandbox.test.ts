@@ -27,7 +27,7 @@ beforeAll(async () => {
         JSON.stringify({
           id: 'x', object: 'chat.completion', created: 0, model: body.model,
           choices: [{ index: 0, message: { role: 'assistant', content }, finish_reason: 'stop' }],
-          usage: { prompt_tokens: 50, completion_tokens: 5, total_tokens: 55 },
+          usage: { prompt_tokens: 50, completion_tokens: 5, total_tokens: 55, cost: 0.001 },
         }),
       );
     });
@@ -83,7 +83,7 @@ describe('proxy', () => {
     // explicit temperature passes through
     await call(token, { model: 'm', messages: [], temperature: 0 });
     assert.equal(seen[seen.length - 1].temperature, 0);
-    assert.deepEqual(proxy.usage(token), { modelCalls: 2, tokensIn: 100, tokensOut: 10 });
+    assert.deepEqual(proxy.usage(token), { modelCalls: 2, tokensIn: 100, tokensOut: 10, costUsd: 0.002 });
   });
 
   it('should serve the trusted safety model on its own route, outside the leakage record', async () => {

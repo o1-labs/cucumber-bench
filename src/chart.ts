@@ -12,8 +12,8 @@ const SERIES_DARK = ['#3987e5', '#d95926', '#199e70'];
 // one-sentence definitions for the page, from the harness and benchmark manifests
 type Help = { systems: { [name: string]: string }; graders: { [name: string]: string } };
 
-// self-contained chart page for one run: KPI tiles, accuracy + latency grouped
-// columns with hover/focus tooltips, and a table view of every number
+// self-contained chart page for one run: per-suite pass-rate charts, a latency chart,
+// a comparison table per suite with the best value in bold, and a glossary
 function buildChartHtml(runId: string, model: string, cases: Case[], records: Record[], help: Help = { systems: {}, graders: {} }): string {
   let rows = summarize(cases, records);
   let tasks = [...new Set(rows.filter((r) => r.task !== 'ALL').map((r) => r.task))];
@@ -27,8 +27,9 @@ function buildChartHtml(runId: string, model: string, cases: Case[], records: Re
 
   // charts: per suite, the pass rate of every grader; and per task when a suite has several tasks
   let pct = { yMax: 100, ticks: [0, 25, 50, 75, 100], fmt: (v: number) => `${Math.round(v)}%` };
+  let suites = [...new Set(rows.map((r) => r.suite))];
   let suiteCharts = '';
-  for (let suite of [...new Set(rows.map((r) => r.suite))]) {
+  for (let suite of suites) {
     let sRows = rows.filter((r) => r.suite === suite);
     let sTasks = [...new Set(sRows.filter((r) => r.task !== 'ALL').map((r) => r.task))];
     let sGraders = [...new Set(sRows.flatMap((r) => Object.keys(r.graders)))];
@@ -68,45 +69,81 @@ function buildChartHtml(runId: string, model: string, cases: Case[], records: Re
     fmt: (v) => `${round1(v)}s`,
   });
 
-  // kpi tiles: the pass rate of every grader per system (one row per suite), plus consistency when reps > 1
-  let tile = (i: number, sys: string, label: string, value: number) => `
-      <div class="tile">
-        <div class="tile-label"><span class="key s${i + 1}"></span>${esc(sys)} — ${label}</div>
-        <div class="tile-value">${Math.round(value * 100)}%</div>
-      </div>`;
-  let suites = [...new Set(rows.map((r) => r.suite))];
-  let tiles = systems
-    .flatMap((sys, i) =>
-      rows
-        .filter((r) => r.task === 'ALL' && r.system === sys)
-        .flatMap((r) =>
-          Object.entries(r.graders).map(([g, v]) => tile(i, sys, `${suites.length > 1 ? `${r.suite} ` : ''}${g}`, v.pass)),
-        ),
-    )
-    .join('');
-  tiles += systems
-    .map((sys, i) => {
-      let cons = row('ALL', sys)?.consistency;
-      return cons === undefined ? '' : tile(i, sys, 'consistency', cons);
-    })
-    .join('');
-
-  // table view: the WCAG-clean twin of the charts, one column per grader
-  let gradeCell = (g?: Row['graders'][string]) =>
+  // comparison tables: one per suite, one column per system, one row per metric;
+  // the best value in a row is bold (a second cue beside the number, never color alone)
+  let fmtGrade = (g?: Row['graders'][string]) =>
     !g ? '—' : Math.abs(g.pass - g.score) > 0.005 ? `${Math.round(g.pass * 100)}% (${Math.round(g.score * 100)}%)` : `${Math.round(g.pass * 100)}%`;
-  let tableRows = rows
-    .map(
-      (r) => `<tr${r.task === 'ALL' ? ' class="total"' : ''}>
-          <td>${esc(r.task)}</td><td>${esc(r.system)}</td><td>${r.n}</td>
-          ${graders.map((g) => `<td>${gradeCell(r.graders[g])}</td>`).join('')}
-          <td>${r.consistency === undefined ? '—' : Math.round(r.consistency * 100) + '%'}</td>
-          <td>${round1(r.latencyMs / 1000)}</td>
-          <td>${Math.round(r.tokensIn)}/${Math.round(r.tokensOut)}</td>
-          <td>${round1(r.calls)}</td>
-          <td>${r.costUsd === undefined ? '—' : '$' + r.costUsd.toFixed(4)}</td>
-        </tr>`,
-    )
-    .join('\n');
+  let tables = '';
+  for (let suite of suites) {
+    let sRows = rows.filter((r) => r.suite === suite);
+    let sTasks = [...new Set(sRows.filter((r) => r.task !== 'ALL').map((r) => r.task))];
+    let sGraders = [...new Set(sRows.flatMap((r) => Object.keys(r.graders)))];
+    let at = (task: string, sys: string) => sRows.find((r) => r.task === task && r.system === sys);
+    // a metric row: label, the value per system, and the direction that is better
+    type Metric = { label: string; values: (number | undefined)[]; cells: string[]; higher: boolean };
+    let metrics: Metric[] = [];
+    let gradeMetric = (label: string, task: string, g: string) =>
+      metrics.push({
+        label,
+        values: systems.map((sys) => at(task, sys)?.graders[g]?.pass),
+        cells: systems.map((sys) => fmtGrade(at(task, sys)?.graders[g])),
+        higher: true,
+      });
+    for (let g of sGraders) {
+      gradeMetric(`${g} ↑`, 'ALL', g);
+      if (sTasks.length > 1) for (let t of sTasks) gradeMetric(`${g} — ${label(t)} ↑`, t, g);
+    }
+    let num = (label: string, higher: boolean, value: (r?: Row) => number | undefined, fmt: (v: number) => string) =>
+      metrics.push({
+        label,
+        values: systems.map((sys) => value(at('ALL', sys))),
+        cells: systems.map((sys) => {
+          let v = value(at('ALL', sys));
+          return v === undefined ? '—' : fmt(v);
+        }),
+        higher,
+      });
+    num('consistency ↑', true, (r) => r?.consistency, (v) => `${Math.round(v * 100)}%`);
+    num('latency s ↓', false, (r) => r?.latencyMs, (v) => `${round1(v / 1000)}`);
+    num('tokens in/out ↓', false, (r) => (r ? r.tokensIn + r.tokensOut : undefined), () => '');
+    metrics[metrics.length - 1].cells = systems.map((sys) => {
+      let r = at('ALL', sys);
+      return r ? `${Math.round(r.tokensIn)}/${Math.round(r.tokensOut)}` : '—';
+    });
+    num('calls ↓', false, (r) => r?.calls, (v) => `${round1(v)}`);
+    num('cost per run ↓', false, (r) => r?.costUsd, (v) => `$${v.toFixed(4)}`);
+    num('judge calls per run ↓', false, (r) => r?.judgeCalls, (v) => `${round1(v)}`);
+    num('judge tokens in/out ↓', false, (r) => (r ? r.judgeTokensIn + r.judgeTokensOut : undefined), () => '');
+    metrics[metrics.length - 1].cells = systems.map((sys) => {
+      let r = at('ALL', sys);
+      return r ? `${Math.round(r.judgeTokensIn)}/${Math.round(r.judgeTokensOut)}` : '—';
+    });
+    num('judge cost per run ↓', false, (r) => r?.judgeCostUsd, (v) => `$${v.toFixed(4)}`);
+    // the whole benchmark for this system: harness plus judge, over all its runs
+    num('total cost ↓', false, (r) => (r && r.costUsd !== undefined ? r.n * (r.costUsd + (r.judgeCostUsd ?? 0)) : undefined), (v) => `$${v.toFixed(2)}`);
+    let n = systems.map((sys) => at('ALL', sys)?.n ?? 0);
+
+    let body = metrics
+      .map((m) => {
+        let defined = m.values.filter((v): v is number => v !== undefined);
+        let best = defined.length > 1 ? (m.higher ? Math.max(...defined) : Math.min(...defined)) : undefined;
+        let cells = m.cells.map((cell, i) => {
+          let isBest = best !== undefined && m.values[i] !== undefined && Math.abs(m.values[i]! - best) < 1e-9;
+          return `<td${isBest ? ' class="best"' : ''}>${cell}</td>`;
+        });
+        return `<tr><td>${esc(m.label)}</td>${cells.join('')}</tr>`;
+      })
+      .join('\n');
+    tables += `<div class="card">
+  <h2>${esc(suite)}: comparison</h2>
+  <p class="csub">One column per system, one row per metric. ↑ means higher is better, ↓ lower. Bold marks the best value in a row. Runs per system: ${systems.map((sys, i) => `${esc(sys)} ${n[i]}`).join(', ')}.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>metric</th>${systems.map((sys, i) => `<th><span class="key s${i + 1}"></span> ${esc(sys)}</th>`).join('')}</tr></thead>
+    <tbody>${body}</tbody>
+  </table></div>
+</div>
+`;
+  }
 
   return `<!doctype html>
 <html lang="en">
@@ -146,13 +183,6 @@ body {
 }
 h1 { font-size: 18px; font-weight: 600; }
 .sub { color: var(--ink-2); margin: 4px 0 20px; font-size: 13px; }
-.tiles { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
-.tile {
-  flex: 1 1 160px; background: var(--surface); border: 1px solid var(--border);
-  border-radius: 10px; padding: 14px 16px;
-}
-.tile-label { color: var(--ink-2); font-size: 13px; display: flex; align-items: center; gap: 7px; }
-.tile-value { font-size: 28px; font-weight: 600; margin-top: 2px; }
 .card {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 10px; padding: 16px 18px; margin-bottom: 12px;
@@ -163,7 +193,6 @@ h1 { font-size: 18px; font-weight: 600; }
 .help ul, .defs { margin: 6px 0 0 18px; padding: 0; }
 .defs { margin-top: 12px; }
 .help b, .defs b { color: var(--ink); font-weight: 600; }
-.tiles-help { font-size: 12px; color: var(--muted); margin: -4px 0 12px; }
 .legend { display: flex; gap: 16px; margin: 6px 0 2px; font-size: 12px; color: var(--ink-2); }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .key { width: 12px; height: 12px; border-radius: 3px; display: inline-block; flex: none; }
@@ -188,9 +217,10 @@ svg { width: 100%; height: auto; display: block; }
 .tip-name { color: var(--ink-2); }
 table { border-collapse: collapse; width: 100%; font-size: 13px; }
 th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
-td:nth-child(n+3), th:nth-child(n+3) { text-align: right; font-variant-numeric: tabular-nums; }
+td:nth-child(n+2), th:nth-child(n+2) { text-align: right; font-variant-numeric: tabular-nums; }
 th { color: var(--ink-2); font-weight: 500; }
-tr.total td { font-weight: 600; }
+td.best { font-weight: 700; }
+th .key { vertical-align: -1px; }
 .scroll { overflow-x: auto; }
 </style>
 </head>
@@ -200,30 +230,25 @@ tr.total td { font-weight: 600; }
 <div class="card help">
   <h2>How to read this page</h2>
   <p>Each system received the same cases. A <b>grader</b> compares each output with private gold data and returns pass or fail.
-  The <b>pass rate</b> is the share of runs that passed. Each tile is the pass rate of one grader for one system.
+  The <b>pass rate</b> is the share of runs that passed.
   Each benchmark has a chart with one group per grader. A benchmark with several tasks also has a chart per task for its first grader.
-  The table shows all numbers. Move the pointer over a column to see its numbers.</p>
+  The comparison table has one column per system and marks the best value in a row in bold. Move the pointer over a chart column to see its numbers.</p>
   <ul>${systems.map((sys, i) => `<li><span class="key s${i + 1}"></span> <b>${esc(sys)}</b> — ${esc(help.systems[sys] || 'A system under test.')}</li>`).join('')}</ul>
 </div>
-<div class="tiles">${tiles}</div>
-<p class="tiles-help">Each tile: the share of runs that passed that grader. Higher is better.${reps > 1 ? ' Consistency: the share of repetitions that gave the same answer for a case, averaged over cases. Higher is better.' : ''}</p>
 ${suiteCharts}
 ${latChart}
+${tables}
 <div class="card">
-  <h2>All numbers</h2>
-  <p class="csub">One row per task and system. The ALL row is the total for a suite. Values are averages over the runs in the row. ↑ means higher is better. ↓ means lower is better.</p>
-  <div class="scroll"><table>
-    <thead><tr><th>task</th><th>system</th><th>n</th>${graders.map((g) => `<th>${esc(g)} ↑</th>`).join('')}<th>consistency ↑</th><th>latency s ↓</th><th>tokens in/out ↓</th><th>calls ↓</th><th>cost ↓</th></tr></thead>
-    <tbody>${tableRows}</tbody>
-  </table></div>
+  <h2>Glossary</h2>
   <ul class="defs">
-    <li><b>n</b> — the number of runs in the row.</li>
-    ${graders.map((g) => `<li><b>${esc(g)}</b> — ${esc(help.graders[g] || 'No description.')} The cell shows the pass rate. A value in parentheses is the mean score, when it differs from the pass rate. Higher is better.</li>`).join('\n    ')}
+        ${graders.map((g) => `<li><b>${esc(g)}</b> — ${esc(help.graders[g] || 'No description.')} The cell shows the pass rate. A value in parentheses is the mean score, when it differs from the pass rate. Higher is better.</li>`).join('\n    ')}
     <li><b>consistency</b> — the share of repetitions that gave the same answer for a case, averaged over cases. Shown as — with one repetition. Higher is better.</li>
     <li><b>latency s</b> — the average wall time of one run, in seconds. Lower is better.</li>
     <li><b>tokens in/out</b> — the average number of tokens sent to and received from the model per run. The proxy counts them. Lower is better.</li>
     <li><b>calls</b> — the average number of model calls per run. Calls to the safety model are included. Lower is better.</li>
-    <li><b>cost</b> — the average cost of one run in dollars. Shown as — when no price is configured. Lower is better.</li>
+    <li><b>cost per run</b> — the average cost of one harness run in dollars, as the provider reported it (OpenRouter), else from the configured prices. Shown as — for a free local model. Lower is better.</li>
+    <li><b>judge calls, judge tokens, judge cost per run</b> — what the graders spent on the judge model for one run. This is the cost of measuring, not of the harness. Lower is better.</li>
+    <li><b>total cost</b> — harness cost plus judge cost, summed over all runs of the system in this benchmark. Lower is better.</li>
   </ul>
 </div>
 <div id="tip" role="status"></div>

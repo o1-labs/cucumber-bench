@@ -26,7 +26,7 @@ let ctx: GradeContext = {
 };
 
 function result(output: string): RunResult {
-  return { caseId: 'q', system: 's', repetition: 1, output, latencyMs: 0, modelCalls: 1, tokensIn: 0, tokensOut: 0 };
+  return { caseId: 'q', system: 's', repetition: 1, output, latencyMs: 0, modelCalls: 1, tokensIn: 0, tokensOut: 0, costUsd: 0 };
 }
 
 describe('parsing', () => {

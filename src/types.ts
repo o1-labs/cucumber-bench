@@ -40,7 +40,9 @@ type PrivateCase = {
   qaPairs?: { question: string; shortAnswers: string[] }[]; // str-em: the sub-questions of an ambiguous question
 };
 
-type Usage = { modelCalls: number; tokensIn: number; tokensOut: number };
+// costUsd is what the provider reported (openrouter returns usage.cost per request);
+// 0 when the provider reports none, e.g. a local ollama
+type Usage = { modelCalls: number; tokensIn: number; tokensOut: number; costUsd: number };
 
 // one step inside a harness (input safety, agent, output safety), self-reported by the harness
 type Stage = {

@@ -18,7 +18,11 @@ type Row = {
   tokensIn: number;
   tokensOut: number;
   calls: number;
-  costUsd?: number; // undefined when no rates are configured
+  costUsd?: number; // harness cost per run: reported by the provider, else from env rates, else undefined
+  judgeCalls: number;
+  judgeTokensIn: number;
+  judgeTokensOut: number;
+  judgeCostUsd?: number; // judge cost per run, reported by the provider
 };
 
 function summarize(cases: Case[], records: Record[]): Row[] {
@@ -51,6 +55,10 @@ function summarize(cases: Case[], records: Record[]): Row[] {
           tokensOut: avg(rs.map((r) => r.run.tokensOut)),
           calls: avg(rs.map((r) => r.run.modelCalls)),
           costUsd: costOf(rs),
+          judgeCalls: avg(rs.map((r) => r.judge?.modelCalls ?? 0)),
+          judgeTokensIn: avg(rs.map((r) => r.judge?.tokensIn ?? 0)),
+          judgeTokensOut: avg(rs.map((r) => r.judge?.tokensOut ?? 0)),
+          judgeCostUsd: rs.some((r) => (r.judge?.costUsd ?? 0) > 0) ? avg(rs.map((r) => r.judge?.costUsd ?? 0)) : undefined,
         });
       }
     }
@@ -82,9 +90,11 @@ function consistencyOf(rows: Record[]): number | undefined {
   return avg(shares);
 }
 
-// average cost per run in usd, from BENCH_COST_IN / BENCH_COST_OUT ($ per 1M
-// tokens). undefined when neither rate is set (local models are free).
+// average harness cost per run in usd. the provider's reported cost when there is
+// one (openrouter); else BENCH_COST_IN / BENCH_COST_OUT ($ per 1M tokens); else
+// undefined (a local model is free).
 function costOf(rows: Record[]): number | undefined {
+  if (rows.some((r) => (r.run.costUsd ?? 0) > 0)) return avg(rows.map((r) => r.run.costUsd ?? 0));
   let inRate = Number(process.env.BENCH_COST_IN);
   let outRate = Number(process.env.BENCH_COST_OUT);
   if (Number.isNaN(inRate) && Number.isNaN(outRate)) return undefined;

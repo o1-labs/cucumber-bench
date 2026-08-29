@@ -10,7 +10,7 @@ import type { ModelProxy, SystemUnderTest } from '../src/types.js';
 let proxy: ModelProxy = {
   url: 'http://127.0.0.1:1',
   register: () => 'judge-token',
-  usage: () => ({ modelCalls: 0, tokensIn: 0, tokensOut: 0 }),
+  usage: () => ({ modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0 }),
   requests: () => [],
   close: async () => {},
 };
@@ -22,7 +22,7 @@ function fakeSystem(output: string): SystemUnderTest {
     async run(c, ctx) {
       return {
         caseId: c.id, system: 'fake', repetition: ctx.repetition, output,
-        modelRequests: [c.input], modelCalls: 1, tokensIn: 10, tokensOut: 2,
+        modelRequests: [c.input], modelCalls: 1, tokensIn: 10, tokensOut: 2, costUsd: 0,
       };
     },
   };
@@ -40,7 +40,7 @@ describe('runSuite', () => {
     assert.equal(records.length, 9);
     // concurrent runs still land in case order
     assert.deepEqual(records.map((r) => r.run.caseId), cases.map((c) => c.pub.id));
-    assert.deepEqual(records[0].judge, { modelCalls: 0, tokensIn: 0, tokensOut: 0 });
+    assert.deepEqual(records[0].judge, { modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0 });
     // fake answers "Yes"; exactly the two Yes-labeled cases pass
     assert.equal(records.filter((r) => r.grades[0].pass).length, 2);
     for (let { run, grades } of records) {

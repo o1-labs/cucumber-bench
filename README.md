@@ -51,7 +51,7 @@ with environment variables, or copy `.env.example` to `.env` in the repo root
 | `BENCH_API_KEY` | `none` | required by hosted APIs, ignored by Ollama |
 | `BENCH_TEMPERATURE` | `0` | sampling temperature |
 | `BENCH_TIMEOUT_MS` | `120000` | per model call |
-| `BENCH_COST_IN` | unset | $ per 1M input tokens; enables the cost column |
+| `BENCH_COST_IN` | unset | $ per 1M input tokens, for providers that report no cost; OpenRouter's reported cost is used when present |
 | `BENCH_COST_OUT` | unset | $ per 1M output tokens |
 
 These are the benchmark defaults. A sandboxed harness controls its own LLM

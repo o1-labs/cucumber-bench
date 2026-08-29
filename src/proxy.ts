@@ -71,6 +71,8 @@ async function startProxy(opts: {
       let usage = JSON.parse(text).usage;
       state.usage.tokensIn += usage?.prompt_tokens ?? 0;
       state.usage.tokensOut += usage?.completion_tokens ?? 0;
+      // openrouter reports the charge in usd credits; other providers report nothing
+      state.usage.costUsd += Number(usage?.cost ?? 0);
     } catch {}
     res.writeHead(upstream.status, { 'content-type': 'application/json' });
     res.end(text);
@@ -85,12 +87,12 @@ async function startProxy(opts: {
     url: `http://127.0.0.1:${port}`,
     register(runId) {
       let token = randomBytes(16).toString('hex');
-      runs.set(token, { runId, usage: { modelCalls: 0, tokensIn: 0, tokensOut: 0 }, requests: [] });
+      runs.set(token, { runId, usage: { modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0 }, requests: [] });
       return token;
     },
     usage(token) {
       let state = runs.get(token);
-      return state ? { ...state.usage } : { modelCalls: 0, tokensIn: 0, tokensOut: 0 };
+      return state ? { ...state.usage } : { modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0 };
     },
     requests(token) {
       return [...(runs.get(token)?.requests ?? [])];

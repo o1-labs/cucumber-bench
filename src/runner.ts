@@ -49,6 +49,7 @@ async function runSuite(opts: {
             modelCalls: 0,
             tokensIn: 0,
             tokensOut: 0,
+            costUsd: 0,
           };
         }
         let run = { ...result, latencyMs: Date.now() - t0 };

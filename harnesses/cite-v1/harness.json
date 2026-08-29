@@ -1,8 +1,11 @@
 {
   "name": "cite-v1",
-  "description": "The citation harness. Step 1: the plain few-shot answer, same as direct. Later steps add coverage of every reading of the question and a citation check before release.",
+  "description": "The citation harness. Step 2: a greedy plan lists every reading of the question the documents answer, then the few-shot answer must cover each one. Step 3 will check every citation before release.",
   "entry": "src/entry.ts",
-  "suites": ["asqa", "asqa-dev"],
+  "suites": [
+    "asqa",
+    "asqa-dev"
+  ],
   "image": "cucumber-harness-cite-v1",
   "imageEntry": "/app/dist/entry.js",
   "dockerfile": "Dockerfile"

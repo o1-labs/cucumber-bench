@@ -15,14 +15,14 @@ function buildReport(runId: string, model: string, cases: Case[], records: Recor
     let suiteRows = rows.filter((r) => r.suite === suite);
     let graders = [...new Set(suiteRows.flatMap((r) => Object.keys(r.graders)))];
     lines.push(`## Suite: ${suite}`, '');
-    lines.push(`| task | system | n | ${graders.join(' | ')} | consistency | avg latency ms | avg tokens in/out | avg calls | avg cost |`);
-    lines.push(`|${' --- |'.repeat(graders.length + 8)}`);
+    lines.push(`| task | system | n | ${graders.join(' | ')} | consistency | avg latency ms | avg tokens in/out | avg calls | avg cost | judge calls | judge cost |`);
+    lines.push(`|${' --- |'.repeat(graders.length + 10)}`);
     for (let r of suiteRows) {
       let cells = graders.map((g) => gradeCell(r.graders[g]));
       lines.push(
         `| ${r.task} | ${r.system} | ${r.n} | ${cells.join(' | ')} | ${r.consistency === undefined ? '—' : pct(r.consistency)} ` +
           `| ${r.latencyMs.toFixed(0)} | ${r.tokensIn.toFixed(0)}/${r.tokensOut.toFixed(0)} | ${r.calls.toFixed(1)} ` +
-          `| ${r.costUsd === undefined ? '—' : '$' + r.costUsd.toFixed(4)} |`,
+          `| ${usd(r.costUsd)} | ${r.judgeCalls.toFixed(1)} | ${usd(r.judgeCostUsd)} |`,
       );
     }
     lines.push('');
@@ -52,6 +52,10 @@ function buildReport(runId: string, model: string, cases: Case[], records: Recor
 function gradeCell(g?: Row['graders'][string]): string {
   if (!g) return '—';
   return Math.abs(g.pass - g.score) > 0.005 ? `${pct(g.pass)} (avg ${pct(g.score)})` : pct(g.pass);
+}
+
+function usd(x?: number): string {
+  return x === undefined ? '—' : `$${x.toFixed(4)}`;
 }
 
 function pct(x: number): string {
