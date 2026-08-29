@@ -23,9 +23,11 @@ beforeAll(async () => {
       let prompt = (body.messages ?? []).map((m: any) => m.content).join('\n');
       let content = prompt.includes('Return only a JSON array')
         ? '["Heder", "Sanavi"]'
-        : prompt.includes('list the distinct readings')
-          ? 'Reading A: answer one [2, 7]\nReading B: answer two [1]'
-          : 'Yes';
+        : prompt.includes('List the numbers of the passages')
+          ? (prompt.includes('Claim: Alpha') ? '[2][7]' : 'none')
+          : prompt.includes('Answer:')
+            ? 'Alpha holds the record [1][2][3]. Beta is unsupported [4].'
+            : 'Yes';
       res.setHeader('content-type', 'application/json');
       res.end(
         JSON.stringify({
@@ -204,24 +206,24 @@ describe('legal-v1 (vercel ai sdk harness)', () => {
 });
 
 describe('cite-v1 (citation harness)', () => {
-  it('step 3: should plan greedily, keep only the passages the plan cites, then answer with the coverage requirement', async () => {
+  it('step 4: should answer like direct, then rewrite each sentence with its minimal supporting set or drop it', async () => {
     let { pub } = (await loadCases('benchmarks/asqa')).find((c) => c.pub.id === 'asqa-000')!;
-    assert.equal(pub.docs!.length, 20);
+    let direct = await sandboxedSystem('direct', tsx('harnesses/direct/src/entry.ts')).run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
     let system = sandboxedSystem('cite-v1', tsx('harnesses/cite-v1/src/entry.ts'));
     let result = await system.run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
     assert.equal(result.error, undefined);
-    assert.equal(result.output, 'Yes');
-    assert.equal(result.modelCalls, 2);
-    let [plan, answer] = result.modelRequests!;
-    assert.ok(plan.includes('list the distinct readings') && plan.includes('Document [20]'));
-    assert.equal(seen[seen.length - 2].temperature, 0);
-    // the answer prompt keeps the few-shot shape, the question, and only the cited passages under their original numbers
-    assert.ok(answer.startsWith(pub.instructions));
-    assert.ok(answer.includes(pub.input.split('\n')[0]));
-    let questionBlock = answer.split('\n\n\n').pop()!; // the demonstrations carry their own documents
-    for (let n of [1, 2, 7]) assert.ok(questionBlock.includes(`Document [${n}]`), `passage ${n} kept`);
-    for (let n of [3, 4, 20]) assert.ok(!questionBlock.includes(`Document [${n}]`), `passage ${n} dropped`);
-    assert.ok(answer.includes('Cover each of these readings') && answer.endsWith('Answer:'));
-    assert.equal(result.trace?.stages[1].findings[0], 'selected: 2, 7, 1');
+    // one answer call plus one greedy check per sentence
+    assert.equal(result.modelCalls, 3);
+    let [answerPrompt, ...checks] = result.modelRequests!;
+    assert.equal(answerPrompt, direct.modelRequests![0]);
+    assert.ok(checks.every((p) => p.includes('Document [20]') && p.includes('Claim: ')));
+    assert.ok(seen.slice(-2).every((r) => r.temperature === 0));
+    // sentence 1 keeps the minimal set the check returned; sentence 2 is dropped
+    assert.equal(result.output, 'Alpha holds the record [2][7].');
+    let check = result.trace!.stages[2];
+    assert.equal(check.module, 'citation-check');
+    assert.equal(check.decision, 'modified');
+    assert.deepEqual(check.findings, ['s1: [1][2][3] -> [2][7] (changed)', 's2: dropped, no passage supports it']);
+    assert.equal(result.trace!.rawOutput, 'Alpha holds the record [1][2][3]. Beta is unsupported [4].');
   });
 });

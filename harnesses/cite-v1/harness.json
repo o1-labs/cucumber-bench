@@ -1,6 +1,6 @@
 {
   "name": "cite-v1",
-  "description": "The citation harness. Step 3: a greedy plan lists every reading of the question and the passages that support it; the answer sees only those passages and must cover each reading. Step 4 will check every citation before release.",
+  "description": "The citation harness. Step 4: the same answer as direct, then a greedy check of every sentence: the citations become the smallest set of passages that supports it, and a sentence no passage supports is dropped.",
   "entry": "src/entry.ts",
   "suites": [
     "asqa",
