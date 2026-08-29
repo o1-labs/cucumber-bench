@@ -5,8 +5,8 @@ import type { GradeContext, Grader, PublicCase, RunResult } from '../../src/type
 // T5 NLI model whether the cited passages entail each sentence; we ask the judge model
 // the same yes/no question. loaded through benchmark.json
 export { graders };
-// internal API, exported for tests
-export { citationRecallGrader, citationPrecisionGrader, sentences, citationsOf, removeCitations };
+// internal API, exported for tests and for the cuad graders
+export { citationRecallGrader, citationPrecisionGrader, sentences, citationsOf, removeCitations, entails, passages };
 
 // citation recall: every sentence is supported by the passages it cites.
 // a sentence without citations counts as unsupported.

@@ -2,5 +2,5 @@
   "name": "direct",
   "description": "One model call. The raw input goes to the model. There is no safety stage. This is the baseline.",
   "entry": "src/entry.ts",
-  "suites": ["legalbench", "redaction", "asqa", "asqa-dev"]
+  "suites": ["legalbench", "redaction", "asqa", "asqa-dev", "cuad", "cuad-dev"]
 }

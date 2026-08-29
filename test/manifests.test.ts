@@ -20,6 +20,8 @@ describe('manifests', () => {
     assert.deepEqual(bs.map((b) => [b.name, b.graders.map((g) => g.name)]), [
       ['asqa', ['str-em', 'citation-recall', 'citation-precision']],
       ['asqa-dev', ['str-em', 'citation-recall', 'citation-precision']],
+      ['cuad', ['clause-recall', 'clause-precision', 'citation-support']],
+      ['cuad-dev', ['clause-recall', 'clause-precision', 'citation-support']],
       ['legalbench', ['exact']],
       ['redaction', ['removal', 'leakage', 'retention']],
     ]);

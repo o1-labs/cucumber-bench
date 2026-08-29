@@ -4,7 +4,9 @@
   "entry": "src/entry.ts",
   "suites": [
     "asqa",
-    "asqa-dev"
+    "asqa-dev",
+    "cuad",
+    "cuad-dev"
   ],
   "image": "cucumber-harness-cite-v1",
   "imageEntry": "/app/dist/entry.js",
