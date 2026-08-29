@@ -44,6 +44,20 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
       value: (g, sys) => (sRow('ALL', sys)?.graders[g]?.pass ?? 0) * 100,
       ...pct,
     });
+    // a grader with partial credit also gets its mean score plotted: the pass rate hides small differences
+    let partial = sRows.some((r) => Object.values(r.graders).some((g) => Math.abs(g.pass - g.score) > 0.005));
+    if (partial) {
+      suiteCharts += columnsChart({
+        title: `${suite}: mean score by grader`,
+        subtitle:
+          'Each group is one grader, each column one system. The height is the mean score over runs, where a run scores between 0 and 1. ' +
+          'It shows small differences that the pass rate hides. Higher is better.',
+        tasks: sGraders,
+        systems,
+        value: (g, sys) => (sRow('ALL', sys)?.graders[g]?.score ?? 0) * 100,
+        ...pct,
+      });
+    }
     if (sTasks.length > 1) {
       let sPrimary = sGraders[0];
       suiteCharts += columnsChart({
@@ -84,10 +98,12 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
     // a metric row: label, the value per system, and the direction that is better
     type Metric = { label: string; values: (number | undefined)[]; cells: string[]; higher: boolean };
     let metrics: Metric[] = [];
+    // best by pass rate; an equal pass rate is decided by the mean score
+    let rank = (v?: { pass: number; score: number }) => (v ? v.pass * 10 + v.score : undefined);
     let gradeMetric = (label: string, task: string, g: string) =>
       metrics.push({
         label,
-        values: systems.map((sys) => at(task, sys)?.graders[g]?.pass),
+        values: systems.map((sys) => rank(at(task, sys)?.graders[g])),
         cells: systems.map((sys) => fmtGrade(at(task, sys)?.graders[g])),
         higher: true,
       });
@@ -142,7 +158,7 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
       .join('\n');
     tables += `<div class="card">
   <h2>${esc(suite)}: comparison</h2>
-  <p class="csub">One column per system, one row per metric. ↑ means higher is better, ↓ lower. Bold marks the best value in a row. Runs per system: ${systems.map((sys, i) => `${esc(sys)} ${n[i]}`).join(', ')}.</p>
+  <p class="csub">One column per system, one row per metric. ↑ means higher is better, ↓ lower. Bold marks the best value in a row; for a grader, an equal pass rate is decided by the mean score in parentheses. Runs per system: ${systems.map((sys, i) => `${esc(sys)} ${n[i]}`).join(', ')}.</p>
   <div class="scroll"><table>
     <thead><tr><th>metric</th>${systems.map((sys, i) => `<th><span class="key s${i + 1}"></span> ${esc(sys)}</th>`).join('')}</tr></thead>
     <tbody>${body}</tbody>
@@ -237,7 +253,7 @@ th .key { vertical-align: -1px; }
   <h2>How to read this page</h2>
   <p>Each system received the same cases. A <b>grader</b> compares each output with private gold data and returns pass or fail.
   The <b>pass rate</b> is the share of runs that passed.
-  Each benchmark has a chart with one group per grader. A benchmark with several tasks also has a chart per task for its first grader.
+  Each benchmark has a chart with one group per grader, and a second one with the mean score when a grader gives partial credit. A benchmark with several tasks also has a chart per task for its first grader.
   The comparison table has one column per system and marks the best value in a row in bold. Move the pointer over a chart column to see its numbers.</p>
   <ul>${systems.map((sys, i) => `<li><span class="key s${i + 1}"></span> <b>${esc(sys)}</b> — ${esc(help.systems[sys] || 'A system under test.')} Models used: ${esc(modelsOf(sys).join(', ') || 'none recorded')}.</li>`).join('')}</ul>
 </div>
