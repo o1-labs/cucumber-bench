@@ -13,7 +13,7 @@ const VERSION = '4';
 
 const VERIFY_PROMPT =
   'Below are numbered passages and one claim. List the numbers of the passages that together support ' +
-  'every fact in the claim. Use the smallest set that is enough. Answer only with the numbers as [n], ' +
+  'every fact in the claim. Every fact, date and qualifier in the claim must be stated in the passages. If any part is not, answer none. Use the smallest set that is enough. Answer only with the numbers as [n], ' +
   'for example [2] or [1][4]. If no passage supports the claim, answer none.\n\n';
 
 type Doc = { title: string; text: string };
@@ -100,7 +100,7 @@ try {
 function fewShotPrompt(c: PublicCase): string {
   let demos = (c.examples ?? []).map(
     (ex) =>
-      `${ex.q}\nState only facts that the documents state. Do not add details, dates or qualifier the documents do not contain. Answer: ${ex.a}`,
+      `${ex.q}\nState only facts that the documents state. Do not add details, dates or qualifier the documents do not contain. Use the exact wording as it appears in the source documents. Do not invent wording. Answer: ${ex.a}`,
   );
   return [c.instructions, ...demos, `${c.input}\nAnswer:`].join('\n\n\n');
 }
