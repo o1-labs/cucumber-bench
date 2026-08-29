@@ -27,14 +27,14 @@ function buildReport(runId: string, cases: Case[], records: RunRecord[], graders
     let suiteRows = rows.filter((r) => r.suite === suite);
     let graders = [...new Set(suiteRows.flatMap((r) => Object.keys(r.graders)))];
     lines.push(`## Suite: ${suite}`, '');
-    lines.push(`| task | system | n | ${graders.join(' | ')} | consistency | avg latency ms | avg tokens in/out | avg calls | avg cost | judge calls | judge cost |`);
+    lines.push(`| task | system | n | ${graders.join(' | ')} | consistency | avg latency ms | avg tokens in/out | avg calls | harness cost/run | judge cost/run | total cost, all runs |`);
     lines.push(`|${' --- |'.repeat(graders.length + 10)}`);
     for (let r of suiteRows) {
       let cells = graders.map((g) => gradeCell(r.graders[g]));
       lines.push(
         `| ${r.task} | ${r.system} | ${r.n} | ${cells.join(' | ')} | ${r.consistency === undefined ? '—' : pct(r.consistency)} ` +
           `| ${r.latencyMs.toFixed(0)} | ${r.tokensIn.toFixed(0)}/${r.tokensOut.toFixed(0)} | ${r.calls.toFixed(1)} ` +
-          `| ${usd(r.costUsd)} | ${r.judgeCalls.toFixed(1)} | ${usd(r.judgeCostUsd)} |`,
+          `| ${usd(r.costUsd)} | ${usd(r.judgeCostUsd)} | ${r.costUsd === undefined ? '—' : '$' + (r.n * (r.costUsd + (r.judgeCostUsd ?? 0))).toFixed(2)} |`,
       );
     }
     lines.push('');

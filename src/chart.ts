@@ -113,17 +113,21 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
       return r ? `${Math.round(r.tokensIn)}/${Math.round(r.tokensOut)}` : '—';
     });
     num('calls ↓', false, (r) => r?.calls, (v) => `${round1(v)}`);
-    num('cost per run ↓', false, (r) => r?.costUsd, (v) => `$${v.toFixed(4)}`);
+    let n = systems.map((sys) => at('ALL', sys)?.n ?? 0);
+    let usd4 = (v: number) => `$${v.toFixed(4)}`;
+    let usd2 = (v: number) => `$${v.toFixed(2)}`;
+    num('harness cost per run ↓', false, (r) => r?.costUsd, usd4);
     num('judge calls per run ↓', false, (r) => r?.judgeCalls, (v) => `${round1(v)}`);
     num('judge tokens in/out ↓', false, (r) => (r ? r.judgeTokensIn + r.judgeTokensOut : undefined), () => '');
     metrics[metrics.length - 1].cells = systems.map((sys) => {
       let r = at('ALL', sys);
       return r ? `${Math.round(r.judgeTokensIn)}/${Math.round(r.judgeTokensOut)}` : '—';
     });
-    num('judge cost per run ↓', false, (r) => r?.judgeCostUsd, (v) => `$${v.toFixed(4)}`);
-    // the whole benchmark for this system: harness plus judge, over all its runs
-    num('total cost ↓', false, (r) => (r && r.costUsd !== undefined ? r.n * (r.costUsd + (r.judgeCostUsd ?? 0)) : undefined), (v) => `$${v.toFixed(2)}`);
-    let n = systems.map((sys) => at('ALL', sys)?.n ?? 0);
+    num('judge cost per run ↓', false, (r) => r?.judgeCostUsd, usd4);
+    // the bill for this system over all its runs: per-run cost times the number of runs
+    num(`harness cost, all ${n[0]} runs ↓`, false, (r) => (r?.costUsd === undefined ? undefined : r.n * r.costUsd), usd2);
+    num(`judge cost, all ${n[0]} runs ↓`, false, (r) => (r?.judgeCostUsd === undefined ? undefined : r.n * r.judgeCostUsd), usd2);
+    num(`total cost, all ${n[0]} runs ↓`, false, (r) => (r && r.costUsd !== undefined ? r.n * (r.costUsd + (r.judgeCostUsd ?? 0)) : undefined), usd2);
 
     let body = metrics
       .map((m) => {
@@ -248,9 +252,9 @@ ${tables}
     <li><b>latency s</b> — the average wall time of one run, in seconds. Lower is better.</li>
     <li><b>tokens in/out</b> — the average number of tokens sent to and received from the model per run. The proxy counts them. Lower is better.</li>
     <li><b>calls</b> — the average number of model calls per run. Calls to the safety model are included. Lower is better.</li>
-    <li><b>cost per run</b> — the average cost of one harness run in dollars, as the provider reported it (OpenRouter), else from the configured prices. Shown as — for a free local model. Lower is better.</li>
-    <li><b>judge calls, judge tokens, judge cost per run</b> — what the graders spent on the judge model for one run. This is the cost of measuring, not of the harness. Lower is better.</li>
-    <li><b>total cost</b> — harness cost plus judge cost, summed over all runs of the system in this benchmark. Lower is better.</li>
+    <li><b>harness cost per run</b> — the average cost of one harness run in dollars, as the provider reported it (OpenRouter), else from the configured prices. Shown as — for a free local model. Lower is better.</li>
+    <li><b>judge calls, judge tokens, judge cost per run</b> — what the graders spent on the judge model to grade one run. This is the cost of measuring, not of the harness. Lower is better.</li>
+    <li><b>harness cost, judge cost, total cost, all runs</b> — the per-run cost times the number of runs (cases × repetitions). Total is harness plus judge: the bill for this system in this benchmark. Lower is better.</li>
   </ul>
 </div>
 <div id="tip" role="status"></div>
