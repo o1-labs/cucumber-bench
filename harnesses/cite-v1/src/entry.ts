@@ -17,7 +17,8 @@ const RULES =
   'State only facts that the documents state. Do not add details, dates or qualifiers the documents do not contain. ' +
   'Use the wording of the documents. Put facts from different documents in separate sentences, each with its own citation. ' +
   'If a document gives a fact as the claim or statement of a person, say who made the claim. ' +
-  'Write numbers as digits. Write names of countries and organisations in full, not as abbreviations. ' +
+  'Write counts as digits, as in 11, not eleven. Write dates and amounts as the documents write them. ' +
+  'Write names of countries and organisations in full, not as abbreviations. ' +
   'The question can have more than one reading. Give the answer for every reading the documents support.';
 
 // the check must return a minimal set: the graders count a citation as redundant when the
