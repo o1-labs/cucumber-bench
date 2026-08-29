@@ -70,7 +70,7 @@ describe('proxy', () => {
 
   it('should enforce the per-run call limit', async () => {
     let token = proxy.register('r3');
-    await call(token); await call(token); await call(token);
+    await call(token); await call(token); await call(token); await call(token);
     assert.equal((await call(token)).status, 429);
     // other runs are unaffected
     assert.equal((await call(proxy.register('r4'))).status, 200);

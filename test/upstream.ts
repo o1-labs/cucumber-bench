@@ -29,9 +29,9 @@ async function mockUpstream(): Promise<Mock> {
       let content = prompt.includes('Return only a JSON array')
         ? '["Heder", "Sanavi"]'
         : prompt.includes('Decide which passages support the claim')
-          ? (prompt.includes('Claim: Alpha') ? '[2][7]' : 'none')
+          ? (prompt.includes('Claim: Alpha') ? '[2][7]' : prompt.includes('Claim: The documents') ? 'keep' : 'none')
           : prompt.includes('Answer:')
-            ? 'Alpha holds the record [1][2][3]. Beta is unsupported [4].'
+            ? 'Alpha holds the record [1][2][3]. Beta is unsupported [4]. The documents do not say who holds the gamma record.'
             : 'Yes';
       res.setHeader('content-type', 'application/json');
       res.end(
@@ -50,7 +50,7 @@ async function mockUpstream(): Promise<Mock> {
     upstreamKey: 'real-key',
     defaultTemperature: 0.3,
     timeoutMs: 5000,
-    maxCalls: 3,
+    maxCalls: 4,
     maxJudgeCalls: 5,
   });
   return {

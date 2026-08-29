@@ -33,7 +33,9 @@ const VERIFY_PROMPT =
   '- Answer with several numbers, for example [1][4], only if no single passage supports the claim ' +
   'and each listed passage is necessary.\n' +
   '- If no passage or set of passages supports the claim, answer none.\n' +
-  'Answer only with the numbers or none.\n\n';
+  '- If the claim is a statement about the documents themselves, for example that they do not ' +
+  'contain some information, answer keep.\n' +
+  'Answer only with the numbers, none or keep.\n\n';
 
 type Doc = { title: string; text: string };
 type PublicCase = {
@@ -123,7 +125,9 @@ function fewShotPrompt(c: PublicCase): string {
 }
 
 // every sentence gets the minimal set of passages that supports it, judged greedily
-// over all passages; a sentence no passage supports is dropped
+// over all passages; a sentence no passage supports is dropped. a sentence about the
+// documents themselves ("the documents do not say who ...") is kept without citation:
+// no passage can support it, and dropping it leaves an empty or misleading answer
 async function checkCitations(draft: string, docs: Doc[]) {
   let passages = docs
     .map((d, i) => `Document [${i + 1}](Title: ${d.title}): ${d.text}`)
@@ -137,14 +141,20 @@ async function checkCitations(draft: string, docs: Doc[]) {
         `${VERIFY_PROMPT}${passages}\n\nClaim: ${claim}\n\nPassages:`,
         0,
       );
+      let keep = /^\s*keep\b/i.test(verdict);
       let refs = numbersIn(verdict, docs.length);
-      return { sent, claim, refs };
+      return { sent, claim, refs, keep };
     }),
   );
   let findings: string[] = [];
   let kept: string[] = [];
-  for (let [i, { sent, claim, refs }] of checked.entries()) {
+  for (let [i, { sent, claim, refs, keep }] of checked.entries()) {
     let before = numbersIn(sent, docs.length);
+    if (keep) {
+      kept.push(claim);
+      findings.push(`s${i + 1}: kept without citation, a statement about the documents`);
+      continue;
+    }
     if (refs.length === 0) {
       findings.push(`s${i + 1}: dropped, no passage supports it`);
       continue;

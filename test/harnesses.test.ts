@@ -101,7 +101,7 @@ describe('cite-v1 (citation harness)', () => {
     let result = await system.run(pub, { runId: 't', repetition: 1, proxy });
     assert.equal(result.error, undefined);
     // one answer call plus one greedy check per sentence
-    assert.equal(result.modelCalls, 3);
+    assert.equal(result.modelCalls, 4);
     let [answerPrompt, ...checks] = result.modelRequests!;
     // direct's prompt, plus the fact rules before every "Answer:": the demonstrations and the question
     let lines = answerPrompt.split('\n');
@@ -110,13 +110,18 @@ describe('cite-v1 (citation harness)', () => {
     assert.equal(lines.filter((l) => !rules.includes(l)).join('\n'), direct.modelRequests![0]);
     assert.ok(answerPrompt.endsWith(`${rules[0]}\nAnswer:`));
     assert.ok(checks.every((p) => p.includes('Document [20]') && p.includes('Claim: ')));
-    assert.ok(seen.slice(-2).every((r) => r.temperature === 0));
-    // sentence 1 keeps the minimal set the check returned; sentence 2 is dropped
-    assert.equal(result.output, 'Alpha holds the record [2][7].');
+    assert.ok(seen.slice(-3).every((r) => r.temperature === 0));
+    // sentence 1 keeps the minimal set the check returned; sentence 2 is dropped;
+    // sentence 3 speaks about the documents and is kept without citation
+    assert.equal(result.output, 'Alpha holds the record [2][7]. The documents do not say who holds the gamma record.');
     let check = result.trace!.stages[2];
     assert.equal(check.module, 'citation-check');
     assert.equal(check.decision, 'modified');
-    assert.deepEqual(check.findings, ['s1: [1][2][3] -> [2][7] (changed)', 's2: dropped, no passage supports it']);
-    assert.equal(result.trace!.rawOutput, 'Alpha holds the record [1][2][3]. Beta is unsupported [4].');
+    assert.deepEqual(check.findings, [
+      's1: [1][2][3] -> [2][7] (changed)',
+      's2: dropped, no passage supports it',
+      's3: kept without citation, a statement about the documents',
+    ]);
+    assert.equal(result.trace!.rawOutput, 'Alpha holds the record [1][2][3]. Beta is unsupported [4]. The documents do not say who holds the gamma record.');
   });
 });
