@@ -35,43 +35,91 @@ type Stage = {
   decision: 'pass' | 'modified' | 'blocked';
 };
 
-let { publicCase: c, proxyUrl, token, models } = JSON.parse(await readStdin()) as {
+let {
+  publicCase: c,
+  proxyUrl,
+  token,
+  models,
+} = JSON.parse(await readStdin()) as {
   publicCase: PublicCase;
   proxyUrl: string;
   token: string;
   models: { main: string; safety: string };
 };
-let guarded = createOpenAICompatible({ name: 'guarded', baseURL: `${proxyUrl}/v1`, apiKey: token })(models.main);
+let guarded = createOpenAICompatible({
+  name: 'guarded',
+  baseURL: `${proxyUrl}/v1`,
+  apiKey: token,
+})(models.main);
 
 try {
   // the answer is direct's: same prompt, same temperature, so the check is the only difference under test
-  let draft = await ask(guarded, fewShotPrompt(c), 1);
+  let draft = await ask(guarded, fewShotPrompt(c), 0);
   let { output, findings, changed } = await checkCitations(draft, c.docs ?? []);
   let stages: Stage[] = [
-    { name: 'input-safety', module: 'passthrough', version: VERSION, mode: 'passthrough', findings: [], decision: 'pass' },
-    { name: 'agent', module: 'few-shot-answer', version: VERSION, mode: 'llm', findings: [], decision: 'pass' },
-    { name: 'output-safety', module: 'citation-check', version: VERSION, mode: 'llm', findings, decision: changed ? 'modified' : 'pass' },
+    {
+      name: 'input-safety',
+      module: 'passthrough',
+      version: VERSION,
+      mode: 'passthrough',
+      findings: [],
+      decision: 'pass',
+    },
+    {
+      name: 'agent',
+      module: 'few-shot-answer',
+      version: VERSION,
+      mode: 'llm',
+      findings: [],
+      decision: 'pass',
+    },
+    {
+      name: 'output-safety',
+      module: 'citation-check',
+      version: VERSION,
+      mode: 'llm',
+      findings,
+      decision: changed ? 'modified' : 'pass',
+    },
   ];
-  respond({ output, trace: { source: c.input, transformedSource: c.input, rawOutput: draft, releasedOutput: output, stages } });
+  respond({
+    output,
+    trace: {
+      source: c.input,
+      transformedSource: c.input,
+      rawOutput: draft,
+      releasedOutput: output,
+      stages,
+    },
+  });
 } catch (err: any) {
   respond({ error: String(err?.message ?? err) });
 }
 
 // the benchmark's own prompt: instructions, the worked examples, then the question with its passages
 function fewShotPrompt(c: PublicCase): string {
-  let demos = (c.examples ?? []).map((ex) => `${ex.q}\nAnswer: ${ex.a}`);
+  let demos = (c.examples ?? []).map(
+    (ex) =>
+      `${ex.q}\nState only facts that the documents state. Do not add details, dates or qualifier the documents do not contain. Answer: ${ex.a}`,
+  );
   return [c.instructions, ...demos, `${c.input}\nAnswer:`].join('\n\n\n');
 }
 
 // every sentence gets the minimal set of passages that supports it, judged greedily
 // over all passages; a sentence no passage supports is dropped
 async function checkCitations(draft: string, docs: Doc[]) {
-  let passages = docs.map((d, i) => `Document [${i + 1}](Title: ${d.title}): ${d.text}`).join('\n');
+  let passages = docs
+    .map((d, i) => `Document [${i + 1}](Title: ${d.title}): ${d.text}`)
+    .join('\n');
   let sents = sentences(draft);
   let checked = await Promise.all(
     sents.map(async (sent) => {
       let claim = removeCitations(sent);
-      let verdict = await ask(guarded, `${VERIFY_PROMPT}${passages}\n\nClaim: ${claim}\n\nPassages:`, 0);
+      let verdict = await ask(
+        guarded,
+        `${VERIFY_PROMPT}${passages}\n\nClaim: ${claim}\n\nPassages:`,
+        0,
+      );
       let refs = numbersIn(verdict, docs.length);
       return { sent, claim, refs };
     }),
@@ -88,8 +136,11 @@ async function checkCitations(draft: string, docs: Doc[]) {
     // citations go before the final punctuation, as in the demonstrations
     let m = claim.match(/^(.*?)([.!?]*)$/s)!;
     kept.push(`${m[1]} ${cites}${m[2]}`);
-    let same = before.length === refs.length && before.every((n) => refs.includes(n));
-    findings.push(`s${i + 1}: ${before.map((n) => `[${n + 1}]`).join('') || 'uncited'} -> ${cites}${same ? '' : ' (changed)'}`);
+    let same =
+      before.length === refs.length && before.every((n) => refs.includes(n));
+    findings.push(
+      `s${i + 1}: ${before.map((n) => `[${n + 1}]`).join('') || 'uncited'} -> ${cites}${same ? '' : ' (changed)'}`,
+    );
   }
   let output = kept.join(' ');
   return { output, findings, changed: output !== draft };
@@ -106,7 +157,10 @@ function sentences(text: string): string[] {
 }
 
 function removeCitations(sent: string): string {
-  return sent.replace(/\s*\[\d+\]/g, '').replace(/\s+/g, ' ').trim();
+  return sent
+    .replace(/\s*\[\d+\]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 // [n] numbers as 0-based indexes, unique, in order; out-of-range ones dropped
@@ -119,7 +173,11 @@ function numbersIn(text: string, nDocs: number): number[] {
   return seen;
 }
 
-async function ask(m: LanguageModel, prompt: string, temperature?: number): Promise<string> {
+async function ask(
+  m: LanguageModel,
+  prompt: string,
+  temperature?: number,
+): Promise<string> {
   let { text } = await generateText({ model: m, prompt, temperature });
   // qwen3 and other reasoning models may emit <think>...</think> before the answer
   return text.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
