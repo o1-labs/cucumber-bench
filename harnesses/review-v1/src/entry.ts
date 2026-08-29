@@ -144,14 +144,21 @@ async function compose(question: string, quotes: Quote[]): Promise<string> {
   return ask(guarded, [c.instructions, ...demos, task].join('\n\n\n'), 0);
 }
 
-// check: a cited sentence against its own cited passages, an uncited one for being a statement
-// about the documents; a sentence that passes is released as it is, the others are dropped
+// check: a cited sentence that quotes is verified in code: every quoted part must be in its cited
+// passages, word for word. a cited sentence without a quote is put to the model against its
+// passages; an uncited one is put to the model as a statement about the documents. a sentence
+// that passes is released as it is, the others are dropped
 async function check(draft: string, docs: Doc[]) {
   let sents = sentences(draft);
   let verdicts = await Promise.all(
     sents.map(async (sent) => {
       let refs = numbersIn(sent, docs.length);
       let claim = removeCitations(sent);
+      let quoted = [...claim.matchAll(/["“]([^"“”]{12,})["”]/g)].map((m) => m[1]);
+      if (refs.length > 0 && quoted.length > 0) {
+        let text = refs.map((k) => docs[k].text).join('\n');
+        return { sent, refs, verdict: quoted.every((q) => contains(text, q)) ? 'quoted' : 'no' };
+      }
       let prompt =
         refs.length > 0
           ? `${CHECK_CITED_PROMPT}${refs.map((k) => `Document [${k + 1}](Title: ${docs[k].title}): ${docs[k].text}`).join('\n')}\n\nClaim: ${claim}\n\nAnswer:`
@@ -166,14 +173,17 @@ async function check(draft: string, docs: Doc[]) {
   let findings: string[] = [];
   for (let [i, { sent, refs, verdict }] of verdicts.entries()) {
     let cites = refs.map((k) => `[${k + 1}]`).join('');
-    if (refs.length > 0 && verdict === 'yes') {
+    if (refs.length > 0 && verdict === 'quoted') {
+      kept.push(sent);
+      findings.push(`s${i + 1}: ${cites} quote verified`);
+    } else if (refs.length > 0 && verdict === 'yes') {
       kept.push(sent);
       findings.push(`s${i + 1}: ${cites} supported`);
     } else if (refs.length === 0 && verdict === 'keep') {
       kept.push(sent);
       findings.push(`s${i + 1}: kept, a statement about the documents`);
     } else {
-      findings.push(`s${i + 1}: ${cites || 'uncited'} dropped, ${refs.length > 0 ? 'not supported' : 'not about the documents'}`);
+      findings.push(`s${i + 1}: ${cites || 'uncited'} dropped, ${refs.length > 0 ? (verdict === 'no' && quotedIn(sent) ? 'quote not in the passages' : 'not supported') : 'not about the documents'}`);
     }
   }
   let output = kept.join(' ');
@@ -181,6 +191,10 @@ async function check(draft: string, docs: Doc[]) {
 }
 
 // internal helpers
+
+function quotedIn(sent: string): boolean {
+  return /["“][^"“”]{12,}["”]/.test(sent);
+}
 
 // whitespace- and quote-insensitive containment, for quotes the model reformats slightly
 function contains(text: string, quote: string): boolean {
