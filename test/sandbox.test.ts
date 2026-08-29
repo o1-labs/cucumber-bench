@@ -21,7 +21,11 @@ beforeAll(async () => {
       let body = JSON.parse(Buffer.concat(chunks).toString());
       seen.push(body);
       let prompt = (body.messages ?? []).map((m: any) => m.content).join('\n');
-      let content = prompt.includes('Return only a JSON array') ? '["Heder", "Sanavi"]' : 'Yes';
+      let content = prompt.includes('Return only a JSON array')
+        ? '["Heder", "Sanavi"]'
+        : prompt.includes('list the distinct readings')
+          ? 'Reading A: answer one [2, 7]\nReading B: answer two [1]'
+          : 'Yes';
       res.setHeader('content-type', 'application/json');
       res.end(
         JSON.stringify({
@@ -200,20 +204,24 @@ describe('legal-v1 (vercel ai sdk harness)', () => {
 });
 
 describe('cite-v1 (citation harness)', () => {
-  it('step 2: should plan the readings greedily, then answer with the few-shot prompt plus the coverage requirement', async () => {
+  it('step 3: should plan greedily, keep only the passages the plan cites, then answer with the coverage requirement', async () => {
     let { pub } = (await loadCases('benchmarks/asqa')).find((c) => c.pub.id === 'asqa-000')!;
+    assert.equal(pub.docs!.length, 20);
     let system = sandboxedSystem('cite-v1', tsx('harnesses/cite-v1/src/entry.ts'));
     let result = await system.run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
     assert.equal(result.error, undefined);
     assert.equal(result.output, 'Yes');
     assert.equal(result.modelCalls, 2);
     let [plan, answer] = result.modelRequests!;
-    assert.ok(plan.includes('list the distinct readings') && plan.includes(pub.input));
+    assert.ok(plan.includes('list the distinct readings') && plan.includes('Document [20]'));
     assert.equal(seen[seen.length - 2].temperature, 0);
-    // the answer prompt is direct's prompt with the plan inserted before "Answer:"
-    let direct = await sandboxedSystem('direct', tsx('harnesses/direct/src/entry.ts')).run(pub, { runId: 't', repetition: 1, model: 'test-model', proxy });
-    let expected = direct.modelRequests![0].replace(/\nAnswer:$/, '\n\nCover each of these readings in one or two sentences, each with its citations:\nYes\nAnswer:');
-    assert.equal(answer, expected);
-    assert.deepEqual(result.trace?.stages[1].findings, ['Yes']);
+    // the answer prompt keeps the few-shot shape, the question, and only the cited passages under their original numbers
+    assert.ok(answer.startsWith(pub.instructions));
+    assert.ok(answer.includes(pub.input.split('\n')[0]));
+    let questionBlock = answer.split('\n\n\n').pop()!; // the demonstrations carry their own documents
+    for (let n of [1, 2, 7]) assert.ok(questionBlock.includes(`Document [${n}]`), `passage ${n} kept`);
+    for (let n of [3, 4, 20]) assert.ok(!questionBlock.includes(`Document [${n}]`), `passage ${n} dropped`);
+    assert.ok(answer.includes('Cover each of these readings') && answer.endsWith('Answer:'));
+    assert.equal(result.trace?.stages[1].findings[0], 'selected: 2, 7, 1');
   });
 });

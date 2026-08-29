@@ -1,6 +1,6 @@
 {
   "name": "cite-v1",
-  "description": "The citation harness. Step 2: a greedy plan lists every reading of the question the documents answer, then the few-shot answer must cover each one. Step 3 will check every citation before release.",
+  "description": "The citation harness. Step 3: a greedy plan lists every reading of the question and the passages that support it; the answer sees only those passages and must cover each reading. Step 4 will check every citation before release.",
   "entry": "src/entry.ts",
   "suites": [
     "asqa",

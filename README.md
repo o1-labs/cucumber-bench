@@ -116,14 +116,15 @@ Suites:
   request log, not from the harness's claims (strict);
   `retention` — at least 90% of the non-protected content survives.
 - `benchmarks/asqa/` — 15 questions from [ALCE](https://github.com/princeton-nlp/ALCE)
-  (Gao et al. 2023), dataset ASQA: an ambiguous question plus the top-5 retrieved
+  (Gao et al. 2023), dataset ASQA: an ambiguous question plus the top-20 retrieved
   Wikipedia passages; the answer must cite passages inline as `[1][2]`. Two
   demonstrations from ALCE's default prompt are the worked examples. Graders:
   `str-em` (core) — every gold short answer appears in the output;
   `citation-recall` and `citation-precision` (`benchmarks/asqa/graders.ts`) —
   ALCE's citation metrics, with the judge model answering the entailment
   question that ALCE puts to an NLI model. Import more with
-  `npx tsx benchmarks/asqa/import.ts --data <asqa_eval_gtr_top100.json> --count N`.
+  `npx tsx benchmarks/asqa/import.ts --data <asqa_eval_gtr_top100.json> --count N --ndoc 20`.
+  `benchmarks/asqa-dev/` holds 15 more questions (items 500–514) for tuning; report on `asqa` only.
 
 Test cases are locked: do not tune the harness on them.
 
