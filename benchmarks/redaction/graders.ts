@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import type { GradeResult, Grader, PrivateCase } from '../../src/types.js';
+import { escapeRe } from '../../src/text.js';
 
 // the graders of the redaction benchmark, loaded through benchmark.json
 export { graders };
@@ -88,6 +89,3 @@ function tokens(text: string): string[] {
   return text.toLowerCase().match(/[\p{L}\p{N}]{3,}/gu) ?? [];
 }
 
-function escapeRe(s: string): string {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}

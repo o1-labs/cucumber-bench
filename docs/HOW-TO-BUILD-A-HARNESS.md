@@ -31,9 +31,12 @@ A harness is a program that speaks a small protocol.
                   "docs": [{ "title": "...", "text": "..." }], "examples": [...], "question": "...", "choices": [...] },
   "proxyUrl": "http://127.0.0.1:PORT",
   "token": "per-run bearer token",
-  "model": "the guarded model id"
+  "models": { "main": "the model for the guarded route", "safety": "the model for the safety route" }
 }
 ```
+
+`models` is the harness's own choice from its manifest; the environment fills
+what the manifest leaves out.
 
 `docs` are context passages the answer may cite as `[1][2]`, numbered from 1
 (asqa). `examples` are worked examples. `question` and `choices` exist only
@@ -72,19 +75,24 @@ Make a folder `harnesses/<name>/` with a manifest and an entry.
   "name": "my-harness",
   "description": "One sentence for the chart. What does this harness do?",
   "entry": "src/entry.ts",
-  "suites": ["legalbench", "redaction"]
+  "suites": ["legalbench", "redaction"],
+  "models": { "main": "qwen/qwen3.6-35b-a3b", "safety": "qwen/qwen3-30b-a3b-instruct-2507" }
 }
 ```
 
 `suites` lists the benchmarks the harness runs on. The runner skips the others.
+`models` names the models the harness calls: `main` on the guarded route,
+`safety` on the safety route. Both are optional; `BENCH_MODEL` and
+`BENCH_SAFETY_MODEL` fill the gaps. The model is part of the harness: the
+report shows which models every system actually used.
 
 **The entry**, in TypeScript. Without dependencies, use `harnesses/lib.ts`:
 
 ```ts
 import { readInput, generateVia, respond } from '../../lib.js';
 
-let { publicCase: c, proxyUrl, token, model } = await readInput();
-let generate = generateVia(proxyUrl, token, model);
+let { publicCase: c, proxyUrl, token, models } = await readInput();
+let generate = generateVia(proxyUrl, token, models.main);
 try {
   respond({ output: await generate(`${c.instructions}\n\n${c.input}`) });
 } catch (err: any) {
@@ -93,8 +101,8 @@ try {
 ```
 
 `generate(prompt, temperature?)` calls the guarded model. Leave `temperature`
-undefined to use the benchmark default. `generateVia(proxyUrl, token, model,
-'/safety/v1')` gives a function for the safety model. `harnesses/direct` is the
+undefined to use the benchmark default. `generateVia(proxyUrl, token,
+models.safety, '/safety/v1')` gives a function for the safety model. `harnesses/direct` is the
 minimum example. `harnesses/placeholder` is the three-stage example.
 
 The CLI discovers the folder. There is no list to edit. A `.ts` entry runs
@@ -120,11 +128,16 @@ keeps only production dependencies. Install its dependencies once with
 
 Make a folder `benchmarks/<suite>/` with a manifest and the cases.
 
-**The manifest** `benchmark.json` names the graders:
+**The manifest** `benchmark.json` names the graders, and the judge when its
+graders need one:
 
 ```json
-{ "name": "legalbench", "graders": ["exact"] }
+{ "name": "asqa", "graders": ["str-em", "./graders.ts"], "judge": { "model": "moonshotai/kimi-k3" } }
 ```
+
+The judge belongs to the benchmark: a grader's verdicts depend on it, so the
+benchmark and its judge are one reproducible unit. `BENCH_JUDGE_MODEL` is the
+default for a benchmark that names none.
 
 A grader is a core grader by name, or a module path such as `"./graders.ts"`.
 The module exports `{ graders }`, an array of grader objects:
@@ -227,7 +240,7 @@ slipped through.
 ## 8. Test the harness
 
 `npm test` runs every harness against a mock model in under one second.
-The harness tests are in `test/sandbox.test.ts`. Add a test when you add a
+The harness tests are in `test/harnesses.test.ts`. Add a test when you add a
 rule. The mock answers the PII-detection prompt with a fixed JSON list and
 everything else with `Yes`.
 

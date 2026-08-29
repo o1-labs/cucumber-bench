@@ -19,8 +19,8 @@ const PII_PATTERNS = {
 
 type StageResult = { artifact: string; stage: Stage };
 
-let { publicCase: c, proxyUrl, token, model } = await readInput();
-let generate = generateVia(proxyUrl, token, model);
+let { publicCase: c, proxyUrl, token, models } = await readInput();
+let generate = generateVia(proxyUrl, token, models.main);
 
 try {
   let scrub = c.suite === 'redaction' ? regexScrub : passthrough;

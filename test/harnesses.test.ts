@@ -1,0 +1,117 @@
+import { describe, it, beforeAll, afterAll } from 'vitest';
+import assert from 'node:assert/strict';
+import { mockUpstream, models, tsx, type Mock } from './upstream.js';
+import { sandboxedSystem } from '../src/sandbox.js';
+import { loadCases } from '../src/caseStore.js';
+import type { ModelProxy } from '../src/types.js';
+
+let mock: Mock;
+let seen: any[];
+let proxy: ModelProxy;
+beforeAll(async () => {
+  mock = await mockUpstream();
+  ({ seen, proxy } = mock);
+});
+afterAll(() => mock.close());
+
+describe('sandboxedSystem', () => {
+  it('should run the direct baseline entry: one few-shot call, the raw input reaches the model', async () => {
+    let { pub } = (await loadCases('benchmarks/legalbench'))[0];
+    let system = sandboxedSystem('direct', tsx('harnesses/direct/src/entry.ts'), models);
+    let result = await system.run(pub, { runId: 't', repetition: 1, proxy });
+    assert.equal(result.output, 'Yes');
+    assert.equal(result.modelCalls, 1);
+    assert.equal(result.trace, undefined);
+    assert.ok(result.modelRequests![0].includes(pub.input));
+    assert.ok(result.modelRequests![0].includes('A:'));
+  });
+
+  it('should run the placeholder entry as a child process end to end', async () => {
+    let { pub } = (await loadCases('benchmarks/legalbench'))[0];
+    let system = sandboxedSystem('sandboxed', tsx('harnesses/placeholder/src/entry.ts'), models);
+    let result = await system.run(pub, { runId: 't', repetition: 1, proxy });
+    assert.equal(result.output, 'Yes');
+    assert.equal(result.error, undefined);
+    // two chain steps, accounted by the proxy, not self-reported
+    assert.equal(result.modelCalls, 2);
+    assert.equal(result.tokensIn, 100);
+    assert.equal(result.modelRequests?.length, 2);
+    // the sandbox got the proxy, not the upstream: it sent our bearer token
+    assert.equal(seen[seen.length - 1].model, 'test-model');
+    // legalbench has no safety policy: both safety stages are recorded as passthrough
+    assert.deepEqual(result.trace?.stages.map((s) => `${s.name}:${s.mode}:${s.decision}`), [
+      'input-safety:passthrough:pass', 'agent:llm:pass', 'output-safety:passthrough:pass',
+    ]);
+  });
+
+  it('should scrub regex-detectable pii before the model on redaction cases', async () => {
+    let { pub } = (await loadCases('benchmarks/redaction')).find((c) => c.pub.id === 'pii-40790C')!;
+    let system = sandboxedSystem('sandboxed', tsx('harnesses/placeholder/src/entry.ts'), models);
+    let result = await system.run(pub, { runId: 't', repetition: 1, proxy });
+    let input = result.trace!.stages[0];
+    assert.equal(input.mode, 'regex');
+    assert.equal(input.decision, 'modified');
+    assert.ok(input.findings.some((f) => f.startsWith('email:K@tutanota.com')));
+    // what reached the model no longer contains the email
+    assert.ok(!result.modelRequests![0].includes('K@tutanota.com'));
+    assert.ok(result.modelRequests![0].includes('[REDACTED]'));
+  });
+
+  it('should report a sandbox that dies as an errored run', async () => {
+    let { pub } = (await loadCases('benchmarks/legalbench'))[0];
+    let system = sandboxedSystem('sandboxed', [process.execPath, '-e', 'process.exit(3)'], models);
+    let result = await system.run(pub, { runId: 't', repetition: 1, proxy });
+    assert.match(result.error ?? '', /exited 3/);
+  });
+});
+
+describe('legal-v1 (vercel ai sdk harness)', () => {
+  let argv = tsx('harnesses/legal-v1/src/entry.ts');
+
+  it('should run a label case through the guarded model with passthrough safety', async () => {
+    let { pub } = (await loadCases('benchmarks/legalbench'))[0];
+    let result = await sandboxedSystem('legal-v1', argv, models).run(pub, { runId: 't', repetition: 1, proxy });
+    assert.equal(result.error, undefined);
+    assert.equal(result.output, 'Yes');
+    assert.equal(result.modelCalls, 2);
+    assert.deepEqual(result.trace?.stages.map((s) => s.mode), ['passthrough', 'llm', 'passthrough']);
+  });
+
+  it('should scrub regex hits and safety-model findings before the guarded model sees the document', async () => {
+    let { pub } = (await loadCases('benchmarks/redaction')).find((c) => c.pub.id === 'pii-40805A')!;
+    let result = await sandboxedSystem('legal-v1', argv, models).run(pub, { runId: 't', repetition: 1, proxy });
+    assert.equal(result.error, undefined);
+    let input = result.trace!.stages[0];
+    assert.equal(input.mode, 'hybrid');
+    assert.ok(input.findings.includes('llm:Heder') && input.findings.includes('llm:Sanavi'), input.findings.join(','));
+    // three calls: detect (safety route), agent (guarded), detect on output (safety route)
+    assert.equal(result.modelCalls, 3);
+    // only the agent call is leakage ground truth, and the names never reached it
+    assert.equal(result.modelRequests!.length, 1);
+    assert.ok(!result.modelRequests![0].includes('Sanavi'));
+    assert.ok(result.modelRequests![0].includes('[REDACTED]'));
+  });
+});
+
+describe('cite-v1 (citation harness)', () => {
+  it('step 4: should answer like direct, then rewrite each sentence with its minimal supporting set or drop it', async () => {
+    let { pub } = (await loadCases('benchmarks/asqa')).find((c) => c.pub.id === 'asqa-000')!;
+    let direct = await sandboxedSystem('direct', tsx('harnesses/direct/src/entry.ts'), models).run(pub, { runId: 't', repetition: 1, proxy });
+    let system = sandboxedSystem('cite-v1', tsx('harnesses/cite-v1/src/entry.ts'), models);
+    let result = await system.run(pub, { runId: 't', repetition: 1, proxy });
+    assert.equal(result.error, undefined);
+    // one answer call plus one greedy check per sentence
+    assert.equal(result.modelCalls, 3);
+    let [answerPrompt, ...checks] = result.modelRequests!;
+    assert.equal(answerPrompt, direct.modelRequests![0]);
+    assert.ok(checks.every((p) => p.includes('Document [20]') && p.includes('Claim: ')));
+    assert.ok(seen.slice(-2).every((r) => r.temperature === 0));
+    // sentence 1 keeps the minimal set the check returned; sentence 2 is dropped
+    assert.equal(result.output, 'Alpha holds the record [2][7].');
+    let check = result.trace!.stages[2];
+    assert.equal(check.module, 'citation-check');
+    assert.equal(check.decision, 'modified');
+    assert.deepEqual(check.findings, ['s1: [1][2][3] -> [2][7] (changed)', 's2: dropped, no passage supports it']);
+    assert.equal(result.trace!.rawOutput, 'Alpha holds the record [1][2][3]. Beta is unsupported [4].');
+  });
+});

@@ -1,8 +1,8 @@
 export { resolveModelConfig };
 
-// env config: BENCH_BASE_URL, BENCH_MODEL, BENCH_API_KEY, BENCH_SAFETY_MODEL,
-// BENCH_JUDGE_MODEL, BENCH_JUDGE_BASE_URL, BENCH_JUDGE_API_KEY, BENCH_TEMPERATURE,
-// BENCH_TIMEOUT_MS. the values feed the proxy; no system ever sees them.
+// env config. providers (urls, keys) live only here: they are infrastructure and
+// secrets. the model ids here are defaults: a harness manifest names its own models
+// and a benchmark manifest names its judge; these apply when a manifest names none.
 function resolveModelConfig() {
   let baseUrl = env('BENCH_BASE_URL') ?? 'http://localhost:11434/v1';
   let model = env('BENCH_MODEL') ?? 'qwen3:8b';
@@ -11,9 +11,7 @@ function resolveModelConfig() {
     baseUrl,
     model,
     apiKey,
-    // the trusted safety model a harness may show raw data to; same model unless configured
     safetyModel: env('BENCH_SAFETY_MODEL') ?? model,
-    // the model graders use as a judge; may live on another provider (e.g. openrouter)
     judgeModel: env('BENCH_JUDGE_MODEL') ?? model,
     judgeBaseUrl: env('BENCH_JUDGE_BASE_URL') ?? baseUrl,
     judgeApiKey: env('BENCH_JUDGE_API_KEY') ?? apiKey,

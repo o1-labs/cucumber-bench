@@ -5,7 +5,7 @@
 //   step 3: the plan also selected the passages (no gain, and over-citation cost precision)
 //   step 4 (this file): answer like direct, then check every sentence's citations
 //           before release: minimal supporting set, or drop the sentence
-// protocol: stdin {publicCase, proxyUrl, token, model} -> stdout {output, trace} | {error}
+// protocol: stdin {publicCase, proxyUrl, token, models} -> stdout {output, trace} | {error}
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { generateText, type LanguageModel } from 'ai';
 
@@ -35,13 +35,13 @@ type Stage = {
   decision: 'pass' | 'modified' | 'blocked';
 };
 
-let { publicCase: c, proxyUrl, token, model } = JSON.parse(await readStdin()) as {
+let { publicCase: c, proxyUrl, token, models } = JSON.parse(await readStdin()) as {
   publicCase: PublicCase;
   proxyUrl: string;
   token: string;
-  model: string;
+  models: { main: string; safety: string };
 };
-let guarded = createOpenAICompatible({ name: 'guarded', baseURL: `${proxyUrl}/v1`, apiKey: token })(model);
+let guarded = createOpenAICompatible({ name: 'guarded', baseURL: `${proxyUrl}/v1`, apiKey: token })(models.main);
 
 try {
   // the answer is direct's: same prompt, same temperature, so the check is the only difference under test

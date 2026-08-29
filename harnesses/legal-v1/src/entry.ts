@@ -1,6 +1,6 @@
 // the legal ai harness: input safety -> agent -> output safety, on the vercel ai sdk.
 // runs in the sandbox like every system. protocol: stdin {publicCase, proxyUrl, token,
-// model} -> stdout {output, trace} | {error}. two proxy routes: /v1 is the guarded
+// models} -> stdout {output, trace} | {error}. two proxy routes: /v1 is the guarded
 // model (what the leakage grader measures), /safety/v1 the trusted safety model.
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { generateText, type LanguageModel } from 'ai';
@@ -42,14 +42,14 @@ type Stage = {
 };
 type StageResult = { artifact: string; stage: Stage };
 
-let { publicCase: c, proxyUrl, token, model } = JSON.parse(await readStdin()) as {
+let { publicCase: c, proxyUrl, token, models } = JSON.parse(await readStdin()) as {
   publicCase: PublicCase;
   proxyUrl: string;
   token: string;
-  model: string;
+  models: { main: string; safety: string };
 };
-let guarded = createOpenAICompatible({ name: 'guarded', baseURL: `${proxyUrl}/v1`, apiKey: token })(model);
-let safety = createOpenAICompatible({ name: 'safety', baseURL: `${proxyUrl}/safety/v1`, apiKey: token })(model);
+let guarded = createOpenAICompatible({ name: 'guarded', baseURL: `${proxyUrl}/v1`, apiKey: token })(models.main);
+let safety = createOpenAICompatible({ name: 'safety', baseURL: `${proxyUrl}/safety/v1`, apiKey: token })(models.safety);
 
 try {
   let scrub = c.suite === 'redaction' ? hybridScrub : passthrough;

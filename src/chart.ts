@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import type { Case } from './caseStore.js';
-import type { Record } from './runner.js';
+import type { RunRecord } from './runner.js';
 import { summarize, type Row } from './stats.js';
 
 export { buildChartHtml };
@@ -14,8 +14,10 @@ type Help = { systems: { [name: string]: string }; graders: { [name: string]: st
 
 // self-contained chart page for one run: per-suite pass-rate charts, a latency chart,
 // a comparison table per suite with the best value in bold, and a glossary
-function buildChartHtml(runId: string, model: string, cases: Case[], records: Record[], help: Help = { systems: {}, graders: {} }): string {
+function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help: Help = { systems: {}, graders: {} }): string {
   let rows = summarize(cases, records);
+  // the models each system actually called, as the proxy recorded them
+  let modelsOf = (sys: string) => [...new Set(records.filter((r) => r.run.system === sys).flatMap((r) => r.run.models ?? []))];
   let tasks = [...new Set(rows.filter((r) => r.task !== 'ALL').map((r) => r.task))];
   let systems = [...new Set(rows.map((r) => r.system))];
   assert(systems.length <= SERIES_LIGHT.length, `chart supports up to ${SERIES_LIGHT.length} systems, got ${systems.length}`);
@@ -226,14 +228,14 @@ th .key { vertical-align: -1px; }
 </head>
 <body>
 <h1>cucumber-bench</h1>
-<p class="sub">run ${esc(runId)} · model ${esc(model)} · ${new Set(records.map((r) => r.run.caseId)).size} cases · ${reps} repetition${reps > 1 ? 's' : ''}</p>
+<p class="sub">run ${esc(runId)} · ${new Set(records.map((r) => r.run.caseId)).size} cases · ${reps} repetition${reps > 1 ? 's' : ''}</p>
 <div class="card help">
   <h2>How to read this page</h2>
   <p>Each system received the same cases. A <b>grader</b> compares each output with private gold data and returns pass or fail.
   The <b>pass rate</b> is the share of runs that passed.
   Each benchmark has a chart with one group per grader. A benchmark with several tasks also has a chart per task for its first grader.
   The comparison table has one column per system and marks the best value in a row in bold. Move the pointer over a chart column to see its numbers.</p>
-  <ul>${systems.map((sys, i) => `<li><span class="key s${i + 1}"></span> <b>${esc(sys)}</b> — ${esc(help.systems[sys] || 'A system under test.')}</li>`).join('')}</ul>
+  <ul>${systems.map((sys, i) => `<li><span class="key s${i + 1}"></span> <b>${esc(sys)}</b> — ${esc(help.systems[sys] || 'A system under test.')} Models used: ${esc(modelsOf(sys).join(', ') || 'none recorded')}.</li>`).join('')}</ul>
 </div>
 ${suiteCharts}
 ${latChart}

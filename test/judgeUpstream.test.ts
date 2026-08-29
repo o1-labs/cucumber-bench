@@ -29,8 +29,6 @@ describe('judge upstream', () => {
       upstreamKey: 'main-key',
       judgeUpstreamUrl: `http://127.0.0.1:${port(judge)}/v1`,
       judgeUpstreamKey: 'judge-key',
-      safetyModel: 's',
-      judgeModel: 'anthropic/claude-opus-5',
       defaultTemperature: 0,
       timeoutMs: 5000,
       maxCalls: 5,
@@ -47,7 +45,7 @@ describe('judge upstream', () => {
     assert.equal((await post('/judge/v1/chat/completions')).status, 200);
     assert.deepEqual(seen.map((s) => [s.upstream, s.auth, s.body.model]), [
       ['main', 'Bearer main-key', 'm'],
-      ['judge', 'Bearer judge-key', 'anthropic/claude-opus-5'],
+      ['judge', 'Bearer judge-key', 'm'],
     ]);
     await proxy.close();
     main.close();

@@ -3,8 +3,8 @@
 import { readInput, generateVia, respond } from '../../lib.js';
 import type { PublicCase } from '../../../src/types.js';
 
-let { publicCase: c, proxyUrl, token, model } = await readInput();
-let generate = generateVia(proxyUrl, token, model);
+let { publicCase: c, proxyUrl, token, models } = await readInput();
+let generate = generateVia(proxyUrl, token, models.main);
 
 try {
   respond({ output: await generate(buildPrompt(c), 1) });

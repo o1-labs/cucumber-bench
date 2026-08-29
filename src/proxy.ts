@@ -11,14 +11,13 @@ export { startProxy };
 // recorded here, not self-reported) and enforces per-run call limits.
 // three routes: /v1 is the guarded model, whose prompts are the leakage ground
 // truth; /safety/v1 is the trusted safety model a harness may show raw data to;
-// /judge/v1 is the judge model that graders use, never a harness.
+// /judge/v1 is the judge model that graders use, never a harness. the caller
+// names the model on every route; the proxy only records it and routes to a provider.
 // TODO when harnesses need other services (statute dbs, rag), add per-harness
 // allowlisted routes here instead of opening the sandbox network.
 async function startProxy(opts: {
   upstreamUrl: string; // e.g. http://host:11434/v1
   upstreamKey: string;
-  safetyModel: string; // served on the /safety route, whatever the request asks for
-  judgeModel: string; // served on the /judge route
   judgeUpstreamUrl?: string; // the judge may live on another provider; default: upstreamUrl
   judgeUpstreamKey?: string;
   defaultTemperature: number; // injected when a request does not set one
@@ -27,6 +26,7 @@ async function startProxy(opts: {
   maxJudgeCalls: number; // per registered run on the judge route; citation graders ask many questions
 }): Promise<ModelProxy> {
   let runs = new Map<string, { runId: string; usage: Usage; requests: string[] }>();
+  let empty = (): Usage => ({ modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [] });
 
   let server = createServer((req, res) => {
     handle(req, res).catch((err) => reply(res, 502, `proxy: ${String(err?.message ?? err)}`));
@@ -47,8 +47,7 @@ async function startProxy(opts: {
     // benchmark defaults are enforced here, not trusted to the sandbox
     let body = JSON.parse(await readBody(req));
     body.temperature ??= opts.defaultTemperature;
-    if (route === 'safety') body.model = opts.safetyModel;
-    if (route === 'judge') body.model = opts.judgeModel;
+    if (typeof body.model === 'string' && !state.usage.models.includes(body.model)) state.usage.models.push(body.model);
     // ground truth for leakage grading: what actually reached the guarded model
     if (route === 'guarded') {
       state.requests.push(
@@ -87,12 +86,12 @@ async function startProxy(opts: {
     url: `http://127.0.0.1:${port}`,
     register(runId) {
       let token = randomBytes(16).toString('hex');
-      runs.set(token, { runId, usage: { modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0 }, requests: [] });
+      runs.set(token, { runId, usage: empty(), requests: [] });
       return token;
     },
     usage(token) {
       let state = runs.get(token);
-      return state ? { ...state.usage } : { modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0 };
+      return state ? { ...state.usage, models: [...state.usage.models] } : empty();
     },
     requests(token) {
       return [...(runs.get(token)?.requests ?? [])];

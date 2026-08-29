@@ -20,7 +20,7 @@ function fakeProxy(statuses: number[]): Promise<{ proxy: ModelProxy; server: Ser
   return new Promise((r) =>
     server.listen(0, '127.0.0.1', () => {
       let { port } = server.address() as AddressInfo;
-      let proxy = { url: `http://127.0.0.1:${port}`, register: () => 't', usage: () => ({ modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0 }), requests: () => [], close: async () => {} };
+      let proxy = { url: `http://127.0.0.1:${port}`, register: () => 't', usage: () => ({ modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [] }), requests: () => [], close: async () => {} };
       r({ proxy, server, calls: () => n });
     }),
   );

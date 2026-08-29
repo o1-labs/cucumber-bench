@@ -15,7 +15,7 @@ let priv: PrivateCase = {
 };
 
 function result(output: string): RunResult {
-  return { caseId: 'a', system: 's', repetition: 1, output, latencyMs: 0, modelCalls: 1, tokensIn: 0, tokensOut: 0, costUsd: 0 };
+  return { caseId: 'a', system: 's', repetition: 1, output, latencyMs: 0, modelCalls: 1, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [] };
 }
 
 describe('normalizeAnswer', () => {

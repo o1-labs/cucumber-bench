@@ -12,7 +12,7 @@ describe('exactGrader', () => {
   function result(output: string, error?: string): RunResult {
     return {
       caseId: 'c1', system: 's', repetition: 1, output, error,
-      latencyMs: 0, modelCalls: 1, tokensIn: 0, tokensOut: 0, costUsd: 0,
+      latencyMs: 0, modelCalls: 1, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [],
     };
   }
 

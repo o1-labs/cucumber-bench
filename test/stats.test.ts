@@ -1,15 +1,15 @@
 import { describe, it, afterEach } from 'vitest';
 import assert from 'node:assert/strict';
 import { consistencyOf, costOf, summarize } from '../src/stats.js';
-import type { Record } from '../src/runner.js';
+import type { RunRecord } from '../src/runner.js';
 import type { Case } from '../src/caseStore.js';
 
-function record(caseId: string, rep: number, extracted: string, opts: { pass?: boolean; score?: number; tokens?: number; system?: string } = {}): Record {
+function record(caseId: string, rep: number, extracted: string, opts: { pass?: boolean; score?: number; tokens?: number; system?: string } = {}): RunRecord {
   let { pass = true, score = pass ? 1 : 0, tokens = 0, system = 's' } = opts;
   return {
-    run: { caseId, system, repetition: rep, output: '', latencyMs: 100, modelCalls: 1, tokensIn: tokens, tokensOut: tokens, costUsd: 0 },
+    run: { caseId, system, repetition: rep, output: '', latencyMs: 100, modelCalls: 1, tokensIn: tokens, tokensOut: tokens, costUsd: 0, models: [] },
     grades: [{ grader: 'exact', pass, score, extracted }],
-    judge: { modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0 },
+    judge: { modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [] },
   };
 }
 

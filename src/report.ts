@@ -1,15 +1,27 @@
 import type { Case } from './caseStore.js';
-import type { Record } from './runner.js';
+import type { RunRecord } from './runner.js';
 import { summarize, type Row } from './stats.js';
 import type { Grader } from './types.js';
 
 export { buildReport };
 
-// markdown report: one table per suite (task x system, one column per grader), the
-// grader glossary, then failures
-function buildReport(runId: string, model: string, cases: Case[], records: Record[], graders: Grader[] = []): string {
-  let lines = [`# Benchmark report`, '', `Run: ${runId}`, `Default model: ${model}`, ''];
+// markdown report: the models each system and judge actually used, one table per
+// suite (task x system, one column per grader), the grader glossary, then failures
+function buildReport(runId: string, cases: Case[], records: RunRecord[], graders: Grader[] = []): string {
+  let lines = [`# Benchmark report`, '', `Run: ${runId}`, ''];
   let rows = summarize(cases, records);
+  let caseOf = new Map(cases.map((c) => [c.pub.id, c.pub]));
+  let systems = [...new Set(records.map((r) => r.run.system))];
+  lines.push('Models used, as recorded by the proxy:', '');
+  for (let sys of systems) {
+    let models = [...new Set(records.filter((r) => r.run.system === sys).flatMap((r) => r.run.models ?? []))];
+    lines.push(`- ${sys}: ${models.join(', ') || '—'}`);
+  }
+  for (let suite of [...new Set(rows.map((r) => r.suite))]) {
+    let judges = [...new Set(records.filter((r) => caseOf.get(r.run.caseId)?.suite === suite).flatMap((r) => r.judge?.models ?? []))];
+    if (judges.length) lines.push(`- judge for ${suite}: ${judges.join(', ')}`);
+  }
+  lines.push('');
 
   for (let suite of [...new Set(rows.map((r) => r.suite))]) {
     let suiteRows = rows.filter((r) => r.suite === suite);

@@ -1,5 +1,5 @@
 import { spawn, spawnSync } from 'node:child_process';
-import type { SystemUnderTest } from '../types.js';
+import type { Models, SystemUnderTest } from './types.js';
 
 export { sandboxedSystem, dockerArgv };
 
@@ -8,19 +8,20 @@ const TIMEOUT_MS = 300_000;
 
 // every system runs this way: an isolated child process (a docker container
 // in docker mode) speaking the wire protocol. stdin gets {publicCase, proxyUrl,
-// token, model} as json, stdout returns {output, trace?} or {error}. the child
+// token, models} as json, stdout returns {output, trace?} or {error}. the child
 // never receives private cases, api keys, or the upstream url; usage and the
 // prompts that reached the model come from the proxy, not from the child.
-function sandboxedSystem(name: string, argv: string[], suites?: string[]): SystemUnderTest {
+function sandboxedSystem(name: string, argv: string[], models: Models, suites?: string[]): SystemUnderTest {
   // a container reaches the host proxy through the gateway name, not loopback
   let docker = argv[0] === 'docker';
   return {
     name,
     suites,
+    models,
     async run(c, ctx) {
       let token = ctx.proxy.register(`${ctx.runId}/${c.id}/rep${ctx.repetition}`);
       let proxyUrl = docker ? ctx.proxy.url.replace('127.0.0.1', 'host.docker.internal') : ctx.proxy.url;
-      let payload = JSON.stringify({ publicCase: c, proxyUrl, token, model: ctx.model });
+      let payload = JSON.stringify({ publicCase: c, proxyUrl, token, models });
 
       // a named container can be killed on timeout; killing the docker cli alone leaves it running
       let container = docker ? `bench-${ctx.runId}-${c.id}-r${ctx.repetition}`.replace(/[^a-zA-Z0-9_.-]/g, '-') : undefined;

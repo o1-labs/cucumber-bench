@@ -10,7 +10,7 @@ import type { ModelProxy, SystemUnderTest } from '../src/types.js';
 let proxy: ModelProxy = {
   url: 'http://127.0.0.1:1',
   register: () => 'judge-token',
-  usage: () => ({ modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0 }),
+  usage: () => ({ modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [] }),
   requests: () => [],
   close: async () => {},
 };
@@ -19,10 +19,11 @@ let proxy: ModelProxy = {
 function fakeSystem(output: string): SystemUnderTest {
   return {
     name: 'fake',
+    models: { main: 'm', safety: 'm' },
     async run(c, ctx) {
       return {
         caseId: c.id, system: 'fake', repetition: ctx.repetition, output,
-        modelRequests: [c.input], modelCalls: 1, tokensIn: 10, tokensOut: 2, costUsd: 0,
+        modelRequests: [c.input], modelCalls: 1, tokensIn: 10, tokensOut: 2, costUsd: 0, models: [],
       };
     },
   };
@@ -34,13 +35,13 @@ describe('runSuite', () => {
     assert.equal(cases.length, 9);
 
     let records = await runSuite({
-      runId: 'test', cases, systems: [fakeSystem('Yes')], graders: [exactGrader()], model: 'm', proxy, repetitions: 1, concurrency: 4,
+      runId: 'test', cases, systems: [fakeSystem('Yes')], graders: [exactGrader()], proxy, judgeFor: () => 'j', repetitions: 1, concurrency: 4,
     });
 
     assert.equal(records.length, 9);
     // concurrent runs still land in case order
     assert.deepEqual(records.map((r) => r.run.caseId), cases.map((c) => c.pub.id));
-    assert.deepEqual(records[0].judge, { modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0 });
+    assert.deepEqual(records[0].judge, { modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [] });
     // fake answers "Yes"; exactly the two Yes-labeled cases pass
     assert.equal(records.filter((r) => r.grades[0].pass).length, 2);
     for (let { run, grades } of records) {
@@ -54,7 +55,7 @@ describe('runSuite', () => {
     let cases = await loadCases('benchmarks/redaction');
     let records = await runSuite({
       runId: 'test', cases, systems: [fakeSystem('[REDACTED]')],
-      graders: [removalGrader(), leakageGrader(), retentionGrader()], model: 'm', proxy, repetitions: 1,
+      graders: [removalGrader(), leakageGrader(), retentionGrader()], proxy, judgeFor: () => 'j', repetitions: 1,
     });
     assert.equal(records.length, cases.length);
     for (let { grades } of records) {
@@ -69,7 +70,7 @@ describe('runSuite', () => {
     let cases = (await loadCases('benchmarks/legalbench')).slice(0, 2);
     let broken = { name: 'exact', description: 'x', async grade() { throw Error('judge down'); } };
     let records = await runSuite({
-      runId: 'test', cases, systems: [fakeSystem('Yes')], graders: [broken], model: 'm', proxy, repetitions: 1,
+      runId: 'test', cases, systems: [fakeSystem('Yes')], graders: [broken], proxy, judgeFor: () => 'j', repetitions: 1,
     });
     assert.equal(records.length, 2);
     assert.equal(records[0].grades[0].pass, false);
@@ -80,12 +81,13 @@ describe('runSuite', () => {
     let cases = (await loadCases('benchmarks/legalbench')).slice(0, 1);
     let broken: SystemUnderTest = {
       name: 'broken',
+      models: { main: 'm', safety: 'm' },
       async run() {
         throw Error('boom');
       },
     };
     let records = await runSuite({
-      runId: 'test', cases, systems: [broken], graders: [exactGrader()], model: 'm', proxy, repetitions: 1,
+      runId: 'test', cases, systems: [broken], graders: [exactGrader()], proxy, judgeFor: () => 'j', repetitions: 1,
     });
     assert.equal(records.length, 1);
     assert.equal(records[0].grades[0].pass, false);

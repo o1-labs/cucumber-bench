@@ -1,5 +1,5 @@
 import type { Case } from './caseStore.js';
-import type { Record } from './runner.js';
+import type { RunRecord } from './runner.js';
 
 export { summarize, type Row };
 // internal API, exported for tests
@@ -25,7 +25,7 @@ type Row = {
   judgeCostUsd?: number; // judge cost per run, reported by the provider
 };
 
-function summarize(cases: Case[], records: Record[]): Row[] {
+function summarize(cases: Case[], records: RunRecord[]): Row[] {
   let caseOf = new Map(cases.map((c) => [c.pub.id, c.pub]));
   let rows: Row[] = [];
   for (let suite of unique(cases.map((c) => c.pub.suite))) {
@@ -71,7 +71,7 @@ function summarize(cases: Case[], records: Record[]): Row[] {
 // average majority share of answers per case across repetitions: 1 means every
 // repetition gave the same answer. the answer is the primary grader's extracted
 // label, or the whole output for tasks without one. undefined with a single rep.
-function consistencyOf(rows: Record[]): number | undefined {
+function consistencyOf(rows: RunRecord[]): number | undefined {
   let byCase = new Map<string, string[]>();
   for (let r of rows) {
     let answers = byCase.get(r.run.caseId) ?? [];
@@ -93,7 +93,7 @@ function consistencyOf(rows: Record[]): number | undefined {
 // average harness cost per run in usd. the provider's reported cost when there is
 // one (openrouter); else BENCH_COST_IN / BENCH_COST_OUT ($ per 1M tokens); else
 // undefined (a local model is free).
-function costOf(rows: Record[]): number | undefined {
+function costOf(rows: RunRecord[]): number | undefined {
   if (rows.some((r) => (r.run.costUsd ?? 0) > 0)) return avg(rows.map((r) => r.run.costUsd ?? 0));
   let inRate = Number(process.env.BENCH_COST_IN);
   let outRate = Number(process.env.BENCH_COST_OUT);

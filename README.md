@@ -35,6 +35,12 @@ BENCH_SANDBOX=docker npm run bench # same, each run in a fresh docker container
 npm test                           # unit + pipeline tests (no model needed)
 ```
 
+Ownership: a **harness** names its own models in `harness.json` (`models.main`,
+`models.safety`); a **benchmark** names its judge in `benchmark.json`
+(`judge.model`); the **environment** holds providers (URLs, keys) and the
+defaults for anything a manifest leaves out. The report shows the models every
+system and judge actually used, as the proxy recorded them.
+
 The proxy speaks the OpenAI chat completions protocol upstream. Configure it
 with environment variables, or copy `.env.example` to `.env` in the repo root
 (gitignored, loaded automatically):
@@ -42,9 +48,9 @@ with environment variables, or copy `.env.example` to `.env` in the repo root
 | Variable | Default | Meaning |
 | --- | --- | --- |
 | `BENCH_BASE_URL` | `http://localhost:11434/v1` | Ollama local, or any hosted API |
-| `BENCH_MODEL` | `qwen3:8b` | the guarded model id |
-| `BENCH_SAFETY_MODEL` | same as `BENCH_MODEL` | trusted model served on the proxy's `/safety/v1` route; a harness may show it raw data, and its prompts do not count as leakage |
-| `BENCH_JUDGE_MODEL` | same as `BENCH_MODEL` | model served on the proxy's `/judge/v1` route; graders use it, harnesses never do; its usage is recorded apart from the harness |
+| `BENCH_MODEL` | `qwen3:8b` | default main model for a harness whose manifest names none |
+| `BENCH_SAFETY_MODEL` | same as `BENCH_MODEL` | default safety model (the `/safety/v1` route: a harness may show it raw data, and its prompts do not count as leakage) for a harness whose manifest names none |
+| `BENCH_JUDGE_MODEL` | same as `BENCH_MODEL` | default judge model (the `/judge/v1` route: graders use it, harnesses never do) for a benchmark whose manifest names none; `npm run regrade -- <run> --judge <model>` overrides every benchmark |
 | `BENCH_JUDGE_BASE_URL`, `BENCH_JUDGE_API_KEY` | same as the main URL and key | put the judge on another provider, e.g. `https://openrouter.ai/api/v1` with an OpenRouter key |
 | `BENCH_MAX_CALLS` | `20` | model calls a harness may make per run |
 | `BENCH_MAX_JUDGE_CALLS` | `100` | judge calls the graders may make per run |
@@ -129,7 +135,7 @@ Suites:
 Test cases are locked: do not tune the harness on them.
 
 Add more cases for an existing task with
-`npm run import -- --task hearsay --count 5` — pulls unused test-split rows
+`npx tsx benchmarks/legalbench/import.ts --task hearsay --count 5` — pulls unused test-split rows
 from HuggingFace, balanced across gold answers, reusing the task's
 instructions from an existing case.
 

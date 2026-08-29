@@ -15,13 +15,19 @@ type HarnessManifest = {
   entry: string; // relative to dir; .ts runs under tsx, .mjs under node
   description?: string;
   suites: string[]; // the benchmarks this harness runs on
+  models?: { main?: string; safety?: string }; // the harness's own model choice; env defaults fill the gaps
   image: string; // docker image; the shared base image unless the harness has its own
   imageEntry: string; // the entry path inside the image
   dockerfile?: string; // relative to dir; present when the harness builds its own image
 };
 
 // benchmarks/<name>/benchmark.json
-type BenchmarkManifest = { name: string; dir: string; graders: Grader[] };
+type BenchmarkManifest = {
+  name: string;
+  dir: string;
+  graders: Grader[];
+  judge?: { model: string }; // the judge model the benchmark's graders need; env default when absent
+};
 
 // graders that live in the core and can be named in benchmark.json
 const CORE_GRADERS: { [name: string]: () => Grader } = { exact: exactGrader, 'str-em': strEmGrader };
@@ -53,7 +59,7 @@ async function loadBenchmarks(root: string): Promise<BenchmarkManifest[]> {
         graders.push(CORE_GRADERS[g]());
       }
     }
-    out.push({ name: m.name, dir, graders });
+    out.push({ name: m.name, dir, graders, judge: m.judge });
   }
   return out;
 }

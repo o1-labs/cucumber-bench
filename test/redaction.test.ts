@@ -12,7 +12,7 @@ let ctx = { judge: async () => 'no' };
 function result(output: string, modelRequests?: string[]): RunResult {
   return {
     caseId: 'r1', system: 's', repetition: 1, output, modelRequests,
-    latencyMs: 0, modelCalls: 1, tokensIn: 0, tokensOut: 0, costUsd: 0,
+    latencyMs: 0, modelCalls: 1, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [],
   };
 }
 

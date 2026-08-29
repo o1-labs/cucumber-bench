@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import type { Grader } from '../types.js';
+import { escapeRe } from '../text.js';
 
 export { exactGrader };
 // internal API, exported for tests
@@ -41,8 +42,3 @@ function extractChoice(output: string, choices: string[]): string | undefined {
   return found.length === 1 ? found[0] : undefined;
 }
 
-// internal helpers
-
-function escapeRe(s: string): string {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}

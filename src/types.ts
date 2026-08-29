@@ -10,6 +10,7 @@ export type {
   Trace,
   SystemUnderTest,
   Grader,
+  Models,
   ModelProxy,
 };
 
@@ -41,8 +42,9 @@ type PrivateCase = {
 };
 
 // costUsd is what the provider reported (openrouter returns usage.cost per request);
-// 0 when the provider reports none, e.g. a local ollama
-type Usage = { modelCalls: number; tokensIn: number; tokensOut: number; costUsd: number };
+// 0 when the provider reports none, e.g. a local ollama. models are the ids actually
+// requested, recorded by the proxy: the report shows them next to each system
+type Usage = { modelCalls: number; tokensIn: number; tokensOut: number; costUsd: number; models: string[] };
 
 // one step inside a harness (input safety, agent, output safety), self-reported by the harness
 type Stage = {
@@ -89,12 +91,14 @@ type SystemUnderTest = {
   name: string;
   // the benchmark suites this system runs on; all of them when absent
   suites?: string[];
-  run(
-    c: PublicCase,
-    // model is the name to request; the proxy is the only way to reach it
-    ctx: { runId: string; repetition: number; model: string; proxy: ModelProxy },
-  ): Promise<Omit<RunResult, 'latencyMs'>>;
+  // the models this system calls: its own choice, declared in its manifest
+  models: Models;
+  // the proxy is the only way to reach a model
+  run(c: PublicCase, ctx: { runId: string; repetition: number; proxy: ModelProxy }): Promise<Omit<RunResult, 'latencyMs'>>;
 };
+
+// main answers on the guarded route; safety is the trusted model a safety stage may show raw data to
+type Models = { main: string; safety: string };
 
 // what a grader may use beyond the case and the result: a greedy judge model behind
 // the proxy, on a token of its own so grading cost is counted apart from the harness

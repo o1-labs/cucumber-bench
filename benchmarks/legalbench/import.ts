@@ -2,9 +2,9 @@ import { mkdir, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import assert from 'node:assert/strict';
 import { parseArgs } from 'node:util';
-import { loadCases } from './caseStore.js';
+import { loadCases } from '../../src/caseStore.js';
 
-// usage: npm run import -- --task hearsay [--count 5] [--out benchmarks/legalbench/cases]
+// usage: npx tsx benchmarks/legalbench/import.ts --task hearsay [--count 5] [--out benchmarks/legalbench/cases]
 // pulls new test-split rows for a task we already have cases for; task metadata
 // (instructions, examples, question, choices) is copied from an existing case
 let { values } = parseArgs({
@@ -14,7 +14,7 @@ let { values } = parseArgs({
     out: { type: 'string', default: 'benchmarks/legalbench/cases' },
   },
 });
-assert(values.task, 'usage: npm run import -- --task <legalbench task> [--count n] [--out dir]');
+assert(values.task, 'usage: npx tsx benchmarks/legalbench/import.ts --task <legalbench task> [--count n] [--out dir]');
 let task = values.task;
 let count = Number(values.count);
 assert(count >= 1, `import: count must be >= 1, got ${values.count}`);
