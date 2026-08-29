@@ -1,10 +1,7 @@
 {
   "name": "asqa-dev",
-  "graders": [
-    "str-em",
-    "../asqa/graders.ts"
-  ],
+  "graders": ["str-em", "../asqa/graders.ts"],
   "judge": {
-    "model": "moonshotai/kimi-k3"
+    "model": "deepseek/deepseek-v4-flash-0731"
   }
 }
