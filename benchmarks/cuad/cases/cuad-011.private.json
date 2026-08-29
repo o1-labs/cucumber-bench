@@ -1,0 +1,16 @@
+{
+  "id": "cuad-011",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Upon termination, Consultant agrees to perform the necessary information transfer required at the time.",
+      "passages": [
+        3
+      ]
+    }
+  ]
+}

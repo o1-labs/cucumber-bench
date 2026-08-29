@@ -1,0 +1,16 @@
+{
+  "id": "cuad-dev-101",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Both parties will not have liability for any damages other than direct damages.",
+      "passages": [
+        7
+      ]
+    }
+  ]
+}

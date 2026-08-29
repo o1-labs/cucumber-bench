@@ -1,0 +1,22 @@
+{
+  "id": "cuad-000",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "This Agreement is subject to all laws, regulations, license conditions and decisions of the Canadian Radio-television and Telecommunications Commission (\"CRTC\") municipal, provincial and federal governments or other authorities which are applicable to Rogers and/or Licensor, and which are now in force or hereafter adopted (\"Applicable Law\").",
+      "passages": [
+        16
+      ]
+    },
+    {
+      "text": "This Agreement shall be governed by laws of the Province of Ontario and the federal laws of Canada applicable therein.",
+      "passages": [
+        14
+      ]
+    }
+  ]
+}

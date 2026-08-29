@@ -1,0 +1,22 @@
+{
+  "id": "cuad-dev-109",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Any attempted assignment in violation of this Section shall be null and void.",
+      "passages": [
+        12
+      ]
+    },
+    {
+      "text": "This Agreement may not be assigned by any party or by operation of law or otherwise without the prior written consent of each of the other parties.",
+      "passages": [
+        12
+      ]
+    }
+  ]
+}

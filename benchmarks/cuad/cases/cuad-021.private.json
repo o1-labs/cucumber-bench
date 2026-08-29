@@ -1,0 +1,16 @@
+{
+  "id": "cuad-021",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "In addition to the foregoing, if, at the time of termination of this Agreement, Reseller shall have additional Product units in its inventory and is able to sell them to Customers and/or End Users (including, without limitation, any Product units for which Reseller has or is obligated to pay the Supplier the purchase price therefor but which have not yet been delivered to the Reseller by Supplier, which Supplier hereby agrees to either deliver as otherwise contemplated by this Agreement as if it had not terminated or to refund the purchase price therefor), then the licenses and appointments described in Section 2 shall remain in effect with respect to such unsold Product units (and such Section 2 shall not terminate) until the earlier of (i) the date on which the last Product in Reseller's inventory is sold to a Customer and/or End User, or (ii) 1 year from the date of the termination of this Agreement.",
+      "passages": [
+        10
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "cuad-097",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Upon the terms and subject to the conditions of this Agreement, Developer hereby grants to Distributor an exclusive, non-transferable fight and license to market and distribute the Products in the Territory.",
+      "passages": [
+        0
+      ]
+    }
+  ]
+}

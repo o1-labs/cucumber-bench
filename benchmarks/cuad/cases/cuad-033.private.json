@@ -1,0 +1,16 @@
+{
+  "id": "cuad-033",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Subject to the terms set forth in this agreement, Erchonia grants Distributor the exclusive, non- transferable right and license to promote, distribute and sell the Products identified in Exhibit A to those type of customer specified in Exhibit B and only within the Territory specified in Exhibit B.",
+      "passages": [
+        0
+      ]
+    }
+  ]
+}

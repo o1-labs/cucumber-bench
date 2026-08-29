@@ -1,0 +1,29 @@
+{
+  "id": "cuad-050",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "The term \"Specified Minimum Percentage\" shall be equal to the percentage set forth on Schedule 1 attached hereto, which shall be agreed to by AIG and the Company at least once every year beginning upon the date of the filing of the Company's 2014 Annual Statement with the Domiciliary State's insurance department and following review against the capital adequacy standards and criteria (\"Agency Criteria\") of each of Standard & Poor's Corp. (\"S&P\"), Moody's Investors Service (\"Moody's\") and A.M. Best Company (\"A.M. Best\").",
+      "passages": [
+        1,
+        2
+      ]
+    },
+    {
+      "text": "In the event that the Company's Total Adjusted Capital for each of the Company's first and third fiscal quarters (as determined based on the Company's first and third fiscal quarterly filed statutory financial statements, respectively, subject to any adjustments or modifications thereto required by the Domiciliary State's insurance department or the Company's independent auditors) falls below the Specified Minimum Percentage of the Company's projected Company Action Level RBC (in each case as estimated by the Company as of the end of each such first and third fiscal quarters, as the case may be, taking into account (for purposes of such estimation) facts and circumstances occurring after the end of such fiscal quarter but before such time as AIG would be obligated pursuant to paragraph 3 to make a contribution), AIG shall, within the respective time periods set forth under paragraph 3, in accordance with paragraph 4 and in compliance with applicable law, provide to the Company cash, cash equivalents, securities or other instruments that qualify (as admitted assets) for purposes of calculating the Company's Total Adjusted Capital, as a contribution and not as a loan, in an amount such that the Company's Total Adjusted Capital as of the end of each of the Company's second and fourth fiscal quarter, as the case may be, will be projected to be at least equal to the Specified Minimum Percentage of the Company's Company Action Level RBC.",
+      "passages": [
+        0
+      ]
+    },
+    {
+      "text": "The Specified Minimum Percentage shall equal 385% of the Company's Company Action Level RBC.",
+      "passages": [
+        9
+      ]
+    }
+  ]
+}

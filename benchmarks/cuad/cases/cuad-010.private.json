@@ -1,0 +1,16 @@
+{
+  "id": "cuad-010",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Network 1 shall have the right to inspect the Local Offices during normal business hours to insure compliance by Affiliate with is obligations pursuant to Section 1.02 [LOCAL OFFICE (AFFILIATE OFFICE)].",
+      "passages": [
+        5
+      ]
+    }
+  ]
+}

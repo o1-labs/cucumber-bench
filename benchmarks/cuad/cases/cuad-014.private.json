@@ -1,0 +1,16 @@
+{
+  "id": "cuad-014",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Bank of America may terminate Maintenance Services for convenience at any time in accordance with the Section entitled \"Termination\" of the Agreement.",
+      "passages": [
+        1
+      ]
+    }
+  ]
+}

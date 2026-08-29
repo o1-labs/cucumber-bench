@@ -1,0 +1,22 @@
+{
+  "id": "cuad-049",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "FIIOC may terminate this Agreement at any time upon ninety (90) days' written notice to Company.",
+      "passages": [
+        3
+      ]
+    },
+    {
+      "text": "This Agreement may be terminated by Company at any time upon written notice to FIIOC.",
+      "passages": [
+        3
+      ]
+    }
+  ]
+}

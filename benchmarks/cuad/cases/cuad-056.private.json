@@ -1,0 +1,28 @@
+{
+  "id": "cuad-056",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Any one or more of the following events shall constitute a \"Maintenance Event of Default\" under this Agreement:",
+      "passages": [
+        8
+      ]
+    },
+    {
+      "text": "The Investor agrees to deliver to the Agent, from time to time, promptly following Agent's request therefor, a sworn affidavit or other evidence reasonably acceptable to the Agent substantiating that the Investor has committed capital in an aggregate minimum amount equal to $5,000,000 less the sum of all Required Capital Contributions (if any) actually made by the Investor during the term of this Agreement.",
+      "passages": [
+        14
+      ]
+    },
+    {
+      "text": "(d) if Investor shall, at any time, fail to have committed capital in an aggregate minimum amount equal to $5,000,000 less the sum of all Required Capital Contributions (if any) actually made by the Investor during the term of this Agreement, as determined based on the most recent information made available by the Investor to the Agent pursuant to Section 20 below;",
+      "passages": [
+        8
+      ]
+    }
+  ]
+}

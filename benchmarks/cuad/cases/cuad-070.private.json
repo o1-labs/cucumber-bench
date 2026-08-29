@@ -1,0 +1,22 @@
+{
+  "id": "cuad-070",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "For each calendar year of the Franchise, each locality's percentage share shall be determined by the following formula: total dollar value of Grantee's gas sales within Locality's percentage share = the Territorial Limits of the locality total dollar value of Grantee's gas sales in the three localities",
+      "passages": [
+        1
+      ]
+    },
+    {
+      "text": "Grantor's Franchise Fee shall be a percentage share of the base year total annual Franchise Fee, which shall be determined on a pro rata basis according to its percentage share of the total dollar value of Grantee's gas sales occurring within the localities during the calendar year.",
+      "passages": [
+        1
+      ]
+    }
+  ]
+}

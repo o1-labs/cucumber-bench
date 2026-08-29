@@ -1,0 +1,22 @@
+{
+  "id": "cuad-037",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "MORPHO agrees that XIMAGE's total liability to MORPHO for any damages suffered in connection with, or arising out of, this Agreement or MORPHO's use of any documentation, product or service provided (or to be provided) hereunder, regardless of whether any such liability is based upon contract, tort or other basis, shall be limited to an amount not to exceed the basic Monthly Maintenance Charges, for a sixty (60) day term under this Agreement.",
+      "passages": [
+        10
+      ]
+    },
+    {
+      "text": "IN NO EVENT SHALL, XIMAGE BE LIABLE TO MORPHO FOR ANY INCIDENTAL, CONSEQUENTIAL, SPECIAL OR INDIRECT DAMAGES (INCLUDING WITHOUT LIMITATION, DAMAGES ARISING FROM LOSS OF BUSINESS, DATA, PROFITS OR GOODWILL) INCURRED OR SUFFERED BY MORPHO IN CONNECTION WITH, OR ARISING OUT OF, THIS AGREEMENT OR MORPHO'S USE OF ANY DOCUMENTATION OR SOFTWARE OR SERVICES PROVIDED, OR TO BE PROVIDED, HEREUNDER, EVEN IF XIMAGE HAS BEEN APPRISED OF THE LIKELIHOOD OF THE SAME. NO ACTION, REGARDLESS OF FORM, RELATED TO TRANSACTIONS OCCURRING UNDER, OR CONTEMPLATED BY, THIS AGREEMENT MAY BE BROUGHT BY EITHER PARTY MORE THAN ONE (1) YEAR AFTER THE CAUSE OF ACTION HAS ACCRUED.",
+      "passages": [
+        10
+      ]
+    }
+  ]
+}

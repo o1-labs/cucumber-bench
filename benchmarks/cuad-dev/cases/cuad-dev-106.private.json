@@ -1,0 +1,16 @@
+{
+  "id": "cuad-dev-106",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "The Initial Term shall automatically be extended for an additional period of half a year unless either party provides the other party with written notification of termination of the letter Agreement at least 60 days prior to end of such period.",
+      "passages": [
+        4
+      ]
+    }
+  ]
+}

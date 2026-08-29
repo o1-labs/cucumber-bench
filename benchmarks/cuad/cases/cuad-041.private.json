@@ -1,0 +1,22 @@
+{
+  "id": "cuad-041",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "A *donation of $0.05 per Unit sold of Licensed Products within the Contract Territory payable to the **NFL Alumni Northern California Chapter.",
+      "passages": [
+        1
+      ]
+    },
+    {
+      "text": "The NFLA-NC will donate 15% of the above described proceeds to the NFLA.",
+      "passages": [
+        1
+      ]
+    }
+  ]
+}

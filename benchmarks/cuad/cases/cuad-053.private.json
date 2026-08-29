@@ -1,0 +1,16 @@
+{
+  "id": "cuad-053",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "This Agreement will automatically renew for successive one year terms (each a \"Renewal Term\", and together with the Initial Term, the \"Term\"), unless either Charterer or Owner elects not to renew this Agreement by providing the other party with written notice of such election 30 days prior to the expiration of the Initial Term or Renewal Term, as applicable, at which point this Agreement will automatically terminate.",
+      "passages": [
+        0
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "cuad-090",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "If Intuit fails to deliver such Impressions during the twelve (12) month period following the Launch Date, Intuit agrees to run such promotions in equivalent areas and placement, as mutually agreed upon by the parties, until such Impressions have been delivered.",
+      "passages": [
+        5
+      ]
+    },
+    {
+      "text": "Intuit will place a Sponsor Client Graphic consisting of ---------------- a minimum of 234x60 pixels, with a mutually agreed upon text in two (2) mutually agreed upon, small business email newsletters sent by Intuit, to all its registered small business users who have elected to receive such newsletter (\"Small Business Newsletters\").",
+      "passages": [
+        4
+      ]
+    }
+  ]
+}

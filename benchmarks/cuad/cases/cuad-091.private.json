@@ -1,0 +1,16 @@
+{
+  "id": "cuad-091",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "This Agreement is effective on the Effective Date and shah continue in effect until the earlier of (a) the fifth (5t h) anniversary of the Effective Date, and (b) termination by either Party for any reason upon thirty (30) days' written notice to the other Party; provided, however, that no Party shall be able to terminate this Agreement so long as such Party is a Defaulting Party under this Agreement.",
+      "passages": [
+        8
+      ]
+    }
+  ]
+}

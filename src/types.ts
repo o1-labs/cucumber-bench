@@ -39,6 +39,9 @@ type PrivateCase = {
   answer?: string; // exact: the gold label
   protected?: string[]; // removal / leakage / retention: spans that must not survive or reach the model
   qaPairs?: { question: string; shortAnswers: string[] }[]; // str-em: the sub-questions of an ambiguous question
+  // clause graders: the gold clause excerpts and the 0-based docs that contain each; [] when the
+  // contract has no such clause
+  clauses?: { text: string; passages: number[] }[];
 };
 
 // costUsd is what the provider reported (openrouter returns usage.cost per request);

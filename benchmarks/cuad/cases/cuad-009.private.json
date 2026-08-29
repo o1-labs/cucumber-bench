@@ -1,0 +1,22 @@
+{
+  "id": "cuad-009",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "IN NO EVENT SHALL COMPANY BE LIABLE FOR ANY INCIDENTAL OR CONSEQUENTIAL DAMAGES AND DISTRIBUTOR'S REMEDIES SHALL BE LIMITED TO REPAIR OR REPLACEMENT OF NONCONFORMING UNITS OR PARTS.",
+      "passages": [
+        5
+      ]
+    },
+    {
+      "text": "Nor shall the Company at any time be liable for any incidental, special or consequential damages.",
+      "passages": [
+        3
+      ]
+    }
+  ]
+}

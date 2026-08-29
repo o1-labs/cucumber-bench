@@ -1,0 +1,28 @@
+{
+  "id": "cuad-006",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "The first Development Fees payment shall be due forty-five days after the end of the Calendar Quarter in which the first Sale of a Development Product took place.",
+      "passages": [
+        4
+      ]
+    },
+    {
+      "text": "\"Development Fee\" means 50% of the Net Sales for any Development Products in the Development Territory.",
+      "passages": [
+        2
+      ]
+    },
+    {
+      "text": "Thereafter, WPD shall furnish to CNS Development Fees no later than forty-five days after the end of each Calendar Quarter for the Sale of Development Products through the end of such Calendar Quarter and shall further furnish CNS with a written statement setting forth an accounting showing the calculation of the Development Fees.",
+      "passages": [
+        4
+      ]
+    }
+  ]
+}

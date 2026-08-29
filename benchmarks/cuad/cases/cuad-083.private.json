@@ -1,0 +1,16 @@
+{
+  "id": "cuad-083",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "This Agreement may not be modified or assigned except in writing signed by SRP and Logan's.",
+      "passages": [
+        11
+      ]
+    }
+  ]
+}

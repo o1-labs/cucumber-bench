@@ -1,0 +1,22 @@
+{
+  "id": "cuad-023",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "This IP Agreement will be binding upon and inure to the benefit of the Parties hereto and their respective successors and permitted assigns, but will not be assignable or delegable by any Party without the prior written consent of the other Party.",
+      "passages": [
+        18
+      ]
+    },
+    {
+      "text": "Any attempted transfer in contravention of this Section 9.3 shall be null and void.",
+      "passages": [
+        18
+      ]
+    }
+  ]
+}

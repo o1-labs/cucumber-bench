@@ -1,0 +1,22 @@
+{
+  "id": "cuad-047",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "GINARES agrees that the sole and exclusive remedy for money damages related to this Agreement and the transactions contemplated hereby shall be the rights to indemnification set forth in this Section 9.",
+      "passages": [
+        5
+      ]
+    },
+    {
+      "text": "HPIL ET agrees that the sole and exclusive remedy for money damages relating to this Agreement and the transactions contemplated hereby shall be the rights to indemnification set forth in this Section 10.",
+      "passages": [
+        6
+      ]
+    }
+  ]
+}

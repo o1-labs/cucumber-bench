@@ -1,0 +1,34 @@
+{
+  "id": "cuad-066",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "If Lucid accepts Distributor's order and fails to deliver ordered products, Distributors sole remedy will be limited to refund of money paid to Lucid for any undelivered products.",
+      "passages": [
+        8
+      ]
+    },
+    {
+      "text": "Lucid will not have any liability or responsibility to Distributor or any other person or entity for any consequential, indirect, special, punitive or incidental damages or lost profits, whether foreseeable or unforeseeable, based on claims of Distributor or Distributor's customers (including but not limited to, claims for loss of data, goodwill, profits, use of money or use of product, interruption in use or availability of data stoppage or other work or impairment or assets) arising out of breach or failure of express or implied warranty, breach of contract, misrepresentation, negligence, strict liability in tort or otherwise, except only in the case of death or personal injury where and to the extent that applicable law requires such liability.",
+      "passages": [
+        8
+      ]
+    },
+    {
+      "text": "If this Agreement is terminated Lucid shall not be liable for any incidental, indirect; special punitive of consequential damages of any kind, including any perceived or real market development costs.",
+      "passages": [
+        7
+      ]
+    },
+    {
+      "text": "In no event will the aggregate liability incurred by Lucid in any action or proceeding exceed the total amount actually paid to Lucid by Distributor for the purchase of the products that actually caused the damage or loss.",
+      "passages": [
+        9
+      ]
+    }
+  ]
+}

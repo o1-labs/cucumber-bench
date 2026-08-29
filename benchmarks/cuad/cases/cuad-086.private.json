@@ -1,0 +1,16 @@
+{
+  "id": "cuad-086",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Any controversy between the parties arising under this Agreement and not resolved by the parties shall be determined in accordance with the laws of the State of Michigan.",
+      "passages": [
+        2
+      ]
+    }
+  ]
+}

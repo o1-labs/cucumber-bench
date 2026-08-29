@@ -1,0 +1,16 @@
+{
+  "id": "cuad-dev-110",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Upon any expiration or termination of this Agreement, Emdeon shall have a reasonable period of time to remove the Content from the Software",
+      "passages": [
+        4
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "cuad-016",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "In addition to payments due North by Company as set forth in paragraphs 7.a. above, Company further agrees to pay North a one percent (1%) royalty on all Gross Revenue generated from the sale of all Company Products (herein \"Royalties\").",
+      "passages": [
+        7
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "cuad-034",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "ENVISION will provide SIERRA with demand projections for the Product and SIERRA will produce enough Product to meet such demand projections.",
+      "passages": [
+        2
+      ]
+    }
+  ]
+}

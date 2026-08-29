@@ -1,0 +1,22 @@
+{
+  "id": "cuad-dev-113",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Any such inspection or audit shall be upon reasonable notice and shall not unreasonably interfere with the operations of FCC.",
+      "passages": [
+        4
+      ]
+    },
+    {
+      "text": "Flotek shall have the right at any time to (i) inspect the facility of FCC in Winter Haven, Florida (the \"Facility\") and any other facility of FCC involved in the production of the Terpene Product, and (ii) audit the books and records of FCC",
+      "passages": [
+        3
+      ]
+    }
+  ]
+}

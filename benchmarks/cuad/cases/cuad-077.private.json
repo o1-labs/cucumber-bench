@@ -1,0 +1,28 @@
+{
+  "id": "cuad-077",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Auriemma expressly agrees and undertakes that: a) The right to use the Auriemma Identification has not been previously granted nor will it be granted to anyone other than Berkshire for use during the Contract Period within the Contract Territory in connection with the advertisement, promotion and sale of products and services which are the same as or similar to any of the Financial Services;",
+      "passages": [
+        3
+      ]
+    },
+    {
+      "text": "The License Rights are exclusive to Berkshire and may not be assigned or in any way conveyed by Berkshire without Auriemma's express written consent, except in the event of a merger by Berkshire with another entity offering Banking Services.",
+      "passages": [
+        2
+      ]
+    },
+    {
+      "text": "Auriemma grants to Berkshire the exclusive right and license (the \"License Rights\") to use the Auriemma Identification during the Contract Period and throughout the Contract Territory solely in connection with the advertisement and promotion of Berkshire and the Financial Services;",
+      "passages": [
+        2
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "cuad-dev-107",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Integrity will hold exclusive worldwide rights to promote and sell the product to/through the following distribution channels: Christian retail (CBA or Christian Booksellers Association markets), direct mail (including continuity sales, church sales, digital and e-commerce sales.)",
+      "passages": [
+        3
+      ]
+    },
+    {
+      "text": "TL will hold exclusive worldwide rights to promote and sell the product through the following distribution channels: Outgoing telemarketing, General Market retail, and General Market catalogs, and exclusive rights within the United States for Television Direct response.",
+      "passages": [
+        2
+      ]
+    }
+  ]
+}

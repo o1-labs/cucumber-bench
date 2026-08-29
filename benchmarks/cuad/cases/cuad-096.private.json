@@ -1,0 +1,16 @@
+{
+  "id": "cuad-096",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Accurate and complete books of account of the transactions of the Venture will be kept in accordance with generally accepted accounting principles (GAAP) and at all reasonable times will be available and open to inspection and examination by any Member.",
+      "passages": [
+        5
+      ]
+    }
+  ]
+}

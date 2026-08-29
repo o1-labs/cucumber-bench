@@ -1,0 +1,16 @@
+{
+  "id": "cuad-040",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "This Agreement shall continue in effect for two years from the date hereof, and thereafter shall continue automatically for successive annual periods, provided that such continuance is specifically approved at least annually by (A) the vote of the Board, or by the vote of a majority of the outstanding voting securities of the Fund and (B) the vote of a majority of the Fund's directors who are not parties to this Agreement or \"interested persons\" (as such term is defined in Section 2(a)(19) of the Investment Fund Act) of any such party, in accordance with the requirements of the Investment Fund Act.",
+      "passages": [
+        8
+      ]
+    }
+  ]
+}

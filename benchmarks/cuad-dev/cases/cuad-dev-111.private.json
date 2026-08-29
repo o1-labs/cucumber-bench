@@ -1,0 +1,22 @@
+{
+  "id": "cuad-dev-111",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "To the extent that certain components of the Software may be downloaded to Customer's or User's computer as a result of accessing the Software as part of the Hosting Services, eGain grants Customers a non-exclusive, non-transferable, limited license, with right to sublicense solely to Users, to use such Software only in connection with the Hosting Services.",
+      "passages": [
+        2
+      ]
+    },
+    {
+      "text": "Customer hereby grants eGain a right to use Customer's trademarks (name and logo only) designated by Customer for such limited uses, subject to Customer's trademark/logo usage guidelines, if any, provided by Customer to eGain.",
+      "passages": [
+        12
+      ]
+    }
+  ]
+}

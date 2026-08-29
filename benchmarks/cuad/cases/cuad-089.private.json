@@ -1,0 +1,16 @@
+{
+  "id": "cuad-089",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "The terms of the Governing Law and Dispute Resolution provisions of the Distribution Agreement will apply to this Addendum.",
+      "passages": [
+        4
+      ]
+    }
+  ]
+}

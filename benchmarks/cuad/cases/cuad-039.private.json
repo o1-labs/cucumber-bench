@@ -1,0 +1,16 @@
+{
+  "id": "cuad-039",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Throughout the Term of this Agreement, the parties hereby agree to grant to each other a limited license to use each other's proprietary marks solely in connection with the sale, distribution, marketing and promotion of each party's calling cards by the other party.",
+      "passages": [
+        2
+      ]
+    }
+  ]
+}

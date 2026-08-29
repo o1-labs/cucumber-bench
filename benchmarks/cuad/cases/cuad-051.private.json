@@ -1,0 +1,16 @@
+{
+  "id": "cuad-051",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "i-Escrow shall not run banner advertisements on the Co-Branded Site for any of 2TheMart's competitors.",
+      "passages": [
+        4
+      ]
+    }
+  ]
+}

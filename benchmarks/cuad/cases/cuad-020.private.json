@@ -1,0 +1,28 @@
+{
+  "id": "cuad-020",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Party B and its affiliates will be the exclusive provider of real estate and home furnishing information, products and data in Party A's real estate and home furnishing channel.",
+      "passages": [
+        20
+      ]
+    },
+    {
+      "text": "During the term of this Agreement, Party B and its affiliates will be the exclusive cooperator of Party A's real estate and home furnishing cooperation channel.",
+      "passages": [
+        19
+      ]
+    },
+    {
+      "text": "Party A grants all-round exclusive rights to Party B to construct, maintain and operate the Cooperation channel.",
+      "passages": [
+        6
+      ]
+    }
+  ]
+}

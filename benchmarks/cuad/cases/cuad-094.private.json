@@ -1,0 +1,16 @@
+{
+  "id": "cuad-094",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "No party to this Agreement has the right to assign any of its rights or obligations hereunder, except as already set forth under this Agreement.",
+      "passages": [
+        16
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "cuad-079",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Member covenants and agrees that during the Post-Term Period (defined below), except as otherwise approved in writing by Franchisor, Member shall not, either directly or indirectly, own, manage, engage in, be employed by, advise, make loans to, consult for, or have any other interest in any Competitive Business that is, or intends to operate, within a three (3) mile radius of the premises of your Franchised Business or within a three (3) mile radius of any Franchised Business then-operating or under construction to operate under the System.",
+      "passages": [
+        2
+      ]
+    },
+    {
+      "text": "Member covenants and agrees that during the term of the Franchise Agreement, except as otherwise approved in writing by Franchisor, Member shall not, either directly or indirectly, for itself, or through, on behalf of, or in conjunction with any person, persons, partnership, corporation, or entity: (i) Own, manage, engage in, be employed by, advise, make loans to, consult for, rent or lease to, or have any other interest in business that (directly or indirectly) operates, or grants franchises or licenses to operate, a restaurant featuring pizza and related food specialties or that offers products or services substantially similar to those then offered by Pizza Fusions Restaurants (\"Competitive Business\");",
+      "passages": [
+        1
+      ]
+    }
+  ]
+}

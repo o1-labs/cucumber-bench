@@ -1,0 +1,22 @@
+{
+  "id": "cuad-087",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "During the term of this Agreement, Detto shall have the right to use and reproduce the Trademarks in connection with Detto's marketing, advertising, promotion and distribution of Qwik-Fix Pro.",
+      "passages": [
+        2
+      ]
+    },
+    {
+      "text": "Subject to the terms and conditions of this Agreement, PivX hereby grants to Detto a non-transferable, exclusive license to distribute PivX's Qwik-Fix Pro and any documentation supporting Qwik-Fix Pro provided from time to time by PivX (the \"Documentation\") within North America, solely to third parties to whom Detto licenses Qwik-Fix Pro (\"Third Parties\"), and as governed by the terms set forth in Exhibit A (PivX/Detto Reseller Agreement Addendum). PivX also hereby grants to Detto a non-transferable, non-exclusive license to distribute PivX's Qwik-Fix Pro and the Documentation outside of North America, solely to Third Parties and as governed by the terms in Exhibit A. Detto shall have no right to reproduce Qwik-Fix Pro or any part thereof.",
+      "passages": [
+        0
+      ]
+    }
+  ]
+}

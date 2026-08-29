@@ -1,0 +1,28 @@
+{
+  "id": "cuad-036",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "The rights of Developer under this Agreement shall immediately cease and be terminated upon the sale or transfer of all or substantially all of the assets of Developer unless an assignment of such rights pursuant to such sale or transfer has been previously approved in writing by DSS.",
+      "passages": [
+        7
+      ]
+    },
+    {
+      "text": "The rights of Developer under this Agreement shall immediately cease and be terminated upon the sale or transfer of no less than a majority of, or a controlling interest in or over, the voting capital or ownership capital of Developer unless an assignment of such rights pursuant to such sale or transfer has been previously approved in writing by DSS.",
+      "passages": [
+        7
+      ]
+    },
+    {
+      "text": "Developer may not assign or transfer this Agreement, nor its rights and obligations hereunder, by operation of law or otherwise, to any third party without the prior express written approval of DSS. Any purported assignment without the consent of DSS shall be void.",
+      "passages": [
+        7
+      ]
+    }
+  ]
+}

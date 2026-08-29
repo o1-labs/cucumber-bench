@@ -1,0 +1,40 @@
+{
+  "id": "cuad-073",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Not more than one (1) audit will be required by any or all of the Participants for any fiscal year.",
+      "passages": [
+        5
+      ]
+    },
+    {
+      "text": "The audit will be performed by an accounting firm acceptable to all the Participants.",
+      "passages": [
+        5
+      ]
+    },
+    {
+      "text": "The cost of the audit will be borne by the Joint Venture.",
+      "passages": [
+        5
+      ]
+    },
+    {
+      "text": "Any of the Participants will have the right to request an audit of the Joint Venture books.",
+      "passages": [
+        5
+      ]
+    },
+    {
+      "text": "Accurate and complete books of account of the transactions of the Joint Venture will be kept in accordance with generally accepted accounting principles (GAAP) and at all reasonable times will be available and open to inspection and examination by any Participant.",
+      "passages": [
+        3
+      ]
+    }
+  ]
+}

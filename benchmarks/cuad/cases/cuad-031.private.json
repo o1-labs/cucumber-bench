@@ -1,0 +1,16 @@
+{
+  "id": "cuad-031",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Upon the termination of this Agreement, or upon Company's earlier requests, Consultant will deliver to Company all property relating to, and all tangible embodiments of, Inventions in Consultant's possession or control.",
+      "passages": [
+        3
+      ]
+    }
+  ]
+}

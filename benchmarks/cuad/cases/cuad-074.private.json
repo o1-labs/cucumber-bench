@@ -1,0 +1,16 @@
+{
+  "id": "cuad-074",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Limitation of Liability of the Sponsor.",
+      "passages": [
+        2
+      ]
+    }
+  ]
+}

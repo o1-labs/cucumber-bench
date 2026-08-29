@@ -1,0 +1,16 @@
+{
+  "id": "cuad-dev-100",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Licensor hereby grants Licensed Users a nonexclusive, nontransferable, nonsublicensable, royalty-free license, during the term of this Agreement, to use and display the Licensed Trade Name and the Licensed Mark in the United States solely in connection with the Licensee's corporate name and identifying mark.",
+      "passages": [
+        1
+      ]
+    }
+  ]
+}

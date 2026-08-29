@@ -1,0 +1,22 @@
+{
+  "id": "cuad-063",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "provided that at any time following the 7th anniversary of such date, either party may terminate such strategic alliance upon not less than 60 days' prior written notice to the other party.",
+      "passages": [
+        4
+      ]
+    },
+    {
+      "text": "Unless sooner terminated in accordance with the provisions hereof, the initial term of this Agreement (\"Initial Term\") will be ten (10) years from the Effective Date, provided that at any time following the 7th anniversary of such date, either party may terminate such strategic alliance upon not less than 60 days' prior written notice to the other party.",
+      "passages": [
+        4
+      ]
+    }
+  ]
+}

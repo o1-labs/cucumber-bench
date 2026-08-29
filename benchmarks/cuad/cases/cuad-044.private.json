@@ -1,0 +1,16 @@
+{
+  "id": "cuad-044",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "The Master Franchise Agreement requires application of the laws of New York.",
+      "passages": [
+        1
+      ]
+    }
+  ]
+}

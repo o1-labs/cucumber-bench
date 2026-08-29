@@ -1,0 +1,16 @@
+{
+  "id": "cuad-064",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Subject to the terms and conditions hereof, Nantz Communications grants to the Company the Endorsement throughout the world during the Term in connection with the advertisement, promotion and sale by the Company of Ashworth Products except in connection with Premium Programs.",
+      "passages": [
+        1
+      ]
+    }
+  ]
+}

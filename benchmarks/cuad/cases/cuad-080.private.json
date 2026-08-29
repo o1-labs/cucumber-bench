@@ -1,0 +1,16 @@
+{
+  "id": "cuad-080",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "In consideration of the rights granted by Individual hereunder, Lifeway agrees to pay Individual a royalty (the \"Royalty\") equal to $0.02 for each Lifeway product or individual item sold by Lifeway during each calendar month of the Term bearing Individual's first name, last name or other identifying personal characteristics; provided, however, the Royalty will cease being paid upon the death of Individual.",
+      "passages": [
+        3
+      ]
+    }
+  ]
+}

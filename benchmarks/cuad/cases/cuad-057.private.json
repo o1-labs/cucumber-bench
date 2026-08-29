@@ -1,0 +1,16 @@
+{
+  "id": "cuad-057",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "During the Term, CNET will not enter into more than two other agreements under which CNET receives consideration from a Competing Computer Products Retailer for displaying permanent links to or other fixed promotions for such Competing Computer Products Retailer on any CNET Site; provided that the foregoing will not restrict the display of(a) standard advertisements for any Competing Computer Products Retailer or its products or (b) any promotions within COMPUTERS.COM or within CNET's Snap! Online service (which are expressly excluded from this provision).",
+      "passages": [
+        8
+      ]
+    }
+  ]
+}

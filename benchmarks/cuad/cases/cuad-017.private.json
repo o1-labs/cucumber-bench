@@ -1,0 +1,16 @@
+{
+  "id": "cuad-017",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "In any event, neither party shall be liable for any special, consequential or incidental damages.",
+      "passages": [
+        16
+      ]
+    }
+  ]
+}

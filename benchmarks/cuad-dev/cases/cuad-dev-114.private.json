@@ -1,0 +1,16 @@
+{
+  "id": "cuad-dev-114",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Neither Party shall be liable to the other for special, incidental, or consequential damages, even if such Party has been advised of the possibility of such damages.",
+      "passages": [
+        3
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "cuad-059",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Supplier further agrees that it will not produce, cause to be produced or assist in the production of more units than are specified by Purchaser nor will Supplier produce, cause to be produced or assist in the production of any product or item not specifically requested by Purchaser using any or all of the Playboy Properties or any trademark, copyright, designations, names, phrases, designs or symbols similar to any or all of the Playboy Properties during or at any time after the completion of merchandise requested by this Contract.",
+      "passages": [
+        1
+      ]
+    }
+  ]
+}

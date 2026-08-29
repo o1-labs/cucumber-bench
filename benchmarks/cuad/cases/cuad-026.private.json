@@ -1,0 +1,16 @@
+{
+  "id": "cuad-026",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "For two (2) years following the Effective Time, QIWI covenants that at least one half of the total transactions processed by the Contact money transfer system during such two-year period shall be settled through PJSC Khanty-Mansiysk Bank Otkritie, provided that QIWI may terminate its obligation under this Clause 4.1 at any time, in which case it shall pay to Otkritie a fee equal to the demonstrated costs incurred by Otkritie for such period starting from 1 September 2014, until the date of termination of QIWI's obligations under this Clause 4.1 in connection with (i) the transfer of settlement bank function to PJSC Khanty-Mansiysk Bank Otkritie ; and (ii) supporting the settlement bank functionality for the Contact money transfer system, provided further that such fee shall in no event exceed RUB 50 000 000 (fifty million roubles).",
+      "passages": [
+        7
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "cuad-013",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Licensee shall have the right to assign or sublicense any or all of its rights granted under this Agreement, in whole or in part, to third parties exhibiting the Titles in the ordinary course of Licensee's business with prior written notice to Licensor. E",
+      "passages": [
+        3,
+        4
+      ]
+    },
+    {
+      "text": "Neither party may assign its rights, duties or obligations under this Agreement to any third party in whole or in part, without the other party's prior written consent, except that (i) Licensee may assign its rights and obligations to this Agreement to any of its Affiliate or subsidiaries with the prior written consent of the Licensor, and (ii) Licensor may assign its rights and obligations in this Agreement to its Affiliates or subsidiaries and either party may assign this Agreement in its entirety to any purchaser of all or substantially all of its business or assets pertaining to the line of business to which this Agreement relates or to any Affiliate of the party without the other party's approval.",
+      "passages": [
+        21
+      ]
+    },
+    {
+      "text": "Except as otherwise specified in the previous sentence, Licensee may not sublicense any of its rights under Section 2(a) without Licensor's prior written consent, which shall not be unreasonably withheld or delayed.",
+      "passages": [
+        4
+      ]
+    }
+  ]
+}

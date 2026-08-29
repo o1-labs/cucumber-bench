@@ -1,0 +1,16 @@
+{
+  "id": "cuad-071",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Subject to the terms and conditions of this Agreement, as part of the consideration of the full and timely payment of the Sponsor Fees, Club hereby grants to Sponsor, and Sponsor hereby accepts, solely in the Territory, and during the Term: (i) the right to use the Benefits set forth on Exhibit A and the license and right to use the Team Marks solely in connection with the advertisement and promotion of Sponsor's Dick's Wings and Grill branded restaurants (the \"Sponsor Business\") in accordance with this Agreement; and (ii) the right to use the designation \"Official Wings of the Jacksonville Jaguars\" and such other designations as Club and Sponsor may agree to in a writing from time to time (collectively, the \"Official Designations\"), solely in connection with the Sponsor Business.",
+      "passages": [
+        1
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "cuad-046",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "This Agreement shall be binding upon the parties and their respective successors and assigns; provided, however, that no rights or obligations hereunder, including but not limited to Licensee's Subscriber accounts, shall be assigned or transferred, in whole or in part, by either of the parties hereto to any person, firm or corporation without prior written consent by the other party, which consent shall not be unreasonably withheld or delayed.",
+      "passages": [
+        4
+      ]
+    }
+  ]
+}

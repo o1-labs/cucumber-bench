@@ -1,0 +1,16 @@
+{
+  "id": "cuad-067",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "MP3.com agrees to deliver a guaranteed minimum of 3,000,000 Impressions per month for the term of this Agreement.",
+      "passages": [
+        1
+      ]
+    }
+  ]
+}

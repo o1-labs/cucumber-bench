@@ -1,0 +1,22 @@
+{
+  "id": "cuad-030",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "The Licensee may terminate this Agreement at any time by giving written notice to the Owner and NCC.",
+      "passages": [
+        15
+      ]
+    },
+    {
+      "text": "NCC may terminate this Agreement by giving 60 days written notice to the Owner and the Licensee.",
+      "passages": [
+        14
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "cuad-093",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "This Agreement will extend automatically for monthly periods unless either party to this Agreement notifies the other party in writing at least thirty (30) days before the expiration of the then current term.",
+      "passages": [
+        1
+      ]
+    }
+  ]
+}

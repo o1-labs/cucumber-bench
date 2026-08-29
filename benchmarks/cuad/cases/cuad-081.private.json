@@ -1,0 +1,16 @@
+{
+  "id": "cuad-081",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Should either Party herein initiate a legal proceeding for revoking any arbitration result regarding the Contract, both Parties herein agree to take the Miaoli District Court of Taiwan as the competent court of first instance pursuant to the laws of the R.O.C..",
+      "passages": [
+        8
+      ]
+    }
+  ]
+}

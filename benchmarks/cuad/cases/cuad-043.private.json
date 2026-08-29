@@ -1,0 +1,16 @@
+{
+  "id": "cuad-043",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "NCB appoints NPC, and NPC agrees to serve, as NCB's sole agent (i) to provide authorization, processing and settlement services with respect to Visa and MasterCard transactions (\"Merchant Processing Services\") to merchants who desire to receive Merchant Processing Services from NCB or NPC (\"Merchants\") and (ii) to enter into contracts with merchants (\"Merchant Contracts\") for the provision of Merchant Processing Services as agent of NCB; provided, however, that nothing herein shall limit NPC's right to provide, as agent for other members of Visa and MasterCard, Merchant Processing Services to merchants who desire to receive such services from NCB or others.",
+      "passages": [
+        1
+      ]
+    }
+  ]
+}

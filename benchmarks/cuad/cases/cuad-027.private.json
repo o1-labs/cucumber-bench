@@ -1,0 +1,16 @@
+{
+  "id": "cuad-027",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "This Intellectual Property Agreement shall be construed and interpreted according to the laws of the State of Georgia, applicable contracts to be wholly performed within the State of Georgia.",
+      "passages": [
+        1
+      ]
+    }
+  ]
+}

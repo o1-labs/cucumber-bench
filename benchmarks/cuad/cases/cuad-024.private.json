@@ -1,0 +1,28 @@
+{
+  "id": "cuad-024",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "Subject to Section 2.4 [APPROVAL OF TRADEMARK USAGE], Sponsor hereby grants Snap a non-exclusive, revocable nontransferable, royalty-free, worldwide license to: (a) use, reproduce, publish, perform and display the Sponsor Marks and Sponsor Brand Features on the Co-Branded Pages; (b) link to the Sponsor Web Site from the Co-Branded Pages and/or the Snap Web Site that contains the Co-Branded Pages and (c) use, reproduce, publish, perform, and display the",
+      "passages": [
+        4
+      ]
+    },
+    {
+      "text": "Subject to Section 2.4 [APPROVAL OF TRADEMARK USAGE], Snap hereby grants Sponsor a non-exclusive, nontransferable, royalty-free, worldwide license to (a) use, reproduce, publish, perform and display the Snap Marks and Snap Brand Features on the Sponsor Web Site in connection with the logo link contemplated by Section 2.l, and in connection with its promotional and marketing activities contemplated by Section 2.5 [PROMOTION OF SNAP SERVICES] and (b) use, reproduce, publish, perform and display the Snap Content on the Sponsor Web Site or other Sponsor properties as mutually agreed by the parties.",
+      "passages": [
+        5
+      ]
+    },
+    {
+      "text": "Sponsor Content in and on the Co-Branded Pages.",
+      "passages": [
+        4
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "cuad-003",
+  "graders": [
+    "clause-recall",
+    "clause-precision",
+    "citation-support"
+  ],
+  "clauses": [
+    {
+      "text": "The NFLA agrees to license such rights to the Company.",
+      "passages": [
+        1
+      ]
+    },
+    {
+      "text": "In consideration of the remuneration to be paid to the NFLA-NC pursuant to this Agreement, the NFLA grants to Company and to its authorized distributors and sublicenses the right and license during the Contract Period to use the NFLA Identification solely in connection with the advertisement, marketing and promotion of the Products within the Contract Territory as set forth in this Agreement.",
+      "passages": [
+        5
+      ]
+    },
+    {
+      "text": "Company acknowledges that this Agreement does not grant Company any rights with respect to any other NFLA Marks (defined below), the name, likeness, signature, or other attributes of any NFLA member or other individual, or any audio or video of any NFLA event.",
+      "passages": [
+        3
+      ]
+    }
+  ]
+}
