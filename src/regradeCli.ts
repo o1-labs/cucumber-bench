@@ -4,18 +4,22 @@ import assert from 'node:assert/strict';
 import { parseArgs } from 'node:util';
 import { loadProject, startProxyFor } from './project.js';
 import { judgeVia } from './judge.js';
+import { pool } from './runner.js';
 import { buildReport } from './report.js';
 import { buildChartHtml } from './chart.js';
 import type { RunRecord } from './runner.js';
 import type { GradeResult } from './types.js';
 
-// usage: npm run regrade -- runs/<runId> [--judge <model>]
+// usage: npm run regrade -- runs/<runId> [--judge <model>] [--concurrency 1]
 // grades the stored outputs of a run again with the current graders, without running
 // any harness. --judge replaces every benchmark's judge: use it to compare judges on
-// identical outputs.
-let { values, positionals } = parseArgs({ options: { judge: { type: 'string' } }, allowPositionals: true });
+// identical outputs. --concurrency: records graded at once.
+let { values, positionals } = parseArgs({
+  options: { judge: { type: 'string' }, concurrency: { type: 'string', default: '1' } },
+  allowPositionals: true,
+});
 let runDir = positionals[0];
-assert(runDir, 'usage: npm run regrade -- runs/<runId> [--judge <model>]');
+assert(runDir, 'usage: npm run regrade -- runs/<runId> [--judge <model>] [--concurrency n]');
 
 let jsonl = await readFile(join(runDir, 'results.jsonl'), 'utf8');
 let old: RunRecord[] = jsonl.trim().split('\n').map((line) => JSON.parse(line));
@@ -29,9 +33,9 @@ let outDir = join('runs', runId);
 await mkdir(outDir, { recursive: true });
 console.log(`regrade ${runId}: ${old.length} runs, judge ${values.judge ?? 'per benchmark'} at ${cfg.judgeBaseUrl}`);
 
-let records: RunRecord[] = [];
-let lines: string[] = [];
-for (let { run } of old) {
+// records keep the order of the input file, whatever the concurrency
+let records: RunRecord[] = new Array(old.length);
+await pool(old, Number(values.concurrency), async ({ run }, i) => {
   let c = caseOf.get(run.caseId);
   assert(c, `regrade: case ${run.caseId} not found under benchmarks/`);
   let judgeToken = proxy.register(`${runId}/${run.caseId}/rep${run.repetition}/judge`);
@@ -40,16 +44,18 @@ for (let { run } of old) {
   for (let name of c.priv.graders) {
     let grader = graders.find((g) => g.name === name);
     assert(grader, `regrade: no grader named ${name}`);
-    grades.push(await grader.grade(c.pub, c.priv, run, ctx));
+    try {
+      grades.push(await grader.grade(c.pub, c.priv, run, ctx));
+    } catch (err: any) {
+      grades.push({ grader: name, pass: false, score: 0, detail: `grader error: ${String(err?.message ?? err)}` });
+    }
   }
-  let record = { run, grades, judge: proxy.usage(judgeToken) };
-  records.push(record);
-  lines.push(JSON.stringify(record));
+  records[i] = { run, grades, judge: proxy.usage(judgeToken) };
   console.log(`  ${grades.map((g) => `${g.pass ? 'PASS' : 'FAIL'} ${g.grader}`).join(', ')} ${run.caseId} [${run.system}, rep ${run.repetition}] ${grades.map((g) => g.detail ?? '').join('; ')}`);
-}
+});
 
 await proxy.close();
-await writeFile(join(outDir, 'results.jsonl'), lines.join('\n') + '\n');
+await writeFile(join(outDir, 'results.jsonl'), records.map((r) => JSON.stringify(r)).join('\n') + '\n');
 let report = buildReport(runId, cases, records, graders);
 await writeFile(join(outDir, 'report.md'), report);
 await writeFile(join(outDir, 'chart.html'), buildChartHtml(runId, cases, records, help));

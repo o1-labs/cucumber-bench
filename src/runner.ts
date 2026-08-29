@@ -3,7 +3,7 @@ import type { GradeResult, Grader, ModelProxy, RunResult, SystemUnderTest, Usage
 import type { Case } from './caseStore.js';
 import { judgeVia } from './judge.js';
 
-export { runSuite, type RunRecord };
+export { runSuite, pool, type RunRecord };
 
 // judge is the model usage of the graders for this run, apart from the harness usage
 type RunRecord = { run: RunResult; grades: GradeResult[]; judge: Usage };
