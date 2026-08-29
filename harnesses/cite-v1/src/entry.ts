@@ -11,6 +11,12 @@ import { generateText, type LanguageModel } from 'ai';
 
 const VERSION = '4';
 
+// the judge accepts a sentence only when its cited passages state every fact in it, so
+// a sentence must not merge facts from different documents
+const RULES =
+  'State only facts that the documents state. Do not add details, dates or qualifiers the documents do not contain. ' +
+  'Use the wording of the documents. Put facts from different documents in separate sentences, each with its own citation.';
+
 const VERIFY_PROMPT =
   'Below are numbered passages and one claim. List the numbers of the passages that together support ' +
   'every fact in the claim. Every fact, date and qualifier in the claim must be stated in the passages. If any part is not, answer none. Use the smallest set that is enough. Answer only with the numbers as [n], ' +
@@ -53,7 +59,7 @@ let guarded = createOpenAICompatible({
 })(models.main);
 
 try {
-  // the answer is direct's: same prompt, same temperature, so the check is the only difference under test
+  // the answer is direct's prompt plus the fact rules, at temperature 0
   let draft = await ask(guarded, fewShotPrompt(c), 0);
   let { output, findings, changed } = await checkCitations(draft, c.docs ?? []);
   let stages: Stage[] = [
@@ -96,13 +102,11 @@ try {
   respond({ error: String(err?.message ?? err) });
 }
 
-// the benchmark's own prompt: instructions, the worked examples, then the question with its passages
+// the benchmark's own prompt: instructions, the worked examples, then the question with its
+// passages. the fact rules stand before every answer, the demonstrations and the real one alike
 function fewShotPrompt(c: PublicCase): string {
-  let demos = (c.examples ?? []).map(
-    (ex) =>
-      `${ex.q}\nState only facts that the documents state. Do not add details, dates or qualifier the documents do not contain. Use the exact wording as it appears in the source documents. Do not invent wording. Answer: ${ex.a}`,
-  );
-  return [c.instructions, ...demos, `${c.input}\nAnswer:`].join('\n\n\n');
+  let demos = (c.examples ?? []).map((ex) => `${ex.q}\n${RULES}\nAnswer: ${ex.a}`);
+  return [c.instructions, ...demos, `${c.input}\n${RULES}\nAnswer:`].join('\n\n\n');
 }
 
 // every sentence gets the minimal set of passages that supports it, judged greedily

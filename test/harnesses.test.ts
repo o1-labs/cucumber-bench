@@ -103,7 +103,12 @@ describe('cite-v1 (citation harness)', () => {
     // one answer call plus one greedy check per sentence
     assert.equal(result.modelCalls, 3);
     let [answerPrompt, ...checks] = result.modelRequests!;
-    assert.equal(answerPrompt, direct.modelRequests![0]);
+    // direct's prompt, plus the fact rules before every "Answer:": the demonstrations and the question
+    let lines = answerPrompt.split('\n');
+    let rules = lines.filter((l) => l.startsWith('State only facts'));
+    assert.equal(rules.length, pub.examples!.length + 1);
+    assert.equal(lines.filter((l) => !rules.includes(l)).join('\n'), direct.modelRequests![0]);
+    assert.ok(answerPrompt.endsWith(`${rules[0]}\nAnswer:`));
     assert.ok(checks.every((p) => p.includes('Document [20]') && p.includes('Claim: ')));
     assert.ok(seen.slice(-2).every((r) => r.temperature === 0));
     // sentence 1 keeps the minimal set the check returned; sentence 2 is dropped
