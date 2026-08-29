@@ -1,0 +1,55 @@
+{
+  "id": "asqa-033",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who beat villanova in 2017 in the ncaa tournament?",
+      "shortAnswers": [
+        "University of Wisconsin–Madison",
+        "Wisconsin",
+        "the Badgers",
+        "Wisconsin Badgers"
+      ]
+    },
+    {
+      "question": "Who beat villanova in 2015 in the ncaa tournament?",
+      "shortAnswers": [
+        "NC State",
+        "the Wolfpack",
+        "NC State Wolfpack",
+        "North Carolina State University"
+      ]
+    },
+    {
+      "question": "Who beat villanova in 2014 in the ncaa tournament?",
+      "shortAnswers": [
+        "University of Connecticut",
+        "the Huskies",
+        "UConn",
+        "UConn Huskies"
+      ]
+    },
+    {
+      "question": "Who beat villanova last year in the 2017 ncaa tournament?",
+      "shortAnswers": [
+        "Wisconsin"
+      ]
+    },
+    {
+      "question": "Who beat villanova last year in the 2015 ncaa tournament?",
+      "shortAnswers": [
+        "North Carolina State"
+      ]
+    },
+    {
+      "question": "Who beat last year in the 2014 ncaa tournament?",
+      "shortAnswers": [
+        "Connecticut"
+      ]
+    }
+  ]
+}

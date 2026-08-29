@@ -1,0 +1,40 @@
+{
+  "id": "asqa-063",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When did the US start funding/supplying the second World War in Europe?",
+      "shortAnswers": [
+        "11 March 1941"
+      ]
+    },
+    {
+      "question": "With the signing of what legislation did the US start funding/supplying the second World War in Europe?",
+      "shortAnswers": [
+        "Lend-Lease Act"
+      ]
+    },
+    {
+      "question": "When did Roosevelt publicly confirm the \"shoot on sight\" order, effectively entering the US in the second world war in Europe?",
+      "shortAnswers": [
+        "11 September 1941"
+      ]
+    },
+    {
+      "question": "When did the US officially enter the second world war in europe?",
+      "shortAnswers": [
+        "7 December 1941"
+      ]
+    },
+    {
+      "question": "Upon what event did the US officially enter the second world war in europe?",
+      "shortAnswers": [
+        "attack on Pearl Harbor"
+      ]
+    }
+  ]
+}

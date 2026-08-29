@@ -1,0 +1,41 @@
+{
+  "id": "asqa-090",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Where did Blair and Serena from Gossip Girl go to high school?",
+      "shortAnswers": [
+        "Constance Billard school"
+      ]
+    },
+    {
+      "question": "Where did Blair from Gossip Girl go to college?",
+      "shortAnswers": [
+        "New York University, Columbia University"
+      ]
+    },
+    {
+      "question": "Where did Serena from Gossip Girl go to college?",
+      "shortAnswers": [
+        "Columbia University"
+      ]
+    },
+    {
+      "question": "What  was the name of where blair and serena go to school?",
+      "shortAnswers": [
+        "Constance Billard School for Girls"
+      ]
+    },
+    {
+      "question": "What city did blair and serena go to school?",
+      "shortAnswers": [
+        "Upper East Side",
+        "New York City"
+      ]
+    }
+  ]
+}

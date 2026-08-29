@@ -1,0 +1,22 @@
+{
+  "id": "asqa-035",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When was the 13th amendment ratified by the required number of states?",
+      "shortAnswers": [
+        "December 6, 1865"
+      ]
+    },
+    {
+      "question": "When was the 13th amendment ratified by the first group of states?",
+      "shortAnswers": [
+        "February 1865"
+      ]
+    }
+  ]
+}

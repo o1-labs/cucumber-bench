@@ -1,0 +1,22 @@
+{
+  "id": "asqa-036",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who is hosting the next men's FIFA world cup in 2022?",
+      "shortAnswers": [
+        "Qatar"
+      ]
+    },
+    {
+      "question": "Where will the next Rugby World Cup Sevens take place in 2022?",
+      "shortAnswers": [
+        "Capetown,  South Africa"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "asqa-019",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Microsoft live movie maker is an example of a freely licensed software, often called free what?",
+      "shortAnswers": [
+        "freeware"
+      ]
+    },
+    {
+      "question": "Microsoft live movie maker is an example of free software used for what purpose?",
+      "shortAnswers": [
+        "Video editing software"
+      ]
+    }
+  ]
+}

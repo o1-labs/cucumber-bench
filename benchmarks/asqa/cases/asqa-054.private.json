@@ -1,0 +1,35 @@
+{
+  "id": "asqa-054",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What do you use to test lipids for abnormalities?",
+      "shortAnswers": [
+        "lipid panel",
+        "Lipid profile"
+      ]
+    },
+    {
+      "question": "What method do you use to test for the presence of lipids?",
+      "shortAnswers": [
+        "Emulsion test"
+      ]
+    },
+    {
+      "question": "What do you use to test for lipids in food?",
+      "shortAnswers": [
+        "Emulsion test"
+      ]
+    },
+    {
+      "question": "What do you use to test for lipids in the body?",
+      "shortAnswers": [
+        "Lipid panel test"
+      ]
+    }
+  ]
+}

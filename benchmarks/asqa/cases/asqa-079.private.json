@@ -1,0 +1,42 @@
+{
+  "id": "asqa-079",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What was the overall thing that led to the downfall of the incan empire?",
+      "shortAnswers": [
+        "disease"
+      ]
+    },
+    {
+      "question": "What specific thing led to the downfall of the Incan empire?",
+      "shortAnswers": [
+        "smallpox"
+      ]
+    },
+    {
+      "question": "What was the most devastating factor that led to the downfall of the incan empire?",
+      "shortAnswers": [
+        "diseases",
+        "epidemic"
+      ]
+    },
+    {
+      "question": "What was the first epidemic leading to the downfall of the incan empire?",
+      "shortAnswers": [
+        "smallpox"
+      ]
+    },
+    {
+      "question": "What foreign power shift helped lead to the downfall of the incan empire?",
+      "shortAnswers": [
+        "conquistadors",
+        "Spanish conquest"
+      ]
+    }
+  ]
+}

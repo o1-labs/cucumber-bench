@@ -1,0 +1,24 @@
+{
+  "id": "asqa-081",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What material is Captain Americas shield made out of mostly?",
+      "shortAnswers": [
+        "Vibranium",
+        "Vibranium-steel alloy",
+        "Steel"
+      ]
+    },
+    {
+      "question": "What are all the materials Captain America's shield  ismade out of?",
+      "shortAnswers": [
+        "Vibranium, steel alloy, and an unknown catalyst"
+      ]
+    }
+  ]
+}

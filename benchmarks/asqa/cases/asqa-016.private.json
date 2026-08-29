@@ -1,0 +1,22 @@
+{
+  "id": "asqa-016",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "In what year did the rams go to St. Louis?",
+      "shortAnswers": [
+        "1995"
+      ]
+    },
+    {
+      "question": "What was the first game the Rams played in St. Louis?",
+      "shortAnswers": [
+        "September 10, 1995"
+      ]
+    }
+  ]
+}

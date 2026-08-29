@@ -1,0 +1,28 @@
+{
+  "id": "asqa-027",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who is traditionally said to have written 2 Thessalonians?",
+      "shortAnswers": [
+        "Paul the Apostle, with Timothy"
+      ]
+    },
+    {
+      "question": "Who do many modern scholars argue wrote 2 Thessalonians?",
+      "shortAnswers": [
+        "not written by Paul but by an associate or disciple"
+      ]
+    },
+    {
+      "question": "Who do most scholars say wrote 1 Thessalonians?",
+      "shortAnswers": [
+        "Paul the Apostle"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "asqa-056",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who recorded \"Get Low\" (which has lyrics saying \"to the window, to the wall\")?",
+      "shortAnswers": [
+        "Lil Jon & the East Side Boyz"
+      ]
+    },
+    {
+      "question": "Who was featured on Lil Jon & the East Side Boyz' recording of \"Get Low\" (which has lyrics saying \"to the window, to the wall\")?",
+      "shortAnswers": [
+        "Ying Yang Twins"
+      ]
+    }
+  ]
+}

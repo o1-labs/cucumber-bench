@@ -1,0 +1,47 @@
+{
+  "id": "asqa-030",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who is elected as the vice president of india in 2017?",
+      "shortAnswers": [
+        "Venkaiah Naidu",
+        "Muppavarapu Venkaiah Naidu"
+      ]
+    },
+    {
+      "question": "Who is elected as the vice president of india in 2012?",
+      "shortAnswers": [
+        "Mohammad Hamid Ansari"
+      ]
+    },
+    {
+      "question": "Who is elected as the vice president of india in 2007?",
+      "shortAnswers": [
+        "Mohammad Hamid Ansari"
+      ]
+    },
+    {
+      "question": "Who was elected as the Vice President of India in 2017?",
+      "shortAnswers": [
+        "Venkaiah Naidu"
+      ]
+    },
+    {
+      "question": "Who was elected as the Vice President of India in 2007 and 2012?",
+      "shortAnswers": [
+        "Mohammad Hamid Ansari"
+      ]
+    },
+    {
+      "question": "Who was elected as the Vice President of India in 2002?",
+      "shortAnswers": [
+        "Bhairon Singh Shekhawat"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "id": "asqa-053",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What's the most points scored in an nba game by combined team?",
+      "shortAnswers": [
+        "370"
+      ]
+    },
+    {
+      "question": "What's the most points scored in an nba game by a single team?",
+      "shortAnswers": [
+        "186"
+      ]
+    },
+    {
+      "question": "What's the most points scored in an nba game by an individual?",
+      "shortAnswers": [
+        "100"
+      ]
+    },
+    {
+      "question": "What is the highest amount of points scored by a single team in regular season NBA games?",
+      "shortAnswers": [
+        "186"
+      ]
+    },
+    {
+      "question": "What is the highest amount of points scored by a single team in regular season games in regulation?",
+      "shortAnswers": [
+        "162"
+      ]
+    },
+    {
+      "question": "What is the highest amount of points scored by a single team in playoff games?",
+      "shortAnswers": [
+        "153"
+      ]
+    }
+  ]
+}

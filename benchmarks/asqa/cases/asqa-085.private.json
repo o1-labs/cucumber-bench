@@ -1,0 +1,36 @@
+{
+  "id": "asqa-085",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who played the baby in baby's day out as cast?",
+      "shortAnswers": [
+        "Adam Robert and Jacob Joseph Worton"
+      ]
+    },
+    {
+      "question": "Who played the baby in baby's day out as stunt double?",
+      "shortAnswers": [
+        "Verne Troyer",
+        "Verne Jay Troyer"
+      ]
+    },
+    {
+      "question": "Who played the baby's stunt double in Baby's Day Out?",
+      "shortAnswers": [
+        "Verne Troyer"
+      ]
+    },
+    {
+      "question": "What actors played the baby in Baby's Day Out?",
+      "shortAnswers": [
+        "Adam Robert",
+        "Jacob Joseph Worton"
+      ]
+    }
+  ]
+}

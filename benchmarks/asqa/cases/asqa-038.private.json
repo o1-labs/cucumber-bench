@@ -1,0 +1,36 @@
+{
+  "id": "asqa-038",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who's the highest paid NBA player in the 2017-2018 season?",
+      "shortAnswers": [
+        "Stephen Curry"
+      ]
+    },
+    {
+      "question": "Who's the highest paid NBA player in the 2016-2017 season?",
+      "shortAnswers": [
+        "LeBron James",
+        "Lebron James"
+      ]
+    },
+    {
+      "question": "Who's the highest paid NBA player in the 2017-2018 season?",
+      "shortAnswers": [
+        "Stephen Curry"
+      ]
+    },
+    {
+      "question": "Who's the highest paid NBA player in the 2016-2017 season?",
+      "shortAnswers": [
+        "LeBron James",
+        "Lebron James"
+      ]
+    }
+  ]
+}

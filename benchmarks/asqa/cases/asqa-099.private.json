@@ -1,0 +1,22 @@
+{
+  "id": "asqa-099",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who won the Final HoH in the American reality show Big Brother 20?",
+      "shortAnswers": [
+        "Kaycee Clark"
+      ]
+    },
+    {
+      "question": "Who won the final vote in the British reality show Celebrity Big Brother 20?",
+      "shortAnswers": [
+        "Sarah Harding"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "asqa-088",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Which character sings you've got a friend in me in toy story 2 during Woody's Roundup?",
+      "shortAnswers": [
+        "Woody"
+      ]
+    },
+    {
+      "question": "Which actor sings you've got a friend in me in the English toy story 2 during Woody's Roundup?",
+      "shortAnswers": [
+        "Tom Hanks",
+        "Thomas Jeffrey Hanks"
+      ]
+    },
+    {
+      "question": "Which character sings you've got a friend in me in toy story 2, not during Woody's Roundup?",
+      "shortAnswers": [
+        "Wheezy"
+      ]
+    },
+    {
+      "question": "Which actor sings you've got a friend in me in the English toy story 2, not during Woody's Roundup?",
+      "shortAnswers": [
+        "Robert Goulet",
+        "Robert Gérard Goulet"
+      ]
+    },
+    {
+      "question": "Which actor sings you've got a friend in me in the Spanish toy story 2?",
+      "shortAnswers": [
+        "Gipsy Kings",
+        "the Gipsy Kings"
+      ]
+    }
+  ]
+}

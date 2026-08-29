@@ -1,0 +1,22 @@
+{
+  "id": "asqa-096",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When did The Lion King preview premier on Broadway?",
+      "shortAnswers": [
+        "October 15, 1997"
+      ]
+    },
+    {
+      "question": "When did The Lion King officially open on Broadway?",
+      "shortAnswers": [
+        "November 13, 1997"
+      ]
+    }
+  ]
+}

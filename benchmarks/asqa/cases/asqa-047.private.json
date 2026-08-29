@@ -1,0 +1,23 @@
+{
+  "id": "asqa-047",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What was the last world series the cubs won before 2016?",
+      "shortAnswers": [
+        "1908 World Series"
+      ]
+    },
+    {
+      "question": "What date was the last time the cubs won the world series before 2016?",
+      "shortAnswers": [
+        "October 14, 1908",
+        "October 14 1908"
+      ]
+    }
+  ]
+}

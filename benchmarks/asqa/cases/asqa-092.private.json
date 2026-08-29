@@ -1,0 +1,22 @@
+{
+  "id": "asqa-092",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "As the blues moved into Chicago's South Side what style of blues developed?",
+      "shortAnswers": [
+        "Chicago blues"
+      ]
+    },
+    {
+      "question": "As blues moved into Chicago's South Side what style of blues developed that was influenced by Chicago blues?",
+      "shortAnswers": [
+        "British blues"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "asqa-095",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What is the solid inner part of the earth called?",
+      "shortAnswers": [
+        "Inner Core"
+      ]
+    },
+    {
+      "question": "What is the solid, outer part of the earth called?",
+      "shortAnswers": [
+        "Lithosphere"
+      ]
+    },
+    {
+      "question": "What is the solid part of the earth called, that was once liquid?",
+      "shortAnswers": [
+        "Mantle"
+      ]
+    }
+  ]
+}

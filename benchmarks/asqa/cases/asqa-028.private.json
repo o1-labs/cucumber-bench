@@ -1,0 +1,28 @@
+{
+  "id": "asqa-028",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When is fortnite battle royale beta version being released on android for samsung devices exclusively?",
+      "shortAnswers": [
+        "August 9, 2018"
+      ]
+    },
+    {
+      "question": "When is fortnite battle royale beta version being released on android for non-Samsung devices?",
+      "shortAnswers": [
+        "August 13, 2018"
+      ]
+    },
+    {
+      "question": "When is fortnite battle royale being released on android to all without an invite?",
+      "shortAnswers": [
+        "October 11, 2018"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "asqa-018",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who plays patrick in  the 1999 film 10 things i hate about you?",
+      "shortAnswers": [
+        "Heath Andrew Ledger",
+        "Heath Ledger",
+        "Ledger"
+      ]
+    },
+    {
+      "question": "Who plays patrick in the 2009 tv series 10 things i hate about you?",
+      "shortAnswers": [
+        "Ethan Peck",
+        "Peck",
+        "Ethan Gregory Peck"
+      ]
+    },
+    {
+      "question": "Who plays patrick in the film 10 things i hate about you?",
+      "shortAnswers": [
+        "Heath Andrew Ledger",
+        "Heath Ledger"
+      ]
+    },
+    {
+      "question": "Who plays patrick in the TV series 10 things i hate about you?",
+      "shortAnswers": [
+        "Ethan Peck",
+        "Ethan Gregory Peck"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "asqa-037",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who played warden hodges in the original dad's army tv show, radio show, and film?",
+      "shortAnswers": [
+        "Bill Pertwee"
+      ]
+    },
+    {
+      "question": "Who played warden hodges in the 2016 film dad's army?",
+      "shortAnswers": [
+        "Martin Savage"
+      ]
+    },
+    {
+      "question": "Who played warden hodges in the sitcom dad's army?",
+      "shortAnswers": [
+        "William Desmond Anthony Pertwee",
+        "Bill Pertwee",
+        "William Desmond Anthony Pertwee, MBE"
+      ]
+    },
+    {
+      "question": "Who played warden hodges in the 2016 film dad's army?",
+      "shortAnswers": [
+        "Martin Savage"
+      ]
+    },
+    {
+      "question": "Who played warden hodges in the 1971 film dad's army?",
+      "shortAnswers": [
+        "William Desmond Anthony Pertwee",
+        "Bill Pertwee",
+        "William Desmond Anthony Pertwee, MBE"
+      ]
+    }
+  ]
+}

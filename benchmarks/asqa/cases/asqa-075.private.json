@@ -1,0 +1,40 @@
+{
+  "id": "asqa-075",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who's the team that has won the most total world series in baseball?",
+      "shortAnswers": [
+        "New York Yankees"
+      ]
+    },
+    {
+      "question": "Who's the team that has won the most consecutive world series in baseball?",
+      "shortAnswers": [
+        "New York Yankees"
+      ]
+    },
+    {
+      "question": "Who's the player that has won the most world series in baseball?",
+      "shortAnswers": [
+        "Yogi Berra"
+      ]
+    },
+    {
+      "question": "Who's the manager that has won the most world series in baseball?",
+      "shortAnswers": [
+        "Joe McCarthy and Casey Stengel"
+      ]
+    },
+    {
+      "question": "Who's won the most world series in baseball as a player and coach combined?",
+      "shortAnswers": [
+        "Frankie Crosetti"
+      ]
+    }
+  ]
+}

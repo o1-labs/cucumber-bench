@@ -1,0 +1,22 @@
+{
+  "id": "asqa-023",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When was non-commercial amounts of crude oil first discovered in nigeria?",
+      "shortAnswers": [
+        "1953"
+      ]
+    },
+    {
+      "question": "When was commerical amounts of crude oil first discovered in nigeria?",
+      "shortAnswers": [
+        "1956"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "asqa-068",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "From the viewer's persepctive, who opened the gate to the prison, at the beginning of the walking dead's \"Killer Within\" episode?",
+      "shortAnswers": [
+        "an unidentified individual"
+      ]
+    },
+    {
+      "question": "Who is the character that is discovered to have opened the gate in the prison walking dead?",
+      "shortAnswers": [
+        "Andrew"
+      ]
+    },
+    {
+      "question": "Who is the actor that is discovered to have opened the gate in the prison walking dead?",
+      "shortAnswers": [
+        "Markice Moore"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "asqa-017",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When did the first wave of voortrekkers arrive in south africa?",
+      "shortAnswers": [
+        "1836",
+        "1836 onwards"
+      ]
+    },
+    {
+      "question": "When did the voortrekkers exploratory treks arrive in south africa?",
+      "shortAnswers": [
+        "February 1835"
+      ]
+    }
+  ]
+}

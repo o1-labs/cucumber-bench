@@ -1,0 +1,28 @@
+{
+  "id": "asqa-015",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "As per the March 2018-2019 report, what is the number of branches of oriental bank of commerce in india?",
+      "shortAnswers": [
+        "2390"
+      ]
+    },
+    {
+      "question": "What is the number of branches of oriental bank of commerce in india after amalgamation of Global Trust Bank?",
+      "shortAnswers": [
+        "1092"
+      ]
+    },
+    {
+      "question": "Number of branches of oriental bank of commerce in india after expected merger with United Bank of India in 2020?",
+      "shortAnswers": [
+        "11,437"
+      ]
+    }
+  ]
+}

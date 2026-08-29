@@ -1,0 +1,22 @@
+{
+  "id": "asqa-043",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When did alabama became a right to work state by adopting statutes?",
+      "shortAnswers": [
+        "1953"
+      ]
+    },
+    {
+      "question": "When did alabama became a right to work state by constitutional provision?",
+      "shortAnswers": [
+        "2016"
+      ]
+    }
+  ]
+}

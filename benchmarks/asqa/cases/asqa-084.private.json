@@ -1,0 +1,28 @@
+{
+  "id": "asqa-084",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What ability caused the st louis cardinals move to arizona?",
+      "shortAnswers": [
+        "overall mediocrity of the Cardinals"
+      ]
+    },
+    {
+      "question": "What physical issue caused the st louis cardinals move to arizona?",
+      "shortAnswers": [
+        "old stadium"
+      ]
+    },
+    {
+      "question": "What fan issue caused the st louis cardinals move to arizona?",
+      "shortAnswers": [
+        "game attendance to dwindle"
+      ]
+    }
+  ]
+}

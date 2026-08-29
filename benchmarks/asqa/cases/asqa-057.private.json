@@ -1,0 +1,28 @@
+{
+  "id": "asqa-057",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who played Zordon in the earlier episodes of the original power rangers TV series?",
+      "shortAnswers": [
+        "David Fielding"
+      ]
+    },
+    {
+      "question": "Who played Zordon in the later episodes of the original power rangers TV series?",
+      "shortAnswers": [
+        "Robert L. Manahan"
+      ]
+    },
+    {
+      "question": "Who played Zordon in the original power rangers movie?",
+      "shortAnswers": [
+        "Nicholas Bell"
+      ]
+    }
+  ]
+}

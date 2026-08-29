@@ -1,0 +1,51 @@
+{
+  "id": "asqa-069",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who owns green and black's organic chocolate in 2017?",
+      "shortAnswers": [
+        "Mondelēz International"
+      ]
+    },
+    {
+      "question": "Who owns green and black's organic chocolate in 2005?",
+      "shortAnswers": [
+        "Cadbury",
+        "Cadbury Schweppes"
+      ]
+    },
+    {
+      "question": "Who owns green and black's organic chocolate in 1991?",
+      "shortAnswers": [
+        "Craig Sams",
+        "Josephine Fairley"
+      ]
+    },
+    {
+      "question": "Who first owned green and black's organic chocolate?",
+      "shortAnswers": [
+        "Craig Sams, Josephine Fairley",
+        "Craig Sams",
+        "Josephine Fairley"
+      ]
+    },
+    {
+      "question": "Who bought and owned green and black's organic chocolate in 2005?",
+      "shortAnswers": [
+        "Cadbury"
+      ]
+    },
+    {
+      "question": "Who owns green and black's organic chocolate after buying it from Cadbury?",
+      "shortAnswers": [
+        "Mondelēz International",
+        "formerly kraft foods"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "asqa-067",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who serves as the president of the senate in the texas legislature in general?",
+      "shortAnswers": [
+        "Lieutenant Governor of Texas",
+        "The Lieutenant Governor of Texas"
+      ]
+    },
+    {
+      "question": "Who serves as the president of the senate in the texas legislature from 2015 to 2020?",
+      "shortAnswers": [
+        "Dan Patrick",
+        "Dan Goeb Patrick"
+      ]
+    },
+    {
+      "question": "Who serves as the president of the senate in the texas legislature from 2003 to 2015?",
+      "shortAnswers": [
+        "David Dewhurst",
+        "David Henry Dewhurst"
+      ]
+    },
+    {
+      "question": "Who serves as the president of the senate in the texas legislature from 2000 to 2003?",
+      "shortAnswers": [
+        "Bill Ratliff",
+        "William Roark Ratliff"
+      ]
+    }
+  ]
+}

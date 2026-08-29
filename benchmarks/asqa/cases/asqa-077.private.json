@@ -1,0 +1,22 @@
+{
+  "id": "asqa-077",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who plays the young White Queen in the movie Alice: Through the Looking Glass?",
+      "shortAnswers": [
+        "Amelia Crouch"
+      ]
+    },
+    {
+      "question": "Who plays the adult White Queen in the movie Alice: Through the Looking Glass?",
+      "shortAnswers": [
+        "Anne Hathaway"
+      ]
+    }
+  ]
+}

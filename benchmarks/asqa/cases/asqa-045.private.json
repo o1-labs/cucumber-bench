@@ -1,0 +1,47 @@
+{
+  "id": "asqa-045",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What religious group wrote most of the New Testament?",
+      "shortAnswers": [
+        "Jewish disciples of Christ",
+        "Jewish Christians"
+      ]
+    },
+    {
+      "question": "Who wrote part of the New Testament and is generally thought *not* to be a Jewish Christian?",
+      "shortAnswers": [
+        "Luke"
+      ]
+    },
+    {
+      "question": "Who wrote the gospels of the New Testament?",
+      "shortAnswers": [
+        "Matthew, Mark, Luke, John"
+      ]
+    },
+    {
+      "question": "Who wrote the Pauline epistles of the New Testament?",
+      "shortAnswers": [
+        "Paul of Tarsus"
+      ]
+    },
+    {
+      "question": "Who wrote the Epistle of James in the New Testament?",
+      "shortAnswers": [
+        "James, a servant of God"
+      ]
+    },
+    {
+      "question": "Who wrote the First Epistle of Peter?",
+      "shortAnswers": [
+        "Peter, an apostle of Jesus Christ"
+      ]
+    }
+  ]
+}

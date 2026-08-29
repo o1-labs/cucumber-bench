@@ -1,0 +1,23 @@
+{
+  "id": "asqa-074",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What is the new name of bangalore city railway station?",
+      "shortAnswers": [
+        "Krantivira Sangolli Rayanna Bengaluru Railway Station",
+        "Bengaluru City railway station"
+      ]
+    },
+    {
+      "question": "What is the original name of bangalore city railway station?",
+      "shortAnswers": [
+        "South Bangalore City railway station"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "asqa-042",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When does the 12th day of christmas begin for Eastern Christianity?",
+      "shortAnswers": [
+        "18 January"
+      ]
+    },
+    {
+      "question": "When does the 12th day of christmas begin according to the commercial calendar?",
+      "shortAnswers": [
+        "Christmas Day",
+        "25 December"
+      ]
+    },
+    {
+      "question": "When does the 12th day of christmas begin in most Western ecclesiastical traditions?",
+      "shortAnswers": [
+        "5 January"
+      ]
+    },
+    {
+      "question": "When does the 12 days of christmas begin?",
+      "shortAnswers": [
+        "Christmas Day",
+        "December 25"
+      ]
+    },
+    {
+      "question": "When does the final and 12th day of christmas begin?",
+      "shortAnswers": [
+        "January 5"
+      ]
+    }
+  ]
+}

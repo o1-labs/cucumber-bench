@@ -1,0 +1,22 @@
+{
+  "id": "asqa-025",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who originally sang \"I'm Coming Out\"?",
+      "shortAnswers": [
+        "Diana Ross"
+      ]
+    },
+    {
+      "question": "Who sang an official 2003 cover of \"I'm Coming Out\"?",
+      "shortAnswers": [
+        "Amerie"
+      ]
+    }
+  ]
+}

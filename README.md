@@ -122,7 +122,7 @@ Suites:
   `leakage` — no protected span reached the model, measured from the proxy's
   request log, not from the harness's claims (strict);
   `retention` — at least 90% of the non-protected content survives.
-- `benchmarks/asqa/` — 15 questions from [ALCE](https://github.com/princeton-nlp/ALCE)
+- `benchmarks/asqa/` — 100 questions (items 0–99) from [ALCE](https://github.com/princeton-nlp/ALCE)
   (Gao et al. 2023), dataset ASQA: an ambiguous question plus the top-20 retrieved
   Wikipedia passages; the answer must cite passages inline as `[1][2]`. Two
   demonstrations from ALCE's default prompt are the worked examples. Graders:

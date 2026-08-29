@@ -1,0 +1,38 @@
+{
+  "id": "asqa-087",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Where did they film most of the movie in the heat of the night?",
+      "shortAnswers": [
+        "Sparta, Illinois"
+      ]
+    },
+    {
+      "question": "Where in Tennesse did they film part of the movie in the heat of the night?",
+      "shortAnswers": [
+        "Union City",
+        "Dyersburg and Union City, Tennessee",
+        "Dyersburg"
+      ]
+    },
+    {
+      "question": "Where did they film the chase scene in the movie in the heat of the night?",
+      "shortAnswers": [
+        "Chest",
+        "Chester, Illinois"
+      ]
+    },
+    {
+      "question": "Where did they film the Compton's diner scenes in the movie in the heat of the night?",
+      "shortAnswers": [
+        "Freeburg",
+        "Freeburg, Illinoi"
+      ]
+    }
+  ]
+}

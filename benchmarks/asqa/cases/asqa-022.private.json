@@ -1,0 +1,28 @@
+{
+  "id": "asqa-022",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "How many competitive Grammy Awards does Whitney Houston have?",
+      "shortAnswers": [
+        "6"
+      ]
+    },
+    {
+      "question": "How many Grammy Hall of Fame Awards does Whitney Houston have?",
+      "shortAnswers": [
+        "2"
+      ]
+    },
+    {
+      "question": "How many total Grammy Awards does Whitney Houston have?",
+      "shortAnswers": [
+        "8"
+      ]
+    }
+  ]
+}

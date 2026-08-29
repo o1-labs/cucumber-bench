@@ -1,0 +1,22 @@
+{
+  "id": "asqa-055",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who co-wrote give me a home among the gum trees and also goes by the name Captain Rock?",
+      "shortAnswers": [
+        "Bob Brown"
+      ]
+    },
+    {
+      "question": "Who co-wrote give me a home among the gum trees and passed in 1995?",
+      "shortAnswers": [
+        "Wally Johnson"
+      ]
+    }
+  ]
+}

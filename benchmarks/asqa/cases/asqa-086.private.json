@@ -1,0 +1,34 @@
+{
+  "id": "asqa-086",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who originally sang still crazy after all these years?",
+      "shortAnswers": [
+        "Paul Simon"
+      ]
+    },
+    {
+      "question": "Who sang still crazy after all these years in 2000?",
+      "shortAnswers": [
+        "Willie Nelson"
+      ]
+    },
+    {
+      "question": "Who sang still crazy after all these years in 1996?",
+      "shortAnswers": [
+        "Karen Carpenter"
+      ]
+    },
+    {
+      "question": "Who sang still crazy after all these years in 1993?",
+      "shortAnswers": [
+        "Ray Charles"
+      ]
+    }
+  ]
+}

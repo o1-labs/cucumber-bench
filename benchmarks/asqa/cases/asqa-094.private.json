@@ -1,0 +1,29 @@
+{
+  "id": "asqa-094",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "How could the person be described who developed a staining method that could be used to identify bacteria?",
+      "shortAnswers": [
+        "Danish bacteriologist"
+      ]
+    },
+    {
+      "question": "Which Danish bacteriologist developed a useful staining method to identify bacteria?|What is the name of the person who developed a staining method to identify bacteria?|Which Danish bacteriologist developed a useful staining method to identify bacteria in two large groups?",
+      "shortAnswers": [
+        "Hans Christian Joachim Gram",
+        "Hans Christian Gram"
+      ]
+    },
+    {
+      "question": "Who developed a useful staining method to identify acid-fast organisms?",
+      "shortAnswers": [
+        "Paul Ehrlich"
+      ]
+    }
+  ]
+}

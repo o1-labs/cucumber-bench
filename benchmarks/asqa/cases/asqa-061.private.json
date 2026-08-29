@@ -1,0 +1,46 @@
+{
+  "id": "asqa-061",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who is the sheriff of Maricopa County, Arizona from 1989-93?",
+      "shortAnswers": [
+        "Thomas J. Agnos"
+      ]
+    },
+    {
+      "question": "Who is the sheriff of Maricopa County, Arizona from 1993-2017?",
+      "shortAnswers": [
+        "Joe Arpaio"
+      ]
+    },
+    {
+      "question": "Who is the sheriff of Maricopa County, Arizona from 2017-present?",
+      "shortAnswers": [
+        "Paul Penzone"
+      ]
+    },
+    {
+      "question": "Who is the current sheriff of maricopa county arizona since 2017?",
+      "shortAnswers": [
+        "Paul Penzone"
+      ]
+    },
+    {
+      "question": "Who is the sheriff of maricopa county arizona, from 1993-2017?",
+      "shortAnswers": [
+        "Joe Arpaio"
+      ]
+    },
+    {
+      "question": "Who is the sheriff of maricopa county arizona, from 1989-1993?",
+      "shortAnswers": [
+        "Thomas J. Agnos"
+      ]
+    }
+  ]
+}

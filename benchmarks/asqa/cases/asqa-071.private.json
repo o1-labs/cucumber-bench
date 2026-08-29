@@ -1,0 +1,22 @@
+{
+  "id": "asqa-071",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Where is the upper school of the Minnehana Academy in Minneapolis?",
+      "shortAnswers": [
+        "3100 West River Parkway, Minneapolis, Minnesota 55406"
+      ]
+    },
+    {
+      "question": "Where is the middle and lower school of the Minnehana Academy in Minneapolis?",
+      "shortAnswers": [
+        "4200 West River Parkway, Minneapolis, Minnesota, 55406"
+      ]
+    }
+  ]
+}

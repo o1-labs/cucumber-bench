@@ -1,0 +1,43 @@
+{
+  "id": "asqa-051",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who is opening for shania twain in ottawa on the Rock This Country Tour?",
+      "shortAnswers": [
+        "Wes Mack",
+        "Wesley MacInnes",
+        "Dan + Shay",
+        "Dan Smyers",
+        "Shay Mooney",
+        "The Doobie Brothers"
+      ]
+    },
+    {
+      "question": "Who is opening for shania twain in ottawa on the Up! Tour?",
+      "shortAnswers": [
+        "Emerson Drive"
+      ]
+    },
+    {
+      "question": "Who is opening for shania twain in ottawa on the Now Tour?",
+      "shortAnswers": [
+        "Bastian Baker",
+        "Bastien Kaltenbacher"
+      ]
+    },
+    {
+      "question": "Who is opening for shania twain in ottawa on the Come On Over Tour?",
+      "shortAnswers": [
+        "Leahy",
+        "The Leahy Family",
+        "Shane Minor",
+        "Shane Allen Minor"
+      ]
+    }
+  ]
+}

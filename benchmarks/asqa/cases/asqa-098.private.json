@@ -1,0 +1,34 @@
+{
+  "id": "asqa-098",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who is listed as the author of the first five books of Moses?",
+      "shortAnswers": [
+        "unnamed author"
+      ]
+    },
+    {
+      "question": "Who is accepted to be the author of the first five books of Moses?",
+      "shortAnswers": [
+        "Moses"
+      ]
+    },
+    {
+      "question": "In the 1700s, who became considered to be the author of the first five books of Moses?",
+      "shortAnswers": [
+        "JEDP"
+      ]
+    },
+    {
+      "question": "Who does Wellhausen believe is a redactor of the first five books of Moses?",
+      "shortAnswers": [
+        "Ezra"
+      ]
+    }
+  ]
+}

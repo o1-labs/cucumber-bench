@@ -1,0 +1,22 @@
+{
+  "id": "asqa-060",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What was the name of the greatest warrior for the trojans?",
+      "shortAnswers": [
+        "Hector"
+      ]
+    },
+    {
+      "question": "What was the position of the greatest warrior for the trojans?",
+      "shortAnswers": [
+        "prince"
+      ]
+    }
+  ]
+}

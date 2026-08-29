@@ -1,0 +1,48 @@
+{
+  "id": "asqa-070",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Which political party is currently in power in ireland's Dáil Éireann from 2011 to 2016?",
+      "shortAnswers": [
+        "Fine Gael–Labour Party coalition"
+      ]
+    },
+    {
+      "question": "Which political party is currently in power in ireland's Dáil Éireann from 2016 to 2020?",
+      "shortAnswers": [
+        "Fine Gael"
+      ]
+    },
+    {
+      "question": "Which political party is currently in power in ireland's presidency from 2011 to 2018?",
+      "shortAnswers": [
+        "Labour Party"
+      ]
+    },
+    {
+      "question": "Which political party is currently in power in ireland's presidency from 2004 to 2011?",
+      "shortAnswers": [
+        "Independent"
+      ]
+    },
+    {
+      "question": "Which political party is currently in power in ireland's presidency from 1997 to 2004?",
+      "shortAnswers": [
+        "Independent"
+      ]
+    },
+    {
+      "question": "Which political party is currently in power in ireland's Dáil Éireann from 2007 to 2011?",
+      "shortAnswers": [
+        "Fianna Fáil",
+        "the Green Party",
+        "the Progressive Democrats"
+      ]
+    }
+  ]
+}

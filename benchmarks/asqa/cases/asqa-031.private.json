@@ -1,0 +1,39 @@
+{
+  "id": "asqa-031",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who was england's prime minister at the start of ww1?",
+      "shortAnswers": [
+        "Asquith",
+        "1st Earl of Oxford and Asquith",
+        "H. H. Asquith",
+        "Herbert Henry Asquith"
+      ]
+    },
+    {
+      "question": "Who was england's prime minister at the end of ww1?",
+      "shortAnswers": [
+        "1st Earl Lloyd-George of Dwyfor",
+        "Lloyd George",
+        "David Lloyd George"
+      ]
+    },
+    {
+      "question": "Who was England's prime minister at the beginning of WWI?",
+      "shortAnswers": [
+        "H. H. Asquith"
+      ]
+    },
+    {
+      "question": "Who was England's prime minister at the end of WWI?",
+      "shortAnswers": [
+        "David Lloyd George"
+      ]
+    }
+  ]
+}

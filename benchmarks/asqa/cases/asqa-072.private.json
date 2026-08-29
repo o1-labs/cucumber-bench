@@ -1,0 +1,36 @@
+{
+  "id": "asqa-072",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who was drafted first in the 2017 nfl draft as player?",
+      "shortAnswers": [
+        "Myles Lorenz Garrett",
+        "Myles Garrett"
+      ]
+    },
+    {
+      "question": "Who was the team that drafted first in the 2017 nfl draft?",
+      "shortAnswers": [
+        "Cleveland Browns"
+      ]
+    },
+    {
+      "question": "Who was the college that drafted first in the 2017 nfl draft?",
+      "shortAnswers": [
+        "Texas A&M"
+      ]
+    },
+    {
+      "question": "Who was the conference that drafted first in the 2017 nfl draft?",
+      "shortAnswers": [
+        "Southeastern Conference",
+        "SEC"
+      ]
+    }
+  ]
+}

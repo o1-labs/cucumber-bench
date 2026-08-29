@@ -1,0 +1,40 @@
+{
+  "id": "asqa-021",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Which band sings the 1973 song \"Stuck in the Middle with You\"?",
+      "shortAnswers": [
+        "Stealers Wheel"
+      ]
+    },
+    {
+      "question": "Who sings the lead vocals in the 1973 song \"Stuck in the Middle with You\"?",
+      "shortAnswers": [
+        "Gerry Rafferty"
+      ]
+    },
+    {
+      "question": "Who sings harmony in the 1973 song \"Stuck in the Middle with You\"?",
+      "shortAnswers": [
+        "Joe Egan"
+      ]
+    },
+    {
+      "question": "Who sings the 2004 song \"Stuck in the  Middle\"?",
+      "shortAnswers": [
+        "Clea"
+      ]
+    },
+    {
+      "question": "Who sings the theme song for the TV show Stuck in the Middle?",
+      "shortAnswers": [
+        "Sonus"
+      ]
+    }
+  ]
+}

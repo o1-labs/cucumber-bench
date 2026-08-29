@@ -1,0 +1,47 @@
+{
+  "id": "asqa-020",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who is the 17th Chief Minister of MP?",
+      "shortAnswers": [
+        "Shivraj Singh Chauhan"
+      ]
+    },
+    {
+      "question": "Who is the 16th Chief Minister of MP?",
+      "shortAnswers": [
+        "Babulal Gaur"
+      ]
+    },
+    {
+      "question": "Who is the 15th Chief Minister of MP?",
+      "shortAnswers": [
+        "Uma Bharti"
+      ]
+    },
+    {
+      "question": "Who is the 17th chief minister of m. p?",
+      "shortAnswers": [
+        "Shivraj Singh Chauhan"
+      ]
+    },
+    {
+      "question": "Who is the 16th chief minister of m. p?",
+      "shortAnswers": [
+        "Babulal Gaur",
+        "Babulal Gaur Yadav"
+      ]
+    },
+    {
+      "question": "Who is the 15th chief minister of m. p?",
+      "shortAnswers": [
+        "Uma Bharti"
+      ]
+    }
+  ]
+}

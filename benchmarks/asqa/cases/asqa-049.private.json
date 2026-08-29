@@ -1,0 +1,34 @@
+{
+  "id": "asqa-049",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What play has the line it is a tale told by an idiot full of sound and fury?",
+      "shortAnswers": [
+        "Macbeth"
+      ]
+    },
+    {
+      "question": "What character said it is a tale told by an idiot full of sound and fury?",
+      "shortAnswers": [
+        "Macbeth"
+      ]
+    },
+    {
+      "question": "What play has the line \"it is a tale told by an idiot full of sound and fury\"?",
+      "shortAnswers": [
+        "Macbeth"
+      ]
+    },
+    {
+      "question": "What character said \"it is a tale told by an idiot full of sound and fury\"?",
+      "shortAnswers": [
+        "Macbeth"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "asqa-048",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who plays chief superintendent Matthew Lawson on Doctor Blake Mysteries?",
+      "shortAnswers": [
+        "Joel Tobeck"
+      ]
+    },
+    {
+      "question": "Who plays chief superintendent William Munro on Doctor Blake Mysteries?",
+      "shortAnswers": [
+        "Craig Hall"
+      ]
+    },
+    {
+      "question": "Who plays chief superintendent Matthew Frank Carlyle on Doctor Blake Mysteries?",
+      "shortAnswers": [
+        "Rodger Corser"
+      ]
+    }
+  ]
+}

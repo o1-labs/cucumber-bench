@@ -1,0 +1,22 @@
+{
+  "id": "asqa-091",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When did the US go off the gold standard, but still allowed foreign governments to trade gold for dollars?",
+      "shortAnswers": [
+        "June 5, 1933"
+      ]
+    },
+    {
+      "question": "When did the US completely sever any link to the gold standard?",
+      "shortAnswers": [
+        "1971"
+      ]
+    }
+  ]
+}

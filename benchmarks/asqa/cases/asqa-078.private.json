@@ -1,0 +1,35 @@
+{
+  "id": "asqa-078",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who wrote Delta of Venus (book)?",
+      "shortAnswers": [
+        "Anaïs Nin"
+      ]
+    },
+    {
+      "question": "Who wrote Delta of Venus (movie)?",
+      "shortAnswers": [
+        "Patricia Louisianna Knop",
+        "Elisa M. Rothstein"
+      ]
+    },
+    {
+      "question": "Who is the author character in the movie Delta of Venus?",
+      "shortAnswers": [
+        "Elena Martin"
+      ]
+    },
+    {
+      "question": "Who plays the author character in the movie Delta of Venus?",
+      "shortAnswers": [
+        "Audie England"
+      ]
+    }
+  ]
+}

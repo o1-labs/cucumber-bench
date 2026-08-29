@@ -1,0 +1,34 @@
+{
+  "id": "asqa-029",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "How many gold medals did Australia win in the 200 Olympics?",
+      "shortAnswers": [
+        "16"
+      ]
+    },
+    {
+      "question": "How many silver medals did Australia win in the 2000 Olympics?",
+      "shortAnswers": [
+        "25"
+      ]
+    },
+    {
+      "question": "How many bronze medals did Australia win in the 2000 Olympics?",
+      "shortAnswers": [
+        "17"
+      ]
+    },
+    {
+      "question": "How many total medals did Australia win in the 2000 Olympics?",
+      "shortAnswers": [
+        "58"
+      ]
+    }
+  ]
+}

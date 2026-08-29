@@ -1,0 +1,22 @@
+{
+  "id": "asqa-065",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What is the flower of the dead translated in spanish?",
+      "shortAnswers": [
+        "flor de muertos"
+      ]
+    },
+    {
+      "question": "What flower is celebrated as the flower of the dead in Mexico?",
+      "shortAnswers": [
+        "cempasúchil"
+      ]
+    }
+  ]
+}

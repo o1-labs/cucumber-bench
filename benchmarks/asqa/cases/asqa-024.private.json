@@ -1,0 +1,22 @@
+{
+  "id": "asqa-024",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When was the first Fast and Furious film created?|When was the first movie in The Fast Saga series filmed?",
+      "shortAnswers": [
+        "2000"
+      ]
+    },
+    {
+      "question": "When was the first fast and furious film released?|When was the first of the fast and the furious films released?",
+      "shortAnswers": [
+        "2001"
+      ]
+    }
+  ]
+}

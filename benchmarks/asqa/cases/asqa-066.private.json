@@ -1,0 +1,31 @@
+{
+  "id": "asqa-066",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who do you play as in the main game of Resident Evil 7?",
+      "shortAnswers": [
+        "Ethan Winters",
+        "a civilian with few combat skills"
+      ]
+    },
+    {
+      "question": "Who do you play as in Resident Evil 7's downloadable content scenario \"Not a Hero\"?",
+      "shortAnswers": [
+        "BSAA agent Chris Redfield",
+        "Chris Redfield"
+      ]
+    },
+    {
+      "question": "Who do you play as in Resident Evil 7's downloadable content scenario \"End of Zoe\"?",
+      "shortAnswers": [
+        "Joe Baker",
+        "Zoe's uncle"
+      ]
+    }
+  ]
+}

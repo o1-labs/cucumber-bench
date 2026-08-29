@@ -1,0 +1,22 @@
+{
+  "id": "asqa-058",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When did construction officially start on the sydney harbour bridge?",
+      "shortAnswers": [
+        "28 July 1923"
+      ]
+    },
+    {
+      "question": "When did construction of the Arch start on the sydney harbour bridge?",
+      "shortAnswers": [
+        "26 October 1928"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "asqa-034",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who has scored most goals in international football as men?",
+      "shortAnswers": [
+        "Ali Daei"
+      ]
+    },
+    {
+      "question": "Who has scored most goals in international football as women?",
+      "shortAnswers": [
+        "Christine Sinclair",
+        "Christine Margaret Sinclair"
+      ]
+    }
+  ]
+}

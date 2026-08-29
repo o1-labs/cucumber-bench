@@ -1,0 +1,28 @@
+{
+  "id": "asqa-032",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who played Snowman in the original Smokey and the Bandit?",
+      "shortAnswers": [
+        "Jerry Reed"
+      ]
+    },
+    {
+      "question": "Who played Snowman in the Smokey and the Bandit II?",
+      "shortAnswers": [
+        "Jerry Reed"
+      ]
+    },
+    {
+      "question": "Who played Snowman in the Smokey and the Bandit Part 3?",
+      "shortAnswers": [
+        "Jerry Reed"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "asqa-041",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who do some say lived to be the oldest person in the world?",
+      "shortAnswers": [
+        "Jeanne Calment"
+      ]
+    },
+    {
+      "question": "Who lived to be the oldest person in the world whose age is undisputed?",
+      "shortAnswers": [
+        "Sarah Knauss"
+      ]
+    },
+    {
+      "question": "Who lived to be the oldest person in the world as of 1997?",
+      "shortAnswers": [
+        "Jeanne Calment",
+        "Jeanne Louise Calment"
+      ]
+    },
+    {
+      "question": "Who lived to be the oldest person in the world as of 1986?",
+      "shortAnswers": [
+        "Augusta Holtz"
+      ]
+    },
+    {
+      "question": "Who lived to be the oldest person in the world as of 1985?",
+      "shortAnswers": [
+        "Mathew Beard"
+      ]
+    }
+  ]
+}

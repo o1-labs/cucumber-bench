@@ -1,0 +1,46 @@
+{
+  "id": "asqa-089",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When does the 2017-2018 champions league group stage start?",
+      "shortAnswers": [
+        "12 September 2017"
+      ]
+    },
+    {
+      "question": "When does the 2016-2017 champions league group stage start?",
+      "shortAnswers": [
+        "13 September 2016"
+      ]
+    },
+    {
+      "question": "When does the 2015-2016 champions league group stage start?",
+      "shortAnswers": [
+        "15 September 2015"
+      ]
+    },
+    {
+      "question": "When did the 2017-18 UEFA Champions League group stage start?",
+      "shortAnswers": [
+        "12 September 2017"
+      ]
+    },
+    {
+      "question": "When did the 2016-17 UEFA Champions League group stage start?",
+      "shortAnswers": [
+        "13 September 2016"
+      ]
+    },
+    {
+      "question": "When did the 2015-16 UEFA Champions League group stage start?",
+      "shortAnswers": [
+        "15 September 2015"
+      ]
+    }
+  ]
+}

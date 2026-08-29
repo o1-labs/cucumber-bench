@@ -1,0 +1,28 @@
+{
+  "id": "asqa-080",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When did the first animated Teenage Mutant Ninja Turtles cartoon series come out?",
+      "shortAnswers": [
+        "December 14, 1987"
+      ]
+    },
+    {
+      "question": "When did the second teenage mutant ninja turtles animated cartoon series come out?",
+      "shortAnswers": [
+        "February 8, 2003"
+      ]
+    },
+    {
+      "question": "When did the 3D rendered computer animated Teenage Mutant Ninja Turtles cartoon series come out?",
+      "shortAnswers": [
+        "September 29, 2012"
+      ]
+    }
+  ]
+}

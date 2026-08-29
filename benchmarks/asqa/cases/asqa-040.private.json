@@ -1,0 +1,28 @@
+{
+  "id": "asqa-040",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who voices Darth Vader in Star Wars Episodes III-VI, IX Rogue One, and Rebels?",
+      "shortAnswers": [
+        "James Earl Jones"
+      ]
+    },
+    {
+      "question": "Who voices Darth Vader in the Star Wars radio drama?",
+      "shortAnswers": [
+        "Brock Peters"
+      ]
+    },
+    {
+      "question": "Who voices Darth Vader's vocal effects in Star Wars?",
+      "shortAnswers": [
+        "Ben Burtt"
+      ]
+    }
+  ]
+}

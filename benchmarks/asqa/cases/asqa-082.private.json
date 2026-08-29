@@ -1,0 +1,28 @@
+{
+  "id": "asqa-082",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "In section one of the dream of the rood what is the rood eventually drenched in beyond the gems?",
+      "shortAnswers": [
+        "blood"
+      ]
+    },
+    {
+      "question": "In section two of the dream of the rood what is the rood eventually drenched in?",
+      "shortAnswers": [
+        "gold and silver"
+      ]
+    },
+    {
+      "question": "In section one of the dream of the rood what precious items is the rood drenched in?",
+      "shortAnswers": [
+        "gems"
+      ]
+    }
+  ]
+}

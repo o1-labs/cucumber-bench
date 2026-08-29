@@ -1,0 +1,28 @@
+{
+  "id": "asqa-076",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who plays adult Eun Jae in hello my twenties series 1?",
+      "shortAnswers": [
+        "Park Hye-su"
+      ]
+    },
+    {
+      "question": "Who plays young Eun Jae in hello my twenties series 1?",
+      "shortAnswers": [
+        "Lee Na-yoon"
+      ]
+    },
+    {
+      "question": "Who plays Eun Jae in hello my twenties series 2?",
+      "shortAnswers": [
+        "Ji Woo"
+      ]
+    }
+  ]
+}

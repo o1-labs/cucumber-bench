@@ -1,0 +1,22 @@
+{
+  "id": "asqa-059",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Which characters were the original twins in everybody loves raymond?",
+      "shortAnswers": [
+        "Gregory and Matthew"
+      ]
+    },
+    {
+      "question": "Which actors were the original twins in everybody loves raymond?",
+      "shortAnswers": [
+        "the Ferreira triplets"
+      ]
+    }
+  ]
+}

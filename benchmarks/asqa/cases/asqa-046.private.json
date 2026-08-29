@@ -1,0 +1,24 @@
+{
+  "id": "asqa-046",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "The repetition of phrases or sentences with similar structures is called?",
+      "shortAnswers": [
+        "parallel construction",
+        "parallelism",
+        "Parallel syntax"
+      ]
+    },
+    {
+      "question": "The repetition of phrases or sentences with similar meanings is called?",
+      "shortAnswers": [
+        "Schesis onomaton"
+      ]
+    }
+  ]
+}

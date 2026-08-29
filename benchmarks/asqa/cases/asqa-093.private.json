@@ -1,0 +1,22 @@
+{
+  "id": "asqa-093",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "What is the mechanical action that moves food into the esophagus?",
+      "shortAnswers": [
+        "swallowing"
+      ]
+    },
+    {
+      "question": "What is the autonomic function that moves food from the esophagus to the stomach?",
+      "shortAnswers": [
+        "peristalsis"
+      ]
+    }
+  ]
+}

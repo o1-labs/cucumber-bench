@@ -1,0 +1,23 @@
+{
+  "id": "asqa-064",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who from Texas wrote brown eyes by destiny's child?",
+      "shortAnswers": [
+        "Beyoncé Giselle Knowles-Carter",
+        "Beyoncé Knowles"
+      ]
+    },
+    {
+      "question": "Who from Brazil wrote brown eyes by destiny's child?",
+      "shortAnswers": [
+        "Walter Afanasieff"
+      ]
+    }
+  ]
+}

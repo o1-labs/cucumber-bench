@@ -1,0 +1,23 @@
+{
+  "id": "asqa-062",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Japanese hotel run by same family for 1300 years in Komatsu?",
+      "shortAnswers": [
+        "Hōshi Ryokan",
+        "Hōshi"
+      ]
+    },
+    {
+      "question": "Japanese hotel run by same family for 1300 years in Hayakawa?",
+      "shortAnswers": [
+        "Nishiyama Onsen Keiunkan"
+      ]
+    }
+  ]
+}

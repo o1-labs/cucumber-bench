@@ -1,0 +1,27 @@
+{
+  "id": "asqa-073",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Who wins at the end of friday night lights film?|Who wins at the end of friday night lights book?",
+      "shortAnswers": [
+        "Dallas Carter",
+        "David W. Carter High School",
+        "Dallas Carter High School",
+        "David Wendel Carter High School"
+      ]
+    },
+    {
+      "question": "Who wins at the end of friday night lights season 5?",
+      "shortAnswers": [
+        "East Dillon Lions",
+        "East Dillon",
+        "East Dillon High"
+      ]
+    }
+  ]
+}

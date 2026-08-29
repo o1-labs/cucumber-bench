@@ -1,0 +1,34 @@
+{
+  "id": "asqa-083",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "When did the Seljuk Empire begin?",
+      "shortAnswers": [
+        "1037"
+      ]
+    },
+    {
+      "question": "When did the Seljuk Empire end?",
+      "shortAnswers": [
+        "1194"
+      ]
+    },
+    {
+      "question": "When did the seljuk empire begin?",
+      "shortAnswers": [
+        "1037"
+      ]
+    },
+    {
+      "question": "When did the seljuk empire end?",
+      "shortAnswers": [
+        "1194"
+      ]
+    }
+  ]
+}

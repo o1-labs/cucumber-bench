@@ -1,0 +1,36 @@
+{
+  "id": "asqa-097",
+  "graders": [
+    "str-em",
+    "citation-recall",
+    "citation-precision"
+  ],
+  "qaPairs": [
+    {
+      "question": "Where is the stadium did italy win the world cup in 2006?",
+      "shortAnswers": [
+        "Olympiastadion",
+        "Olympiastadion Berlin"
+      ]
+    },
+    {
+      "question": "Where is the location did italy win the world cup in 2006?",
+      "shortAnswers": [
+        "Berlin, Germany",
+        "Berlin"
+      ]
+    },
+    {
+      "question": "In what location was the 2006 FIFA World Cup Final?",
+      "shortAnswers": [
+        "Berlin, Germany"
+      ]
+    },
+    {
+      "question": "In what stadium was the 2006 FIFA World Cup Final?",
+      "shortAnswers": [
+        "Olympiastadion"
+      ]
+    }
+  ]
+}
