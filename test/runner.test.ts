@@ -65,6 +65,17 @@ describe('runSuite', () => {
     }
   });
 
+  it('should record a failed grade, not crash, when a grader throws', async () => {
+    let cases = (await loadCases('benchmarks/legalbench')).slice(0, 2);
+    let broken = { name: 'exact', description: 'x', async grade() { throw Error('judge down'); } };
+    let records = await runSuite({
+      runId: 'test', cases, systems: [fakeSystem('Yes')], graders: [broken], model: 'm', proxy, repetitions: 1,
+    });
+    assert.equal(records.length, 2);
+    assert.equal(records[0].grades[0].pass, false);
+    assert.match(records[0].grades[0].detail ?? '', /grader error: judge down/);
+  });
+
   it('should record a failing grade when a system throws', async () => {
     let cases = (await loadCases('benchmarks/legalbench')).slice(0, 1);
     let broken: SystemUnderTest = {

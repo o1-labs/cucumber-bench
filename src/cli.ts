@@ -1,3 +1,4 @@
+import { appendFileSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
@@ -73,7 +74,8 @@ await mkdir(outDir, { recursive: true });
 
 console.log(`run ${runId}: ${cases.length} cases, systems [${systems.map((s) => s.name).join(', ')}], model ${cfg.model}, reps ${values.reps}, concurrency ${values.concurrency}`);
 
-let lines: string[] = [];
+// every record is appended to results.jsonl at once, so a crash keeps what is done
+let resultsPath = join(outDir, 'results.jsonl');
 let records = await runSuite({
   runId,
   cases,
@@ -89,12 +91,11 @@ let records = await runSuite({
       `  ${verdict} ${run.caseId} [${run.system}, rep ${run.repetition}] ${run.latencyMs}ms ` +
         `${grades.map((g) => g.detail ?? '').join('; ')}${run.error ? ` error: ${run.error}` : ''}`,
     );
-    lines.push(JSON.stringify({ run, grades, judge }));
+    appendFileSync(resultsPath, JSON.stringify({ run, grades, judge }) + '\n');
   },
 });
 
 await proxy.close();
-await writeFile(join(outDir, 'results.jsonl'), lines.join('\n') + '\n');
 let report = buildReport(runId, cfg.model, cases, records, graders);
 await writeFile(join(outDir, 'report.md'), report);
 let help = {

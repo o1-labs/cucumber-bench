@@ -59,7 +59,12 @@ async function runSuite(opts: {
         for (let name of priv.graders) {
           let grader = graders.find((g) => g.name === name);
           assert(grader, `runSuite: no grader named ${name} for case ${priv.id}`);
-          grades.push(await grader.grade(pub, priv, run, gradeCtx));
+          // a grader that fails (e.g. the judge is down) fails this grade, not the run
+          try {
+            grades.push(await grader.grade(pub, priv, run, gradeCtx));
+          } catch (err: any) {
+            grades.push({ grader: name, pass: false, score: 0, detail: `grader error: ${String(err?.message ?? err)}` });
+          }
         }
         let record = { run, grades, judge: proxy.usage(judgeToken) };
         records[slot + i] = record;
