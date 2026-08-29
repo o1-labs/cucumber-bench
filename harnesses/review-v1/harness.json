@@ -1,0 +1,11 @@
+{
+  "name": "review-v1",
+  "description": "The review harness, in three stages: every passage is read on its own and every part that answers the question is quoted (scan); the answer is written from the quotes only, in the benchmark's form (compose); every cited sentence is verified against its cited passages, and an unsupported one is dropped (check).",
+  "entry": "src/entry.ts",
+  "suites": ["cuad", "cuad-dev", "cuad-hard", "cuad-hard-dev"],
+  "models": { "main": "qwen/qwen3.6-35b-a3b" },
+  "maxCalls": 120,
+  "image": "cucumber-harness-review-v1",
+  "imageEntry": "/app/dist/entry.js",
+  "dockerfile": "Dockerfile"
+}

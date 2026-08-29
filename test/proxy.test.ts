@@ -75,4 +75,10 @@ describe('proxy', () => {
     // other runs are unaffected
     assert.equal((await call(proxy.register('r4'))).status, 200);
   });
+
+  it('should let a run register its own call limit', async () => {
+    let token = proxy.register('r5', { maxCalls: 1 });
+    assert.equal((await call(token)).status, 200);
+    assert.equal((await call(token)).status, 429);
+  });
 });

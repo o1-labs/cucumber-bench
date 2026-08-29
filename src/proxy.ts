@@ -22,10 +22,10 @@ async function startProxy(opts: {
   judgeUpstreamKey?: string;
   defaultTemperature: number; // injected when a request does not set one
   timeoutMs: number;
-  maxCalls: number; // per registered run, on the guarded and safety routes
+  maxCalls: number; // per registered run, on the guarded and safety routes; a run may register its own
   maxJudgeCalls: number; // per registered run on the judge route; citation graders ask many questions
 }): Promise<ModelProxy> {
-  let runs = new Map<string, { runId: string; usage: Usage; requests: string[] }>();
+  let runs = new Map<string, { runId: string; usage: Usage; requests: string[]; maxCalls?: number }>();
   let empty = (): Usage => ({ modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [] });
 
   let server = createServer((req, res) => {
@@ -38,7 +38,7 @@ async function startProxy(opts: {
     if (!state) return reply(res, 401, 'unknown run token');
     let route = req.method === 'POST' ? ROUTES[req.url ?? ''] : undefined;
     if (!route) return reply(res, 404, 'only POST {,/safety,/judge}/v1/chat/completions is allowed');
-    let limit = route === 'judge' ? opts.maxJudgeCalls : opts.maxCalls;
+    let limit = route === 'judge' ? opts.maxJudgeCalls : state.maxCalls ?? opts.maxCalls;
     if (state.usage.modelCalls >= limit) {
       return reply(res, 429, `run ${state.runId} exceeded the limit of ${limit} model calls`);
     }
@@ -84,9 +84,9 @@ async function startProxy(opts: {
 
   return {
     url: `http://127.0.0.1:${port}`,
-    register(runId) {
+    register(runId, limits) {
       let token = randomBytes(16).toString('hex');
-      runs.set(token, { runId, usage: empty(), requests: [] });
+      runs.set(token, { runId, usage: empty(), requests: [], maxCalls: limits?.maxCalls });
       return token;
     },
     usage(token) {

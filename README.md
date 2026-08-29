@@ -12,6 +12,14 @@ every system running in the same sandbox under identical conditions:
   input safety → agent → output safety, where safety is hybrid: regex for
   machine-readable identifiers, then a trusted **safety model** for names,
   addresses and ids.
+- `cite-v1` — the citation harness for question-plus-passages tasks (`harnesses/cite-v1/`):
+  the benchmark's few-shot answer, then a check of every sentence's citations against all
+  passages; an unsupported sentence is dropped, a statement about the documents is kept.
+- `review-v1` — the review harness for the same tasks (`harnesses/review-v1/`): every passage
+  is read on its own and every part that answers the question is quoted (scan), the answer is
+  written from the quotes only in the benchmark's form (compose), and every cited sentence is
+  checked against its own cited passages (check). Absence is the result of reading every
+  passage. It names `maxCalls` in its manifest, because the scan is one call per five passages.
 
 Layout: `src/` is the core framework only. `harnesses/<name>/` holds one
 harness each, with a `harness.json` that names its entry, image, and the
@@ -51,7 +59,7 @@ with environment variables, or copy `.env.example` to `.env` in the repo root
 | `BENCH_BASE_URL` | `http://localhost:11434/v1` | Ollama local, or any hosted API |
 | `BENCH_JUDGE_MODEL` | `qwen3:8b` | default judge model (the `/judge/v1` route: graders use it, harnesses never do) for a benchmark whose manifest names none; `npm run regrade -- <run> --judge <model>` overrides every benchmark |
 | `BENCH_JUDGE_BASE_URL`, `BENCH_JUDGE_API_KEY` | same as the main URL and key | put the judge on another provider, e.g. `https://openrouter.ai/api/v1` with an OpenRouter key |
-| `BENCH_MAX_CALLS` | `20` | model calls a harness may make per run |
+| `BENCH_MAX_CALLS` | `20` | model calls a harness may make per run; a harness that needs more names `maxCalls` in its manifest |
 | `BENCH_MAX_JUDGE_CALLS` | `100` | judge calls the graders may make per run |
 | `BENCH_API_KEY` | `none` | required by hosted APIs, ignored by Ollama |
 | `BENCH_TEMPERATURE` | `0` | sampling temperature |

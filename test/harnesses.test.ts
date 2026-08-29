@@ -125,3 +125,26 @@ describe('cite-v1 (citation harness)', () => {
     assert.equal(result.trace!.rawOutput, 'Alpha holds the record [1][2][3]. Beta is unsupported [4]. The documents do not say who holds the gamma record.');
   });
 });
+
+describe('review-v1 (review harness)', () => {
+  it('should scan every passage in batches, compose from the quotes, and check each cited sentence', async () => {
+    let { pub } = (await loadCases('benchmarks/cuad')).find((c) => c.pub.id === 'cuad-000')!;
+    let n = pub.docs!.length, batches = Math.ceil(n / 5);
+    // the manifest's own call limit: the scan calls + compose + two checks are over the test proxy's 4
+    let system = sandboxedSystem('review-v1', tsx('harnesses/review-v1/src/entry.ts'), models, undefined, 10);
+    let result = await system.run(pub, { runId: 't', repetition: 1, proxy });
+    assert.equal(result.error, undefined);
+    assert.equal(result.modelCalls, batches + 3);
+    assert.ok(seen.slice(-(batches + 3)).every((r) => r.temperature === 0));
+    let quote = pub.docs![1].text.split(' ').slice(0, 8).join(' ');
+    // the composed draft is two sentences; the uncited "Yes." is dropped by the check
+    assert.equal(result.trace!.rawOutput, `Yes. The contract contains the clause: "${quote}" [2].`);
+    assert.equal(result.output, `The contract contains the clause: "${quote}" [2].`);
+    let [, agent, check] = result.trace!.stages;
+    assert.equal(agent.module, 'scan-compose');
+    assert.deepEqual(agent.findings, [`scanned ${n} passages in ${batches} calls: 1 quote(s) from [2]`]);
+    assert.equal(check.module, 'citation-check');
+    assert.deepEqual(check.findings, ['s1: uncited dropped, not about the documents', 's2: [2] supported']);
+    assert.equal(check.decision, 'modified');
+  });
+});

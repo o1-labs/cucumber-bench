@@ -16,6 +16,7 @@ type HarnessManifest = {
   description?: string;
   suites: string[]; // the benchmarks this harness runs on
   models: { main: string; safety?: string }; // the harness's models: main on the guarded route, safety on the safety route (default: main)
+  maxCalls?: number; // model calls per run this harness needs; default BENCH_MAX_CALLS (20)
   image: string; // docker image; the shared base image unless the harness has its own
   imageEntry: string; // the entry path inside the image
   dockerfile?: string; // relative to dir; present when the harness builds its own image

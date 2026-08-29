@@ -60,7 +60,8 @@ or `{ "error": "message" }`. The trace is optional but recommended. See section 
 Both routes accept the OpenAI chat-completions format. Send the
 `Authorization: Bearer {token}` header. The proxy adds the real API key and
 the default temperature. It counts calls and tokens. It stops a run after
-`BENCH_MAX_CALLS` calls (default 20).
+`BENCH_MAX_CALLS` calls (default 20), or after the `maxCalls` the harness names
+in its manifest.
 
 The harness never sees private cases, API keys, or the upstream URL.
 
@@ -81,6 +82,8 @@ Make a folder `harnesses/<name>/` with a manifest and an entry.
 ```
 
 `suites` lists the benchmarks the harness runs on. The runner skips the others.
+`maxCalls` (optional) raises the per-run call limit for this harness, e.g. for a
+harness that reads every passage in its own call.
 `models` names the models the harness calls: `main` on the guarded route,
 `safety` on the safety route. `main` is required; `safety` defaults to `main`.
 The env never names these models. The model is part of the harness: the
