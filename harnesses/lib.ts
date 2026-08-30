@@ -5,7 +5,7 @@ import type { Models, PublicCase, Trace } from '../src/types.js';
 
 export { readInput, generateVia, respond, type Input, type Generate };
 
-// models: the harness's own choice from its manifest (env defaults fill the gaps).
+// models: the harness's own choice from its manifest.
 // main is for the guarded route, safety for the trusted safety route
 type Input = { publicCase: PublicCase; proxyUrl: string; token: string; models: Models };
 type Generate = (prompt: string, temperature?: number) => Promise<string>;

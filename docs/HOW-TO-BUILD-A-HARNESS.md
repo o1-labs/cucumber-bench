@@ -250,7 +250,9 @@ everything else with `Yes`.
 ## 9. The official run
 
 When the numbers are good, build the images and run in Docker with
-repetitions:
+repetitions. The default child-process mode is for development: the child gets
+no environment (no keys), but it shares the file system with the benchmark.
+Docker mode is the isolated one, and the one for reported results:
 
 ```sh
 npm run sandbox:build

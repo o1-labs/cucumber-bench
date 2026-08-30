@@ -64,6 +64,16 @@ describe('sandboxedSystem', () => {
     assert.ok(result.modelRequests![0].includes('[REDACTED]'));
   });
 
+  it('should not pass the parent environment to the child', async () => {
+    let { pub } = (await loadCases('benchmarks/legalbench'))[0];
+    process.env.BENCH_API_KEY = 'sentinel-key';
+    // the child reports every BENCH_* variable it sees (the os may add a few of its own)
+    let probe = 'process.stdout.write(JSON.stringify({ output: Object.keys(process.env).filter((k) => k.startsWith("BENCH_")).join(",") }))';
+    let result = await sandboxedSystem('probe', [process.execPath, '-e', probe], models).run(pub, { runId: 't', repetition: 1, proxy });
+    delete process.env.BENCH_API_KEY;
+    assert.equal(result.output, '');
+  });
+
   it('should report a sandbox that dies as an errored run', async () => {
     let { pub } = (await loadCases('benchmarks/legalbench'))[0];
     let system = sandboxedSystem('sandboxed', [process.execPath, '-e', 'process.exit(3)'], models);

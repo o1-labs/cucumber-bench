@@ -8,8 +8,9 @@ export { containerName };
 // wall clock per run, then SIGKILL
 const TIMEOUT_MS = 300_000;
 
-// every system runs this way: an isolated child process (a docker container
-// in docker mode) speaking the wire protocol. stdin gets {publicCase, proxyUrl,
+// every system runs this way: a child process with a bare environment (development
+// mode: it shares the file system), or a docker container in docker mode, speaking
+// the wire protocol. stdin gets {publicCase, proxyUrl,
 // token, models} as json, stdout returns {output, trace?} or {error}. the child
 // never receives private cases, api keys, or the upstream url; usage and the
 // prompts that reached the model come from the proxy, not from the child.
@@ -79,8 +80,10 @@ function containerName(runId: string, system: string, caseId: string, rep: numbe
 
 function runChild(argv: string[], stdin: string, container?: string): Promise<{ stdout: string; error?: string }> {
   return new Promise((resolve) => {
-    // detached: the child leads its own process group, so a timeout kills its helpers too
-    let child = spawn(argv[0], argv.slice(1), { stdio: ['pipe', 'pipe', 'pipe'], detached: true });
+    // detached: the child leads its own process group, so a timeout kills its helpers too.
+    // the child gets a bare environment: the parent's holds the provider keys (.env)
+    let env = { PATH: process.env.PATH ?? '', HOME: process.env.HOME ?? '' };
+    let child = spawn(argv[0], argv.slice(1), { stdio: ['pipe', 'pipe', 'pipe'], detached: true, env });
     let stdout = '', stderr = '';
     let timer = setTimeout(() => {
       if (container) spawnSync('docker', ['kill', container], { stdio: 'ignore' });

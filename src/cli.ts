@@ -55,6 +55,9 @@ console.log(
   `run ${runId}: ${cases.length} cases, systems [${systems.map((s) => `${s.name} (${s.models.main})`).join(', ')}], ` +
     `reps ${values.reps}, concurrency ${values.concurrency}`,
 );
+if (process.env.BENCH_SANDBOX !== 'docker') {
+  console.log('sandbox: child process (development mode: a harness shares the file system; set BENCH_SANDBOX=docker for isolation)');
+}
 
 // every record is appended to results.jsonl at once, so a crash keeps what is done
 let resultsPath = join(outDir, 'results.jsonl');

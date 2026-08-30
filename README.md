@@ -35,12 +35,12 @@ for safety, what reached the model) with the private gold data. See
 
 ```sh
 npm install && npm run harness:install
-npm run bench                      # all cases, all systems, 1 repetition, child-process sandbox
+npm run bench                      # all cases, all systems, 1 repetition, child process (development mode)
 npm run bench -- --systems direct,legal-v1 --reps 3   # only these harnesses
 npm run bench -- --suites asqa                        # every harness that lists asqa, on asqa only
 npm run bench -- --suites asqa --concurrency 8        # 8 cases in flight at once: for a hosted model
 npm run bench -- --systems cite-v1 --cases asqa-dev-503 --reps 10 --concurrency 10   # one case, ten times: tuning
-BENCH_SANDBOX=docker npm run bench # same, each run in a fresh docker container
+BENCH_SANDBOX=docker npm run bench # same, each run in a fresh docker container (the isolated mode)
 npm test                           # unit + pipeline tests (no model needed)
 ```
 
@@ -84,9 +84,13 @@ Each run writes to `runs/<runId>/`:
 ## Sandboxed systems
 
 Every system — the baseline included — is an entry script under
-`harnesses/<name>/` that runs in an isolated child process; with
-`BENCH_SANDBOX=docker`, in a fresh hardened container per run (read-only fs,
-no capabilities, cpu/memory/pids caps). Harnesses without dependencies share
+`harnesses/<name>/`. By default it runs as a child process with a bare
+environment (`PATH` and `HOME` only, never the provider keys): this is the
+**development mode**, and the harness still shares the file system, so a
+harness written by someone else could read private cases. With
+`BENCH_SANDBOX=docker` it runs in a fresh hardened container per run (read-only
+fs, no capabilities, cpu/memory/pids caps): this is the isolated mode for
+results that are reported. Harnesses without dependencies share
 one base image (node + tsx + the harness sources); a harness with
 dependencies, like `legal-v1`, names its own Dockerfile and image in its
 manifest. `npm run sandbox:build` builds all of them.
