@@ -1,6 +1,6 @@
 # cucumber-bench
 
-A benchmark runner for legal AI. It runs a plain model call (`direct`) and custom
+A benchmark runner for AI systems. It runs a plain model call (`direct`) and custom
 harnesses on the same cases, in the same sandbox, and grades every answer against
 private gold data. The question it answers: is a harness better than the plain
 model, and at what cost?

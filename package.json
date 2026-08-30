@@ -9,7 +9,8 @@
     "sandbox:build": "tsx src/buildCli.ts",
     "harness:install": "for d in harnesses/*/package.json; do npm --prefix $(dirname $d) ci; done",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "site": "tsx src/siteCli.ts"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",
