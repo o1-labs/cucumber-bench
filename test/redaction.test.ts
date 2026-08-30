@@ -65,4 +65,12 @@ describe('retentionGrader', () => {
     assert.equal(gutted.pass, false);
     assert.equal(gutted.score, 0);
   });
+
+  it('should count every occurrence of a repeated token', async () => {
+    let doc = { ...pub, input: 'Ann Kowalski: pain pain pain pain' };
+    let once = await retentionGrader().grade(doc, priv, result('[REDACTED]: pain'), ctx);
+    assert.equal(once.score, 0.25);
+    let all = await retentionGrader().grade(doc, priv, result('[REDACTED]: pain pain pain pain'), ctx);
+    assert.equal(all.score, 1);
+  });
 });

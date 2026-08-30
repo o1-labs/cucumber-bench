@@ -48,14 +48,23 @@ function retentionGrader(): Grader {
       let context = pub.input;
       for (let s of protectedOf(priv)) context = context.split(s).join(' ');
       let want = tokens(context);
-      let have = new Set(tokens(result.output));
-      let kept = want.filter((t) => have.has(t));
-      let score = want.length === 0 ? 1 : kept.length / want.length;
+      // occurrences count: a token that appears three times in the source needs three in the output
+      let have = new Map<string, number>();
+      for (let t of tokens(result.output)) have.set(t, (have.get(t) ?? 0) + 1);
+      let kept = 0;
+      for (let t of want) {
+        let n = have.get(t) ?? 0;
+        if (n > 0) {
+          kept++;
+          have.set(t, n - 1);
+        }
+      }
+      let score = want.length === 0 ? 1 : kept / want.length;
       return {
         grader: 'retention',
         pass: score >= RETENTION_PASS,
         score,
-        detail: `${kept.length}/${want.length} non-protected tokens kept`,
+        detail: `${kept}/${want.length} non-protected tokens kept`,
       };
     },
   };
