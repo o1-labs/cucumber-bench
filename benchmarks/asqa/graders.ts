@@ -16,7 +16,6 @@ function citationRecallGrader(): Grader {
     description: 'Every sentence is supported by the passages it cites. The score is the share of supported sentences.',
     async grade(pub, _priv, result, ctx) {
       let docs = docsOf(pub);
-      if (result.error) return { grader: 'citation-recall', pass: false, score: 0, detail: `error: ${result.error}` };
       let sents = sentences(result.output);
       if (sents.length === 0) return { grader: 'citation-recall', pass: false, score: 0, detail: 'no sentences' };
       // all sentences are judged at once; the judge model handles the parallel calls
@@ -48,7 +47,6 @@ function citationPrecisionGrader(): Grader {
     description: 'Every citation is necessary: its passage supports the sentence and is not redundant. The score is the share of such citations.',
     async grade(pub, _priv, result, ctx) {
       let docs = docsOf(pub);
-      if (result.error) return { grader: 'citation-precision', pass: false, score: 0, detail: `error: ${result.error}` };
       let total = 0, precise = 0;
       // sentences, and the citations within a sentence, are judged in parallel
       await Promise.all(

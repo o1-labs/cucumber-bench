@@ -14,7 +14,6 @@ function strEmGrader(): Grader {
     description: 'Every gold short answer appears in the output. The score is the share of sub-questions answered.',
     async grade(_pub, priv, result) {
       assert(priv.qaPairs && priv.qaPairs.length > 0, `str-em: case ${priv.id} needs qaPairs`);
-      if (result.error) return { grader: 'str-em', pass: false, score: 0, detail: `error: ${result.error}` };
       let output = normalizeAnswer(result.output);
       let missing = priv.qaPairs.filter((p) => !p.shortAnswers.some((a) => output.includes(normalizeAnswer(a))));
       let found = priv.qaPairs.length - missing.length;

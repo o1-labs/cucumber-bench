@@ -21,7 +21,6 @@ function clauseRecallGrader(): Grader {
       'When the contract has no such clause, the answer must say so.',
     async grade(pub, priv, result, ctx) {
       let clauses = clausesOf(priv);
-      if (result.error) return { grader: 'clause-recall', pass: false, score: 0, detail: `error: ${result.error}` };
       let cited = citationsOf(result.output, docsOf(pub).length);
       if (clauses.length === 0) {
         let stated = await statesAbsence(ctx, pub, result.output);
@@ -47,7 +46,6 @@ function clausePrecisionGrader(): Grader {
       'When the contract has no such clause, the answer must cite nothing.',
     async grade(pub, priv, result) {
       let clauses = clausesOf(priv);
-      if (result.error) return { grader: 'clause-precision', pass: false, score: 0, detail: `error: ${result.error}` };
       let cited = citationsOf(result.output, docsOf(pub).length);
       if (clauses.length === 0) {
         let clean = cited.length === 0;
@@ -75,7 +73,6 @@ function citationSupportGrader(): Grader {
     description: 'Every sentence that cites passages is supported by the passages it cites. The score is the share of cited sentences supported.',
     async grade(pub, priv, result, ctx) {
       let docs = docsOf(pub);
-      if (result.error) return { grader: 'citation-support', pass: false, score: 0, detail: `error: ${result.error}` };
       let cited = sentences(result.output).filter((s) => citationsOf(s, docs.length).length > 0);
       if (cited.length === 0) {
         let absent = clausesOf(priv).length === 0;

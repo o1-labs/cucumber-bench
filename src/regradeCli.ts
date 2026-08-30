@@ -2,13 +2,12 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import assert from 'node:assert/strict';
 import { parseArgs } from 'node:util';
-import { loadProject, startProxyFor } from './project.js';
+import { gitState, loadProject, startProxyFor } from './project.js';
 import { judgeVia } from './judge.js';
-import { pool } from './runner.js';
+import { gradeRun, pool } from './runner.js';
 import { buildReport } from './report.js';
 import { buildChartHtml } from './chart.js';
 import type { RunRecord } from './runner.js';
-import type { GradeResult } from './types.js';
 
 // usage: npm run regrade -- runs/<runId> [--judge <model>] [--concurrency 1]
 // grades the stored outputs of a run again with the current graders, without running
@@ -40,23 +39,32 @@ await pool(old, Number(values.concurrency), async ({ run }, i) => {
   assert(c, `regrade: case ${run.caseId} not found under benchmarks/`);
   let judgeModel = judgeFor(c.pub.suite);
   let judgeToken = proxy.register(`${runId}/${run.caseId}/rep${run.repetition}/judge`, { judge: true, models: [judgeModel] });
-  let ctx = { judge: judgeVia(proxy, judgeToken, judgeModel) };
-  let grades: GradeResult[] = [];
-  for (let name of c.priv.graders) {
-    let grader = graders.find((g) => g.name === name);
-    assert(grader, `regrade: no grader named ${name}`);
-    try {
-      grades.push(await grader.grade(c.pub, c.priv, run, ctx));
-    } catch (err: any) {
-      grades.push({ grader: name, pass: false, score: 0, detail: `grader error: ${String(err?.message ?? err)}` });
-    }
-  }
-  records[i] = { run, grades, judge: proxy.usage(judgeToken) };
+  let { grades, status } = await gradeRun(c.pub, c.priv, run, graders, { judge: judgeVia(proxy, judgeToken, judgeModel) });
+  records[i] = { run, grades, judge: proxy.usage(judgeToken), status };
   console.log(`  ${grades.map((g) => `${g.pass ? 'PASS' : 'FAIL'} ${g.grader}`).join(', ')} ${run.caseId} [${run.system}, rep ${run.repetition}] ${grades.map((g) => g.detail ?? '').join('; ')}`);
 });
 
 await proxy.close();
 await writeFile(join(outDir, 'results.jsonl'), records.map((r) => JSON.stringify(r)).join('\n') + '\n');
+// run.json: the regrade's own provenance; the harness runs are those of the source run
+await writeFile(
+  join(outDir, 'run.json'),
+  JSON.stringify(
+    {
+      runId,
+      regradeOf: runDir,
+      command: process.argv.slice(2),
+      finishedAt: new Date().toISOString(),
+      complete: true,
+      records: records.length,
+      judges: Object.fromEntries([...new Set(old.map((r) => caseOf.get(r.run.caseId)?.pub.suite ?? ''))].map((s) => [s, judgeFor(s)])),
+      providers: { judgeBaseUrl: cfg.judgeBaseUrl },
+      git: gitState(),
+    },
+    null,
+    2,
+  ) + '\n',
+);
 let report = buildReport(runId, cases, records, graders);
 await writeFile(join(outDir, 'report.md'), report);
 // the results and the report are written; a chart failure must not hide them

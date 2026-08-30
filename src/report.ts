@@ -7,8 +7,11 @@ export { buildReport };
 
 // markdown report: the models each system and judge actually used, one table per
 // suite (task x system, one column per grader), the grader glossary, then failures
-function buildReport(runId: string, cases: Case[], records: RunRecord[], graders: Grader[] = []): string {
+function buildReport(runId: string, cases: Case[], records: RunRecord[], graders: Grader[] = [], expected?: number): string {
   let lines = [`# Benchmark report`, '', `Run: ${runId}`, ''];
+  if (expected !== undefined && records.length !== expected) {
+    lines.push(`**INCOMPLETE RUN: ${records.length} of ${expected} expected records. The numbers below are not a valid comparison.**`, '');
+  }
   let rows = summarize(cases, records);
   let caseOf = new Map(cases.map((c) => [c.pub.id, c.pub]));
   let systems = [...new Set(records.map((r) => r.run.system))];
@@ -27,12 +30,12 @@ function buildReport(runId: string, cases: Case[], records: RunRecord[], graders
     let suiteRows = rows.filter((r) => r.suite === suite);
     let graders = [...new Set(suiteRows.flatMap((r) => Object.keys(r.graders)))];
     lines.push(`## Suite: ${suite}`, '');
-    lines.push(`| task | system | n | ${graders.join(' | ')} | consistency | avg latency ms | avg tokens in/out | avg calls | harness cost/run | judge cost/run | total cost, all runs |`);
-    lines.push(`|${' --- |'.repeat(graders.length + 10)}`);
+    lines.push(`| task | system | n | errors | ${graders.join(' | ')} | consistency | avg latency ms | avg tokens in/out | avg calls | harness cost/run | judge cost/run | total cost, all runs |`);
+    lines.push(`|${' --- |'.repeat(graders.length + 11)}`);
     for (let r of suiteRows) {
       let cells = graders.map((g) => gradeCell(r.graders[g]));
       lines.push(
-        `| ${r.task} | ${r.system} | ${r.n} | ${cells.join(' | ')} | ${r.consistency === undefined ? '—' : pct(r.consistency)} ` +
+        `| ${r.task} | ${r.system} | ${r.n} | ${pct(r.errors)} | ${cells.join(' | ')} | ${r.consistency === undefined ? '—' : pct(r.consistency)} ` +
           `| ${r.latencyMs.toFixed(0)} | ${r.tokensIn.toFixed(0)}/${r.tokensOut.toFixed(0)} | ${r.calls.toFixed(1)} ` +
           `| ${usd(r.costUsd)} | ${usd(r.judgeCostUsd)} | ${r.costUsd === undefined ? '—' : '$' + (r.n * (r.costUsd + (r.judgeCostUsd ?? 0))).toFixed(2)} |`,
       );
@@ -43,6 +46,7 @@ function buildReport(runId: string, cases: Case[], records: RunRecord[], graders
   let used = new Set(rows.flatMap((r) => Object.keys(r.graders)));
   let glossary = graders.filter((g) => used.has(g.name));
   if (glossary.length > 0) {
+    lines.push('errors: the share of runs that failed in the sandbox or in a grader; they count as failed grades too.', '');
     lines.push('Graders (a cell is the pass rate; a value in parentheses is the mean score when it differs):', '');
     for (let g of glossary) lines.push(`- ${g.name} — ${g.description}`);
     lines.push('');

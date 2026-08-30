@@ -103,6 +103,7 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
         }),
         higher,
       });
+    num('error rate ↓', false, (r) => r?.errors, (v) => `${Math.round(v * 100)}%`);
     num('consistency ↑', true, (r) => r?.consistency, (v) => `${Math.round(v * 100)}%`);
     num('latency s ↓', false, (r) => r?.latencyMs, (v) => `${round1(v / 1000)}`);
     num('model calls per run ↓', false, (r) => r?.calls, (v) => `${round1(v)}`);

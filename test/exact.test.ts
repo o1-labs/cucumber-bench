@@ -58,11 +58,4 @@ describe('exactGrader', () => {
     assert.equal(g.score, 0);
     assert.equal(g.extracted, '(none)');
   });
-
-  it('should fail an errored run', async () => {
-    let g = await grader.grade(pub, priv, result('', 'timeout'), ctx);
-    assert.equal(g.pass, false);
-    assert.equal(g.extracted, '(none)');
-    assert.match(g.detail ?? '', /timeout/);
-  });
 });

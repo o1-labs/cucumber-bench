@@ -16,6 +16,7 @@ function record(caseId: string, system: string, rep = 1): RunRecord {
     run: { caseId, system, repetition: rep, output: 'yes', latencyMs: 100, modelCalls: 1, tokensIn: 0, tokensOut: 0, costUsd: 0, models: ['m'] },
     grades: [{ grader: 'exact', pass: true, score: 1, extracted: 'yes' }],
     judge: { modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [] },
+    status: 'ok',
   };
 }
 

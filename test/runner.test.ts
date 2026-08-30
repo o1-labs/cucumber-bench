@@ -113,6 +113,7 @@ describe('runSuite', () => {
     assert.equal(records.length, 2);
     assert.equal(records[0].grades[0].pass, false);
     assert.match(records[0].grades[0].detail ?? '', /grader error: judge down/);
+    assert.equal(records[0].status, 'grade_error');
   });
 
   it('should record a failing grade when a system throws', async () => {
@@ -128,7 +129,10 @@ describe('runSuite', () => {
       runId: 'test', cases, systems: [broken], graders: [exactGrader()], proxy, judgeFor: () => 'j', repetitions: 1,
     });
     assert.equal(records.length, 1);
-    assert.equal(records[0].grades[0].pass, false);
     assert.match(records[0].run.error ?? '', /boom/);
+    // an errored run is not graded: every listed grader fails it with the run error
+    assert.equal(records[0].status, 'run_error');
+    assert.equal(records[0].grades[0].pass, false);
+    assert.match(records[0].grades[0].detail ?? '', /^run error: boom/);
   });
 });

@@ -11,6 +11,7 @@ type Row = {
   task: string; // 'ALL' is the suite total
   system: string;
   n: number;
+  errors: number; // share of runs that failed in the sandbox or in a grader (they count as failed grades too)
   // per grader: pass rate and mean score, both 0..1
   graders: { [name: string]: { pass: number; score: number } };
   consistency?: number; // 0..1, undefined with a single repetition
@@ -48,6 +49,7 @@ function summarize(cases: Case[], records: RunRecord[]): Row[] {
           task,
           system,
           n: rs.length,
+          errors: avg(rs.map((r) => (statusOf(r) === 'ok' ? 0 : 1))),
           graders,
           consistency: consistencyOf(rs),
           latencyMs: avg(rs.map((r) => r.run.latencyMs)),
@@ -67,6 +69,11 @@ function summarize(cases: Case[], records: RunRecord[]): Row[] {
 }
 
 // internal helpers
+
+// records written before the status field exist; a run error was the only status then
+function statusOf(r: RunRecord): RunRecord['status'] {
+  return r.status ?? (r.run.error ? 'run_error' : 'ok');
+}
 
 // average majority share of answers per case across repetitions: 1 means every
 // repetition gave the same answer. the answer is the primary grader's extracted

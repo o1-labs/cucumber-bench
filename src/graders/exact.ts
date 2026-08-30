@@ -15,9 +15,6 @@ function exactGrader(): Grader {
     description: 'The label in the output equals the gold label.',
     async grade(pub, priv, result) {
       assert(pub.choices && priv.answer !== undefined, `exact: case ${priv.id} needs choices and a gold answer`);
-      if (result.error) {
-        return { grader: 'exact', pass: false, score: 0, extracted: '(none)', detail: `error: ${result.error}` };
-      }
       let extracted = extractChoice(result.output, pub.choices) ?? '(none)';
       let gold = normalize(priv.answer);
       let pass = extracted === gold;

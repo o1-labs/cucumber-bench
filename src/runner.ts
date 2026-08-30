@@ -1,12 +1,14 @@
 import assert from 'node:assert/strict';
-import type { GradeResult, Grader, ModelProxy, RunResult, SystemUnderTest, Usage } from './types.js';
+import type { GradeContext, GradeResult, Grader, ModelProxy, RunResult, SystemUnderTest, Usage } from './types.js';
 import type { Case } from './caseStore.js';
 import { judgeVia } from './judge.js';
 
-export { runSuite, pool, type RunRecord };
+export { runSuite, gradeRun, pool, type RunRecord };
 
-// judge is the model usage of the graders for this run, apart from the harness usage
-type RunRecord = { run: RunResult; grades: GradeResult[]; judge: Usage };
+// judge is the model usage of the graders for this run, apart from the harness usage.
+// status: ok, or the run failed in the sandbox (run_error), or a grader threw (grade_error);
+// both errors fail every grade, and the report counts them apart from answer quality
+type RunRecord = { run: RunResult; grades: GradeResult[]; judge: Usage; status: 'ok' | 'run_error' | 'grade_error' };
 
 // runs every system on every case, grades each run, returns all records in a
 // fixed order (system, repetition, case). systems only ever see the public case;
@@ -60,23 +62,41 @@ async function runSuite(opts: {
 
     let judgeModel = judgeFor(pub.suite);
     let judgeToken = proxy.register(`${runId}/${pub.id}/rep${rep}/judge`, { judge: true, models: [judgeModel] });
-    let gradeCtx = { judge: judgeVia(proxy, judgeToken, judgeModel) };
-    let grades: GradeResult[] = [];
-    for (let name of priv.graders) {
-      let grader = graders.find((g) => g.name === name);
-      assert(grader, `runSuite: no grader named ${name} for case ${priv.id}`);
-      // a grader that fails (e.g. the judge is down) fails this grade, not the run
-      try {
-        grades.push(await grader.grade(pub, priv, run, gradeCtx));
-      } catch (err: any) {
-        grades.push({ grader: name, pass: false, score: 0, detail: `grader error: ${String(err?.message ?? err)}` });
-      }
-    }
-    let record = { run, grades, judge: proxy.usage(judgeToken) };
+    let { grades, status } = await gradeRun(pub, priv, run, graders, { judge: judgeVia(proxy, judgeToken, judgeModel) });
+    let record = { run, grades, judge: proxy.usage(judgeToken), status };
     records[i] = record;
     opts.onRecord?.(record);
   });
   return records;
+}
+
+// grades one run with the graders its case lists. a run that failed in the sandbox is not
+// graded: every grader fails it. a grader that throws (e.g. the judge is down) fails its own
+// grade, not the run. the status says which of the two happened
+async function gradeRun(
+  pub: Case['pub'],
+  priv: Case['priv'],
+  run: RunResult,
+  graders: Grader[],
+  ctx: GradeContext,
+): Promise<{ grades: GradeResult[]; status: RunRecord['status'] }> {
+  let grades: GradeResult[] = [];
+  let status: RunRecord['status'] = run.error ? 'run_error' : 'ok';
+  for (let name of priv.graders) {
+    let grader = graders.find((g) => g.name === name);
+    assert(grader, `gradeRun: no grader named ${name} for case ${priv.id}`);
+    if (run.error) {
+      grades.push({ grader: name, pass: false, score: 0, detail: `run error: ${run.error}` });
+      continue;
+    }
+    try {
+      grades.push(await grader.grade(pub, priv, run, ctx));
+    } catch (err: any) {
+      grades.push({ grader: name, pass: false, score: 0, detail: `grader error: ${String(err?.message ?? err)}` });
+      status = 'grade_error';
+    }
+  }
+  return { grades, status };
 }
 
 // internal helpers

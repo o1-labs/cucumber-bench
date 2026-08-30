@@ -1,4 +1,5 @@
 import { join } from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { loadCases, type Case } from './caseStore.js';
 import { resolveModelConfig } from './config.js';
 import { loadBenchmarks, loadHarnesses, type BenchmarkManifest, type HarnessManifest } from './manifests.js';
@@ -6,7 +7,7 @@ import { dockerArgv, sandboxedSystem } from './sandbox.js';
 import { startProxy } from './proxy.js';
 import type { Grader, ModelProxy, SystemUnderTest } from './types.js';
 
-export { loadProject, startProxyFor, type Project };
+export { loadProject, startProxyFor, gitState, type Project };
 
 // everything a cli needs: the manifests, the cases, the graders, the systems built
 // from the harness manifests, the judge per suite, and the descriptions for the chart
@@ -59,6 +60,13 @@ function startProxyFor(cfg: Project['cfg']): Promise<ModelProxy> {
     maxCalls: Number(process.env.BENCH_MAX_CALLS ?? 20),
     maxJudgeCalls: Number(process.env.BENCH_MAX_JUDGE_CALLS ?? 100),
   });
+}
+
+// the code state of a run, for run.json: the commit and the files changed since it
+function gitState() {
+  let git = (args: string[]) => spawnSync('git', args, { encoding: 'utf8' }).stdout.trim();
+  let dirty = git(['status', '--porcelain']).split('\n').filter(Boolean).map((l) => l.slice(3));
+  return { rev: git(['rev-parse', 'HEAD']), dirty };
 }
 
 // internal helpers

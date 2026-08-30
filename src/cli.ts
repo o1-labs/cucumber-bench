@@ -2,7 +2,7 @@ import { appendFileSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
-import { loadProject, startProxyFor } from './project.js';
+import { gitState, loadProject, startProxyFor } from './project.js';
 import { runSuite } from './runner.js';
 import { buildReport } from './report.js';
 import { buildChartHtml } from './chart.js';
@@ -51,6 +51,29 @@ let proxy = await startProxyFor(cfg);
 let runId = new Date().toISOString().replace(/[:.]/g, '-');
 let outDir = join('runs', runId);
 await mkdir(outDir, { recursive: true });
+
+// run.json: what this run is, written at the start (an interrupted run keeps complete: false)
+// and again at the end with the count of records
+let expected = systems.reduce((n, s) => n + cases.filter((c) => !s.suites || s.suites.includes(c.pub.suite)).length, 0) * Number(values.reps);
+let manifest = {
+  runId,
+  command: process.argv.slice(2),
+  startedAt: new Date().toISOString(),
+  finishedAt: null as string | null,
+  complete: false,
+  expectedJobs: expected,
+  records: 0,
+  systems: systems.map((s) => ({ name: s.name, models: s.models, maxCalls: project.harnesses.find((h) => h.name === s.name)?.maxCalls ?? null })),
+  suites: [...new Set(cases.map((c) => c.pub.suite))],
+  judges: Object.fromEntries([...new Set(cases.map((c) => c.pub.suite))].map((s) => [s, project.judgeFor(s)])),
+  cases: cases.map((c) => c.pub.id),
+  reps: Number(values.reps),
+  concurrency: Number(values.concurrency),
+  sandbox: process.env.BENCH_SANDBOX === 'docker' ? 'docker' : 'process',
+  providers: { baseUrl: cfg.baseUrl, judgeBaseUrl: cfg.judgeBaseUrl, temperature: cfg.temperature },
+  git: gitState(),
+};
+await writeFile(join(outDir, 'run.json'), JSON.stringify(manifest, null, 2) + '\n');
 console.log(
   `run ${runId}: ${cases.length} cases, systems [${systems.map((s) => `${s.name} (${s.models.main})`).join(', ')}], ` +
     `reps ${values.reps}, concurrency ${values.concurrency}`,
@@ -83,7 +106,11 @@ let records = await runSuite({
 });
 
 await proxy.close();
-let report = buildReport(runId, cases, records, graders);
+manifest.finishedAt = new Date().toISOString();
+manifest.records = records.filter(Boolean).length;
+manifest.complete = manifest.records === expected;
+await writeFile(join(outDir, 'run.json'), JSON.stringify(manifest, null, 2) + '\n');
+let report = buildReport(runId, cases, records, graders, expected);
 await writeFile(join(outDir, 'report.md'), report);
 // the results and the report are written; a chart failure must not hide them
 try {

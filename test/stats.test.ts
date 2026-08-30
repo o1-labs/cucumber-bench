@@ -4,12 +4,13 @@ import { consistencyOf, costOf, summarize } from '../src/stats.js';
 import type { RunRecord } from '../src/runner.js';
 import type { Case } from '../src/caseStore.js';
 
-function record(caseId: string, rep: number, extracted: string, opts: { pass?: boolean; score?: number; tokens?: number; system?: string } = {}): RunRecord {
-  let { pass = true, score = pass ? 1 : 0, tokens = 0, system = 's' } = opts;
+function record(caseId: string, rep: number, extracted: string, opts: { pass?: boolean; score?: number; tokens?: number; system?: string; status?: RunRecord['status'] } = {}): RunRecord {
+  let { pass = true, score = pass ? 1 : 0, tokens = 0, system = 's', status = 'ok' } = opts;
   return {
     run: { caseId, system, repetition: rep, output: '', latencyMs: 100, modelCalls: 1, tokensIn: tokens, tokensOut: tokens, costUsd: 0, models: [] },
     grades: [{ grader: 'exact', pass, score, extracted }],
     judge: { modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [] },
+    status,
   };
 }
 
@@ -68,6 +69,7 @@ describe('summarize', () => {
     ];
     let rows = summarize(cases, records);
     assert.deepEqual(rows.map((r) => `${r.task}/${r.system}`), ['t1/s', 't1/x', 't2/s', 't2/x', 'ALL/s', 'ALL/x']);
+    assert.ok(rows.every((r) => r.errors === 0));
     let t1s = rows.find((r) => r.task === 't1' && r.system === 's')!;
     assert.equal(t1s.n, 2);
     assert.deepEqual(t1s.graders, { exact: { pass: 0.5, score: 0.75 } });
@@ -76,5 +78,18 @@ describe('summarize', () => {
     let all = rows.find((r) => r.task === 'ALL' && r.system === 's')!;
     assert.equal(all.n, 3);
     assert.equal(Math.round(all.graders.exact.pass * 100), 67);
+  });
+
+  it('should count runs that errored, and records written before the status field', () => {
+    let cases = [{ pub: { id: 'a', suite: 'lb', task: 't1', instructions: '', input: '' }, priv: { id: 'a', graders: ['exact'], answer: 'yes' } } as Case];
+    let records = [
+      record('a', 1, 'yes'),
+      record('a', 2, '(none)', { pass: false, status: 'run_error' }),
+      { ...record('a', 3, '(none)', { pass: false }), status: undefined as any, run: { ...record('a', 3, '').run, error: 'timeout' } },
+      record('a', 4, '(none)', { pass: false, status: 'grade_error' }),
+    ];
+    let row = summarize(cases, records).find((r) => r.task === 'ALL')!;
+    assert.equal(row.errors, 0.75);
+    assert.equal(row.graders.exact.pass, 0.25);
   });
 });
