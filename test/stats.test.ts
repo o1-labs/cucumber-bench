@@ -1,6 +1,6 @@
 import { describe, it, afterEach } from 'vitest';
 import assert from 'node:assert/strict';
-import { consistencyOf, costOf, summarize } from '../src/stats.js';
+import { consistencyOf, costOf, pairedComparisons, summarize } from '../src/stats.js';
 import type { RunRecord } from '../src/runner.js';
 import type { Case } from '../src/caseStore.js';
 
@@ -91,5 +91,22 @@ describe('summarize', () => {
     let row = summarize(cases, records).find((r) => r.task === 'ALL')!;
     assert.equal(row.errors, 0.75);
     assert.equal(row.graders.exact.pass, 0.25);
+  });
+});
+
+describe('pairedComparisons', () => {
+  it('should compare two systems case by case with a reproducible interval', () => {
+    let c = (id: string) => ({ pub: { id, suite: 'lb', task: 't', instructions: '', input: '' }, priv: { id, graders: ['exact'], answer: 'yes' } }) as Case;
+    let cases = [c('a'), c('b'), c('c'), c('d')];
+    let records = [
+      // s: 1, 0.5, 0, 1 (a over two repetitions: 1 and 0 -> 0.5); x: 0, 0.5, 0, 1
+      record('a', 1, 'yes'), record('a', 2, '(none)', { pass: false }), record('b', 1, 'y', { pass: false, score: 0.5 }), record('c', 1, 'n', { pass: false }), record('d', 1, 'yes'),
+      record('a', 1, 'n', { pass: false, system: 'x' }), record('b', 1, 'y', { pass: false, score: 0.5, system: 'x' }), record('c', 1, 'n', { pass: false, system: 'x' }), record('d', 1, 'yes', { system: 'x' }),
+    ];
+    let [p] = pairedComparisons(cases, records);
+    assert.deepEqual([p.suite, p.grader, p.a, p.b, p.n, p.wins, p.ties, p.losses], ['lb', 'exact', 's', 'x', 4, 1, 3, 0]);
+    assert.equal(p.meanDiff, 0.125);
+    assert.ok(p.low <= 0 && p.high >= 0.125, `interval ${p.low}..${p.high}`);
+    assert.deepEqual(pairedComparisons(cases, records)[0], p);
   });
 });

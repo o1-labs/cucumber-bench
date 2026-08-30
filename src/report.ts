@@ -1,6 +1,6 @@
 import type { Case } from './caseStore.js';
 import type { RunRecord } from './runner.js';
-import { summarize, type Row } from './stats.js';
+import { pairedComparisons, summarize, type Row } from './stats.js';
 import type { Grader } from './types.js';
 
 export { buildReport };
@@ -43,6 +43,20 @@ function buildReport(runId: string, cases: Case[], records: RunRecord[], graders
     lines.push('');
   }
 
+  // paired comparisons: the same cases for both systems, so the noise of the case mix cancels
+  let paired = pairedComparisons(cases, records);
+  for (let suite of unique(paired.map((p) => p.suite))) {
+    lines.push(`## Suite: ${suite} — paired comparison`, '');
+    lines.push('Per case, each system\'s mean score over its repetitions; wins/ties/losses of A over B; the mean difference in points with a 95% bootstrap interval. An interval that contains 0 is consistent with no difference.', '');
+    lines.push('| grader | A vs B | cases | wins/ties/losses | mean diff | 95% interval |');
+    lines.push('| --- | --- | --- | --- | --- | --- |');
+    for (let p of paired.filter((p) => p.suite === suite)) {
+      let pts = (v: number) => `${v >= 0 ? '+' : '−'}${Math.abs(Math.round(v * 100))}`;
+      lines.push(`| ${p.grader} | ${p.a} vs ${p.b} | ${p.n} | ${p.wins}/${p.ties}/${p.losses} | ${pts(p.meanDiff)} | ${pts(p.low)} … ${pts(p.high)} |`);
+    }
+    lines.push('');
+  }
+
   let used = new Set(rows.flatMap((r) => Object.keys(r.graders)));
   let glossary = graders.filter((g) => used.has(g.name));
   if (glossary.length > 0) {
@@ -76,4 +90,8 @@ function usd(x?: number): string {
 
 function pct(x: number): string {
   return `${(x * 100).toFixed(0)}%`;
+}
+
+function unique<T>(xs: T[]): T[] {
+  return [...new Set(xs)];
 }

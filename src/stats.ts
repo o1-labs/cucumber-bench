@@ -1,7 +1,7 @@
 import type { Case } from './caseStore.js';
 import type { RunRecord } from './runner.js';
 
-export { summarize, type Row };
+export { summarize, pairedComparisons, type Row, type Paired };
 // internal API, exported for tests
 export { consistencyOf, costOf };
 
@@ -25,6 +25,67 @@ type Row = {
   judgeTokensOut: number;
   judgeCostUsd?: number; // judge cost per run, reported by the provider
 };
+
+// one paired comparison per suite, grader and pair of systems, over the cases both ran:
+// per case, each system's mean score over its repetitions; wins, ties and losses of a over b,
+// the mean difference, and a 95% bootstrap interval of that mean (resampling the cases).
+// an interval that contains 0 is consistent with no difference between the two systems
+type Paired = {
+  suite: string;
+  grader: string;
+  a: string;
+  b: string;
+  n: number; // cases both systems ran
+  wins: number;
+  ties: number;
+  losses: number;
+  meanDiff: number; // a minus b, in score points 0..1
+  low: number;
+  high: number;
+};
+
+function pairedComparisons(cases: Case[], records: RunRecord[]): Paired[] {
+  let suiteOf = new Map(cases.map((c) => [c.pub.id, c.pub.suite]));
+  let out: Paired[] = [];
+  for (let suite of unique(cases.map((c) => c.pub.suite))) {
+    let rs = records.filter((r) => suiteOf.get(r.run.caseId) === suite);
+    let systems = unique(rs.map((r) => r.run.system));
+    let graders = unique(rs.flatMap((r) => r.grades.map((g) => g.grader)));
+    // per system, per case: the mean score of a grader over the repetitions
+    let score = (sys: string, caseId: string, grader: string) => {
+      let gs = rs.filter((r) => r.run.system === sys && r.run.caseId === caseId).flatMap((r) => r.grades.filter((g) => g.grader === grader));
+      return gs.length ? avg(gs.map((g) => g.score)) : undefined;
+    };
+    for (let grader of graders) {
+      for (let i = 0; i < systems.length; i++) {
+        for (let j = i + 1; j < systems.length; j++) {
+          let [a, b] = [systems[i], systems[j]];
+          let diffs: number[] = [];
+          for (let caseId of unique(rs.map((r) => r.run.caseId))) {
+            let sa = score(a, caseId, grader), sb = score(b, caseId, grader);
+            if (sa !== undefined && sb !== undefined) diffs.push(sa - sb);
+          }
+          if (diffs.length === 0) continue;
+          let [low, high] = bootstrapInterval(diffs);
+          out.push({
+            suite,
+            grader,
+            a,
+            b,
+            n: diffs.length,
+            wins: diffs.filter((d) => d > 1e-9).length,
+            ties: diffs.filter((d) => Math.abs(d) <= 1e-9).length,
+            losses: diffs.filter((d) => d < -1e-9).length,
+            meanDiff: avg(diffs),
+            low,
+            high,
+          });
+        }
+      }
+    }
+  }
+  return out;
+}
 
 function summarize(cases: Case[], records: RunRecord[]): Row[] {
   let caseOf = new Map(cases.map((c) => [c.pub.id, c.pub]));
@@ -109,6 +170,24 @@ function costOf(rows: RunRecord[]): number | undefined {
   if (Number.isNaN(outRate)) outRate = 0;
   if (rows.length === 0) return undefined;
   return avg(rows.map(({ run }) => (run.tokensIn * inRate + run.tokensOut * outRate) / 1e6));
+}
+
+// 95% percentile bootstrap of the mean of xs: 1000 resamples with a fixed seed, so a report
+// is reproducible
+function bootstrapInterval(xs: number[], resamples = 1000): [number, number] {
+  let seed = 20260830;
+  let rand = () => {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    return seed / 4294967296;
+  };
+  let means: number[] = [];
+  for (let k = 0; k < resamples; k++) {
+    let sum = 0;
+    for (let i = 0; i < xs.length; i++) sum += xs[Math.floor(rand() * xs.length)];
+    means.push(sum / xs.length);
+  }
+  means.sort((p, q) => p - q);
+  return [means[Math.floor(0.025 * resamples)], means[Math.ceil(0.975 * resamples) - 1]];
 }
 
 function unique<T>(xs: T[]): T[] {
