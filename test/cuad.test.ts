@@ -17,12 +17,17 @@ let present = { id: 'c', graders: [], clauses: [{ text: 'governed by the laws of
 let absent = { id: 'c', graders: [], clauses: [] } as PrivateCase;
 
 // fake judge: entailment when the premise contains the quoted part of the hypothesis (or the
-// whole hypothesis without its final period); absence when the answer says "no" and "clause"
+// whole hypothesis without its final period); absence when the answer says "no" and "clause";
+// "about the documents" when a sentence speaks of the contract containing a clause
 let ctx: GradeContext = {
   async judge(prompt) {
     if (prompt.startsWith('Answer:\n')) {
       let answer = prompt.slice(8, prompt.indexOf('\n\nDoes the answer'));
       return /\bno\b.*\bclause\b/i.test(answer) ? 'yes' : 'no';
+    }
+    if (prompt.startsWith('Sentence:\n')) {
+      let sentence = prompt.slice(10, prompt.indexOf('\n\nIs this sentence'));
+      return /contract contains? (no|an?) .*clause\.?$/i.test(sentence) ? 'yes' : 'no';
     }
     let premise = prompt.slice(prompt.indexOf('Premise:\n') + 9, prompt.indexOf('\n\nHypothesis: '));
     let claim = prompt.slice(prompt.indexOf('Hypothesis: ') + 12, prompt.indexOf('\n\nDoes the premise'));
@@ -43,34 +48,47 @@ describe('cuad graders', () => {
     let support = await citationSupportGrader().grade(pub, present, r, ctx);
     assert.deepEqual([recall.pass, precision.pass, support.pass], [true, true, true]);
     assert.equal(recall.score, 1);
-    assert.match(recall.detail!, /1\/1 clauses cited/);
+    assert.match(recall.detail!, /1\/1 clauses quoted and cited/);
   });
 
   it('should fail recall and precision when the wrong passage is cited, and precision when a wrong one is added', async () => {
-    let wrong = result('The contract is governed by Delaware law [1].');
+    let wrong = result('The contract states: "governed by the laws of the State of Delaware" [1].');
     assert.equal((await clauseRecallGrader().grade(pub, present, wrong, ctx)).score, 0);
     assert.equal((await clausePrecisionGrader().grade(pub, present, wrong, ctx)).score, 0);
-    let extra = result('The contract is governed by Delaware law [1][2].');
+    let extra = result('The contract states: "governed by the laws of the State of Delaware" [1][2].');
     assert.equal((await clauseRecallGrader().grade(pub, present, extra, ctx)).pass, true);
     let p = await clausePrecisionGrader().grade(pub, present, extra, ctx);
     assert.equal(p.pass, false);
     assert.equal(p.score, 0.5);
   });
 
-  it('should fail a present clause that is not cited at all', async () => {
-    let r = result('The contract is governed by Delaware law.');
-    assert.equal((await clauseRecallGrader().grade(pub, present, r, ctx)).pass, false);
-    assert.equal((await clausePrecisionGrader().grade(pub, present, r, ctx)).pass, false);
-    let s = await citationSupportGrader().grade(pub, present, r, ctx);
-    assert.equal(s.pass, false);
-    assert.equal(s.detail, 'no cited sentence');
+  it('should fail recall when the clause is cited but not quoted, or quoted but not cited', async () => {
+    // the audit's case: an unrelated statement with a citation to the gold passage
+    let unrelated = result('This Agreement is made between A and B [2].');
+    let r = await clauseRecallGrader().grade(pub, present, unrelated, ctx);
+    assert.equal(r.score, 0);
+    assert.match(r.detail!, /0\/1 clauses quoted and cited \(0 quoted\)/);
+    let uncited = result('The contract states: "governed by the laws of the State of Delaware".');
+    assert.equal((await clauseRecallGrader().grade(pub, present, uncited, ctx)).score, 0);
+    assert.equal((await clausePrecisionGrader().grade(pub, present, uncited, ctx)).pass, false);
   });
 
-  it('should judge only the cited sentences for support', async () => {
-    let r = result('Yes. The contract says "governed by the laws of the State of Delaware" [2]. It was signed in 1999 [3].');
-    let s = await citationSupportGrader().grade(pub, present, r, ctx);
+  it('should count an uncited fact as unsupported, and ignore fragments like "Yes."', async () => {
+    // the audit's case: a correct cited quote plus an uncited false statement
+    let mixed = result('Yes. The contract states: "governed by the laws of the State of Delaware" [2]. It was signed in 1999.');
+    let s = await citationSupportGrader().grade(pub, present, mixed, ctx);
     assert.equal(s.pass, false);
     assert.equal(s.score, 0.5);
+    assert.equal(s.detail, '1/2 sentences supported or about the documents');
+    // a cited sentence the passage does not support
+    let wrong = result('Yes. The contract says "governed by the laws of the State of Delaware" [2]. It was signed in 1999 [3].');
+    assert.equal((await citationSupportGrader().grade(pub, present, wrong, ctx)).score, 0.5);
+  });
+
+  it('should accept an uncited statement about the documents', async () => {
+    let r = result('The contract contains a Governing Law clause. It states: "governed by the laws of the State of Delaware" [2].');
+    let s = await citationSupportGrader().grade(pub, present, r, ctx);
+    assert.equal(s.pass, true);
   });
 
   it('should pass an absent clause when the answer states the absence and cites nothing', async () => {

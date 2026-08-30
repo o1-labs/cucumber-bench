@@ -149,10 +149,11 @@ Suites:
   one question of the form "does the contract contain a Non-Compete clause?" over 12 clause
   types; 30% of the cases ask about a clause the contract does not have. The private case holds
   the gold clause text and the passages that contain it. Graders (`benchmarks/cuad/graders.ts`):
-  `clause-recall` — a passage that contains the clause is cited, for every clause (absent
-  clause: the answer states the absence); `clause-precision` — every cited passage contains the
-  clause (absent: nothing is cited); `citation-support` — every cited sentence is supported by
-  its passages (judge). Import with `npx tsx benchmarks/cuad/import.ts --data <CUADv1.json> --count 100`.
+  `clause-recall` — for every clause, the answer quotes it (8 consecutive words) and cites a
+  passage that contains it (absent clause: the answer states the absence); `clause-precision` —
+  every cited passage contains the clause (absent: nothing is cited); `citation-support` — every
+  sentence is supported by its cited passages, and an uncited sentence passes only as a statement
+  about the documents (judge). Import with `npx tsx benchmarks/cuad/import.ts --data <CUADv1.json> --count 100`.
   `benchmarks/cuad-dev/` holds 15 more cases from other contracts for tuning.
 - `benchmarks/cuad-hard/` — the same task on the hard end of CUAD: 100 contracts of 6,000–47,000
   words (median 52 passages, up to 205), seven clause types whose decision needs the legal
