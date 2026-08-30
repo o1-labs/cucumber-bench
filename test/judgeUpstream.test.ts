@@ -34,15 +34,16 @@ describe('judge upstream', () => {
       maxCalls: 5,
       maxJudgeCalls: 5,
     });
-    let token = proxy.register('r');
-    let post = (path: string) =>
+    let harness = proxy.register('r');
+    let grader = proxy.register('r/judge', { judge: true });
+    let post = (token: string, path: string) =>
       fetch(`${proxy.url}${path}`, {
         method: 'POST',
         headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
         body: JSON.stringify({ model: 'm', messages: [{ role: 'user', content: 'x' }] }),
       });
-    assert.equal((await post('/v1/chat/completions')).status, 200);
-    assert.equal((await post('/judge/v1/chat/completions')).status, 200);
+    assert.equal((await post(harness, '/v1/chat/completions')).status, 200);
+    assert.equal((await post(grader, '/judge/v1/chat/completions')).status, 200);
     assert.deepEqual(seen.map((s) => [s.upstream, s.auth, s.body.model]), [
       ['main', 'Bearer main-key', 'm'],
       ['judge', 'Bearer judge-key', 'm'],

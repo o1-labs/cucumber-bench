@@ -57,7 +57,7 @@ describe('proxy', () => {
   });
 
   it('should serve the judge route outside the leakage record, with the model the grader names', async () => {
-    let token = proxy.register('r6');
+    let token = proxy.register('r6', { judge: true });
     let res = await fetch(`${proxy.url}/judge/v1/chat/completions`, {
       method: 'POST',
       headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
@@ -74,6 +74,29 @@ describe('proxy', () => {
     assert.equal((await call(token)).status, 429);
     // other runs are unaffected
     assert.equal((await call(proxy.register('r4'))).status, 200);
+  });
+
+  it('should keep a harness token off the judge route and a judge token off the harness routes', async () => {
+    let harness = proxy.register('h');
+    let judge = proxy.register('j', { judge: true });
+    let post = (token: string, path: string) =>
+      fetch(`${proxy.url}${path}`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
+        body: JSON.stringify({ model: 'm', messages: [] }),
+      });
+    assert.equal((await post(harness, '/judge/v1/chat/completions')).status, 403);
+    assert.equal((await post(judge, '/v1/chat/completions')).status, 403);
+    assert.equal((await post(judge, '/safety/v1/chat/completions')).status, 403);
+    // a refused request is not counted
+    assert.equal(proxy.usage(harness).modelCalls, 0);
+  });
+
+  it('should refuse a model the run did not declare', async () => {
+    let token = proxy.register('d', { models: ['declared'] });
+    assert.equal((await call(token, { model: 'other', messages: [] })).status, 403);
+    assert.equal((await call(token, { model: 'declared', messages: [] })).status, 200);
+    assert.deepEqual(proxy.usage(token).models, ['declared']);
   });
 
   it('should let a run register its own call limit', async () => {

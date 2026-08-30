@@ -22,7 +22,7 @@ function sandboxedSystem(name: string, argv: string[], models: Models, suites?: 
     suites,
     models,
     async run(c, ctx) {
-      let token = ctx.proxy.register(`${ctx.runId}/${c.id}/rep${ctx.repetition}`, { maxCalls });
+      let token = ctx.proxy.register(`${ctx.runId}/${c.id}/rep${ctx.repetition}`, { models: [models.main, models.safety], maxCalls });
       let proxyUrl = docker ? ctx.proxy.url.replace('127.0.0.1', 'host.docker.internal') : ctx.proxy.url;
       let payload = JSON.stringify({ publicCase: c, proxyUrl, token, models });
 

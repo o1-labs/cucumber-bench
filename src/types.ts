@@ -116,8 +116,10 @@ type Grader = {
 
 type ModelProxy = {
   url: string;
-  // returns the bearer token for one run. maxCalls: this run's own call limit (a harness names it)
-  register(runId: string, limits?: { maxCalls?: number }): string;
+  // returns the bearer token for one run. a harness token reaches the guarded and safety routes
+  // and only the models it names; a judge token (judge: true) reaches the judge route only.
+  // models: the allowed model ids (any when omitted); maxCalls: this run's own call limit
+  register(runId: string, opts?: { judge?: boolean; models?: string[]; maxCalls?: number }): string;
   usage(token: string): Usage;
   requests(token: string): string[]; // prompt texts that went through, in order
   close(): Promise<void>;

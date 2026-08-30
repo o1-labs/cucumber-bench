@@ -58,8 +58,9 @@ async function runSuite(opts: {
     }
     let run = { ...result, latencyMs: Date.now() - t0 };
 
-    let judgeToken = proxy.register(`${runId}/${pub.id}/rep${rep}/judge`);
-    let gradeCtx = { judge: judgeVia(proxy, judgeToken, judgeFor(pub.suite)) };
+    let judgeModel = judgeFor(pub.suite);
+    let judgeToken = proxy.register(`${runId}/${pub.id}/rep${rep}/judge`, { judge: true, models: [judgeModel] });
+    let gradeCtx = { judge: judgeVia(proxy, judgeToken, judgeModel) };
     let grades: GradeResult[] = [];
     for (let name of priv.graders) {
       let grader = graders.find((g) => g.name === name);

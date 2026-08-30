@@ -25,7 +25,7 @@ async function startProxy(opts: {
   maxCalls: number; // per registered run, on the guarded and safety routes; a run may register its own
   maxJudgeCalls: number; // per registered run on the judge route; citation graders ask many questions
 }): Promise<ModelProxy> {
-  let runs = new Map<string, { runId: string; usage: Usage; requests: string[]; maxCalls?: number }>();
+  let runs = new Map<string, { runId: string; usage: Usage; requests: string[]; judge: boolean; models?: string[]; maxCalls?: number }>();
   let empty = (): Usage => ({ modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [] });
 
   let server = createServer((req, res) => {
@@ -38,14 +38,19 @@ async function startProxy(opts: {
     if (!state) return reply(res, 401, 'unknown run token');
     let route = req.method === 'POST' ? ROUTES[req.url ?? ''] : undefined;
     if (!route) return reply(res, 404, 'only POST {,/safety,/judge}/v1/chat/completions is allowed');
+    // a token reaches its own routes only: the judge route is for graders, the others for harnesses
+    if ((route === 'judge') !== state.judge) return reply(res, 403, `run ${state.runId}: this token cannot use the ${route} route`);
     let limit = route === 'judge' ? opts.maxJudgeCalls : state.maxCalls ?? opts.maxCalls;
     if (state.usage.modelCalls >= limit) {
       return reply(res, 429, `run ${state.runId} exceeded the limit of ${limit} model calls`);
     }
-    state.usage.modelCalls++;
 
     // benchmark defaults are enforced here, not trusted to the sandbox
     let body = JSON.parse(await readBody(req));
+    if (state.models && !state.models.includes(body.model)) {
+      return reply(res, 403, `run ${state.runId}: model ${JSON.stringify(body.model)} is not one this run declared (${state.models.join(', ')})`);
+    }
+    state.usage.modelCalls++;
     body.temperature ??= opts.defaultTemperature;
     if (typeof body.model === 'string' && !state.usage.models.includes(body.model)) state.usage.models.push(body.model);
     // ground truth for leakage grading: what actually reached the guarded model
@@ -84,9 +89,9 @@ async function startProxy(opts: {
 
   return {
     url: `http://127.0.0.1:${port}`,
-    register(runId, limits) {
+    register(runId, o) {
       let token = randomBytes(16).toString('hex');
-      runs.set(token, { runId, usage: empty(), requests: [], maxCalls: limits?.maxCalls });
+      runs.set(token, { runId, usage: empty(), requests: [], judge: o?.judge ?? false, models: o?.models, maxCalls: o?.maxCalls });
       return token;
     },
     usage(token) {

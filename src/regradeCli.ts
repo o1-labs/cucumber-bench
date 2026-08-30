@@ -38,8 +38,9 @@ let records: RunRecord[] = new Array(old.length);
 await pool(old, Number(values.concurrency), async ({ run }, i) => {
   let c = caseOf.get(run.caseId);
   assert(c, `regrade: case ${run.caseId} not found under benchmarks/`);
-  let judgeToken = proxy.register(`${runId}/${run.caseId}/rep${run.repetition}/judge`);
-  let ctx = { judge: judgeVia(proxy, judgeToken, judgeFor(c.pub.suite)) };
+  let judgeModel = judgeFor(c.pub.suite);
+  let judgeToken = proxy.register(`${runId}/${run.caseId}/rep${run.repetition}/judge`, { judge: true, models: [judgeModel] });
+  let ctx = { judge: judgeVia(proxy, judgeToken, judgeModel) };
   let grades: GradeResult[] = [];
   for (let name of c.priv.graders) {
     let grader = graders.find((g) => g.name === name);
