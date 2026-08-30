@@ -1,7 +1,7 @@
 import { describe, it, beforeAll, afterAll } from 'vitest';
 import assert from 'node:assert/strict';
 import { mockUpstream, models, tsx, type Mock } from './upstream.js';
-import { sandboxedSystem } from '../src/sandbox.js';
+import { containerName, sandboxedSystem } from '../src/sandbox.js';
 import { loadCases } from '../src/caseStore.js';
 import type { ModelProxy } from '../src/types.js';
 
@@ -15,6 +15,13 @@ beforeAll(async () => {
 afterAll(() => mock.close());
 
 describe('sandboxedSystem', () => {
+  it('should give two systems on the same case and repetition different container names', () => {
+    let a = containerName('2026-08-30T10-00-00-000Z', 'direct', 'cuad-000', 1);
+    let b = containerName('2026-08-30T10-00-00-000Z', 'review-v1', 'cuad-000', 1);
+    assert.notEqual(a, b);
+    assert.match(a, /^[a-zA-Z0-9_.-]+$/);
+  });
+
   it('should run the direct baseline entry: one few-shot call, the raw input reaches the model', async () => {
     let { pub } = (await loadCases('benchmarks/legalbench'))[0];
     let system = sandboxedSystem('direct', tsx('harnesses/direct/src/entry.ts'), models);

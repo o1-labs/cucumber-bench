@@ -2,6 +2,8 @@ import { spawn, spawnSync } from 'node:child_process';
 import type { Models, SystemUnderTest } from './types.js';
 
 export { sandboxedSystem, dockerArgv };
+// internal API, exported for tests
+export { containerName };
 
 // wall clock per run, then SIGKILL
 const TIMEOUT_MS = 300_000;
@@ -23,8 +25,9 @@ function sandboxedSystem(name: string, argv: string[], models: Models, suites?: 
       let proxyUrl = docker ? ctx.proxy.url.replace('127.0.0.1', 'host.docker.internal') : ctx.proxy.url;
       let payload = JSON.stringify({ publicCase: c, proxyUrl, token, models });
 
-      // a named container can be killed on timeout; killing the docker cli alone leaves it running
-      let container = docker ? `bench-${ctx.runId}-${c.id}-r${ctx.repetition}`.replace(/[^a-zA-Z0-9_.-]/g, '-') : undefined;
+      // a named container can be killed on timeout; killing the docker cli alone leaves it running.
+      // systems run at the same time on the same case, so the name carries the system too
+      let container = docker ? containerName(ctx.runId, name, c.id, ctx.repetition) : undefined;
       let cmd = container ? [argv[0], argv[1], '--name', container, ...argv.slice(2)] : argv;
       let { stdout, error } = await runChild(cmd, payload, container);
       let output = '', trace;
@@ -68,6 +71,11 @@ function dockerArgv(image: string, script: string): string[] {
 }
 
 // internal helpers
+
+// one docker name per (run, system, case, repetition), in docker's allowed characters
+function containerName(runId: string, system: string, caseId: string, rep: number): string {
+  return `bench-${runId}-${system}-${caseId}-r${rep}`.replace(/[^a-zA-Z0-9_.-]/g, '-');
+}
 
 function runChild(argv: string[], stdin: string, container?: string): Promise<{ stdout: string; error?: string }> {
   return new Promise((resolve) => {
