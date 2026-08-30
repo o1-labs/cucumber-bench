@@ -40,6 +40,7 @@ npm run bench -- --systems direct,legal-v1 --reps 3   # only these harnesses
 npm run bench -- --suites asqa                        # every harness that lists asqa, on asqa only
 npm run bench -- --suites asqa --concurrency 8        # 8 cases in flight at once: for a hosted model
 npm run bench -- --systems cite-v1 --cases asqa-dev-503 --reps 10 --concurrency 10   # one case, ten times: tuning
+npm run bench -- --suites asqa --reps 5 --no-details  # a locked test set: no gold-derived details in report.md
 BENCH_SANDBOX=docker npm run bench # same, each run in a fresh docker container (the isolated mode)
 npm test                           # unit + pipeline tests (no model needed)
 ```

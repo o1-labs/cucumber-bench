@@ -7,7 +7,10 @@ export { buildReport };
 
 // markdown report: the models each system and judge actually used, one table per
 // suite (task x system, one column per grader), the grader glossary, then failures
-function buildReport(runId: string, cases: Case[], records: RunRecord[], graders: Grader[] = [], expected?: number): string {
+// expected: the job count the run was to produce; details: grade details in the failures list
+// (they name gold data; off for a report of a locked test set that is shared)
+function buildReport(runId: string, cases: Case[], records: RunRecord[], graders: Grader[] = [], opts: { expected?: number; details?: boolean } = {}): string {
+  let { expected, details = true } = opts;
   let lines = [`# Benchmark report`, '', `Run: ${runId}`, ''];
   if (expected !== undefined && records.length !== expected) {
     lines.push(`**INCOMPLETE RUN: ${records.length} of ${expected} expected records. The numbers below are not a valid comparison.**`, '');
@@ -67,9 +70,9 @@ function buildReport(runId: string, cases: Case[], records: RunRecord[], graders
   }
 
   let failures = records.flatMap((r) => r.grades.filter((g) => !g.pass).map((g) => ({ run: r.run, grade: g })));
-  lines.push(`## Failures (${failures.length})`, '');
+  lines.push(`## Failures (${failures.length})${details ? '' : ' — details withheld (--no-details)'}`, '');
   for (let { run, grade } of failures) {
-    let head = `- ${run.caseId} [${run.system}, rep ${run.repetition}] ${grade.grader}: ${grade.detail ?? ''}`;
+    let head = `- ${run.caseId} [${run.system}, rep ${run.repetition}] ${grade.grader}${details ? `: ${grade.detail ?? ''}` : ''}`;
     lines.push(run.error ? `${head} error: ${run.error}` : head);
   }
   lines.push('');

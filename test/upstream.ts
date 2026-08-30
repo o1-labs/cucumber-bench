@@ -26,25 +26,24 @@ async function mockUpstream(): Promise<Mock> {
       let body = JSON.parse(Buffer.concat(chunks).toString());
       seen.push(body);
       let prompt = (body.messages ?? []).map((m: any) => m.content).join('\n');
-      let content = prompt.includes('Return only a JSON array')
-        ? '["Heder", "Sanavi"]'
-        : prompt.includes('read every passage on its own')
-          // review-v1 scan: the first eight words of passage 2, when the batch has it
-          ? (prompt.match(/Document \[2\]\(Title: .*?\): ((?:\S+ ){7}\S+)/)?.[1] ? `[2] "${prompt.match(/Document \[2\]\(Title: .*?\): ((?:\S+ ){7}\S+)/)![1]}"` : 'none')
-        : prompt.includes('Findings, quoted word for word')
-          // review-v1 compose: quote the first finding, or the negative form
-          ? (prompt.match(/^\[2\] (".*")$/m) ? `Yes. The contract contains the clause: ${prompt.match(/^\[2\] (".*")$/m)![1]} [2].` : 'The contract contains no such clause.')
-        : prompt.includes('every quoted part of the claim word for word')
-          // review-v1 check of a cited sentence
-          ? (prompt.includes('Claim: The contract contains the clause') ? '**Yes**' : 'no')
-        : prompt.includes('Answer with exactly one word: keep or no')
-          // review-v1 check of an uncited sentence
-          ? (prompt.includes('Sentence: The contract contains no') ? 'keep' : 'no')
-        : prompt.includes('Decide which passages support the claim')
-          ? (prompt.includes('Claim: Alpha') ? '[2][7]' : prompt.includes('Claim: The documents') ? 'keep' : 'none')
-          : prompt.includes('Answer:')
-            ? 'Alpha holds the record [1][2][3]. Beta is unsupported [4]. The documents do not say who holds the gamma record.'
-            : 'Yes';
+      // every harness prompt ends with a label line (what the model writes next); the answer
+      // depends on the label, and on the data part of the prompt, never on its instructions
+      let label = prompt.trimEnd().split('\n').pop() ?? '';
+      let quote = prompt.match(/Document \[2\]\(Title: .*?\): ((?:\S+ ){7}\S+)/)?.[1];
+      let finding = prompt.match(/^\[2\] (".*")$/m)?.[1];
+      let content =
+        label === 'JSON array:' ? '["Heder", "Sanavi"]'
+        // review-v1 scan: the first eight words of passage 2, when the batch has it
+        : label === 'Quotes:' ? (quote ? `[2] "${quote}"` : 'none')
+        // review-v1 compose: quote the first finding, or the negative form
+        : label === 'Answer from the findings:' ? (finding ? `Yes. The contract contains the clause: ${finding} [2].` : 'The contract contains no such clause.')
+        : label === 'Supported (yes or no):' ? (prompt.includes('Claim: The contract contains the clause') ? '**Yes**' : 'no')
+        : label === 'About the documents (keep or no):' ? (prompt.includes('Sentence: The contract contains no') ? 'keep' : 'no')
+        // cite-v1 check
+        : label === 'Passages:' ? (prompt.includes('Claim: Alpha') ? '[2][7]' : prompt.includes('Claim: The documents') ? 'keep' : 'none')
+        // the few-shot answer of direct and cite-v1
+        : label === 'Answer:' ? 'Alpha holds the record [1][2][3]. Beta is unsupported [4]. The documents do not say who holds the gamma record.'
+        : 'Yes';
       res.setHeader('content-type', 'application/json');
       res.end(
         JSON.stringify({

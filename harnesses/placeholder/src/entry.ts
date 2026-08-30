@@ -67,17 +67,17 @@ async function labelChain(input: string): Promise<string> {
   // step 1: free-form analysis at benchmark-default settings (the proxy injects them)
   let analysis = await generate(
     `${c.instructions}\n\nCase: ${input}\n\nQuestion: ${c.question}\n` +
-      `Analyze the case step by step in at most 5 short sentences. Do not state a final answer yet.`,
+      `Analyze the case step by step in at most 5 short sentences. Do not state a final answer yet.\n\nAnalysis:`,
   );
   // step 2: commit to one label, always greedy
   return generate(
     `${c.instructions}\n\nCase: ${input}\n\nQuestion: ${c.question}\n` +
       `Analysis:\n${analysis}\n\n` +
-      `Based on this analysis, answer with exactly one of: ${c.choices!.join(', ')}. Reply with the label only.`,
+      `Based on this analysis, answer with exactly one of: ${c.choices!.join(', ')}. Reply with the label only.\n\nLabel:`,
     0,
   );
 }
 
 function documentTask(input: string): Promise<string> {
-  return generate(`${c.instructions}\n\nDocument:\n${input}\n\nReturn only the resulting document.`, 0);
+  return generate(`${c.instructions}\n\nDocument:\n${input}\n\nReturn only the resulting document.\n\nResulting document:`, 0);
 }

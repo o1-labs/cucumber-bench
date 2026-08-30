@@ -65,6 +65,11 @@ in its manifest.
 
 The harness never sees private cases, API keys, or the upstream URL.
 
+End every prompt with a label line that names what the model writes next
+(`Answer:`, `Quotes:`, `Label:`). The test mock upstream (`test/upstream.ts`)
+routes on that last line, so the wording of the instructions above it can
+change without touching the tests.
+
 ## 3. Create the harness
 
 Make a folder `harnesses/<name>/` with a manifest and an entry.

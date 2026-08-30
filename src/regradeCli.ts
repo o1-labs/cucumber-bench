@@ -14,7 +14,7 @@ import type { RunRecord } from './runner.js';
 // any harness. --judge replaces every benchmark's judge: use it to compare judges on
 // identical outputs. --concurrency: records graded at once.
 let { values, positionals } = parseArgs({
-  options: { judge: { type: 'string' }, concurrency: { type: 'string', default: '1' } },
+  options: { judge: { type: 'string' }, concurrency: { type: 'string', default: '1' }, 'no-details': { type: 'boolean', default: false } },
   allowPositionals: true,
 });
 let runDir = positionals[0];
@@ -65,7 +65,7 @@ await writeFile(
     2,
   ) + '\n',
 );
-let report = buildReport(runId, cases, records, graders);
+let report = buildReport(runId, cases, records, graders, { details: !values['no-details'] });
 await writeFile(join(outDir, 'report.md'), report);
 // the results and the report are written; a chart failure must not hide them
 try {

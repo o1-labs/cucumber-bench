@@ -18,8 +18,9 @@ const SCAN_BATCH = 5;
 // scan calls in flight at once
 const SCAN_PARALLEL = 8;
 // a cited sentence counts as a verified quotation when this many consecutive words of it are
-// in its cited passages
+// in its cited passages, and at most REST_WORDS other words stand around the quotation
 const QUOTE_WORDS = 8;
+const REST_WORDS = 12;
 
 // the question comes first, so its definition is read before the passages
 const SCAN_PROMPT =
@@ -147,29 +148,33 @@ async function compose(question: string, quotes: Quote[]): Promise<string> {
     '\n\nWrite the answer from these findings only, in the form of the examples above. Quote every finding ' +
     'word for word, each in its own sentence, and put its number as [n] in the sentence that quotes it. Leave no ' +
     'finding out. Do not add facts that are not in the findings. With no findings, state that the documents do ' +
-    'not contain what the question asks for, and cite nothing.\nAnswer:';
+    'not contain what the question asks for, and cite nothing.\n\nAnswer from the findings:';
   return ask(guarded, [c.instructions, ...demos, task].join('\n\n\n'), 0);
 }
 
 // check: a cited sentence that quotes its passages is verified in code: a run of at least
 // QUOTE_WORDS consecutive words of the sentence must be in its cited passages, word for word
-// (quote marks are not paired: names in quotes, inner quotes and ellipses are common). a cited
-// sentence without such a run is put to the model against its passages; an uncited one is put
-// to the model as a statement about the documents. a sentence that passes is released as it
-// is, the others are dropped
+// (quote marks are not paired: names in quotes, inner quotes and ellipses are common), with at
+// most REST_WORDS other words around it. any other cited sentence is put to the model against
+// its passages; an uncited one is put to the model as a statement about the documents. a
+// sentence that passes is released as it is, the others are dropped. every prompt ends with a
+// label line (what the model writes next); the test mock routes on it
 async function check(draft: string, docs: Doc[]) {
   let sents = sentences(draft);
   let verdicts = await Promise.all(
     sents.map(async (sent) => {
       let refs = numbersIn(sent, docs.length);
       let claim = removeCitations(sent);
-      if (refs.length > 0 && longestRun(claim, refs.map((k) => docs[k].text).join('\n')) >= QUOTE_WORDS) {
+      // a quotation with little text around it is verified in code; a long remainder around
+      // a quote can carry an unsupported claim, so it goes to the model like an unquoted sentence
+      let run = refs.length > 0 ? longestRun(claim, refs.map((k) => docs[k].text).join('\n')) : 0;
+      if (run >= QUOTE_WORDS && normalize(claim).split(' ').length - run <= REST_WORDS) {
         return { sent, refs, verdict: 'quoted' };
       }
       let prompt =
         refs.length > 0
-          ? `${CHECK_CITED_PROMPT}${refs.map((k) => `Document [${k + 1}](Title: ${docs[k].title}): ${docs[k].text}`).join('\n')}\n\nClaim: ${claim}\n\nAnswer:`
-          : `${CHECK_UNCITED_PROMPT}Sentence: ${claim}\n\nAnswer:`;
+          ? `${CHECK_CITED_PROMPT}${refs.map((k) => `Document [${k + 1}](Title: ${docs[k].title}): ${docs[k].text}`).join('\n')}\n\nClaim: ${claim}\n\nSupported (yes or no):`
+          : `${CHECK_UNCITED_PROMPT}Sentence: ${claim}\n\nAbout the documents (keep or no):`;
       let answer = await ask(guarded, prompt, 0);
       // the first verdict word anywhere in the answer, so "**Yes**." and "Yes, because" both count
       let verdict = answer.match(/\b(yes|keep|no)\b/i)?.[1].toLowerCase() ?? 'no';

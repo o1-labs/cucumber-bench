@@ -7,7 +7,7 @@ import { runSuite } from './runner.js';
 import { buildReport } from './report.js';
 import { buildChartHtml } from './chart.js';
 
-// usage: npm run bench -- [--systems direct,legal-v1] [--suites asqa] [--cases asqa-dev-503] [--reps 1] [--concurrency 1]
+// usage: npm run bench -- [--systems direct,legal-v1] [--suites asqa] [--cases asqa-dev-503] [--reps 1] [--concurrency 1] [--no-details]
 // systems default to every harness under harnesses/, suites to every benchmark, cases to every case.
 // --cases: one or more case ids, e.g. to run a single case many times while tuning a harness.
 // concurrency: cases in flight at once; raise it for a hosted model, keep 1 for a local gpu
@@ -18,8 +18,12 @@ let { values } = parseArgs({
     cases: { type: 'string' },
     reps: { type: 'string', default: '1' },
     concurrency: { type: 'string', default: '1' },
+    'no-details': { type: 'boolean', default: false },
   },
 });
+// --no-details: no gold-derived grade details on the console or in report.md, for a report of a
+// locked test set that is shared. results.jsonl always has them
+let details = !values['no-details'];
 
 let project = await loadProject();
 let { cfg, benchmarks, graders, help } = project;
@@ -94,14 +98,15 @@ let records = await runSuite({
   judgeFor: project.judgeFor,
   repetitions: Number(values.reps),
   concurrency: Number(values.concurrency),
-  onRecord({ run, grades, judge }) {
+  onRecord(record) {
+    let { run, grades } = record;
     let verdict = grades.map((g) => `${g.pass ? 'PASS' : 'FAIL'} ${g.grader}`).join(', ');
     // +Ns: seconds since the run started, to see the overlap of the jobs
     console.log(
       `  +${Math.round((Date.now() - started) / 1000)}s ${verdict} ${run.caseId} [${run.system}, rep ${run.repetition}] ${run.latencyMs}ms ` +
-        `${grades.map((g) => g.detail ?? '').join('; ')}${run.error ? ` error: ${run.error}` : ''}`,
+        `${details ? grades.map((g) => g.detail ?? '').join('; ') : ''}${run.error ? ` error: ${run.error}` : ''}`,
     );
-    appendFileSync(resultsPath, JSON.stringify({ run, grades, judge }) + '\n');
+    appendFileSync(resultsPath, JSON.stringify(record) + '\n');
   },
 });
 
@@ -110,7 +115,7 @@ manifest.finishedAt = new Date().toISOString();
 manifest.records = records.filter(Boolean).length;
 manifest.complete = manifest.records === expected;
 await writeFile(join(outDir, 'run.json'), JSON.stringify(manifest, null, 2) + '\n');
-let report = buildReport(runId, cases, records, graders, expected);
+let report = buildReport(runId, cases, records, graders, { expected, details });
 await writeFile(join(outDir, 'report.md'), report);
 // the results and the report are written; a chart failure must not hide them
 try {

@@ -21,6 +21,7 @@ const DETECT_PROMPT =
   'street addresses, postcodes, dates of birth and other dates tied to a person, and any ' +
   'identification, license, passport or account numbers. Return only a JSON array of the ' +
   'exact substrings as they appear, nothing else. Return [] if there is none.\n\nDocument:\n';
+// the last line of every prompt is a label: what the model is to write next. the test mock routes on it
 
 type PublicCase = {
   id: string;
@@ -85,7 +86,7 @@ async function hybridScrub(name: string, artifact: string): Promise<StageResult>
     });
   }
   // the safety model sees the regex-scrubbed text, never the guarded model
-  for (let item of parseList(await ask(safety, DETECT_PROMPT + out, 0))) {
+  for (let item of parseList(await ask(safety, `${DETECT_PROMPT}${out}\n\nJSON array:`, 0))) {
     let re = new RegExp(escapeRe(item).replace(/\s+/g, '\\s+'), 'gi');
     if (!re.test(out)) continue;
     out = out.replace(re, '[REDACTED]');
@@ -102,20 +103,20 @@ async function labelChain(input: string): Promise<string> {
   let analysis = await ask(
     guarded,
     `${c.instructions}\n\nCase: ${input}\n\nQuestion: ${c.question}\n` +
-      `Analyze the case step by step in at most 5 short sentences. Do not state a final answer yet.`,
+      `Analyze the case step by step in at most 5 short sentences. Do not state a final answer yet.\n\nAnalysis:`,
   );
   // step 2: commit to one label, always greedy
   return ask(
     guarded,
     `${c.instructions}\n\nCase: ${input}\n\nQuestion: ${c.question}\n` +
       `Analysis:\n${analysis}\n\n` +
-      `Based on this analysis, answer with exactly one of: ${c.choices!.join(', ')}. Reply with the label only.`,
+      `Based on this analysis, answer with exactly one of: ${c.choices!.join(', ')}. Reply with the label only.\n\nLabel:`,
     0,
   );
 }
 
 function documentTask(input: string): Promise<string> {
-  return ask(guarded, `${c.instructions}\n\nDocument:\n${input}\n\nReturn only the resulting document.`, 0);
+  return ask(guarded, `${c.instructions}\n\nDocument:\n${input}\n\nReturn only the resulting document.\n\nResulting document:`, 0);
 }
 
 // internal helpers
