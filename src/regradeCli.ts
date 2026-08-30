@@ -58,6 +58,11 @@ await proxy.close();
 await writeFile(join(outDir, 'results.jsonl'), records.map((r) => JSON.stringify(r)).join('\n') + '\n');
 let report = buildReport(runId, cases, records, graders);
 await writeFile(join(outDir, 'report.md'), report);
-await writeFile(join(outDir, 'chart.html'), buildChartHtml(runId, cases, records, help));
+// the results and the report are written; a chart failure must not hide them
+try {
+  await writeFile(join(outDir, 'chart.html'), buildChartHtml(runId, cases, records, help));
+} catch (err: any) {
+  console.error(`chart not written: ${String(err?.message ?? err)}`);
+}
 console.log('\n' + report);
 console.log(`written to ${outDir}`);

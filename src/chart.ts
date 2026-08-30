@@ -5,9 +5,10 @@ import { summarize, type Row } from './stats.js';
 
 export { buildChartHtml };
 
-// series slots 1-3 of the validated reference palette (dark steps are selected, not flipped)
-const SERIES_LIGHT = ['#2a78d6', '#eb6834', '#1baf7a'];
-const SERIES_DARK = ['#3987e5', '#d95926', '#199e70'];
+// series colours: slots 1-3 are the validated reference palette (dark steps are selected, not
+// flipped); 4-8 are additions with the same contrast against both surfaces
+const SERIES_LIGHT = ['#2a78d6', '#eb6834', '#1baf7a', '#8a5cd6', '#d1a10a', '#0f9db5', '#d64d7a', '#6b7280'];
+const SERIES_DARK = ['#3987e5', '#d95926', '#199e70', '#9b74e0', '#e0b428', '#22adc4', '#e06a92', '#9aa0aa'];
 
 // one-sentence definitions for the page, from the harness and benchmark manifests
 type Help = { systems: { [name: string]: string }; graders: { [name: string]: string } };
@@ -21,6 +22,8 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
   let tasks = [...new Set(rows.filter((r) => r.task !== 'ALL').map((r) => r.task))];
   let systems = [...new Set(rows.map((r) => r.system))];
   assert(systems.length <= SERIES_LIGHT.length, `chart supports up to ${SERIES_LIGHT.length} systems, got ${systems.length}`);
+  // a system keeps its colour in every chart and table, whatever the suite's system list
+  let keyOf = (sys: string) => `s${systems.indexOf(sys) + 1}`;
   let reps = Math.max(...records.map((r) => r.run.repetition));
   let row = (task: string, system: string): Row | undefined =>
     rows.find((r) => r.task === task && r.system === system);
@@ -38,12 +41,15 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
     let sTasks = [...new Set(sRows.filter((r) => r.task !== 'ALL').map((r) => r.task))];
     let sGraders = [...new Set(sRows.flatMap((r) => Object.keys(r.graders)))];
     let sRow = (task: string, sys: string) => sRows.find((r) => r.task === task && r.system === sys);
+    // only the systems that ran this suite
+    let sSystems = systems.filter((sys) => sRows.some((r) => r.system === sys));
     let resultsChart = (title: string, tasks: string[], grader: (t: string, sys: string) => { pass: number; score: number } | undefined) =>
       columnsChart({
         title,
         subtitle: 'Bar: mean score, how close the runs came on average. Dot: pass rate, the share of runs that fully passed. Higher is better for both.',
         tasks,
-        systems,
+        systems: sSystems,
+        keyOf,
         value: (t, sys) => (grader(t, sys)?.score ?? 0) * 100,
         marker: (t, sys) => (grader(t, sys)?.pass ?? 0) * 100,
         tip: (t, sys) => {
@@ -70,6 +76,7 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
     let sTasks = [...new Set(sRows.filter((r) => r.task !== 'ALL').map((r) => r.task))];
     let sGraders = [...new Set(sRows.flatMap((r) => Object.keys(r.graders)))];
     let at = (task: string, sys: string) => sRows.find((r) => r.task === task && r.system === sys);
+    let sSystems = systems.filter((sys) => sRows.some((r) => r.system === sys));
     // a metric row: label, the value per system, and the direction that is better
     type Metric = { label: string; values: (number | undefined)[]; cells: string[]; higher: boolean };
     let metrics: Metric[] = [];
@@ -78,8 +85,8 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
     let gradeMetric = (label: string, task: string, g: string) =>
       metrics.push({
         label,
-        values: systems.map((sys) => rank(at(task, sys)?.graders[g])),
-        cells: systems.map((sys) => fmtGrade(at(task, sys)?.graders[g])),
+        values: sSystems.map((sys) => rank(at(task, sys)?.graders[g])),
+        cells: sSystems.map((sys) => fmtGrade(at(task, sys)?.graders[g])),
         higher: true,
       });
     for (let g of sGraders) {
@@ -89,8 +96,8 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
     let num = (label: string, higher: boolean, value: (r?: Row) => number | undefined, fmt: (v: number) => string) =>
       metrics.push({
         label,
-        values: systems.map((sys) => value(at('ALL', sys))),
-        cells: systems.map((sys) => {
+        values: sSystems.map((sys) => value(at('ALL', sys))),
+        cells: sSystems.map((sys) => {
           let v = value(at('ALL', sys));
           return v === undefined ? '—' : fmt(v);
         }),
@@ -99,7 +106,7 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
     num('consistency ↑', true, (r) => r?.consistency, (v) => `${Math.round(v * 100)}%`);
     num('latency s ↓', false, (r) => r?.latencyMs, (v) => `${round1(v / 1000)}`);
     num('model calls per run ↓', false, (r) => r?.calls, (v) => `${round1(v)}`);
-    let n = systems.map((sys) => at('ALL', sys)?.n ?? 0);
+    let n = sSystems.map((sys) => at('ALL', sys)?.n ?? 0);
     let usd4 = (v: number) => `$${v.toFixed(4)}`;
     num('harness cost per run ↓', false, (r) => r?.costUsd, usd4);
     num('judge cost per run ↓', false, (r) => r?.judgeCostUsd, usd4);
@@ -119,9 +126,9 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
       .join('\n');
     tables += `<div class="card">
   <h2>${esc(suite)}: comparison</h2>
-  <p class="csub">One column per system, one row per metric. A grader cell is the mean score, with the pass rate in parentheses. ↑ higher is better, ↓ lower. Bold marks the best value in a row. Runs per system: ${systems.map((sys, i) => `${esc(sys)} ${n[i]}`).join(', ')}.</p>
+  <p class="csub">One column per system, one row per metric. A grader cell is the mean score, with the pass rate in parentheses. ↑ higher is better, ↓ lower. Bold marks the best value in a row. Runs per system: ${sSystems.map((sys, i) => `${esc(sys)} ${n[i]}`).join(', ')}.${new Set(n).size > 1 ? ' <b>The systems did not run the same number of times in this suite: the run is incomplete or was filtered.</b>' : ''}</p>
   <div class="scroll"><table>
-    <thead><tr><th>metric</th>${systems.map((sys, i) => `<th><span class="key s${i + 1}"></span> ${esc(sys)}</th>`).join('')}</tr></thead>
+    <thead><tr><th>metric</th>${sSystems.map((sys) => `<th><span class="key ${keyOf(sys)}"></span> ${esc(sys)}</th>`).join('')}</tr></thead>
     <tbody>${body}</tbody>
   </table></div>
 </div>
@@ -213,11 +220,11 @@ th .key { vertical-align: -1px; }
 <p class="sub">run ${esc(runId)} · ${new Set(records.map((r) => r.run.caseId)).size} cases · ${reps} repetition${reps > 1 ? 's' : ''}</p>
 <div class="card help">
   <h2>How to read this page</h2>
-  <p>Every system answered the same cases. A <b>grader</b> compares each answer with private gold data and gives a
+  <p>Every system answered the cases of the suites it lists; the comparison table of a suite names the systems that ran it. A <b>grader</b> compares each answer with private gold data and gives a
   <b>score</b> from 0 to 1 and a <b>pass</b> (yes or no). The <b>mean score</b> says how close the answers came on average;
   the <b>pass rate</b> says how often an answer was fully correct. A grader with no partial credit has the same value for both.
   Tune by the mean score; claim by the pass rate. In each chart the bar is the mean score and the dot is the pass rate.</p>
-  <ul>${systems.map((sys, i) => `<li><span class="key s${i + 1}"></span> <b>${esc(sys)}</b> — ${esc(help.systems[sys] || 'A system under test.')} Models used: ${esc(modelsOf(sys).join(', ') || 'none recorded')}.</li>`).join('')}</ul>
+  <ul>${systems.map((sys) => `<li><span class="key ${keyOf(sys)}"></span> <b>${esc(sys)}</b> — ${esc(help.systems[sys] || 'A system under test.')} Models used: ${esc(modelsOf(sys).join(', ') || 'none recorded')}.</li>`).join('')}</ul>
 </div>
 ${suiteCharts}
 ${tables}
@@ -297,6 +304,7 @@ function columnsChart(opts: {
   subtitle: string;
   tasks: string[];
   systems: string[];
+  keyOf?: (system: string) => string; // css key of a system's colour; default: by position
   value: (task: string, system: string) => number;
   // a second measure on the same scale, drawn as a dot on the column (e.g. pass rate on a mean-score bar)
   marker?: (task: string, system: string) => number;
@@ -307,6 +315,7 @@ function columnsChart(opts: {
   fmt: (v: number) => string;
 }): string {
   let { tasks, systems, value, marker, yMax, ticks, fmt } = opts;
+  let keyOf = opts.keyOf ?? ((sys: string) => `s${systems.indexOf(sys) + 1}`);
   let tip = opts.tip ?? ((t: string, sys: string) => fmt(value(t, sys)));
   let W = 640, H = 240;
   let ml = 44, mr = 8, mt = 12, mb = 40;
@@ -327,7 +336,7 @@ function columnsChart(opts: {
   for (let ti = 0; ti < tasks.length; ti++) {
     let x0 = ml + ti * band + (band - groupW) / 2;
     // rows for this task's tooltip: every series at this x
-    let rows = systems.map((sys, si) => ({ key: `s${si + 1}`, name: sys, value: tip(tasks[ti], sys) }));
+    let rows = systems.map((sys) => ({ key: keyOf(sys), name: sys, value: tip(tasks[ti], sys) }));
     let tipData = esc(JSON.stringify({ task: label(tasks[ti]), rows }));
     let aria = `${label(tasks[ti])}: ${rows.map((r) => `${r.name} ${r.value}`).join(', ')}`;
 
@@ -335,10 +344,10 @@ function columnsChart(opts: {
       let v = value(tasks[ti], systems[si]);
       let x = x0 + si * (colW + gap);
       let colId = `${chartId}-${ti}-${si}`;
-      if (v > 0) parts.push(`<path id="${colId}" fill="var(--s${si + 1})" d="${columnPath(x, y(v), colW, y(0) - y(v))}"/>`);
+      if (v > 0) parts.push(`<path id="${colId}" fill="var(--${keyOf(systems[si])})" d="${columnPath(x, y(v), colW, y(0) - y(v))}"/>`);
       if (marker) {
         // >= 8px dot with a 2px surface ring, so it stays legible on the column
-        parts.push(`<circle cx="${x + colW / 2}" cy="${y(marker(tasks[ti], systems[si]))}" r="5" fill="var(--s${si + 1})" stroke="var(--surface)" stroke-width="2"/>`);
+        parts.push(`<circle cx="${x + colW / 2}" cy="${y(marker(tasks[ti], systems[si]))}" r="5" fill="var(--${keyOf(systems[si])})" stroke="var(--surface)" stroke-width="2"/>`);
       }
       // hit target wider than the mark, full plot height, keyboard-focusable
       parts.push(
@@ -356,7 +365,7 @@ function columnsChart(opts: {
   }
 
   let legend = opts.systems
-    .map((sys, i) => `<span><span class="key s${i + 1}"></span>${esc(sys)}</span>`)
+    .map((sys) => `<span><span class="key ${keyOf(sys)}"></span>${esc(sys)}</span>`)
     .join('');
   if (opts.legendNote) legend += `<span class="note">${esc(opts.legendNote)}</span>`;
 
