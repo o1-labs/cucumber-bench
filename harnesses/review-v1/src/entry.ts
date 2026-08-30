@@ -17,13 +17,19 @@ const VERSION = '1';
 const SCAN_BATCH = 5;
 // scan calls in flight at once
 const SCAN_PARALLEL = 8;
+// a cited sentence counts as a verified quotation when this many consecutive words of it are
+// in its cited passages
+const QUOTE_WORDS = 8;
 
+// the question comes first, so its definition is read before the passages
 const SCAN_PROMPT =
-  'Below are numbered passages from the documents, and a question. Read every passage on its own. ' +
-  'Quote, word for word, every part of a passage that answers the question, one quote per line, ' +
-  'in the form [n] "quote" where n is the passage number. Quote only text that is in the passage. ' +
-  'If nothing in a passage answers the question, write nothing for that passage. ' +
-  'If nothing in any of the passages answers the question, answer none.\n\n';
+  'Below are a question and numbered passages from the documents. Read the question and any definition ' +
+  'it gives, then read every passage on its own. Quote, word for word, every part of a passage that is ' +
+  'itself what the question asks for, one quote per line, in the form [n] "quote" where n is the passage ' +
+  'number. A provision that does what the question describes counts even when it uses other words. ' +
+  'Do not quote definitions of terms, cross-references, or context that only relates to it. ' +
+  'Quote only text that is in the passage. If nothing in a passage is what the question asks for, ' +
+  'write nothing for that passage. If no passage has it, answer none.\n\n';
 
 // a cited sentence: do its passages support it? an uncited one: is it about the documents?
 const CHECK_CITED_PROMPT =
@@ -111,7 +117,7 @@ async function scan(question: string, docs: Doc[]) {
   let discarded = 0;
   await pool(batches, SCAN_PARALLEL, async (batch) => {
     let passages = batch.map((k) => `Document [${k + 1}](Title: ${docs[k].title}): ${docs[k].text}`).join('\n');
-    let answer = await ask(guarded, `${SCAN_PROMPT}${passages}\n\nQuestion: ${question}\n\nQuotes:`, 0);
+    let answer = await ask(guarded, `${SCAN_PROMPT}Question: ${question}\n\n${passages}\n\nQuotes:`, 0);
     for (let m of answer.matchAll(/^\s*\[(\d+)\]\s*"?(.+?)"?\s*$/gm)) {
       let k = Number(m[1]) - 1;
       if (!batch.includes(k)) continue;
@@ -138,26 +144,27 @@ async function compose(question: string, quotes: Quote[]): Promise<string> {
   let task =
     `Question: ${question}\n\nFindings, quoted word for word from the documents, after reading every passage:\n` +
     (findings || 'none: no passage contains anything that answers the question') +
-    '\n\nWrite the answer from these findings only, in the form of the examples above. Quote each finding ' +
-    'word for word and put its number as [n] in the sentence that quotes it. Do not add facts that are not in ' +
-    'the findings. With no findings, state that the documents do not contain what the question asks for, and cite nothing.\nAnswer:';
+    '\n\nWrite the answer from these findings only, in the form of the examples above. Quote every finding ' +
+    'word for word, each in its own sentence, and put its number as [n] in the sentence that quotes it. Leave no ' +
+    'finding out. Do not add facts that are not in the findings. With no findings, state that the documents do ' +
+    'not contain what the question asks for, and cite nothing.\nAnswer:';
   return ask(guarded, [c.instructions, ...demos, task].join('\n\n\n'), 0);
 }
 
-// check: a cited sentence that quotes is verified in code: every quoted part must be in its cited
-// passages, word for word. a cited sentence without a quote is put to the model against its
-// passages; an uncited one is put to the model as a statement about the documents. a sentence
-// that passes is released as it is, the others are dropped
+// check: a cited sentence that quotes its passages is verified in code: a run of at least
+// QUOTE_WORDS consecutive words of the sentence must be in its cited passages, word for word
+// (quote marks are not paired: names in quotes, inner quotes and ellipses are common). a cited
+// sentence without such a run is put to the model against its passages; an uncited one is put
+// to the model as a statement about the documents. a sentence that passes is released as it
+// is, the others are dropped
 async function check(draft: string, docs: Doc[]) {
   let sents = sentences(draft);
   let verdicts = await Promise.all(
     sents.map(async (sent) => {
       let refs = numbersIn(sent, docs.length);
       let claim = removeCitations(sent);
-      let quoted = [...claim.matchAll(/["“]([^"“”]{12,})["”]/g)].map((m) => m[1]);
-      if (refs.length > 0 && quoted.length > 0) {
-        let text = refs.map((k) => docs[k].text).join('\n');
-        return { sent, refs, verdict: quoted.every((q) => contains(text, q)) ? 'quoted' : 'no' };
+      if (refs.length > 0 && longestRun(claim, refs.map((k) => docs[k].text).join('\n')) >= QUOTE_WORDS) {
+        return { sent, refs, verdict: 'quoted' };
       }
       let prompt =
         refs.length > 0
@@ -183,7 +190,7 @@ async function check(draft: string, docs: Doc[]) {
       kept.push(sent);
       findings.push(`s${i + 1}: kept, a statement about the documents`);
     } else {
-      findings.push(`s${i + 1}: ${cites || 'uncited'} dropped, ${refs.length > 0 ? (verdict === 'no' && quotedIn(sent) ? 'quote not in the passages' : 'not supported') : 'not about the documents'}`);
+      findings.push(`s${i + 1}: ${cites || 'uncited'} dropped, ${refs.length > 0 ? 'not supported' : 'not about the documents'}`);
     }
   }
   let output = kept.join(' ');
@@ -192,14 +199,27 @@ async function check(draft: string, docs: Doc[]) {
 
 // internal helpers
 
-function quotedIn(sent: string): boolean {
-  return /["“][^"“”]{12,}["”]/.test(sent);
+// the longest run of consecutive words of the claim that appears in the text, word for word
+function longestRun(claim: string, text: string): number {
+  let hay = normalize(text);
+  let words = normalize(claim).split(' ');
+  let best = 0;
+  for (let i = 0; i < words.length; i++) {
+    let j = i + best;
+    while (j < words.length && hay.includes(words.slice(i, j + 1).join(' '))) j++;
+    best = Math.max(best, j - i);
+  }
+  return best;
+}
+
+// letters and digits only, so "sole." matches "sole" and "(b)" matches "b" on both sides
+function normalize(s: string): string {
+  return s.replace(/[^\p{L}\p{N}\s]/gu, '').replace(/\s+/g, ' ').trim().toLowerCase();
 }
 
 // whitespace- and quote-insensitive containment, for quotes the model reformats slightly
 function contains(text: string, quote: string): boolean {
-  let norm = (s: string) => s.replace(/[“”"']/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
-  return norm(text).includes(norm(quote));
+  return normalize(text).includes(normalize(quote));
 }
 
 // a simple sentence splitter, the same rule the citation graders use

@@ -28,7 +28,7 @@ async function mockUpstream(): Promise<Mock> {
       let prompt = (body.messages ?? []).map((m: any) => m.content).join('\n');
       let content = prompt.includes('Return only a JSON array')
         ? '["Heder", "Sanavi"]'
-        : prompt.includes('Read every passage on its own')
+        : prompt.includes('read every passage on its own')
           // review-v1 scan: the first eight words of passage 2, when the batch has it
           ? (prompt.match(/Document \[2\]\(Title: .*?\): ((?:\S+ ){7}\S+)/)?.[1] ? `[2] "${prompt.match(/Document \[2\]\(Title: .*?\): ((?:\S+ ){7}\S+)/)![1]}"` : 'none')
         : prompt.includes('Findings, quoted word for word')
