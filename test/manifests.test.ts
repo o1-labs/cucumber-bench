@@ -1,6 +1,10 @@
 import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
-import { loadBenchmarks, loadHarnesses } from '../src/manifests.js';
+import { loadBenchmarks, loadHarnesses, uniqueGraders } from '../src/manifests.js';
+import { loadCases } from '../src/caseStore.js';
+import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
 describe('manifests', () => {
   it('should discover every harness with its suites and image', async () => {
@@ -28,5 +32,31 @@ describe('manifests', () => {
       ['legalbench', ['exact']],
       ['redaction', ['removal', 'leakage', 'retention']],
     ]);
+  });
+
+  it('should give the project every grader once, and refuse one name from two implementations', async () => {
+    let bs = await loadBenchmarks('benchmarks');
+    let all = uniqueGraders(bs);
+    assert.deepEqual(all.map((g) => g.name), [
+      'str-em', 'citation-recall', 'citation-precision', 'clause-recall', 'clause-precision', 'citation-support', 'exact', 'removal', 'leakage', 'retention',
+    ]);
+    // asqa and asqa-dev load the same module: the same grader objects
+    assert.equal(bs[0].graders[1], bs[1].graders[1]);
+    let clash = { ...bs[0], name: 'other', graders: [{ ...bs[0].graders[0] }] };
+    assert.throws(() => uniqueGraders([bs[0], clash]), /the grader name str-em is already taken/);
+  });
+
+  it('should refuse a case whose file name, folder or id does not agree', async () => {
+    let root = await mkdtemp(join(tmpdir(), 'cases-'));
+    let write = async (suite: string, file: string, id: string, caseSuite = suite) => {
+      await mkdir(join(root, suite, 'cases'), { recursive: true });
+      await writeFile(join(root, suite, 'cases', `${file}.public.json`), JSON.stringify({ id, suite: caseSuite, task: 't', instructions: '', input: '' }));
+      await writeFile(join(root, suite, 'cases', `${file}.private.json`), JSON.stringify({ id, graders: ['exact'] }));
+    };
+    await write('s1', 's1-000', 's1-000');
+    await write('s1', 's1-001', 's1-000');
+    await assert.rejects(loadCases(root), /holds the case s1-000/);
+    await write('s1', 's1-001', 's1-001', 's2');
+    await assert.rejects(loadCases(root), /is in s1 but names the suite s2/);
   });
 });

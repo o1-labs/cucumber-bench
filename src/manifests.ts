@@ -6,7 +6,7 @@ import type { Grader } from './types.js';
 import { exactGrader } from './graders/exact.js';
 import { strEmGrader } from './graders/strEm.js';
 
-export { loadHarnesses, loadBenchmarks, type HarnessManifest, type BenchmarkManifest };
+export { loadHarnesses, loadBenchmarks, uniqueGraders, type HarnessManifest, type BenchmarkManifest };
 
 // harnesses/<name>/harness.json
 type HarnessManifest = {
@@ -30,8 +30,9 @@ type BenchmarkManifest = {
   judge?: { model: string }; // the judge model the benchmark's graders need; env default when absent
 };
 
-// graders that live in the core and can be named in benchmark.json
-const CORE_GRADERS: { [name: string]: () => Grader } = { exact: exactGrader, 'str-em': strEmGrader };
+// graders that live in the core and can be named in benchmark.json; one instance each, so
+// two benchmarks that name the same core grader share it
+const CORE_GRADERS: { [name: string]: Grader } = { exact: exactGrader(), 'str-em': strEmGrader() };
 
 async function loadHarnesses(root: string): Promise<HarnessManifest[]> {
   let out: HarnessManifest[] = [];
@@ -58,10 +59,24 @@ async function loadBenchmarks(root: string): Promise<BenchmarkManifest[]> {
         graders.push(...mod.graders);
       } else {
         assert(CORE_GRADERS[g], `${dir}/benchmark.json: unknown core grader ${g}`);
-        graders.push(CORE_GRADERS[g]());
+        graders.push(CORE_GRADERS[g]);
       }
     }
     out.push({ name: m.name, dir, graders, judge: m.judge });
+  }
+  return out;
+}
+
+// every grader of the project once. a grader module imported by two benchmarks is the same
+// module instance, so the same name from two different implementations is a conflict
+function uniqueGraders(benchmarks: BenchmarkManifest[]): Grader[] {
+  let out: Grader[] = [];
+  for (let b of benchmarks) {
+    for (let g of b.graders) {
+      let other = out.find((o) => o.name === g.name);
+      assert(!other || other === g, `benchmark ${b.name}: the grader name ${g.name} is already taken by a different implementation`);
+      if (!other) out.push(g);
+    }
   }
   return out;
 }

@@ -2,7 +2,7 @@ import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { loadCases, type Case } from './caseStore.js';
 import { resolveModelConfig } from './config.js';
-import { loadBenchmarks, loadHarnesses, type BenchmarkManifest, type HarnessManifest } from './manifests.js';
+import { loadBenchmarks, loadHarnesses, uniqueGraders, type BenchmarkManifest, type HarnessManifest } from './manifests.js';
 import { dockerArgv, sandboxedSystem } from './sandbox.js';
 import { startProxy } from './proxy.js';
 import type { Grader, ModelProxy, SystemUnderTest } from './types.js';
@@ -27,7 +27,7 @@ async function loadProject(opts: { judgeOverride?: string } = {}): Promise<Proje
   let harnesses = await loadHarnesses('harnesses');
   let benchmarks = await loadBenchmarks('benchmarks');
   let cases = await loadCases('benchmarks');
-  let graders = benchmarks.flatMap((b) => b.graders);
+  let graders = uniqueGraders(benchmarks);
 
   // a harness names its models; the safety model defaults to the main one
   let systems = new Map(
