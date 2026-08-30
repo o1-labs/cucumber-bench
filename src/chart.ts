@@ -46,7 +46,7 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
     let resultsChart = (title: string, tasks: string[], grader: (t: string, sys: string) => { pass: number; score: number } | undefined) =>
       columnsChart({
         title,
-        subtitle: 'Bar: mean score, how close the runs came on average. Dot: pass rate, the share of runs that fully passed. Higher is better for both.',
+        subtitle: 'Bar: the mean score (how close the answers were on average). Dot: the pass rate (the share of answers that were fully correct). Higher is better.',
         tasks,
         systems: sSystems,
         keyOf,
@@ -54,7 +54,7 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
         marker: (t, sys) => (grader(t, sys)?.pass ?? 0) * 100,
         tip: (t, sys) => {
           let v = grader(t, sys);
-          return v ? `${Math.round(v.score * 100)}% mean · ${Math.round(v.pass * 100)}% pass` : '—';
+          return v ? `${Math.round(v.score * 100)}% mean · ${Math.round(v.pass * 100)}% pass` : 'n/a';
         },
         legendNote: 'bar = mean score · dot = pass rate',
         ...pct,
@@ -69,7 +69,7 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
   // comparison tables: one per suite, one column per system, one row per metric;
   // the best value in a row is bold (a second cue beside the number, never color alone)
   let fmtGrade = (g?: Row['graders'][string]) =>
-    !g ? '—' : Math.abs(g.pass - g.score) > 0.005 ? `${Math.round(g.score * 100)}% (pass ${Math.round(g.pass * 100)}%)` : `${Math.round(g.pass * 100)}%`;
+    !g ? 'n/a' : Math.abs(g.pass - g.score) > 0.005 ? `${Math.round(g.score * 100)}% (pass ${Math.round(g.pass * 100)}%)` : `${Math.round(g.pass * 100)}%`;
   let tables = '';
   for (let suite of suites) {
     let sRows = rows.filter((r) => r.suite === suite);
@@ -91,7 +91,7 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
       });
     for (let g of sGraders) {
       gradeMetric(`${g} ↑`, 'ALL', g);
-      if (sTasks.length > 1) for (let t of sTasks) gradeMetric(`${g} — ${label(t)} ↑`, t, g);
+      if (sTasks.length > 1) for (let t of sTasks) gradeMetric(`${g}, ${label(t)} ↑`, t, g);
     }
     let num = (label: string, higher: boolean, value: (r?: Row) => number | undefined, fmt: (v: number) => string) =>
       metrics.push({
@@ -99,7 +99,7 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
         values: sSystems.map((sys) => value(at('ALL', sys))),
         cells: sSystems.map((sys) => {
           let v = value(at('ALL', sys));
-          return v === undefined ? '—' : fmt(v);
+          return v === undefined ? 'n/a' : fmt(v);
         }),
         higher,
       });
@@ -127,7 +127,7 @@ function buildChartHtml(runId: string, cases: Case[], records: RunRecord[], help
       .join('\n');
     tables += `<div class="card">
   <h2>${esc(suite)}: comparison</h2>
-  <p class="csub">One column per system, one row per metric. A grader cell is the mean score, with the pass rate in parentheses. ↑ higher is better, ↓ lower. Bold marks the best value in a row. Runs per system: ${sSystems.map((sys, i) => `${esc(sys)} ${n[i]}`).join(', ')}.${new Set(n).size > 1 ? ' <b>The systems did not run the same number of times in this suite: the run is incomplete or was filtered.</b>' : ''}</p>
+  <p class="csub">One column per system, one row per metric. A grader cell shows the mean score, with the pass rate in parentheses. ↑ means higher is better, ↓ means lower is better. Bold marks the best value in the row. Runs per system: ${sSystems.map((sys, i) => `${esc(sys)} ${n[i]}`).join(', ')}.${new Set(n).size > 1 ? ' <b>The systems did not run the same number of times: this run is incomplete or was filtered.</b>' : ''}</p>
   <div class="scroll"><table>
     <thead><tr><th>metric</th>${sSystems.map((sys) => `<th><span class="key ${keyOf(sys)}"></span> ${esc(sys)}</th>`).join('')}</tr></thead>
     <tbody>${body}</tbody>
@@ -221,23 +221,25 @@ th .key { vertical-align: -1px; }
 <p class="sub">run ${esc(runId)} · ${new Set(records.map((r) => r.run.caseId)).size} cases · ${reps} repetition${reps > 1 ? 's' : ''}</p>
 <div class="card help">
   <h2>How to read this page</h2>
-  <p>Every system answered the cases of the suites it lists; the comparison table of a suite names the systems that ran it. A <b>grader</b> compares each answer with private gold data and gives a
-  <b>score</b> from 0 to 1 and a <b>pass</b> (yes or no). The <b>mean score</b> says how close the answers came on average;
-  the <b>pass rate</b> says how often an answer was fully correct. A grader with no partial credit has the same value for both.
-  Tune by the mean score; claim by the pass rate. In each chart the bar is the mean score and the dot is the pass rate.</p>
-  <ul>${systems.map((sys) => `<li><span class="key ${keyOf(sys)}"></span> <b>${esc(sys)}</b> — ${esc(help.systems[sys] || 'A system under test.')} Models used: ${esc(modelsOf(sys).join(', ') || 'none recorded')}.</li>`).join('')}</ul>
+  <p>Each system answered the cases of the benchmarks it runs on. A <b>grader</b> compares an answer with the private
+  gold data. It gives a <b>score</b> from 0 to 1, and a <b>pass</b> or a fail. The <b>mean score</b> is the average score:
+  how close the answers were. The <b>pass rate</b> is the share of answers that were fully correct. A grader without
+  partial credit shows the same number for both. In each chart, the bar is the mean score and the dot is the pass rate.
+  Higher is better.</p>
+  <ul>${systems.map((sys) => `<li><span class="key ${keyOf(sys)}"></span> <b>${esc(sys)}</b>: ${esc(help.systems[sys] || 'A system under test.')} Models: ${esc(modelsOf(sys).join(', ') || 'none recorded')}.</li>`).join('')}</ul>
 </div>
 ${suiteCharts}
 ${tables}
 <div class="card">
   <h2>Glossary</h2>
   <ul class="defs">
-    ${graders.map((g) => `<li><b>${esc(g)}</b> — ${esc(help.graders[g] || 'No description.')}</li>`).join('\n    ')}
-    <li><b>consistency</b> — the share of repetitions that gave the same answer for a case, averaged over cases. — with one repetition.</li>
-    <li><b>latency s</b> — average wall time of one run, in seconds, including the sandbox start.</li>
-    <li><b>model calls per run</b> — average model calls a run made, safety-model calls included.</li>
-    <li><b>harness cost, judge cost per run</b> — average cost of one run and of grading it, as the provider reported it. — for a free local model.</li>
-    <li><b>total cost, all runs</b> — (harness + judge cost per run) × the number of runs: the bill for this system in this benchmark.</li>
+    ${graders.map((g) => `<li><b>${esc(g)}</b>: ${esc(help.graders[g] || 'No description.')}</li>`).join('\n    ')}
+    <li><b>error rate</b>: the share of runs that failed in the sandbox or in a grader. A failed run counts as a failed grade.</li>
+    <li><b>consistency</b>: the share of repetitions that gave the same answer for a case, averaged over the cases. n/a with one repetition.</li>
+    <li><b>latency s</b>: the average time of one run, in seconds, sandbox start included.</li>
+    <li><b>model calls per run</b>: the average number of model calls in one run, safety-model calls included.</li>
+    <li><b>harness cost, judge cost per run</b>: the average cost of one run, and of grading it, as the provider reported. n/a for a free local model.</li>
+    <li><b>total cost, all runs</b>: (harness cost + judge cost per run) × the number of runs: the bill for this system in this benchmark.</li>
   </ul>
 </div>
 <div id="tip" role="status"></div>

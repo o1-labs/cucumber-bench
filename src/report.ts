@@ -21,7 +21,7 @@ function buildReport(runId: string, cases: Case[], records: RunRecord[], graders
   lines.push('Models used, as recorded by the proxy:', '');
   for (let sys of systems) {
     let models = [...new Set(records.filter((r) => r.run.system === sys).flatMap((r) => r.run.models ?? []))];
-    lines.push(`- ${sys}: ${models.join(', ') || '—'}`);
+    lines.push(`- ${sys}: ${models.join(', ') || 'n/a'}`);
   }
   for (let suite of [...new Set(rows.map((r) => r.suite))]) {
     let judges = [...new Set(records.filter((r) => caseOf.get(r.run.caseId)?.suite === suite).flatMap((r) => r.judge?.models ?? []))];
@@ -38,9 +38,9 @@ function buildReport(runId: string, cases: Case[], records: RunRecord[], graders
     for (let r of suiteRows) {
       let cells = graders.map((g) => gradeCell(r.graders[g]));
       lines.push(
-        `| ${r.task} | ${r.system} | ${r.n} | ${pct(r.errors)} | ${cells.join(' | ')} | ${r.consistency === undefined ? '—' : pct(r.consistency)} ` +
+        `| ${r.task} | ${r.system} | ${r.n} | ${pct(r.errors)} | ${cells.join(' | ')} | ${r.consistency === undefined ? 'n/a' : pct(r.consistency)} ` +
           `| ${r.latencyMs.toFixed(0)} | ${r.tokensIn.toFixed(0)}/${r.tokensOut.toFixed(0)} | ${r.calls.toFixed(1)} ` +
-          `| ${usd(r.costUsd)} | ${usd(r.judgeCostUsd)} | ${r.costUsd === undefined ? '—' : '$' + (r.n * (r.costUsd + (r.judgeCostUsd ?? 0))).toFixed(2)} |`,
+          `| ${usd(r.costUsd)} | ${usd(r.judgeCostUsd)} | ${r.costUsd === undefined ? 'n/a' : '$' + (r.n * (r.costUsd + (r.judgeCostUsd ?? 0))).toFixed(2)} |`,
       );
     }
     lines.push('');
@@ -49,7 +49,7 @@ function buildReport(runId: string, cases: Case[], records: RunRecord[], graders
   // paired comparisons: the same cases for both systems, so the noise of the case mix cancels
   let paired = pairedComparisons(cases, records);
   for (let suite of unique(paired.map((p) => p.suite))) {
-    lines.push(`## Suite: ${suite} — paired comparison`, '');
+    lines.push(`## Paired comparison: ${suite}`, '');
     lines.push('Per case, each system\'s mean score over its repetitions; wins/ties/losses of A over B; the mean difference in points with a 95% bootstrap interval. An interval that contains 0 is consistent with no difference.', '');
     lines.push('| grader | A vs B | cases | wins/ties/losses | mean diff | 95% interval |');
     lines.push('| --- | --- | --- | --- | --- | --- |');
@@ -65,12 +65,12 @@ function buildReport(runId: string, cases: Case[], records: RunRecord[], graders
   if (glossary.length > 0) {
     lines.push('errors: the share of runs that failed in the sandbox or in a grader; they count as failed grades too.', '');
     lines.push('Graders (a cell is the pass rate; a value in parentheses is the mean score when it differs):', '');
-    for (let g of glossary) lines.push(`- ${g.name} — ${g.description}`);
+    for (let g of glossary) lines.push(`- ${g.name}: ${g.description}`);
     lines.push('');
   }
 
   let failures = records.flatMap((r) => r.grades.filter((g) => !g.pass).map((g) => ({ run: r.run, grade: g })));
-  lines.push(`## Failures (${failures.length})${details ? '' : ' — details withheld (--no-details)'}`, '');
+  lines.push(`## Failures (${failures.length})${details ? '' : ', details withheld (--no-details)'}`, '');
   for (let { run, grade } of failures) {
     let head = `- ${run.caseId} [${run.system}, rep ${run.repetition}] ${grade.grader}${details ? `: ${grade.detail ?? ''}` : ''}`;
     lines.push(run.error ? `${head} error: ${run.error}` : head);
@@ -83,12 +83,12 @@ function buildReport(runId: string, cases: Case[], records: RunRecord[], graders
 
 // pass rate, plus the mean score when it carries extra information (partial-credit graders)
 function gradeCell(g?: Row['graders'][string]): string {
-  if (!g) return '—';
+  if (!g) return 'n/a';
   return Math.abs(g.pass - g.score) > 0.005 ? `${pct(g.pass)} (avg ${pct(g.score)})` : pct(g.pass);
 }
 
 function usd(x?: number): string {
-  return x === undefined ? '—' : `$${x.toFixed(4)}`;
+  return x === undefined ? 'n/a' : `$${x.toFixed(4)}`;
 }
 
 function pct(x: number): string {

@@ -90,15 +90,16 @@ th .key { vertical-align: -1px; }
 <p class="sub">run 2026-08-29T10-03-01-328Z · 15 cases · 5 repetitions</p>
 <div class="card help">
   <h2>How to read this page</h2>
-  <p>Every system answered the cases of the suites it lists; the comparison table of a suite names the systems that ran it. A <b>grader</b> compares each answer with private gold data and gives a
-  <b>score</b> from 0 to 1 and a <b>pass</b> (yes or no). The <b>mean score</b> says how close the answers came on average;
-  the <b>pass rate</b> says how often an answer was fully correct. A grader with no partial credit has the same value for both.
-  Tune by the mean score; claim by the pass rate. In each chart the bar is the mean score and the dot is the pass rate.</p>
-  <ul><li><span class="key s1"></span> <b>direct</b> — One model call. The raw input goes to the model. There is no safety stage. This is the baseline. Models used: qwen/qwen3.6-35b-a3b.</li><li><span class="key s2"></span> <b>cite-v1</b> — The citation harness. Step 4: the same answer as direct, then a greedy check of every sentence: the citations become the smallest set of passages that supports it, and a sentence no passage supports is dropped. Models used: qwen/qwen3.6-35b-a3b.</li></ul>
+  <p>Each system answered the cases of the benchmarks it runs on. A <b>grader</b> compares an answer with the private
+  gold data. It gives a <b>score</b> from 0 to 1, and a <b>pass</b> or a fail. The <b>mean score</b> is the average score:
+  how close the answers were. The <b>pass rate</b> is the share of answers that were fully correct. A grader without
+  partial credit shows the same number for both. In each chart, the bar is the mean score and the dot is the pass rate.
+  Higher is better.</p>
+  <ul><li><span class="key s1"></span> <b>direct</b>: One model call. The raw input goes to the model. There is no safety stage. This is the baseline. Models: qwen/qwen3.6-35b-a3b.</li><li><span class="key s2"></span> <b>cite-v1</b>: The citation harness. Step 4: the same answer as direct, then a greedy check of every sentence: the citations become the smallest set of passages that supports it, and a sentence no passage supports is dropped. Models: qwen/qwen3.6-35b-a3b.</li></ul>
 </div>
 <div class="card">
   <h2>asqa: results by grader</h2>
-  <p class="csub">Bar: mean score, how close the runs came on average. Dot: pass rate, the share of runs that fully passed. Higher is better for both.</p>
+  <p class="csub">Bar: the mean score (how close the answers were on average). Dot: the pass rate (the share of answers that were fully correct). Higher is better.</p>
   <div class="legend"><span><span class="key s1"></span>direct</span><span><span class="key s2"></span>cite-v1</span><span class="note">bar = mean score · dot = pass rate</span></div>
   <svg viewBox="0 0 640 240" aria-hidden="false"><line class="baseline" x1="44" x2="632" y1="200" y2="200"/>
 <text class="tick" x="38" y="203.5" text-anchor="end">0%</text>
@@ -140,7 +141,7 @@ th .key { vertical-align: -1px; }
 </div>
 <div class="card">
   <h2>asqa: comparison</h2>
-  <p class="csub">One column per system, one row per metric. A grader cell is the mean score, with the pass rate in parentheses. ↑ higher is better, ↓ lower. Bold marks the best value in a row. Runs per system: direct 75, cite-v1 75.</p>
+  <p class="csub">One column per system, one row per metric. A grader cell shows the mean score, with the pass rate in parentheses. ↑ means higher is better, ↓ means lower is better. Bold marks the best value in the row. Runs per system: direct 75, cite-v1 75.</p>
   <div class="scroll"><table>
     <thead><tr><th>metric</th><th><span class="key s1"></span> direct</th><th><span class="key s2"></span> cite-v1</th></tr></thead>
     <tbody><tr><td>str-em ↑</td><td>46% (pass 13%)</td><td class="best">52% (pass 13%)</td></tr>
@@ -159,14 +160,15 @@ th .key { vertical-align: -1px; }
 <div class="card">
   <h2>Glossary</h2>
   <ul class="defs">
-    <li><b>str-em</b> — Every gold short answer appears in the output. The score is the share of sub-questions answered.</li>
-    <li><b>citation-recall</b> — Every sentence is supported by the passages it cites. The score is the share of supported sentences.</li>
-    <li><b>citation-precision</b> — Every citation is necessary: its passage supports the sentence and is not redundant. The score is the share of such citations.</li>
-    <li><b>consistency</b> — the share of repetitions that gave the same answer for a case, averaged over cases. — with one repetition.</li>
-    <li><b>latency s</b> — average wall time of one run, in seconds, including the sandbox start.</li>
-    <li><b>model calls per run</b> — average model calls a run made, safety-model calls included.</li>
-    <li><b>harness cost, judge cost per run</b> — average cost of one run and of grading it, as the provider reported it. — for a free local model.</li>
-    <li><b>total cost, all runs</b> — (harness + judge cost per run) × the number of runs: the bill for this system in this benchmark.</li>
+    <li><b>str-em</b>: Every gold short answer appears in the output. The score is the share of sub-questions answered.</li>
+    <li><b>citation-recall</b>: Every sentence is supported by the passages it cites. The score is the share of supported sentences.</li>
+    <li><b>citation-precision</b>: Every citation is necessary: its passage supports the sentence and is not redundant. The score is the share of such citations.</li>
+    <li><b>error rate</b>: the share of runs that failed in the sandbox or in a grader. A failed run counts as a failed grade.</li>
+    <li><b>consistency</b>: the share of repetitions that gave the same answer for a case, averaged over the cases. n/a with one repetition.</li>
+    <li><b>latency s</b>: the average time of one run, in seconds, sandbox start included.</li>
+    <li><b>model calls per run</b>: the average number of model calls in one run, safety-model calls included.</li>
+    <li><b>harness cost, judge cost per run</b>: the average cost of one run, and of grading it, as the provider reported. n/a for a free local model.</li>
+    <li><b>total cost, all runs</b>: (harness cost + judge cost per run) × the number of runs: the bill for this system in this benchmark.</li>
   </ul>
 </div>
 <div id="tip" role="status"></div>

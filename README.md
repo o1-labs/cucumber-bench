@@ -98,14 +98,14 @@ Every harness names its model in its manifest; all use `qwen/qwen3.6-35b-a3b` to
 
 The graders, one line each:
 
-- `exact` — the extracted label equals the gold label.
-- `str-em` — every gold short answer of the question appears in the output.
-- `citation-recall` — every sentence is supported by the passages it cites (judge).
-- `citation-precision` — every citation is needed: its passage supports the sentence, and is not redundant (judge).
-- `clause-recall` — for every clause the contract has, the answer quotes it (8 consecutive words) and cites a passage that contains it; for an absent clause, the answer says so.
-- `clause-precision` — every cited passage contains the clause; for an absent clause, nothing is cited.
-- `citation-support` — every sentence is supported by its cited passages; an uncited sentence passes only as a statement about the documents (judge).
-- `removal` — no protected span survives; `leakage` — no protected span reached the model (measured at the proxy); `retention` — 90% of the other content survives.
+- `exact`: the extracted label equals the gold label.
+- `str-em`: every gold short answer of the question appears in the output.
+- `citation-recall`: every sentence is supported by the passages it cites (judge).
+- `citation-precision`: every citation is needed: its passage supports the sentence, and is not redundant (judge).
+- `clause-recall`: for every clause the contract has, the answer quotes it (8 consecutive words) and cites a passage that contains it; for an absent clause, the answer says so.
+- `clause-precision`: every cited passage contains the clause; for an absent clause, nothing is cited.
+- `citation-support`: every sentence is supported by its cited passages; an uncited sentence passes only as a statement about the documents (judge).
+- `removal`: no protected span survives; `leakage`: no protected span reached the model (measured at the proxy); `retention`: 90% of the other content survives.
 
 Import scripts: `benchmarks/asqa/import.ts` and `benchmarks/cuad/import.ts` (see their
 headers). The raw data is not in the repository.
