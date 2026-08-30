@@ -1,4 +1,5 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 import assert from 'node:assert/strict';
 import { parseArgs } from 'node:util';
@@ -6,8 +7,11 @@ import { parseArgs } from 'node:util';
 // usage: npx tsx benchmarks/asqa/import.ts --data <path to asqa_eval_gtr_top100.json> [--count 15] [--offset 0] [--ndoc 5] [--shot 2] [--suite asqa] [--out benchmarks/asqa/cases]
 // a development set: --offset 500 --suite asqa-dev --out benchmarks/asqa-dev/cases
 // the data file is inside ALCE-data.tar, see https://github.com/princeton-nlp/ALCE (bash download_data.sh).
-// the prompt (instruction + demonstrations) is fetched from the ALCE repository.
-const PROMPT_URL = 'https://raw.githubusercontent.com/princeton-nlp/ALCE/main/prompts/asqa_default.json';
+// the prompt (instruction + demonstrations) is fetched from the ALCE repository at a fixed
+// commit and checked against its sha256, so a later import gives the same cases.
+const PROMPT_COMMIT = '8f5b3baa0f1742729203d2f8ed5a4c4e3857d756';
+const PROMPT_URL = `https://raw.githubusercontent.com/princeton-nlp/ALCE/${PROMPT_COMMIT}/prompts/asqa_default.json`;
+const PROMPT_SHA256 = 'a5d1085a4745897d34138b8b3d9781dafaa9e8b8ff00140c4521d43ba8c7b5c1';
 
 let { values } = parseArgs({
   options: {
@@ -26,7 +30,10 @@ let count = Number(values.count), offset = Number(values.offset), ndoc = Number(
 let items: any[] = JSON.parse(await readFile(values.data, 'utf8'));
 let res = await fetch(PROMPT_URL);
 assert(res.ok, `prompt fetch failed: ${res.status}`);
-let prompt: any = await res.json();
+let promptText = await res.text();
+let promptSha = createHash('sha256').update(promptText).digest('hex');
+assert(promptSha === PROMPT_SHA256, `prompt file changed: sha256 ${promptSha}, expected ${PROMPT_SHA256}`);
+let prompt: any = JSON.parse(promptText);
 
 type Doc = { title: string; text: string };
 let formatDocs = (docs: Doc[]) => docs.map((d, i) => `Document [${i + 1}](Title: ${d.title}): ${d.text}`).join('\n');
@@ -51,7 +58,7 @@ for (let i = offset; i < Math.min(offset + count, items.length); i++) {
     examples,
     input: `Question: ${item.question}\n\n${formatDocs(docs)}`,
     docs,
-    _source: `princeton-nlp/ALCE-data asqa_eval_gtr_top100.json, item ${i}, top-${ndoc} GTR passages, ${shot} demonstrations from prompts/asqa_default.json`,
+    _source: `princeton-nlp/ALCE-data asqa_eval_gtr_top100.json, item ${i}, top-${ndoc} GTR passages, ${shot} demonstrations from prompts/asqa_default.json at ${PROMPT_COMMIT}`,
   };
   let priv = {
     id,
