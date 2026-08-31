@@ -95,7 +95,7 @@ th .key { vertical-align: -1px; }
   how close the answers were. The <b>pass rate</b> is the share of answers that were fully correct. A grader without
   partial credit shows the same number for both. In each chart, the bar is the mean score and the dot is the pass rate.
   Higher is better.</p>
-  <ul><li><span class="key s1"></span> <b>direct</b>: One model call. The raw input goes to the model. There is no safety stage. This is the baseline. Models: qwen/qwen3.6-35b-a3b.</li><li><span class="key s2"></span> <b>cite-v1</b>: The citation harness. Step 4: the same answer as direct, then a greedy check of every sentence: the citations become the smallest set of passages that supports it, and a sentence no passage supports is dropped. Models: qwen/qwen3.6-35b-a3b.</li></ul>
+  <ul><li><span class="key s1"></span> <b>direct</b>: One model call. The raw input goes to the model. There is no safety stage. This is the baseline. This is comparable to giving the task to a generic chat interface and expecting a good result. Models: qwen/qwen3.6-35b-a3b.</li><li><span class="key s2"></span> <b>cite-v1</b>: The citation harness. Step 4: the same answer as direct, then a greedy check of every sentence: the citations become the smallest set of passages that supports it, and a sentence no passage supports is dropped. This is what the workflow looks like with a custom harness that is specialised for this type of work. Models: qwen/qwen3.6-35b-a3b.</li></ul>
 </div>
 <div class="card">
   <h2>asqa: results by grader</h2>

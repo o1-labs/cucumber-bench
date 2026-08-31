@@ -1,7 +1,18 @@
 {
   "name": "direct",
-  "description": "One model call. The raw input goes to the model. There is no safety stage. This is the baseline.",
+  "description": "One model call. The raw input goes to the model. There is no safety stage. This is the baseline. This is comparable to giving the task to a generic chat interface and expecting a good result.",
   "entry": "src/entry.ts",
-  "suites": ["legalbench", "redaction", "asqa", "asqa-dev", "cuad", "cuad-dev", "cuad-hard", "cuad-hard-dev"],
-  "models": { "main": "qwen/qwen3.6-35b-a3b" }
+  "suites": [
+    "legalbench",
+    "redaction",
+    "asqa",
+    "asqa-dev",
+    "cuad",
+    "cuad-dev",
+    "cuad-hard",
+    "cuad-hard-dev"
+  ],
+  "models": {
+    "main": "qwen/qwen3.6-35b-a3b"
+  }
 }
