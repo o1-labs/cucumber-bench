@@ -1,13 +1,8 @@
 {
   "name": "review-v1",
-  "description": "The review harness, in three stages: every passage is read on its own and every part that answers the question is quoted (scan); the answer is written from the quotes only, in the benchmark's form (compose); every cited sentence is verified against its cited passages, and an unsupported one is dropped (check). This is what the workflow looks like with a custom harness that is specialised for this type of work.",
+  "description": "The custom harness: every passage is read on its own and every part that answers the question is quoted (scan); the answer is written from the quotes only, in the benchmark's form (compose); every cited sentence is verified against its cited passages, and an unsupported one is dropped (check). This is what the workflow looks like with a custom harness that is specialised for this type of work.",
   "entry": "src/entry.ts",
-  "suites": [
-    "cuad",
-    "cuad-dev",
-    "cuad-hard",
-    "cuad-hard-dev"
-  ],
+  "suites": ["cuad", "cuad-dev", "cuad-hard", "cuad-hard-dev"],
   "models": {
     "main": "qwen/qwen3.6-35b-a3b"
   },

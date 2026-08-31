@@ -1,227 +1,730 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>cucumber-bench 2026-08-30T06-12-48-622Z</title>
-<style>
-:root {
-  color-scheme: light;
-  --page: #f9f9f7; --surface: #fcfcfb;
-  --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
-  --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
-  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #8a5cd6; --s5: #d1a10a; --s6: #0f9db5; --s7: #d64d7a; --s8: #6b7280;
-}
-@media (prefers-color-scheme: dark) {
-  :root:where(:not([data-theme="light"])) {
-    color-scheme: dark;
-    --page: #0d0d0d; --surface: #1a1a19;
-    --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
-    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
-    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #9b74e0; --s5: #e0b428; --s6: #22adc4; --s7: #e06a92; --s8: #9aa0aa;
-  }
-}
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --page: #0d0d0d; --surface: #1a1a19;
-  --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
-  --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
-  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #9b74e0; --s5: #e0b428; --s6: #22adc4; --s7: #e06a92; --s8: #9aa0aa;
-}
-* { box-sizing: border-box; margin: 0; }
-body {
-  background: var(--page); color: var(--ink);
-  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
-  padding: 24px; max-width: 760px; margin: 0 auto;
-}
-h1 { font-size: 18px; font-weight: 600; }
-.sub { color: var(--ink-2); margin: 4px 0 20px; font-size: 13px; }
-.card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 10px; padding: 16px 18px; margin-bottom: 12px;
-}
-.card h2 { font-size: 14px; font-weight: 600; }
-.card .csub { color: var(--muted); font-size: 12px; margin: 1px 0 4px; }
-.help p, .help li, .defs li { font-size: 13px; color: var(--ink-2); }
-.help ul, .defs { margin: 6px 0 0 18px; padding: 0; }
-.defs { margin-top: 12px; }
-.help b, .defs b { color: var(--ink); font-weight: 600; }
-.legend { display: flex; gap: 16px; margin: 6px 0 2px; font-size: 12px; color: var(--ink-2); }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
-.legend .note { color: var(--muted); margin-left: auto; }
-.key { width: 12px; height: 12px; border-radius: 3px; display: inline-block; flex: none; }
-.s1 { background: var(--s1); }
-.s2 { background: var(--s2); }
-.s3 { background: var(--s3); }
-.s4 { background: var(--s4); }
-.s5 { background: var(--s5); }
-.s6 { background: var(--s6); }
-.s7 { background: var(--s7); }
-.s8 { background: var(--s8); }
-svg { width: 100%; height: auto; display: block; }
-.tick { font: 11px system-ui, sans-serif; fill: var(--muted); font-variant-numeric: tabular-nums; }
-.cat { font: 12px system-ui, sans-serif; fill: var(--ink-2); }
-.gridline { stroke: var(--grid); stroke-width: 1; }
-.baseline { stroke: var(--axis); stroke-width: 1; }
-.hit { fill: transparent; outline: none; cursor: default; }
-.hit:focus-visible + .focusring { stroke: var(--ink); stroke-width: 1.5; fill: none; }
-.lift { filter: brightness(1.12); }
-#tip {
-  display: none; position: fixed; z-index: 10; pointer-events: none;
-  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-  padding: 8px 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.12); font-size: 12px;
-}
-.tip-task { color: var(--ink-2); margin-bottom: 4px; }
-.tip-row { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
-.tip-row .key { width: 10px; height: 4px; border-radius: 2px; }
-.tip-val { font-weight: 600; font-variant-numeric: tabular-nums; }
-.tip-name { color: var(--ink-2); }
-table { border-collapse: collapse; width: 100%; font-size: 13px; }
-th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
-td:nth-child(n+2), th:nth-child(n+2) { text-align: right; font-variant-numeric: tabular-nums; }
-th { color: var(--ink-2); font-weight: 500; }
-td.best { font-weight: 700; }
-th .key { vertical-align: -1px; }
-.scroll { overflow-x: auto; }
-</style>
-</head>
-<body>
-<h1>cucumber-bench</h1>
-<p class="sub">run 2026-08-30T06-12-48-622Z · 100 cases · 3 repetitions</p>
-<div class="card help">
-  <h2>How to read this page</h2>
-  <p>Each system answered the cases of the benchmarks it runs on. A <b>grader</b> compares an answer with the private
-  gold data. It gives a <b>score</b> from 0 to 1, and a <b>pass</b> or a fail. The <b>mean score</b> is the average score:
-  how close the answers were. The <b>pass rate</b> is the share of answers that were fully correct. A grader without
-  partial credit shows the same number for both. In each chart, the bar is the mean score and the dot is the pass rate.
-  Higher is better.</p>
-  <ul><li><span class="key s1"></span> <b>direct</b>: One model call. The raw input goes to the model. There is no safety stage. This is the baseline. This is comparable to giving the task to a generic chat interface and expecting a good result. Models: qwen/qwen3.6-35b-a3b.</li><li><span class="key s2"></span> <b>review-v1</b>: The review harness, in three stages: every passage is read on its own and every part that answers the question is quoted (scan); the answer is written from the quotes only, in the benchmark's form (compose); every cited sentence is verified against its cited passages, and an unsupported one is dropped (check). This is what the workflow looks like with a custom harness that is specialised for this type of work. Models: qwen/qwen3.6-35b-a3b.</li></ul>
-</div>
-<div class="card">
-  <h2>cuad-hard: results by grader</h2>
-  <p class="csub">Bar: the mean score (how close the answers were on average). Dot: the pass rate (the share of answers that were fully correct). Higher is better.</p>
-  <div class="legend"><span><span class="key s1"></span>direct</span><span><span class="key s2"></span>review-v1</span><span class="note">bar = mean score · dot = pass rate</span></div>
-  <svg viewBox="0 0 640 240" aria-hidden="false"><line class="baseline" x1="44" x2="632" y1="200" y2="200"/>
-<text class="tick" x="38" y="203.5" text-anchor="end">0%</text>
-<line class="gridline" x1="44" x2="632" y1="153" y2="153"/>
-<text class="tick" x="38" y="156.5" text-anchor="end">25%</text>
-<line class="gridline" x1="44" x2="632" y1="106" y2="106"/>
-<text class="tick" x="38" y="109.5" text-anchor="end">50%</text>
-<line class="gridline" x1="44" x2="632" y1="59" y2="59"/>
-<text class="tick" x="38" y="62.5" text-anchor="end">75%</text>
-<line class="gridline" x1="44" x2="632" y1="12" y2="12"/>
-<text class="tick" x="38" y="15.5" text-anchor="end">100%</text>
-<path id="cuad-hard-results-by-grader-0-0" fill="var(--s1)" d="M 117 200 L 117 84.4020909090909 Q 117 80.4020909090909 121 80.4020909090909 L 137 80.4020909090909 Q 141 80.4020909090909 141 84.4020909090909 L 141 200 Z"/>
-<circle cx="129" cy="97.85333333333334" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
-<rect class="hit" x="115" y="12" width="28" height="188" tabindex="0" role="img" aria-label="clause-recall: direct 64% mean · 54% pass, review-v1 80% mean · 75% pass" data-tip="{&quot;task&quot;:&quot;clause-recall&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;64% mean · 54% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;review-v1&quot;,&quot;value&quot;:&quot;80% mean · 75% pass&quot;}]}" data-col="cuad-hard-results-by-grader-0-0"/>
-<rect class="focusring" x="115" y="12" width="28" height="188" fill="none"/>
-<path id="cuad-hard-results-by-grader-0-1" fill="var(--s2)" d="M 143 200 L 143 53.99404040404042 Q 143 49.99404040404042 147 49.99404040404042 L 163 49.99404040404042 Q 167 49.99404040404042 167 53.99404040404042 L 167 200 Z"/>
-<circle cx="155" cy="59" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
-<rect class="hit" x="141" y="12" width="28" height="188" tabindex="0" role="img" aria-label="clause-recall: direct 64% mean · 54% pass, review-v1 80% mean · 75% pass" data-tip="{&quot;task&quot;:&quot;clause-recall&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;64% mean · 54% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;review-v1&quot;,&quot;value&quot;:&quot;80% mean · 75% pass&quot;}]}" data-col="cuad-hard-results-by-grader-0-1"/>
-<rect class="focusring" x="141" y="12" width="28" height="188" fill="none"/>
-<text class="cat" x="142" y="216" text-anchor="middle">clause-recall</text>
-<path id="cuad-hard-results-by-grader-1-0" fill="var(--s1)" d="M 313 200 L 313 69.78888888888889 Q 313 65.78888888888889 317 65.78888888888889 L 333 65.78888888888889 Q 337 65.78888888888889 337 69.78888888888889 L 337 200 Z"/>
-<circle cx="325" cy="73.41333333333333" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
-<rect class="hit" x="311" y="12" width="28" height="188" tabindex="0" role="img" aria-label="clause-precision: direct 71% mean · 67% pass, review-v1 76% mean · 64% pass" data-tip="{&quot;task&quot;:&quot;clause-precision&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;71% mean · 67% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;review-v1&quot;,&quot;value&quot;:&quot;76% mean · 64% pass&quot;}]}" data-col="cuad-hard-results-by-grader-1-0"/>
-<rect class="focusring" x="311" y="12" width="28" height="188" fill="none"/>
-<path id="cuad-hard-results-by-grader-1-1" fill="var(--s2)" d="M 339 200 L 339 62.000430495430464 Q 339 58.000430495430464 343 58.000430495430464 L 359 58.000430495430464 Q 363 58.000430495430464 363 62.000430495430464 L 363 200 Z"/>
-<circle cx="351" cy="79.67999999999999" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
-<rect class="hit" x="337" y="12" width="28" height="188" tabindex="0" role="img" aria-label="clause-precision: direct 71% mean · 67% pass, review-v1 76% mean · 64% pass" data-tip="{&quot;task&quot;:&quot;clause-precision&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;71% mean · 67% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;review-v1&quot;,&quot;value&quot;:&quot;76% mean · 64% pass&quot;}]}" data-col="cuad-hard-results-by-grader-1-1"/>
-<rect class="focusring" x="337" y="12" width="28" height="188" fill="none"/>
-<text class="cat" x="338" y="216" text-anchor="middle">clause-precision</text>
-<path id="cuad-hard-results-by-grader-2-0" fill="var(--s1)" d="M 509 200 L 509 68.22222222222226 Q 509 64.22222222222226 513 64.22222222222226 L 529 64.22222222222226 Q 533 64.22222222222226 533 68.22222222222226 L 533 200 Z"/>
-<circle cx="521" cy="70.90666666666664" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
-<rect class="hit" x="507" y="12" width="28" height="188" tabindex="0" role="img" aria-label="citation-support: direct 72% mean · 69% pass, review-v1 84% mean · 77% pass" data-tip="{&quot;task&quot;:&quot;citation-support&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;72% mean · 69% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;review-v1&quot;,&quot;value&quot;:&quot;84% mean · 77% pass&quot;}]}" data-col="cuad-hard-results-by-grader-2-0"/>
-<rect class="focusring" x="507" y="12" width="28" height="188" fill="none"/>
-<path id="cuad-hard-results-by-grader-2-1" fill="var(--s2)" d="M 535 200 L 535 46.39333333333332 Q 535 42.39333333333332 539 42.39333333333332 L 555 42.39333333333332 Q 559 42.39333333333332 559 46.39333333333332 L 559 200 Z"/>
-<circle cx="547" cy="54.613333333333344" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
-<rect class="hit" x="533" y="12" width="28" height="188" tabindex="0" role="img" aria-label="citation-support: direct 72% mean · 69% pass, review-v1 84% mean · 77% pass" data-tip="{&quot;task&quot;:&quot;citation-support&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;72% mean · 69% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;review-v1&quot;,&quot;value&quot;:&quot;84% mean · 77% pass&quot;}]}" data-col="cuad-hard-results-by-grader-2-1"/>
-<rect class="focusring" x="533" y="12" width="28" height="188" fill="none"/>
-<text class="cat" x="534" y="216" text-anchor="middle">citation-support</text></svg>
-</div>
-<div class="card">
-  <h2>cuad-hard: comparison</h2>
-  <p class="csub">One column per system, one row per metric. A grader cell shows the mean score, with the pass rate in parentheses. ↑ means higher is better, ↓ means lower is better. Bold marks the best value in the row. Runs per system: direct 300, review-v1 300.</p>
-  <div class="scroll"><table>
-    <thead><tr><th>metric</th><th><span class="key s1"></span> direct</th><th><span class="key s2"></span> review-v1</th></tr></thead>
-    <tbody><tr><td>clause-recall ↑</td><td>64% (pass 54%)</td><td class="best">80% (pass 75%)</td></tr>
-<tr><td>clause-precision ↑</td><td>71% (pass 67%)</td><td class="best">76% (pass 64%)</td></tr>
-<tr><td>citation-support ↑</td><td>72% (pass 69%)</td><td class="best">84% (pass 77%)</td></tr>
-<tr><td>error rate ↓</td><td class="best">0%</td><td class="best">0%</td></tr>
-<tr><td>consistency ↑</td><td class="best">59%</td><td>52%</td></tr>
-<tr><td>latency s ↓</td><td class="best">14.3</td><td>62</td></tr>
-<tr><td>model calls per run ↓</td><td class="best">1</td><td>16.4</td></tr>
-<tr><td>harness cost per run ↓</td><td class="best">$0.0047</td><td>$0.0261</td></tr>
-<tr><td>judge cost per run ↓</td><td class="best">$0.0001</td><td>$0.0001</td></tr>
-<tr><td>total cost, all 300 runs ↓</td><td class="best">$1.42</td><td>$7.87</td></tr></tbody>
-  </table></div>
-</div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>cucumber-bench 2026-08-30T06-12-48-622Z</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --page: #f9f9f7;
+        --surface: #fcfcfb;
+        --ink: #0b0b0b;
+        --ink-2: #52514e;
+        --muted: #898781;
+        --grid: #e1e0d9;
+        --axis: #c3c2b7;
+        --border: rgba(11, 11, 11, 0.1);
+        --s1: #2a78d6;
+        --s2: #eb6834;
+        --s3: #1baf7a;
+        --s4: #8a5cd6;
+        --s5: #d1a10a;
+        --s6: #0f9db5;
+        --s7: #d64d7a;
+        --s8: #6b7280;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:where(:not([data-theme='light'])) {
+          color-scheme: dark;
+          --page: #0d0d0d;
+          --surface: #1a1a19;
+          --ink: #ffffff;
+          --ink-2: #c3c2b7;
+          --muted: #898781;
+          --grid: #2c2c2a;
+          --axis: #383835;
+          --border: rgba(255, 255, 255, 0.1);
+          --s1: #3987e5;
+          --s2: #d95926;
+          --s3: #199e70;
+          --s4: #9b74e0;
+          --s5: #e0b428;
+          --s6: #22adc4;
+          --s7: #e06a92;
+          --s8: #9aa0aa;
+        }
+      }
+      :root[data-theme='dark'] {
+        color-scheme: dark;
+        --page: #0d0d0d;
+        --surface: #1a1a19;
+        --ink: #ffffff;
+        --ink-2: #c3c2b7;
+        --muted: #898781;
+        --grid: #2c2c2a;
+        --axis: #383835;
+        --border: rgba(255, 255, 255, 0.1);
+        --s1: #3987e5;
+        --s2: #d95926;
+        --s3: #199e70;
+        --s4: #9b74e0;
+        --s5: #e0b428;
+        --s6: #22adc4;
+        --s7: #e06a92;
+        --s8: #9aa0aa;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        background: var(--page);
+        color: var(--ink);
+        font:
+          14px/1.45 system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+        padding: 24px;
+        max-width: 760px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .sub {
+        color: var(--ink-2);
+        margin: 4px 0 20px;
+        font-size: 13px;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px 18px;
+        margin-bottom: 12px;
+      }
+      .card h2 {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .card .csub {
+        color: var(--muted);
+        font-size: 12px;
+        margin: 1px 0 4px;
+      }
+      .help p,
+      .help li,
+      .defs li {
+        font-size: 13px;
+        color: var(--ink-2);
+      }
+      .help ul,
+      .defs {
+        margin: 6px 0 0 18px;
+        padding: 0;
+      }
+      .defs {
+        margin-top: 12px;
+      }
+      .help b,
+      .defs b {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .legend {
+        display: flex;
+        gap: 16px;
+        margin: 6px 0 2px;
+        font-size: 12px;
+        color: var(--ink-2);
+      }
+      .legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .legend .note {
+        color: var(--muted);
+        margin-left: auto;
+      }
+      .key {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        display: inline-block;
+        flex: none;
+      }
+      .s1 {
+        background: var(--s1);
+      }
+      .s2 {
+        background: var(--s2);
+      }
+      .s3 {
+        background: var(--s3);
+      }
+      .s4 {
+        background: var(--s4);
+      }
+      .s5 {
+        background: var(--s5);
+      }
+      .s6 {
+        background: var(--s6);
+      }
+      .s7 {
+        background: var(--s7);
+      }
+      .s8 {
+        background: var(--s8);
+      }
+      svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .tick {
+        font:
+          11px system-ui,
+          sans-serif;
+        fill: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+      .cat {
+        font:
+          12px system-ui,
+          sans-serif;
+        fill: var(--ink-2);
+      }
+      .gridline {
+        stroke: var(--grid);
+        stroke-width: 1;
+      }
+      .baseline {
+        stroke: var(--axis);
+        stroke-width: 1;
+      }
+      .hit {
+        fill: transparent;
+        outline: none;
+        cursor: default;
+      }
+      .hit:focus-visible + .focusring {
+        stroke: var(--ink);
+        stroke-width: 1.5;
+        fill: none;
+      }
+      .lift {
+        filter: brightness(1.12);
+      }
+      #tip {
+        display: none;
+        position: fixed;
+        z-index: 10;
+        pointer-events: none;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 8px 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+        font-size: 12px;
+      }
+      .tip-task {
+        color: var(--ink-2);
+        margin-bottom: 4px;
+      }
+      .tip-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 2px;
+      }
+      .tip-row .key {
+        width: 10px;
+        height: 4px;
+        border-radius: 2px;
+      }
+      .tip-val {
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+      .tip-name {
+        color: var(--ink-2);
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 13px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 6px 8px;
+        border-bottom: 1px solid var(--grid);
+        white-space: nowrap;
+      }
+      td:nth-child(n + 2),
+      th:nth-child(n + 2) {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+      th {
+        color: var(--ink-2);
+        font-weight: 500;
+      }
+      td.best {
+        font-weight: 700;
+      }
+      th .key {
+        vertical-align: -1px;
+      }
+      .scroll {
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>cucumber-bench</h1>
+    <p class="sub">run 2026-08-30T06-12-48-622Z · 100 cases · 3 repetitions</p>
+    <div class="card help">
+      <h2>How to read this page</h2>
+      <p>
+        Each system answered the cases of the benchmarks it runs on. A
+        <b>grader</b> compares an answer with the private gold data. It gives a
+        <b>score</b> from 0 to 1, and a <b>pass</b> or a fail. The
+        <b>mean score</b> is the average score: how close the answers were. The
+        <b>pass rate</b> is the share of answers that were fully correct. A
+        grader without partial credit shows the same number for both. In each
+        chart, the bar is the mean score and the dot is the pass rate. Higher is
+        better.
+      </p>
+      <ul>
+        <li>
+          <span class="key s1"></span> <b>direct</b>: One model call. The raw
+          input goes to the model. There is no safety stage. This is the
+          baseline. This is comparable to giving the task to a generic chat
+          interface and expecting a good result. Models: qwen/qwen3.6-35b-a3b.
+        </li>
+        <li>
+          <span class="key s2"></span> <b>review-v1</b>: The custom harness:
+          every passage is read on its own and every part that answers the
+          question is quoted (scan); the answer is written from the quotes only,
+          in the benchmark's form (compose); every cited sentence is verified
+          against its cited passages, and an unsupported one is dropped (check).
+          This is what the workflow looks like with a custom harness that is
+          specialised for this type of work. Models: qwen/qwen3.6-35b-a3b.
+        </li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>cuad-hard: results by grader</h2>
+      <p class="csub">
+        Bar: the mean score (how close the answers were on average). Dot: the
+        pass rate (the share of answers that were fully correct). Higher is
+        better.
+      </p>
+      <div class="legend">
+        <span><span class="key s1"></span>direct</span
+        ><span><span class="key s2"></span>review-v1</span
+        ><span class="note">bar = mean score · dot = pass rate</span>
+      </div>
+      <svg viewBox="0 0 640 240" aria-hidden="false">
+        <line class="baseline" x1="44" x2="632" y1="200" y2="200" />
+        <text class="tick" x="38" y="203.5" text-anchor="end">0%</text>
+        <line class="gridline" x1="44" x2="632" y1="153" y2="153" />
+        <text class="tick" x="38" y="156.5" text-anchor="end">25%</text>
+        <line class="gridline" x1="44" x2="632" y1="106" y2="106" />
+        <text class="tick" x="38" y="109.5" text-anchor="end">50%</text>
+        <line class="gridline" x1="44" x2="632" y1="59" y2="59" />
+        <text class="tick" x="38" y="62.5" text-anchor="end">75%</text>
+        <line class="gridline" x1="44" x2="632" y1="12" y2="12" />
+        <text class="tick" x="38" y="15.5" text-anchor="end">100%</text>
+        <path
+          id="cuad-hard-results-by-grader-0-0"
+          fill="var(--s1)"
+          d="M 117 200 L 117 84.4020909090909 Q 117 80.4020909090909 121 80.4020909090909 L 137 80.4020909090909 Q 141 80.4020909090909 141 84.4020909090909 L 141 200 Z"
+        />
+        <circle
+          cx="129"
+          cy="97.85333333333334"
+          r="5"
+          fill="var(--s1)"
+          stroke="var(--surface)"
+          stroke-width="2"
+        />
+        <rect
+          class="hit"
+          x="115"
+          y="12"
+          width="28"
+          height="188"
+          tabindex="0"
+          role="img"
+          aria-label="clause-recall: direct 64% mean · 54% pass, review-v1 80% mean · 75% pass"
+          data-tip='{"task":"clause-recall","rows":[{"key":"s1","name":"direct","value":"64% mean · 54% pass"},{"key":"s2","name":"review-v1","value":"80% mean · 75% pass"}]}'
+          data-col="cuad-hard-results-by-grader-0-0"
+        />
+        <rect
+          class="focusring"
+          x="115"
+          y="12"
+          width="28"
+          height="188"
+          fill="none"
+        />
+        <path
+          id="cuad-hard-results-by-grader-0-1"
+          fill="var(--s2)"
+          d="M 143 200 L 143 53.99404040404042 Q 143 49.99404040404042 147 49.99404040404042 L 163 49.99404040404042 Q 167 49.99404040404042 167 53.99404040404042 L 167 200 Z"
+        />
+        <circle
+          cx="155"
+          cy="59"
+          r="5"
+          fill="var(--s2)"
+          stroke="var(--surface)"
+          stroke-width="2"
+        />
+        <rect
+          class="hit"
+          x="141"
+          y="12"
+          width="28"
+          height="188"
+          tabindex="0"
+          role="img"
+          aria-label="clause-recall: direct 64% mean · 54% pass, review-v1 80% mean · 75% pass"
+          data-tip='{"task":"clause-recall","rows":[{"key":"s1","name":"direct","value":"64% mean · 54% pass"},{"key":"s2","name":"review-v1","value":"80% mean · 75% pass"}]}'
+          data-col="cuad-hard-results-by-grader-0-1"
+        />
+        <rect
+          class="focusring"
+          x="141"
+          y="12"
+          width="28"
+          height="188"
+          fill="none"
+        />
+        <text class="cat" x="142" y="216" text-anchor="middle">
+          clause-recall
+        </text>
+        <path
+          id="cuad-hard-results-by-grader-1-0"
+          fill="var(--s1)"
+          d="M 313 200 L 313 69.78888888888889 Q 313 65.78888888888889 317 65.78888888888889 L 333 65.78888888888889 Q 337 65.78888888888889 337 69.78888888888889 L 337 200 Z"
+        />
+        <circle
+          cx="325"
+          cy="73.41333333333333"
+          r="5"
+          fill="var(--s1)"
+          stroke="var(--surface)"
+          stroke-width="2"
+        />
+        <rect
+          class="hit"
+          x="311"
+          y="12"
+          width="28"
+          height="188"
+          tabindex="0"
+          role="img"
+          aria-label="clause-precision: direct 71% mean · 67% pass, review-v1 76% mean · 64% pass"
+          data-tip='{"task":"clause-precision","rows":[{"key":"s1","name":"direct","value":"71% mean · 67% pass"},{"key":"s2","name":"review-v1","value":"76% mean · 64% pass"}]}'
+          data-col="cuad-hard-results-by-grader-1-0"
+        />
+        <rect
+          class="focusring"
+          x="311"
+          y="12"
+          width="28"
+          height="188"
+          fill="none"
+        />
+        <path
+          id="cuad-hard-results-by-grader-1-1"
+          fill="var(--s2)"
+          d="M 339 200 L 339 62.000430495430464 Q 339 58.000430495430464 343 58.000430495430464 L 359 58.000430495430464 Q 363 58.000430495430464 363 62.000430495430464 L 363 200 Z"
+        />
+        <circle
+          cx="351"
+          cy="79.67999999999999"
+          r="5"
+          fill="var(--s2)"
+          stroke="var(--surface)"
+          stroke-width="2"
+        />
+        <rect
+          class="hit"
+          x="337"
+          y="12"
+          width="28"
+          height="188"
+          tabindex="0"
+          role="img"
+          aria-label="clause-precision: direct 71% mean · 67% pass, review-v1 76% mean · 64% pass"
+          data-tip='{"task":"clause-precision","rows":[{"key":"s1","name":"direct","value":"71% mean · 67% pass"},{"key":"s2","name":"review-v1","value":"76% mean · 64% pass"}]}'
+          data-col="cuad-hard-results-by-grader-1-1"
+        />
+        <rect
+          class="focusring"
+          x="337"
+          y="12"
+          width="28"
+          height="188"
+          fill="none"
+        />
+        <text class="cat" x="338" y="216" text-anchor="middle">
+          clause-precision
+        </text>
+        <path
+          id="cuad-hard-results-by-grader-2-0"
+          fill="var(--s1)"
+          d="M 509 200 L 509 68.22222222222226 Q 509 64.22222222222226 513 64.22222222222226 L 529 64.22222222222226 Q 533 64.22222222222226 533 68.22222222222226 L 533 200 Z"
+        />
+        <circle
+          cx="521"
+          cy="70.90666666666664"
+          r="5"
+          fill="var(--s1)"
+          stroke="var(--surface)"
+          stroke-width="2"
+        />
+        <rect
+          class="hit"
+          x="507"
+          y="12"
+          width="28"
+          height="188"
+          tabindex="0"
+          role="img"
+          aria-label="citation-support: direct 72% mean · 69% pass, review-v1 84% mean · 77% pass"
+          data-tip='{"task":"citation-support","rows":[{"key":"s1","name":"direct","value":"72% mean · 69% pass"},{"key":"s2","name":"review-v1","value":"84% mean · 77% pass"}]}'
+          data-col="cuad-hard-results-by-grader-2-0"
+        />
+        <rect
+          class="focusring"
+          x="507"
+          y="12"
+          width="28"
+          height="188"
+          fill="none"
+        />
+        <path
+          id="cuad-hard-results-by-grader-2-1"
+          fill="var(--s2)"
+          d="M 535 200 L 535 46.39333333333332 Q 535 42.39333333333332 539 42.39333333333332 L 555 42.39333333333332 Q 559 42.39333333333332 559 46.39333333333332 L 559 200 Z"
+        />
+        <circle
+          cx="547"
+          cy="54.613333333333344"
+          r="5"
+          fill="var(--s2)"
+          stroke="var(--surface)"
+          stroke-width="2"
+        />
+        <rect
+          class="hit"
+          x="533"
+          y="12"
+          width="28"
+          height="188"
+          tabindex="0"
+          role="img"
+          aria-label="citation-support: direct 72% mean · 69% pass, review-v1 84% mean · 77% pass"
+          data-tip='{"task":"citation-support","rows":[{"key":"s1","name":"direct","value":"72% mean · 69% pass"},{"key":"s2","name":"review-v1","value":"84% mean · 77% pass"}]}'
+          data-col="cuad-hard-results-by-grader-2-1"
+        />
+        <rect
+          class="focusring"
+          x="533"
+          y="12"
+          width="28"
+          height="188"
+          fill="none"
+        />
+        <text class="cat" x="534" y="216" text-anchor="middle">
+          citation-support
+        </text>
+      </svg>
+    </div>
+    <div class="card">
+      <h2>cuad-hard: comparison</h2>
+      <p class="csub">
+        One column per system, one row per metric. A grader cell shows the mean
+        score, with the pass rate in parentheses. ↑ means higher is better, ↓
+        means lower is better. Bold marks the best value in the row. Runs per
+        system: direct 300, review-v1 300.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>metric</th>
+              <th><span class="key s1"></span> direct</th>
+              <th><span class="key s2"></span> review-v1</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>clause-recall ↑</td>
+              <td>64% (pass 54%)</td>
+              <td class="best">80% (pass 75%)</td>
+            </tr>
+            <tr>
+              <td>clause-precision ↑</td>
+              <td>71% (pass 67%)</td>
+              <td class="best">76% (pass 64%)</td>
+            </tr>
+            <tr>
+              <td>citation-support ↑</td>
+              <td>72% (pass 69%)</td>
+              <td class="best">84% (pass 77%)</td>
+            </tr>
+            <tr>
+              <td>error rate ↓</td>
+              <td class="best">0%</td>
+              <td class="best">0%</td>
+            </tr>
+            <tr>
+              <td>consistency ↑</td>
+              <td class="best">59%</td>
+              <td>52%</td>
+            </tr>
+            <tr>
+              <td>latency s ↓</td>
+              <td class="best">14.3</td>
+              <td>62</td>
+            </tr>
+            <tr>
+              <td>model calls per run ↓</td>
+              <td class="best">1</td>
+              <td>16.4</td>
+            </tr>
+            <tr>
+              <td>harness cost per run ↓</td>
+              <td class="best">$0.0047</td>
+              <td>$0.0261</td>
+            </tr>
+            <tr>
+              <td>judge cost per run ↓</td>
+              <td class="best">$0.0001</td>
+              <td>$0.0001</td>
+            </tr>
+            <tr>
+              <td>total cost, all 300 runs ↓</td>
+              <td class="best">$1.42</td>
+              <td>$7.87</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-<div class="card">
-  <h2>Glossary</h2>
-  <ul class="defs">
-    <li><b>clause-recall</b>: For every clause the contract has, the answer quotes it and cites a passage that contains it. The score is the share of clauses found. When the contract has no such clause, the answer must say so.</li>
-    <li><b>clause-precision</b>: Every cited passage contains the clause. The score is the share of citations that do. When the contract has no such clause, the answer must cite nothing.</li>
-    <li><b>citation-support</b>: Every sentence is supported by the passages it cites; a sentence without citations passes only when it is a statement about the documents, not a fact. The score is the share of such sentences.</li>
-    <li><b>error rate</b>: the share of runs that failed in the sandbox or in a grader. A failed run counts as a failed grade.</li>
-    <li><b>consistency</b>: the share of repetitions that gave the same answer for a case, averaged over the cases. n/a with one repetition.</li>
-    <li><b>latency s</b>: the average time of one run, in seconds, sandbox start included.</li>
-    <li><b>model calls per run</b>: the average number of model calls in one run, safety-model calls included.</li>
-    <li><b>harness cost, judge cost per run</b>: the average cost of one run, and of grading it, as the provider reported. n/a for a free local model.</li>
-    <li><b>total cost, all runs</b>: (harness cost + judge cost per run) × the number of runs: the bill for this system in this benchmark.</li>
-  </ul>
-</div>
-<div id="tip" role="status"></div>
-<script>
-(function () {
-  var tip = document.getElementById('tip');
-  function show(el) {
-    var data = JSON.parse(el.getAttribute('data-tip'));
-    tip.replaceChildren();
-    var t = document.createElement('div');
-    t.className = 'tip-task';
-    t.textContent = data.task;
-    tip.appendChild(t);
-    data.rows.forEach(function (r) {
-      var row = document.createElement('div');
-      row.className = 'tip-row';
-      var key = document.createElement('span');
-      key.className = 'key ' + r.key;
-      var val = document.createElement('span');
-      val.className = 'tip-val';
-      val.textContent = r.value;
-      var name = document.createElement('span');
-      name.className = 'tip-name';
-      name.textContent = r.name;
-      row.appendChild(key); row.appendChild(val); row.appendChild(name);
-      tip.appendChild(row);
-    });
-    tip.style.display = 'block';
-    var col = document.getElementById(el.getAttribute('data-col'));
-    if (col) col.classList.add('lift');
-  }
-  function hide(el) {
-    tip.style.display = 'none';
-    var col = document.getElementById(el.getAttribute('data-col'));
-    if (col) col.classList.remove('lift');
-  }
-  function place(x, y) {
-    var w = tip.offsetWidth, h = tip.offsetHeight;
-    tip.style.left = Math.max(8, Math.min(x + 14, innerWidth - w - 8)) + 'px';
-    tip.style.top = Math.max(8, Math.min(y + 14, innerHeight - h - 8)) + 'px';
-  }
-  document.querySelectorAll('.hit').forEach(function (el) {
-    el.addEventListener('pointerenter', function () { show(el); });
-    el.addEventListener('pointermove', function (e) { place(e.clientX, e.clientY); });
-    el.addEventListener('pointerleave', function () { hide(el); });
-    el.addEventListener('focus', function () {
-      show(el);
-      var r = el.getBoundingClientRect();
-      place(r.left + r.width / 2, r.top);
-    });
-    el.addEventListener('blur', function () { hide(el); });
-  });
-})();
-</script>
-</body>
+    <div class="card">
+      <h2>Glossary</h2>
+      <ul class="defs">
+        <li>
+          <b>clause-recall</b>: For every clause the contract has, the answer
+          quotes it and cites a passage that contains it. The score is the share
+          of clauses found. When the contract has no such clause, the answer
+          must say so.
+        </li>
+        <li>
+          <b>clause-precision</b>: Every cited passage contains the clause. The
+          score is the share of citations that do. When the contract has no such
+          clause, the answer must cite nothing.
+        </li>
+        <li>
+          <b>citation-support</b>: Every sentence is supported by the passages
+          it cites; a sentence without citations passes only when it is a
+          statement about the documents, not a fact. The score is the share of
+          such sentences.
+        </li>
+        <li>
+          <b>error rate</b>: the share of runs that failed in the sandbox or in
+          a grader. A failed run counts as a failed grade.
+        </li>
+        <li>
+          <b>consistency</b>: the share of repetitions that gave the same answer
+          for a case, averaged over the cases. n/a with one repetition.
+        </li>
+        <li>
+          <b>latency s</b>: the average time of one run, in seconds, sandbox
+          start included.
+        </li>
+        <li>
+          <b>model calls per run</b>: the average number of model calls in one
+          run, safety-model calls included.
+        </li>
+        <li>
+          <b>harness cost, judge cost per run</b>: the average cost of one run,
+          and of grading it, as the provider reported. n/a for a free local
+          model.
+        </li>
+        <li>
+          <b>total cost, all runs</b>: (harness cost + judge cost per run) × the
+          number of runs: the bill for this system in this benchmark.
+        </li>
+      </ul>
+    </div>
+    <div id="tip" role="status"></div>
+    <script>
+      (function () {
+        var tip = document.getElementById('tip');
+        function show(el) {
+          var data = JSON.parse(el.getAttribute('data-tip'));
+          tip.replaceChildren();
+          var t = document.createElement('div');
+          t.className = 'tip-task';
+          t.textContent = data.task;
+          tip.appendChild(t);
+          data.rows.forEach(function (r) {
+            var row = document.createElement('div');
+            row.className = 'tip-row';
+            var key = document.createElement('span');
+            key.className = 'key ' + r.key;
+            var val = document.createElement('span');
+            val.className = 'tip-val';
+            val.textContent = r.value;
+            var name = document.createElement('span');
+            name.className = 'tip-name';
+            name.textContent = r.name;
+            row.appendChild(key);
+            row.appendChild(val);
+            row.appendChild(name);
+            tip.appendChild(row);
+          });
+          tip.style.display = 'block';
+          var col = document.getElementById(el.getAttribute('data-col'));
+          if (col) col.classList.add('lift');
+        }
+        function hide(el) {
+          tip.style.display = 'none';
+          var col = document.getElementById(el.getAttribute('data-col'));
+          if (col) col.classList.remove('lift');
+        }
+        function place(x, y) {
+          var w = tip.offsetWidth,
+            h = tip.offsetHeight;
+          tip.style.left =
+            Math.max(8, Math.min(x + 14, innerWidth - w - 8)) + 'px';
+          tip.style.top =
+            Math.max(8, Math.min(y + 14, innerHeight - h - 8)) + 'px';
+        }
+        document.querySelectorAll('.hit').forEach(function (el) {
+          el.addEventListener('pointerenter', function () {
+            show(el);
+          });
+          el.addEventListener('pointermove', function (e) {
+            place(e.clientX, e.clientY);
+          });
+          el.addEventListener('pointerleave', function () {
+            hide(el);
+          });
+          el.addEventListener('focus', function () {
+            show(el);
+            var r = el.getBoundingClientRect();
+            place(r.left + r.width / 2, r.top);
+          });
+          el.addEventListener('blur', function () {
+            hide(el);
+          });
+        });
+      })();
+    </script>
+  </body>
 </html>
