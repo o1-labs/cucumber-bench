@@ -25,9 +25,10 @@ async function startProxy(opts: {
   maxCalls: number; // per registered run, on the guarded and safety routes; a run may register its own
   maxJudgeCalls: number; // per registered run on the judge route; citation graders ask many questions
 }): Promise<ModelProxy> {
+  type Upstream = { url: string; key: string };
   let runs = new Map<
     string,
-    { runId: string; usage: Usage; requests: string[]; judge: boolean; models?: string[]; maxCalls?: number; upstream?: { url: string; key: string } }
+    { runId: string; usage: Usage; requests: string[]; judge: boolean; models?: string[]; maxCalls?: number; upstreams?: { [model: string]: Upstream } }
   >();
   let empty = (): Usage => ({ modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [] });
 
@@ -65,9 +66,10 @@ async function startProxy(opts: {
       );
     }
 
-    // a run may bring its own upstream (a harness with a named provider); the judge route never does
-    let url = route === 'judge' ? (opts.judgeUpstreamUrl ?? opts.upstreamUrl) : (state.upstream?.url ?? opts.upstreamUrl);
-    let key = route === 'judge' ? (opts.judgeUpstreamKey ?? opts.upstreamKey) : (state.upstream?.key ?? opts.upstreamKey);
+    // a run may bring per-model upstreams (a harness with its own providers); the judge route never does
+    let own = route === 'judge' ? undefined : state.upstreams?.[body.model];
+    let url = route === 'judge' ? (opts.judgeUpstreamUrl ?? opts.upstreamUrl) : (own?.url ?? opts.upstreamUrl);
+    let key = route === 'judge' ? (opts.judgeUpstreamKey ?? opts.upstreamKey) : (own?.key ?? opts.upstreamKey);
     let upstream = await fetch(`${url}/chat/completions`, {
       method: 'POST',
       headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` },
@@ -95,7 +97,7 @@ async function startProxy(opts: {
     url: `http://127.0.0.1:${port}`,
     register(runId, o) {
       let token = randomBytes(16).toString('hex');
-      runs.set(token, { runId, usage: empty(), requests: [], judge: o?.judge ?? false, models: o?.models, maxCalls: o?.maxCalls, upstream: o?.upstream });
+      runs.set(token, { runId, usage: empty(), requests: [], judge: o?.judge ?? false, models: o?.models, maxCalls: o?.maxCalls, upstreams: o?.upstreams });
       return token;
     },
     usage(token) {

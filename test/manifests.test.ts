@@ -9,9 +9,11 @@ import { join } from 'node:path';
 describe('manifests', () => {
   it('should discover every harness with its suites and image', async () => {
     let hs = await loadHarnesses('harnesses');
-    assert.deepEqual(hs.map((h) => h.name), ['cite-v1', 'direct', 'direct-4b', 'legal-v1', 'placeholder', 'review-v1']);
+    assert.deepEqual(hs.map((h) => h.name), ['cite-v1', 'direct', 'direct-4b', 'direct-4b-ft', 'legal-v1', 'placeholder', 'review-ft', 'review-v1']);
     // a variant harness: reuses the direct entry, brings its own model and provider
-    assert.deepEqual(hs.find((h) => h.name === 'direct-4b')!.provider, { baseUrl: 'https://router.huggingface.co/v1', keyEnv: 'HF_TOKEN' });
+    assert.deepEqual(hs.find((h) => h.name === 'direct-4b')!.providers, {
+      'Qwen/Qwen3-4B-Instruct-2507:nscale': { baseUrl: 'https://router.huggingface.co/v1', keyEnv: 'HF_TOKEN' },
+    });
     assert.equal(hs.find((h) => h.name === 'review-v1')!.maxCalls, 120);
     let legal = hs.find((h) => h.name === 'legal-v1')!;
     assert.equal(legal.image, 'cucumber-harness-legal-v1');

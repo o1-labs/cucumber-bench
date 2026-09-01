@@ -9,8 +9,10 @@
   "models": {
     "main": "Qwen/Qwen3-4B-Instruct-2507:nscale"
   },
-  "provider": {
-    "baseUrl": "https://router.huggingface.co/v1",
-    "keyEnv": "HF_TOKEN"
+  "providers": {
+    "Qwen/Qwen3-4B-Instruct-2507:nscale": {
+      "baseUrl": "https://router.huggingface.co/v1",
+      "keyEnv": "HF_TOKEN"
+    }
   }
 }

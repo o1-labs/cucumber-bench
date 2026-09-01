@@ -1,0 +1,16 @@
+{
+  "name": "review-ft",
+  "description": "The review harness around a finetuned extractor: cuad-qwen3 reads the contract excerpt by excerpt and quotes, word for word, what answers the question (scan); the harness attaches the passage citations; a general model writes the answer from the quotes (compose) and every cited sentence is verified (check). This is what the workflow looks like with a custom harness and a specialised model.",
+  "entry": "src/entry.ts",
+  "suites": ["cuad-hard", "cuad-hard-dev"],
+  "models": {
+    "main": "cuad-qwen3:latest",
+    "compose": "qwen/qwen3.6-35b-a3b"
+  },
+  "providers": {
+    "cuad-qwen3:latest": {
+      "baseUrl": "http://100.124.74.45:11434/v1"
+    }
+  },
+  "maxCalls": 200
+}

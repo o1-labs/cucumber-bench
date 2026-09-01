@@ -118,12 +118,15 @@ describe('proxy', () => {
     await new Promise<void>((r) => other.listen(0, '127.0.0.1', r));
     let { port } = other.address() as AddressInfo;
 
-    let token = proxy.register('p1', { upstream: { url: `http://127.0.0.1:${port}/v1`, key: 'other-key' } });
+    let token = proxy.register('p1', { upstreams: { m: { url: `http://127.0.0.1:${port}/v1`, key: 'other-key' } } });
     let data: any = await (await call(token)).json();
     assert.equal(data.choices[0].message.content, 'from other');
     assert.equal(auth, 'Bearer other-key');
     // usage is still counted at the proxy
     assert.equal(proxy.usage(token).modelCalls, 1);
+    // a model of the same run without its own upstream goes to the main one
+    let mixed: any = await (await call(token, { model: 'other-model', messages: [] })).json();
+    assert.equal(mixed.choices[0].message.content, 'Yes');
     // a run without one still reaches the main upstream
     let plain: any = await (await call(proxy.register('p2'))).json();
     assert.equal(plain.choices[0].message.content, 'Yes');

@@ -67,10 +67,10 @@ let manifest = {
   complete: false,
   expectedJobs: expected,
   records: 0,
-  // baseUrl: where this system's model calls went; a harness with its own provider differs from the default
+  // providers: where this system's model calls went, per model; the default upstream otherwise
   systems: systems.map((s) => {
     let h = project.harnesses.find((x) => x.name === s.name);
-    return { name: s.name, models: s.models, maxCalls: h?.maxCalls ?? null, baseUrl: h?.provider?.baseUrl ?? cfg.baseUrl };
+    return { name: s.name, models: s.models, maxCalls: h?.maxCalls ?? null, providers: h?.providers ?? null };
   }),
   suites: [...new Set(cases.map((c) => c.pub.suite))],
   judges: Object.fromEntries([...new Set(cases.map((c) => c.pub.suite))].map((s) => [s, project.judgeFor(s)])),

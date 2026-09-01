@@ -5,7 +5,7 @@ import { keyFromEnv, resolveModelConfig } from './config.js';
 import { loadBenchmarks, loadHarnesses, uniqueGraders, type BenchmarkManifest, type HarnessManifest } from './manifests.js';
 import { dockerArgv, sandboxedSystem } from './sandbox.js';
 import { startProxy } from './proxy.js';
-import type { Grader, ModelProxy, SystemUnderTest } from './types.js';
+import type { Grader, Models, ModelProxy, SystemUnderTest } from './types.js';
 
 export { loadProject, startProxyFor, gitState, type Project };
 
@@ -29,14 +29,18 @@ async function loadProject(opts: { judgeOverride?: string } = {}): Promise<Proje
   let cases = await loadCases('benchmarks');
   let graders = uniqueGraders(benchmarks);
 
-  // a harness names its models; the safety model defaults to the main one. a harness
-  // with a provider sends its model calls to that upstream instead of BENCH_BASE_URL;
-  // the key stays in the env variable the manifest names
+  // a harness names its models; the safety model defaults to the main one. a model with a
+  // provider goes to that upstream instead of BENCH_BASE_URL; the key stays in the env
+  // variable the manifest names
   let systems = new Map(
     harnesses.map((h) => {
-      let models = { main: h.models.main, safety: h.models.safety ?? h.models.main };
-      let upstream = h.provider && { url: h.provider.baseUrl, key: keyFromEnv(h.provider.keyEnv, `harness ${h.name}`) };
-      return [h.name, sandboxedSystem(h.name, argvFor(h), models, h.suites, h.maxCalls, upstream)];
+      let models = { ...h.models, safety: h.models.safety ?? h.models.main } as Models;
+      let upstreams =
+        h.providers &&
+        Object.fromEntries(
+          Object.entries(h.providers).map(([model, p]) => [model, { url: p.baseUrl, key: keyFromEnv(p.keyEnv, `harness ${h.name}`) }]),
+        );
+      return [h.name, sandboxedSystem(h.name, argvFor(h), models, h.suites, h.maxCalls, upstreams)];
     }),
   );
 

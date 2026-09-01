@@ -1,0 +1,17 @@
+{
+  "name": "direct-4b-ft",
+  "description": "The direct harness with cuad-qwen3, the Qwen3-4B-Instruct-2507 finetuned on CUAD, on the local server. One model call, like direct: the finetune replaces the harness logic.",
+  "entry": "../direct/src/entry.ts",
+  "suites": [
+    "cuad-hard",
+    "cuad-hard-dev"
+  ],
+  "models": {
+    "main": "cuad-qwen3-128k"
+  },
+  "providers": {
+    "cuad-qwen3-128k": {
+      "baseUrl": "http://100.124.74.45:11434/v1"
+    }
+  }
+}

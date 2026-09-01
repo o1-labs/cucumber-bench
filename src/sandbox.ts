@@ -20,7 +20,7 @@ function sandboxedSystem(
   models: Models,
   suites?: string[],
   maxCalls?: number,
-  upstream?: { url: string; key: string },
+  upstreams?: { [model: string]: { url: string; key: string } },
 ): SystemUnderTest {
   // a container reaches the host proxy through the gateway name, not loopback
   let docker = argv[0] === 'docker';
@@ -29,7 +29,7 @@ function sandboxedSystem(
     suites,
     models,
     async run(c, ctx) {
-      let token = ctx.proxy.register(`${ctx.runId}/${c.id}/rep${ctx.repetition}`, { models: [models.main, models.safety], maxCalls, upstream });
+      let token = ctx.proxy.register(`${ctx.runId}/${c.id}/rep${ctx.repetition}`, { models: Object.values(models), maxCalls, upstreams });
       let proxyUrl = docker ? ctx.proxy.url.replace('127.0.0.1', 'host.docker.internal') : ctx.proxy.url;
       let payload = JSON.stringify({ publicCase: c, proxyUrl, token, models });
 

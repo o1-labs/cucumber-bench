@@ -60,7 +60,7 @@ Copy `.env.example` to `.env` (gitignored, loaded automatically).
 | --- | --- | --- |
 | `BENCH_BASE_URL` | `http://localhost:11434/v1` | OpenAI-compatible API: Ollama, OpenRouter, ... |
 | `BENCH_API_KEY` | `none` | its key |
-| the variable a harness's `provider.keyEnv` names | unset | the key for a harness with its own provider (`provider.baseUrl` in its manifest) |
+| the variables named by `keyEnv` in `providers` | unset | the keys for models a harness puts on their own provider (`providers` in its manifest) |
 | `BENCH_JUDGE_MODEL` | `qwen3:8b` | judge for a benchmark that names none |
 | `BENCH_JUDGE_BASE_URL`, `BENCH_JUDGE_API_KEY` | the main URL and key | a judge on another provider |
 | `BENCH_TEMPERATURE` | `0` | injected when a harness sets none |
@@ -84,8 +84,12 @@ each case in a fresh hardened container (read-only, no capabilities, resource ca
 | `legal-v1` | legalbench, redaction | input safety → agent → output safety; safety is regex plus a trusted safety model (Vercel AI SDK) |
 | `cite-v1` | asqa, cuad | the few-shot answer, then a check of every sentence's citations; an unsupported sentence is dropped |
 | `review-v1` | cuad | scan every passage and quote what answers the question; compose the answer from the quotes; check every cited sentence against its passages |
+| `direct-4b` | cuad-hard | `direct` with the plain Qwen3-4B-Instruct-2507, hosted on nscale: the finetune's baseline |
+| `direct-4b-ft` | cuad-hard | `direct` with `cuad-qwen3`, the CUAD finetune on the local server |
+| `review-ft` | cuad-hard | the review pipeline with `cuad-qwen3` as the scan extractor and a general model for compose and check |
 
-Every harness names its model in its manifest; all use `qwen/qwen3.6-35b-a3b` today.
+Every harness names its models in its manifest, and, per model, the provider it lives on
+(`providers`); a model without one uses `BENCH_BASE_URL`.
 
 ## Benchmarks
 

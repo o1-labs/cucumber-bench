@@ -100,8 +100,9 @@ type SystemUnderTest = {
   run(c: PublicCase, ctx: { runId: string; repetition: number; proxy: ModelProxy }): Promise<Omit<RunResult, 'latencyMs'>>;
 };
 
-// main answers on the guarded route; safety is the trusted model a safety stage may show raw data to
-type Models = { main: string; safety: string };
+// main answers on the guarded route; safety is the trusted model a safety stage may show raw
+// data to. a harness may name further roles (e.g. compose) and use them on the guarded route
+type Models = { main: string; safety: string; [role: string]: string };
 
 // what a grader may use beyond the case and the result: a greedy judge model behind
 // the proxy, on a token of its own so grading cost is counted apart from the harness
@@ -119,8 +120,11 @@ type ModelProxy = {
   // returns the bearer token for one run. a harness token reaches the guarded and safety routes
   // and only the models it names; a judge token (judge: true) reaches the judge route only.
   // models: the allowed model ids (any when omitted); maxCalls: this run's own call limit;
-  // upstream: the provider this run's guarded and safety calls go to (default: the main upstream)
-  register(runId: string, opts?: { judge?: boolean; models?: string[]; maxCalls?: number; upstream?: { url: string; key: string } }): string;
+  // upstreams: per-model providers; a model not named goes to the main upstream
+  register(
+    runId: string,
+    opts?: { judge?: boolean; models?: string[]; maxCalls?: number; upstreams?: { [model: string]: { url: string; key: string } } },
+  ): string;
   usage(token: string): Usage;
   requests(token: string): string[]; // prompt texts that went through, in order
   close(): Promise<void>;

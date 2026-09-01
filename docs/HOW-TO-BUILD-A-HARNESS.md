@@ -68,8 +68,8 @@ it can change without touching the tests.
 | field | meaning |
 | --- | --- |
 | `suites` | the benchmarks this harness runs on; the runner skips the others |
-| `models.main` | required; `models.safety` defaults to `main`. The model is part of the harness; the report shows what each system used |
-| `provider` | optional; the upstream this harness's model calls go to: `{ "baseUrl": "...", "keyEnv": "HF_TOKEN" }`. `keyEnv` names the env variable that holds the key (absent: no key). Default: `BENCH_BASE_URL`. Use it for a model on its own server, e.g. a finetuned model |
+| `models.main` | required; `models.safety` defaults to `main`. Further roles (e.g. `models.compose`) are allowed and usable on the guarded route. The models are part of the harness; the report shows what each system used |
+| `providers` | optional; per-model upstreams: `{ "<model-id>": { "baseUrl": "...", "keyEnv": "HF_TOKEN" } }`. `keyEnv` names the env variable that holds the key (absent: no key). A model not named uses `BENCH_BASE_URL`. Use it for a model on its own server, e.g. a finetuned model |
 | `maxCalls` | optional; a higher call limit for this harness, e.g. one call per passage |
 | `image`, `imageEntry`, `dockerfile` | for a harness with dependencies: its own image (see below) |
 
@@ -80,7 +80,8 @@ manifest points at the first harness's entry, and name the model and provider:
 
 ```json
 { "name": "direct-ft", "entry": "../direct/src/entry.ts", "suites": ["cuad-hard"],
-  "models": { "main": "my-finetune" }, "provider": { "baseUrl": "http://my-server:11434/v1" } }
+  "models": { "main": "my-finetune" },
+  "providers": { "my-finetune": { "baseUrl": "http://my-server:11434/v1" } } }
 ```
 
 Then `npm run bench -- --systems direct,direct-ft --suites cuad-hard-dev` compares the two

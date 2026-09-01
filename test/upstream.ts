@@ -35,6 +35,8 @@ async function mockUpstream(): Promise<Mock> {
         label === 'JSON array:' ? '["Heder", "Sanavi"]'
         // review-v1 scan: the first eight words of passage 2, when the batch has it
         : label === 'Quotes:' ? (quote ? `[2] "${quote}"` : 'none')
+        // review-ft scan: the extractor's bare verbatim quote when the excerpt holds the cuad-000 clause passage
+        : label === 'Verbatim quotes:' ? (prompt.includes('Rogers reserves the right, in its sole') ? '"(b) Rogers reserves the right, in its sole"' : 'None')
         // review-v1 compose: quote the first finding, or the negative form
         : label === 'Answer from the findings:' ? (finding ? `Yes. The contract contains the clause: ${finding} [2].` : 'The contract contains no such clause.')
         : label === 'Supported (yes or no):' ? (prompt.includes('Claim: The contract contains the clause') ? '**Yes**' : 'no')

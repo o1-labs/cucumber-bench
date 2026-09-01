@@ -143,6 +143,28 @@ describe('cite-v1 (citation harness)', () => {
   });
 });
 
+describe('review-ft (finetuned extractor review harness)', () => {
+  it('should scan excerpts with the extractor, attach citations, then compose and check with the general model', async () => {
+    let { pub } = (await loadCases('benchmarks/cuad')).find((c) => c.pub.id === 'cuad-000')!;
+    let n = pub.docs!.length, batches = Math.ceil(n / 3);
+    let system = sandboxedSystem('review-ft', tsx('harnesses/review-ft/src/entry.ts'), { ...models, main: 'extractor', compose: 'composer' }, undefined, 12);
+    let result = await system.run(pub, { runId: 't', repetition: 1, proxy });
+    assert.equal(result.error, undefined);
+    assert.equal(result.modelCalls, batches + 2);
+    // the extractor scanned every excerpt; the general model composed and checked the uncited "Yes."
+    let calls = seen.slice(-(batches + 2));
+    assert.equal(calls.filter((r) => r.model === 'extractor').length, batches);
+    assert.equal(calls.filter((r) => r.model === 'composer').length, 2);
+    // the extractor answered a bare quote; the harness located it in passage 2 and cited it
+    let quote = '(b) Rogers reserves the right, in its sole';
+    assert.equal(result.output, `The contract contains the clause: "${quote}" [2].`);
+    let [, agent, check] = result.trace!.stages;
+    assert.equal(agent.module, 'extractor-scan+compose');
+    assert.deepEqual(agent.findings, [`scanned ${n} passages in ${batches} excerpts: 1 quote(s) from [2]`]);
+    assert.equal(check.decision, 'modified');
+  });
+});
+
 describe('review-v1 (review harness)', () => {
   it('should scan every passage in batches, compose from the quotes, and check each cited sentence', async () => {
     let { pub } = (await loadCases('benchmarks/cuad')).find((c) => c.pub.id === 'cuad-000')!;
