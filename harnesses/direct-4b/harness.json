@@ -1,0 +1,13 @@
+{
+  "name": "direct-4b",
+  "description": "The direct harness with the plain Qwen3-4B-Instruct-2507: the base model of the finetune, as its baseline. This is comparable to giving the task to a generic chat interface and expecting a good result.",
+  "entry": "../direct/src/entry.ts",
+  "suites": [
+    "cuad-hard",
+    "cuad-hard-dev"
+  ],
+  "models": {
+    "main": "Qwen/Qwen3-4B-Instruct-2507:nscale"
+  },
+  "provider": "hf"
+}
