@@ -1,6 +1,6 @@
 import { describe, it, afterEach } from 'vitest';
 import assert from 'node:assert/strict';
-import { providerFor, resolveModelConfig } from '../src/config.js';
+import { keyFromEnv, resolveModelConfig } from '../src/config.js';
 
 describe('resolveModelConfig', () => {
   let origEnv = { ...process.env };
@@ -21,11 +21,10 @@ describe('resolveModelConfig', () => {
     assert.equal(cfg.temperature, 0.7);
   });
 
-  it('should resolve a named provider, with dashes as underscores, and fail on a missing one', () => {
-    process.env.BENCH_PROVIDER_MY_FT_BASE_URL = 'http://ft:1234/v1';
-    assert.deepEqual(providerFor('my-ft'), { url: 'http://ft:1234/v1', key: 'none' });
-    process.env.BENCH_PROVIDER_MY_FT_API_KEY = 'k';
-    assert.equal(providerFor('my-ft').key, 'k');
-    assert.throws(() => providerFor('nope'), /BENCH_PROVIDER_NOPE_BASE_URL/);
+  it('should read a provider key from the env variable the manifest names, and fail on a missing one', () => {
+    assert.equal(keyFromEnv(undefined, 'harness x'), 'none');
+    process.env.MY_TOKEN = 'k';
+    assert.equal(keyFromEnv('MY_TOKEN', 'harness x'), 'k');
+    assert.throws(() => keyFromEnv('UNSET_TOKEN', 'harness x'), /harness x: the provider key env variable UNSET_TOKEN is not set/);
   });
 });

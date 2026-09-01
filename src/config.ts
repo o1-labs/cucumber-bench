@@ -1,6 +1,4 @@
-import assert from 'node:assert/strict';
-
-export { resolveModelConfig, providerFor };
+export { resolveModelConfig, keyFromEnv };
 
 // env config. providers (urls, keys) live only here: they are infrastructure and
 // secrets. a harness manifest names its own models; a benchmark manifest names its
@@ -19,13 +17,13 @@ function resolveModelConfig() {
   };
 }
 
-// a named provider a harness selects with "provider" in its manifest, e.g. a finetuned
-// model on its own server. BENCH_PROVIDER_<NAME>_BASE_URL and _API_KEY (default: none)
-function providerFor(name: string): { url: string; key: string } {
-  let prefix = `BENCH_PROVIDER_${name.toUpperCase().replace(/-/g, '_')}`;
-  let url = env(`${prefix}_BASE_URL`);
-  assert(url, `provider ${name}: set ${prefix}_BASE_URL in .env`);
-  return { url, key: env(`${prefix}_API_KEY`) ?? 'none' };
+// the key for a harness provider: the manifest names the env variable (keyEnv), the
+// key itself stays in .env. absent keyEnv: no key (a local ollama)
+function keyFromEnv(keyEnv: string | undefined, context: string): string {
+  if (!keyEnv) return 'none';
+  let key = env(keyEnv);
+  if (!key) throw Error(`${context}: the provider key env variable ${keyEnv} is not set`);
+  return key;
 }
 
 // internal helpers

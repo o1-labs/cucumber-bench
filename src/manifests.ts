@@ -16,7 +16,9 @@ type HarnessManifest = {
   description?: string;
   suites: string[]; // the benchmarks this harness runs on
   models: { main: string; safety?: string }; // the harness's models: main on the guarded route, safety on the safety route (default: main)
-  provider?: string; // a named provider from the env (BENCH_PROVIDER_<NAME>_*) its model calls go to; default: BENCH_BASE_URL
+  // the upstream this harness's model calls go to; default: BENCH_BASE_URL. the url is
+  // infrastructure, not a secret; keyEnv names the env variable that holds the key (default: none)
+  provider?: { baseUrl: string; keyEnv?: string };
   maxCalls?: number; // model calls per run this harness needs; default BENCH_MAX_CALLS (20)
   image: string; // docker image; the shared base image unless the harness has its own
   imageEntry: string; // the entry path inside the image
@@ -41,6 +43,7 @@ async function loadHarnesses(root: string): Promise<HarnessManifest[]> {
     let m = JSON.parse(await readFile(join(dir, 'harness.json'), 'utf8'));
     assert(m.name && m.entry && Array.isArray(m.suites), `${dir}/harness.json needs name, entry, suites`);
     assert(typeof m.models?.main === 'string', `${dir}/harness.json needs models.main: the harness names its own model`);
+    assert(!m.provider || typeof m.provider.baseUrl === 'string', `${dir}/harness.json: provider needs a baseUrl`);
     out.push({ dir, image: 'cucumber-harness-base', imageEntry: `/app/${m.name}/${m.entry}`, ...m });
   }
   return out;

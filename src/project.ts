@@ -1,7 +1,7 @@
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { loadCases, type Case } from './caseStore.js';
-import { providerFor, resolveModelConfig } from './config.js';
+import { keyFromEnv, resolveModelConfig } from './config.js';
 import { loadBenchmarks, loadHarnesses, uniqueGraders, type BenchmarkManifest, type HarnessManifest } from './manifests.js';
 import { dockerArgv, sandboxedSystem } from './sandbox.js';
 import { startProxy } from './proxy.js';
@@ -30,11 +30,12 @@ async function loadProject(opts: { judgeOverride?: string } = {}): Promise<Proje
   let graders = uniqueGraders(benchmarks);
 
   // a harness names its models; the safety model defaults to the main one. a harness
-  // with a named provider sends its model calls to that upstream instead of BENCH_BASE_URL
+  // with a provider sends its model calls to that upstream instead of BENCH_BASE_URL;
+  // the key stays in the env variable the manifest names
   let systems = new Map(
     harnesses.map((h) => {
       let models = { main: h.models.main, safety: h.models.safety ?? h.models.main };
-      let upstream = h.provider ? providerFor(h.provider) : undefined;
+      let upstream = h.provider && { url: h.provider.baseUrl, key: keyFromEnv(h.provider.keyEnv, `harness ${h.name}`) };
       return [h.name, sandboxedSystem(h.name, argvFor(h), models, h.suites, h.maxCalls, upstream)];
     }),
   );

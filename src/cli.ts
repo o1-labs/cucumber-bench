@@ -2,7 +2,6 @@ import { appendFileSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
-import { providerFor } from './config.js';
 import { gitState, loadProject, startProxyFor } from './project.js';
 import { runSuite } from './runner.js';
 import { buildReport } from './report.js';
@@ -68,10 +67,10 @@ let manifest = {
   complete: false,
   expectedJobs: expected,
   records: 0,
-  // baseUrl: where this system's model calls went; a harness with a named provider differs from the default
+  // baseUrl: where this system's model calls went; a harness with its own provider differs from the default
   systems: systems.map((s) => {
     let h = project.harnesses.find((x) => x.name === s.name);
-    return { name: s.name, models: s.models, maxCalls: h?.maxCalls ?? null, baseUrl: h?.provider ? providerFor(h.provider).url : cfg.baseUrl };
+    return { name: s.name, models: s.models, maxCalls: h?.maxCalls ?? null, baseUrl: h?.provider?.baseUrl ?? cfg.baseUrl };
   }),
   suites: [...new Set(cases.map((c) => c.pub.suite))],
   judges: Object.fromEntries([...new Set(cases.map((c) => c.pub.suite))].map((s) => [s, project.judgeFor(s)])),
