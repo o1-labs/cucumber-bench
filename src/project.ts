@@ -1,7 +1,7 @@
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { loadCases, type Case } from './caseStore.js';
-import { resolveModelConfig } from './config.js';
+import { providerFor, resolveModelConfig } from './config.js';
 import { loadBenchmarks, loadHarnesses, uniqueGraders, type BenchmarkManifest, type HarnessManifest } from './manifests.js';
 import { dockerArgv, sandboxedSystem } from './sandbox.js';
 import { startProxy } from './proxy.js';
@@ -29,11 +29,13 @@ async function loadProject(opts: { judgeOverride?: string } = {}): Promise<Proje
   let cases = await loadCases('benchmarks');
   let graders = uniqueGraders(benchmarks);
 
-  // a harness names its models; the safety model defaults to the main one
+  // a harness names its models; the safety model defaults to the main one. a harness
+  // with a named provider sends its model calls to that upstream instead of BENCH_BASE_URL
   let systems = new Map(
     harnesses.map((h) => {
       let models = { main: h.models.main, safety: h.models.safety ?? h.models.main };
-      return [h.name, sandboxedSystem(h.name, argvFor(h), models, h.suites, h.maxCalls)];
+      let upstream = h.provider ? providerFor(h.provider) : undefined;
+      return [h.name, sandboxedSystem(h.name, argvFor(h), models, h.suites, h.maxCalls, upstream)];
     }),
   );
 

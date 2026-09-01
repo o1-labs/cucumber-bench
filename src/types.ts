@@ -118,8 +118,9 @@ type ModelProxy = {
   url: string;
   // returns the bearer token for one run. a harness token reaches the guarded and safety routes
   // and only the models it names; a judge token (judge: true) reaches the judge route only.
-  // models: the allowed model ids (any when omitted); maxCalls: this run's own call limit
-  register(runId: string, opts?: { judge?: boolean; models?: string[]; maxCalls?: number }): string;
+  // models: the allowed model ids (any when omitted); maxCalls: this run's own call limit;
+  // upstream: the provider this run's guarded and safety calls go to (default: the main upstream)
+  register(runId: string, opts?: { judge?: boolean; models?: string[]; maxCalls?: number; upstream?: { url: string; key: string } }): string;
   usage(token: string): Usage;
   requests(token: string): string[]; // prompt texts that went through, in order
   close(): Promise<void>;

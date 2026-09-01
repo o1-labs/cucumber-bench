@@ -1,5 +1,7 @@
 import { describe, it, beforeAll, afterAll } from 'vitest';
 import assert from 'node:assert/strict';
+import { createServer } from 'node:http';
+import type { AddressInfo } from 'node:net';
 import { mockUpstream, type Mock } from './upstream.js';
 import type { ModelProxy } from '../src/types.js';
 
@@ -103,5 +105,28 @@ describe('proxy', () => {
     let token = proxy.register('r5', { maxCalls: 1 });
     assert.equal((await call(token)).status, 200);
     assert.equal((await call(token)).status, 429);
+  });
+
+  it('should send a run with its own upstream there, with that key', async () => {
+    // a second upstream that records the authorization header
+    let auth: string | undefined;
+    let other = createServer((req, res) => {
+      auth = req.headers.authorization;
+      res.setHeader('content-type', 'application/json');
+      res.end(JSON.stringify({ choices: [{ message: { content: 'from other' } }], usage: {} }));
+    });
+    await new Promise<void>((r) => other.listen(0, '127.0.0.1', r));
+    let { port } = other.address() as AddressInfo;
+
+    let token = proxy.register('p1', { upstream: { url: `http://127.0.0.1:${port}/v1`, key: 'other-key' } });
+    let data: any = await (await call(token)).json();
+    assert.equal(data.choices[0].message.content, 'from other');
+    assert.equal(auth, 'Bearer other-key');
+    // usage is still counted at the proxy
+    assert.equal(proxy.usage(token).modelCalls, 1);
+    // a run without one still reaches the main upstream
+    let plain: any = await (await call(proxy.register('p2'))).json();
+    assert.equal(plain.choices[0].message.content, 'Yes');
+    await new Promise((r) => other.close(r));
   });
 });

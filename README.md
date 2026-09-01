@@ -60,6 +60,7 @@ Copy `.env.example` to `.env` (gitignored, loaded automatically).
 | --- | --- | --- |
 | `BENCH_BASE_URL` | `http://localhost:11434/v1` | OpenAI-compatible API: Ollama, OpenRouter, ... |
 | `BENCH_API_KEY` | `none` | its key |
+| `BENCH_PROVIDER_<NAME>_BASE_URL`, `..._API_KEY` | unset | a named provider; a harness selects it with `"provider": "<name>"` in its manifest |
 | `BENCH_JUDGE_MODEL` | `qwen3:8b` | judge for a benchmark that names none |
 | `BENCH_JUDGE_BASE_URL`, `BENCH_JUDGE_API_KEY` | the main URL and key | a judge on another provider |
 | `BENCH_TEMPERATURE` | `0` | injected when a harness sets none |

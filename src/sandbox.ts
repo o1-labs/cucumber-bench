@@ -14,7 +14,14 @@ const TIMEOUT_MS = 300_000;
 // token, models} as json, stdout returns {output, trace?} or {error}. the child
 // never receives private cases, api keys, or the upstream url; usage and the
 // prompts that reached the model come from the proxy, not from the child.
-function sandboxedSystem(name: string, argv: string[], models: Models, suites?: string[], maxCalls?: number): SystemUnderTest {
+function sandboxedSystem(
+  name: string,
+  argv: string[],
+  models: Models,
+  suites?: string[],
+  maxCalls?: number,
+  upstream?: { url: string; key: string },
+): SystemUnderTest {
   // a container reaches the host proxy through the gateway name, not loopback
   let docker = argv[0] === 'docker';
   return {
@@ -22,7 +29,7 @@ function sandboxedSystem(name: string, argv: string[], models: Models, suites?: 
     suites,
     models,
     async run(c, ctx) {
-      let token = ctx.proxy.register(`${ctx.runId}/${c.id}/rep${ctx.repetition}`, { models: [models.main, models.safety], maxCalls });
+      let token = ctx.proxy.register(`${ctx.runId}/${c.id}/rep${ctx.repetition}`, { models: [models.main, models.safety], maxCalls, upstream });
       let proxyUrl = docker ? ctx.proxy.url.replace('127.0.0.1', 'host.docker.internal') : ctx.proxy.url;
       let payload = JSON.stringify({ publicCase: c, proxyUrl, token, models });
 

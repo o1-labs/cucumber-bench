@@ -69,10 +69,22 @@ it can change without touching the tests.
 | --- | --- |
 | `suites` | the benchmarks this harness runs on; the runner skips the others |
 | `models.main` | required; `models.safety` defaults to `main`. The model is part of the harness; the report shows what each system used |
+| `provider` | optional; a named provider from `.env` (`BENCH_PROVIDER_<NAME>_BASE_URL`, `..._API_KEY`) this harness's model calls go to. Default: `BENCH_BASE_URL`. Use it for a model on its own server, e.g. a finetuned model |
 | `maxCalls` | optional; a higher call limit for this harness, e.g. one call per passage |
 | `image`, `imageEntry`, `dockerfile` | for a harness with dependencies: its own image (see below) |
 
 The CLI finds the folder. A `.ts` entry runs under `tsx`.
+
+**The same harness with another model** (e.g. a finetuned one): add a second folder whose
+manifest points at the first harness's entry, and name the model and provider:
+
+```json
+{ "name": "direct-ft", "entry": "../direct/src/entry.ts", "suites": ["cuad-hard"],
+  "models": { "main": "my-finetune" }, "provider": "ft" }
+```
+
+Then `npm run bench -- --systems direct,direct-ft --suites cuad-hard-dev` compares the two
+in one run. For docker mode, also name the first harness's `image` and `imageEntry`.
 
 **A minimal entry** without dependencies uses `harnesses/lib.ts`:
 
