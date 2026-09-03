@@ -27,7 +27,8 @@ npm test
 | `--no-details` | no gold-derived details in the report, for a shared report of a test set |
 
 Other commands: `npm run regrade -- runs/<id> [--judge model]` grades stored outputs
-again without running a harness; `npm run chart -- runs/<id>` regenerates a chart;
+again without running a harness; `npm run chart -- runs/<id> [runs/<id> ...]` regenerates
+a chart, or merges several runs of the same suite into one page (`chart-merged.html`);
 `npm run sandbox:build` builds the docker images.
 
 ## How it works
@@ -132,3 +133,6 @@ headers). The raw data is not in the repository.
 - Tune a harness on a `*-dev` suite only. The test suites are locked.
 - A harness gets the identical public case; extra sources only as proxy routes open to all.
 - Report numbers from docker mode with several repetitions.
+
+The full rules for comparable runs (lanes, splits, pinning, reporting) are in
+[docs/PROTOCOL.md](docs/PROTOCOL.md).
