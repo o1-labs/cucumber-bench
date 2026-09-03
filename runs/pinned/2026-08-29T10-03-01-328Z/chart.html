@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>cucumber-bench 2026-08-30T06-12-48-622Z</title>
+<title>cucumber-bench 2026-08-29T10-03-01-328Z</title>
 <style>
 :root {
   color-scheme: light;
@@ -87,7 +87,7 @@ th .key { vertical-align: -1px; }
 </head>
 <body>
 <h1>cucumber-bench</h1>
-<p class="sub">run 2026-08-30T06-12-48-622Z · 100 cases · 3 repetitions</p>
+<p class="sub">run 2026-08-29T10-03-01-328Z · 15 cases · 5 repetitions</p>
 <div class="card help">
   <h2>How to read this page</h2>
   <p>Each system answered the cases of the benchmarks it runs on. A <b>grader</b> compares an answer with the private
@@ -95,12 +95,12 @@ th .key { vertical-align: -1px; }
   how close the answers were. The <b>pass rate</b> is the share of answers that were fully correct. A grader without
   partial credit shows the same number for both. In each chart, the bar is the mean score and the dot is the pass rate.
   Higher is better.</p>
-  <ul><li><span class="key s1"></span> <b>direct</b>: One model call. The raw input goes to the model. There is no safety stage. This is the baseline. This is comparable to giving the task to a generic chat interface and expecting a good result. Models: qwen/qwen3.6-35b-a3b.</li><li><span class="key s2"></span> <b>review-v1</b>: The review harness, in three stages: every passage is read on its own and every part that answers the question is quoted (scan); the answer is written from the quotes only, in the benchmark's form (compose); every cited sentence is verified against its cited passages, and an unsupported one is dropped (check). This is what the workflow looks like with a custom harness that is specialised for this type of work. Models: qwen/qwen3.6-35b-a3b.</li></ul>
+  <ul><li><span class="key s1"></span> <b>direct</b>: One model call. The raw input goes to the model. There is no safety stage. This is the baseline. This is comparable to giving the task to a generic chat interface and expecting a good result. Models: qwen/qwen3.6-35b-a3b.</li><li><span class="key s2"></span> <b>cite-v1</b>: The citation harness. Step 4: the same answer as direct, then a greedy check of every sentence: the citations become the smallest set of passages that supports it, and a sentence no passage supports is dropped. This is what the workflow looks like with a custom harness that is specialised for this type of work. Models: qwen/qwen3.6-35b-a3b.</li></ul>
 </div>
 <div class="card">
-  <h2>cuad-hard: results by grader</h2>
+  <h2>asqa: results by grader</h2>
   <p class="csub">Bar: the mean score (how close the answers were on average). Dot: the pass rate (the share of answers that were fully correct). Higher is better.</p>
-  <div class="legend"><span><span class="key s1"></span>direct</span><span><span class="key s2"></span>review-v1</span><span class="note">bar = mean score · dot = pass rate</span></div>
+  <div class="legend"><span><span class="key s1"></span>direct</span><span><span class="key s2"></span>cite-v1</span><span class="note">bar = mean score · dot = pass rate</span></div>
   <svg viewBox="0 0 640 240" aria-hidden="false"><line class="baseline" x1="44" x2="632" y1="200" y2="200"/>
 <text class="tick" x="38" y="203.5" text-anchor="end">0%</text>
 <line class="gridline" x1="44" x2="632" y1="153" y2="153"/>
@@ -111,58 +111,58 @@ th .key { vertical-align: -1px; }
 <text class="tick" x="38" y="62.5" text-anchor="end">75%</text>
 <line class="gridline" x1="44" x2="632" y1="12" y2="12"/>
 <text class="tick" x="38" y="15.5" text-anchor="end">100%</text>
-<path id="cuad-hard-results-by-grader-0-0" fill="var(--s1)" d="M 117 200 L 117 84.4020909090909 Q 117 80.4020909090909 121 80.4020909090909 L 137 80.4020909090909 Q 141 80.4020909090909 141 84.4020909090909 L 141 200 Z"/>
-<circle cx="129" cy="97.85333333333334" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
-<rect class="hit" x="115" y="12" width="28" height="188" tabindex="0" role="img" aria-label="clause-recall: direct 64% mean · 54% pass, review-v1 80% mean · 75% pass" data-tip="{&quot;task&quot;:&quot;clause-recall&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;64% mean · 54% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;review-v1&quot;,&quot;value&quot;:&quot;80% mean · 75% pass&quot;}]}" data-col="cuad-hard-results-by-grader-0-0"/>
+<path id="asqa-results-by-grader-0-0" fill="var(--s1)" d="M 117 200 L 117 116.68444444444445 Q 117 112.68444444444445 121 112.68444444444445 L 137 112.68444444444445 Q 141 112.68444444444445 141 116.68444444444445 L 141 200 Z"/>
+<circle cx="129" cy="174.93333333333334" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<rect class="hit" x="115" y="12" width="28" height="188" tabindex="0" role="img" aria-label="str-em: direct 46% mean · 13% pass, cite-v1 52% mean · 13% pass" data-tip="{&quot;task&quot;:&quot;str-em&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;46% mean · 13% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;cite-v1&quot;,&quot;value&quot;:&quot;52% mean · 13% pass&quot;}]}" data-col="asqa-results-by-grader-0-0"/>
 <rect class="focusring" x="115" y="12" width="28" height="188" fill="none"/>
-<path id="cuad-hard-results-by-grader-0-1" fill="var(--s2)" d="M 143 200 L 143 53.99404040404042 Q 143 49.99404040404042 147 49.99404040404042 L 163 49.99404040404042 Q 167 49.99404040404042 167 53.99404040404042 L 167 200 Z"/>
-<circle cx="155" cy="59" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
-<rect class="hit" x="141" y="12" width="28" height="188" tabindex="0" role="img" aria-label="clause-recall: direct 64% mean · 54% pass, review-v1 80% mean · 75% pass" data-tip="{&quot;task&quot;:&quot;clause-recall&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;64% mean · 54% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;review-v1&quot;,&quot;value&quot;:&quot;80% mean · 75% pass&quot;}]}" data-col="cuad-hard-results-by-grader-0-1"/>
+<path id="asqa-results-by-grader-0-1" fill="var(--s2)" d="M 143 200 L 143 106.03111111111116 Q 143 102.03111111111116 147 102.03111111111116 L 163 102.03111111111116 Q 167 102.03111111111116 167 106.03111111111116 L 167 200 Z"/>
+<circle cx="155" cy="174.93333333333334" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
+<rect class="hit" x="141" y="12" width="28" height="188" tabindex="0" role="img" aria-label="str-em: direct 46% mean · 13% pass, cite-v1 52% mean · 13% pass" data-tip="{&quot;task&quot;:&quot;str-em&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;46% mean · 13% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;cite-v1&quot;,&quot;value&quot;:&quot;52% mean · 13% pass&quot;}]}" data-col="asqa-results-by-grader-0-1"/>
 <rect class="focusring" x="141" y="12" width="28" height="188" fill="none"/>
-<text class="cat" x="142" y="216" text-anchor="middle">clause-recall</text>
-<path id="cuad-hard-results-by-grader-1-0" fill="var(--s1)" d="M 313 200 L 313 69.78888888888889 Q 313 65.78888888888889 317 65.78888888888889 L 333 65.78888888888889 Q 337 65.78888888888889 337 69.78888888888889 L 337 200 Z"/>
-<circle cx="325" cy="73.41333333333333" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
-<rect class="hit" x="311" y="12" width="28" height="188" tabindex="0" role="img" aria-label="clause-precision: direct 71% mean · 67% pass, review-v1 76% mean · 64% pass" data-tip="{&quot;task&quot;:&quot;clause-precision&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;71% mean · 67% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;review-v1&quot;,&quot;value&quot;:&quot;76% mean · 64% pass&quot;}]}" data-col="cuad-hard-results-by-grader-1-0"/>
+<text class="cat" x="142" y="216" text-anchor="middle">str-em</text>
+<path id="asqa-results-by-grader-1-0" fill="var(--s1)" d="M 313 200 L 313 80.37955555555556 Q 313 76.37955555555556 317 76.37955555555556 L 333 76.37955555555556 Q 337 76.37955555555556 337 80.37955555555556 L 337 200 Z"/>
+<circle cx="325" cy="139.84" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<rect class="hit" x="311" y="12" width="28" height="188" tabindex="0" role="img" aria-label="citation-recall: direct 66% mean · 32% pass, cite-v1 92% mean · 87% pass" data-tip="{&quot;task&quot;:&quot;citation-recall&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;66% mean · 32% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;cite-v1&quot;,&quot;value&quot;:&quot;92% mean · 87% pass&quot;}]}" data-col="asqa-results-by-grader-1-0"/>
 <rect class="focusring" x="311" y="12" width="28" height="188" fill="none"/>
-<path id="cuad-hard-results-by-grader-1-1" fill="var(--s2)" d="M 339 200 L 339 62.000430495430464 Q 339 58.000430495430464 343 58.000430495430464 L 359 58.000430495430464 Q 363 58.000430495430464 363 62.000430495430464 L 363 200 Z"/>
-<circle cx="351" cy="79.67999999999999" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
-<rect class="hit" x="337" y="12" width="28" height="188" tabindex="0" role="img" aria-label="clause-precision: direct 71% mean · 67% pass, review-v1 76% mean · 64% pass" data-tip="{&quot;task&quot;:&quot;clause-precision&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;71% mean · 67% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;review-v1&quot;,&quot;value&quot;:&quot;76% mean · 64% pass&quot;}]}" data-col="cuad-hard-results-by-grader-1-1"/>
+<path id="asqa-results-by-grader-1-1" fill="var(--s2)" d="M 339 200 L 339 30.371555555555517 Q 339 26.371555555555517 343 26.371555555555517 L 359 26.371555555555517 Q 363 26.371555555555517 363 30.371555555555517 L 363 200 Z"/>
+<circle cx="351" cy="37.06666666666666" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
+<rect class="hit" x="337" y="12" width="28" height="188" tabindex="0" role="img" aria-label="citation-recall: direct 66% mean · 32% pass, cite-v1 92% mean · 87% pass" data-tip="{&quot;task&quot;:&quot;citation-recall&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;66% mean · 32% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;cite-v1&quot;,&quot;value&quot;:&quot;92% mean · 87% pass&quot;}]}" data-col="asqa-results-by-grader-1-1"/>
 <rect class="focusring" x="337" y="12" width="28" height="188" fill="none"/>
-<text class="cat" x="338" y="216" text-anchor="middle">clause-precision</text>
-<path id="cuad-hard-results-by-grader-2-0" fill="var(--s1)" d="M 509 200 L 509 68.22222222222226 Q 509 64.22222222222226 513 64.22222222222226 L 529 64.22222222222226 Q 533 64.22222222222226 533 68.22222222222226 L 533 200 Z"/>
-<circle cx="521" cy="70.90666666666664" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
-<rect class="hit" x="507" y="12" width="28" height="188" tabindex="0" role="img" aria-label="citation-support: direct 72% mean · 69% pass, review-v1 84% mean · 77% pass" data-tip="{&quot;task&quot;:&quot;citation-support&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;72% mean · 69% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;review-v1&quot;,&quot;value&quot;:&quot;84% mean · 77% pass&quot;}]}" data-col="cuad-hard-results-by-grader-2-0"/>
+<text class="cat" x="338" y="216" text-anchor="middle">citation-recall</text>
+<path id="asqa-results-by-grader-2-0" fill="var(--s1)" d="M 509 200 L 509 82.80266666666664 Q 509 78.80266666666664 513 78.80266666666664 L 529 78.80266666666664 Q 533 78.80266666666664 533 82.80266666666664 L 533 200 Z"/>
+<circle cx="521" cy="142.34666666666666" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<rect class="hit" x="507" y="12" width="28" height="188" tabindex="0" role="img" aria-label="citation-precision: direct 64% mean · 31% pass, cite-v1 93% mean · 81% pass" data-tip="{&quot;task&quot;:&quot;citation-precision&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;64% mean · 31% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;cite-v1&quot;,&quot;value&quot;:&quot;93% mean · 81% pass&quot;}]}" data-col="asqa-results-by-grader-2-0"/>
 <rect class="focusring" x="507" y="12" width="28" height="188" fill="none"/>
-<path id="cuad-hard-results-by-grader-2-1" fill="var(--s2)" d="M 535 200 L 535 46.39333333333332 Q 535 42.39333333333332 539 42.39333333333332 L 555 42.39333333333332 Q 559 42.39333333333332 559 46.39333333333332 L 559 200 Z"/>
-<circle cx="547" cy="54.613333333333344" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
-<rect class="hit" x="533" y="12" width="28" height="188" tabindex="0" role="img" aria-label="citation-support: direct 72% mean · 69% pass, review-v1 84% mean · 77% pass" data-tip="{&quot;task&quot;:&quot;citation-support&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;72% mean · 69% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;review-v1&quot;,&quot;value&quot;:&quot;84% mean · 77% pass&quot;}]}" data-col="cuad-hard-results-by-grader-2-1"/>
+<path id="asqa-results-by-grader-2-1" fill="var(--s2)" d="M 535 200 L 535 28.909567382508612 Q 535 24.909567382508612 539 24.909567382508612 L 555 24.909567382508612 Q 559 24.909567382508612 559 28.909567382508612 L 559 200 Z"/>
+<circle cx="547" cy="47.09333333333336" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
+<rect class="hit" x="533" y="12" width="28" height="188" tabindex="0" role="img" aria-label="citation-precision: direct 64% mean · 31% pass, cite-v1 93% mean · 81% pass" data-tip="{&quot;task&quot;:&quot;citation-precision&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;direct&quot;,&quot;value&quot;:&quot;64% mean · 31% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;cite-v1&quot;,&quot;value&quot;:&quot;93% mean · 81% pass&quot;}]}" data-col="asqa-results-by-grader-2-1"/>
 <rect class="focusring" x="533" y="12" width="28" height="188" fill="none"/>
-<text class="cat" x="534" y="216" text-anchor="middle">citation-support</text></svg>
+<text class="cat" x="534" y="216" text-anchor="middle">citation-precision</text></svg>
 </div>
 <div class="card">
-  <h2>cuad-hard: comparison</h2>
-  <p class="csub">One column per system, one row per metric. A grader cell shows the mean score, with the pass rate in parentheses. ↑ means higher is better, ↓ means lower is better. Bold marks the best value in the row. Runs per system: direct 300, review-v1 300.</p>
+  <h2>asqa: comparison</h2>
+  <p class="csub">One column per system, one row per metric. A grader cell shows the mean score, with the pass rate in parentheses. ↑ means higher is better, ↓ means lower is better. Bold marks the best value in the row. Runs per system: direct 75, cite-v1 75.</p>
   <div class="scroll"><table>
-    <thead><tr><th>metric</th><th><span class="key s1"></span> direct</th><th><span class="key s2"></span> review-v1</th></tr></thead>
-    <tbody><tr><td>clause-recall ↑</td><td>64% (pass 54%)</td><td class="best">80% (pass 75%)</td></tr>
-<tr><td>clause-precision ↑</td><td>71% (pass 67%)</td><td class="best">76% (pass 64%)</td></tr>
-<tr><td>citation-support ↑</td><td>72% (pass 69%)</td><td class="best">84% (pass 77%)</td></tr>
-<tr><td>error rate ↓</td><td class="best">0%</td><td class="best">0%</td></tr>
-<tr><td>consistency ↑</td><td class="best">59%</td><td>52%</td></tr>
-<tr><td>latency s ↓</td><td class="best">14.3</td><td>62</td></tr>
-<tr><td>model calls per run ↓</td><td class="best">1</td><td>16.4</td></tr>
-<tr><td>harness cost per run ↓</td><td class="best">$0.0047</td><td>$0.0261</td></tr>
-<tr><td>judge cost per run ↓</td><td class="best">$0.0001</td><td>$0.0001</td></tr>
-<tr><td>total cost, all 300 runs ↓</td><td class="best">$1.42</td><td>$7.87</td></tr></tbody>
+    <thead><tr><th>metric</th><th><span class="key s1"></span> direct</th><th><span class="key s2"></span> cite-v1</th></tr></thead>
+    <tbody><tr><td>str-em ↑</td><td>46% (pass 13%)</td><td class="best">52% (pass 13%)</td></tr>
+<tr><td>citation-recall ↑</td><td>66% (pass 32%)</td><td class="best">92% (pass 87%)</td></tr>
+<tr><td>citation-precision ↑</td><td>64% (pass 31%)</td><td class="best">93% (pass 81%)</td></tr>
+<tr><td>error rate ↓</td><td>1%</td><td class="best">0%</td></tr>
+<tr><td>consistency ↑</td><td>20%</td><td class="best">24%</td></tr>
+<tr><td>latency s ↓</td><td class="best">11.1</td><td>35.6</td></tr>
+<tr><td>model calls per run ↓</td><td class="best">1</td><td>4.7</td></tr>
+<tr><td>harness cost per run ↓</td><td class="best">$0.0024</td><td>$0.0093</td></tr>
+<tr><td>judge cost per run ↓</td><td>$0.0002</td><td class="best">$0.0002</td></tr>
+<tr><td>total cost, all 75 runs ↓</td><td class="best">$0.19</td><td>$0.71</td></tr></tbody>
   </table></div>
 </div>
 
 <div class="card">
   <h2>Glossary</h2>
   <ul class="defs">
-    <li><b>clause-recall</b>: For every clause the contract has, the answer quotes it and cites a passage that contains it. The score is the share of clauses found. When the contract has no such clause, the answer must say so.</li>
-    <li><b>clause-precision</b>: Every cited passage contains the clause. The score is the share of citations that do. When the contract has no such clause, the answer must cite nothing.</li>
-    <li><b>citation-support</b>: Every sentence is supported by the passages it cites; a sentence without citations passes only when it is a statement about the documents, not a fact. The score is the share of such sentences.</li>
+    <li><b>str-em</b>: Every gold short answer appears in the output. The score is the share of sub-questions answered.</li>
+    <li><b>citation-recall</b>: Every sentence is supported by the passages it cites. The score is the share of supported sentences.</li>
+    <li><b>citation-precision</b>: Every citation is necessary: its passage supports the sentence and is not redundant. The score is the share of such citations.</li>
     <li><b>error rate</b>: the share of runs that failed in the sandbox or in a grader. A failed run counts as a failed grade.</li>
     <li><b>consistency</b>: the share of repetitions that gave the same answer for a case, averaged over the cases. n/a with one repetition.</li>
     <li><b>latency s</b>: the average time of one run, in seconds, sandbox start included.</li>

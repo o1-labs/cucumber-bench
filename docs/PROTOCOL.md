@@ -9,9 +9,12 @@ Most of the protocol is already enforced by the code:
 - `runs/<runId>/report.md` calculates paired comparisons.
 
 `npm run bench` writes these records, with `results.jsonl` (every run, trace, and grade) and
-`chart.html`, into `runs/<runId>/`. The `runs/` folder is not in Git: keep the folders of
-final runs, publish their charts with `npm run site`, and build a shared report of a locked
-test set with `--no-details`.
+`chart.html`, into `runs/<runId>/`. Working runs stay out of Git. Pin a final run with
+`npm run store -- runs/<runId>`: it copies the record into `runs/pinned/<runId>`, which is
+tracked, with `results.jsonl` slimmed of the prompt copies the repo already holds, and it
+rebuilds the site pages in `docs/` from every pinned run. Commit `runs/pinned/` and `docs/`
+together: the site shows exactly the pinned set. Build a shared report of a locked test set
+with `--no-details`.
 
 This document covers the rules that code cannot enforce. The generated run records remain the source of truth, so we do not maintain separate run-manifest, report, or result-schema templates.
 

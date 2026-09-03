@@ -29,6 +29,8 @@ npm test
 Other commands: `npm run regrade -- runs/<id> [--judge model]` grades stored outputs
 again without running a harness; `npm run chart -- runs/<id> [runs/<id> ...]` regenerates
 a chart, or merges several runs of the same suite into one page (`chart-merged.html`);
+`npm run store -- runs/<id>` pins a final run into `runs/pinned/`, the tracked archive,
+and rebuilds the `docs/` site from the pinned runs;
 `npm run sandbox:build` builds the docker images.
 
 ## How it works

@@ -10,7 +10,8 @@
     "harness:install": "for d in harnesses/*/package.json; do npm --prefix $(dirname $d) ci; done",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "site": "tsx src/siteCli.ts"
+    "site": "tsx src/siteCli.ts",
+    "store": "tsx src/storeCli.ts"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",

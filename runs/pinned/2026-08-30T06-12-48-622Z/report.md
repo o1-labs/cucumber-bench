@@ -1,0 +1,616 @@
+# Benchmark report
+
+Run: 2026-08-30T06-12-48-622Z
+
+Models used, as recorded by the proxy:
+
+- direct: qwen/qwen3.6-35b-a3b
+- review-v1: qwen/qwen3.6-35b-a3b
+- judge for cuad-hard: deepseek/deepseek-v4-flash-0731
+
+## Suite: cuad-hard
+
+| task | system | n | clause-recall | clause-precision | citation-support | consistency | avg latency ms | avg tokens in/out | avg calls | harness cost/run | judge cost/run | total cost, all runs |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| cuad | direct | 300 | 54% (avg 64%) | 67% (avg 71%) | 69% (avg 72%) | 59% | 14257 | 26678/1805 | 1.0 | $0.0047 | $0.0001 | $1.42 |
+| cuad | review-v1 | 300 | 75% (avg 80%) | 64% (avg 76%) | 77% (avg 84%) | 52% | 61977 | 30522/25094 | 16.4 | $0.0261 | $0.0001 | $7.87 |
+| ALL | direct | 300 | 54% (avg 64%) | 67% (avg 71%) | 69% (avg 72%) | 59% | 14257 | 26678/1805 | 1.0 | $0.0047 | $0.0001 | $1.42 |
+| ALL | review-v1 | 300 | 75% (avg 80%) | 64% (avg 76%) | 77% (avg 84%) | 52% | 61977 | 30522/25094 | 16.4 | $0.0261 | $0.0001 | $7.87 |
+
+Graders (a cell is the pass rate; a value in parentheses is the mean score when it differs):
+
+- clause-recall — The answer cites a passage that contains the clause, for every clause the contract has. The score is the share of clauses found. When the contract has no such clause, the answer must say so.
+- clause-precision — Every cited passage contains the clause. The score is the share of citations that do. When the contract has no such clause, the answer must cite nothing.
+- citation-support — Every sentence that cites passages is supported by the passages it cites. The score is the share of cited sentences supported.
+- clause-recall — The answer cites a passage that contains the clause, for every clause the contract has. The score is the share of clauses found. When the contract has no such clause, the answer must say so.
+- clause-precision — Every cited passage contains the clause. The score is the share of citations that do. When the contract has no such clause, the answer must cite nothing.
+- citation-support — Every sentence that cites passages is supported by the passages it cites. The score is the share of cited sentences supported.
+- clause-recall — The answer cites a passage that contains the clause, for every clause the contract has. The score is the share of clauses found. When the contract has no such clause, the answer must say so.
+- clause-precision — Every cited passage contains the clause. The score is the share of citations that do. When the contract has no such clause, the answer must cite nothing.
+- citation-support — Every sentence that cites passages is supported by the passages it cites. The score is the share of cited sentences supported.
+- clause-recall — The answer cites a passage that contains the clause, for every clause the contract has. The score is the share of clauses found. When the contract has no such clause, the answer must say so.
+- clause-precision — Every cited passage contains the clause. The score is the share of citations that do. When the contract has no such clause, the answer must cite nothing.
+- citation-support — Every sentence that cites passages is supported by the passages it cites. The score is the share of cited sentences supported.
+
+## Failures (580)
+
+- cuad-hard-001 [direct, rep 1] clause-recall: 2/4 clauses cited; cited [25][29], gold [30] [25] [29] [30]
+- cuad-hard-001 [direct, rep 1] citation-support: 1/2 cited sentences supported
+- cuad-hard-003 [direct, rep 1] clause-recall: 0/4 clauses cited; cited nothing, gold [50] [50] [50] [50]
+- cuad-hard-003 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-003 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-004 [direct, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [54]
+- cuad-hard-004 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-004 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-006 [direct, rep 1] clause-recall: 1/3 clauses cited; cited [12], gold [12] [16] [16]
+- cuad-hard-007 [direct, rep 1] clause-recall: 2/5 clauses cited; cited [11], gold [12] [11] [11] [12] [12]
+- cuad-hard-007 [direct, rep 1] citation-support: 0/1 cited sentences supported
+- cuad-hard-009 [direct, rep 1] clause-recall: 2/5 clauses cited; cited [48][57], gold [51] [48] [57] [56] [10]
+- cuad-hard-011 [direct, rep 1] citation-support: 0/1 cited sentences supported
+- cuad-hard-012 [direct, rep 1] clause-recall: absence not stated
+- cuad-hard-012 [direct, rep 1] clause-precision: cited [74][75] for an absent clause
+- cuad-hard-012 [direct, rep 1] citation-support: 0/1 cited sentences supported
+- cuad-hard-013 [direct, rep 1] clause-recall: 0/2 clauses cited; cited [20][21], gold [50] [57]
+- cuad-hard-013 [direct, rep 1] clause-precision: 0/2 citations contain the clause
+- cuad-hard-017 [direct, rep 1] clause-recall: 2/3 clauses cited; cited [119], gold [126] [119] [119]
+- cuad-hard-020 [direct, rep 1] clause-recall: 0/2 clauses cited; cited nothing, gold [111] [112]
+- cuad-hard-020 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-020 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-021 [direct, rep 1] clause-recall: 0/2 clauses cited; cited nothing, gold [36] [33]
+- cuad-hard-021 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-021 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-024 [direct, rep 1] clause-recall: 1/3 clauses cited; cited [28], gold [27] [27] [28]
+- cuad-hard-026 [direct, rep 1] clause-recall: 3/4 clauses cited; cited [16][17], gold [17] [16] [17] [29]
+- cuad-hard-027 [direct, rep 1] clause-recall: 1/2 clauses cited; cited [16], gold [24] [16]
+- cuad-hard-029 [direct, rep 1] clause-recall: 3/11 clauses cited; cited [13], gold [13] [21] [14] [21] [55] [55] [13] [20] [13] [54] [56]
+- cuad-hard-029 [direct, rep 1] citation-support: 0/1 cited sentences supported
+- cuad-hard-030 [direct, rep 1] clause-recall: 1/2 clauses cited; cited [33], gold [33] [34]
+- cuad-hard-030 [direct, rep 1] citation-support: 0/1 cited sentences supported
+- cuad-hard-031 [direct, rep 1] clause-recall: 3/4 clauses cited; cited [2][23], gold [23] [23] [23] [24]
+- cuad-hard-031 [direct, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-037 [direct, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [23]
+- cuad-hard-037 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-037 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-039 [direct, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [24]
+- cuad-hard-039 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-039 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-041 [direct, rep 1] clause-recall: 0/3 clauses cited; cited [48], gold [71] [71] [71]
+- cuad-hard-041 [direct, rep 1] clause-precision: 0/1 citations contain the clause
+- cuad-hard-041 [direct, rep 1] citation-support: 0/1 cited sentences supported
+- cuad-hard-043 [direct, rep 1] clause-precision: 2/3 citations contain the clause
+- cuad-hard-043 [direct, rep 1] citation-support: 1/2 cited sentences supported
+- cuad-hard-047 [direct, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [61]
+- cuad-hard-047 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-047 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-049 [direct, rep 1] clause-recall: 3/8 clauses cited; cited [11][12][32], gold [29] [29] [11][12] [29] [27] [29] [32] [12]
+- cuad-hard-051 [direct, rep 1] clause-recall: 2/3 clauses cited; cited [14], gold [14] [18] [14]
+- cuad-hard-053 [direct, rep 1] clause-recall: 1/2 clauses cited; cited [6][87], gold [87] [91]
+- cuad-hard-053 [direct, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-053 [direct, rep 1] citation-support: 1/2 cited sentences supported
+- cuad-hard-054 [direct, rep 1] clause-recall: 0/2 clauses cited; cited nothing, gold [23] [23]
+- cuad-hard-054 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-054 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-056 [direct, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [20]
+- cuad-hard-056 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-056 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-057 [direct, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [23]
+- cuad-hard-057 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-057 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-061 [direct, rep 1] clause-recall: 2/4 clauses cited; cited [52][140], gold [52] [106] [140] [106]
+- cuad-hard-061 [direct, rep 1] citation-support: 0/1 cited sentences supported
+- cuad-hard-064 [direct, rep 1] citation-support: 1/2 cited sentences supported
+- cuad-hard-066 [direct, rep 1] clause-recall: 1/2 clauses cited; cited [23], gold [21] [23]
+- cuad-hard-069 [direct, rep 1] clause-recall: 0/3 clauses cited; cited nothing, gold [10] [10] [10]
+- cuad-hard-069 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-069 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-071 [direct, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [25]
+- cuad-hard-071 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-071 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-073 [direct, rep 1] clause-recall: 6/10 clauses cited; cited [21][15][23][25], gold [15] [15] [25] [23] [15] [36] [11] [27] [36] [21]
+- cuad-hard-073 [direct, rep 1] citation-support: 2/3 cited sentences supported
+- cuad-hard-074 [direct, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [6]
+- cuad-hard-074 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-074 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-076 [direct, rep 1] clause-recall: 1/3 clauses cited; cited [29], gold [29] [30] [30]
+- cuad-hard-079 [direct, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-080 [direct, rep 1] clause-recall: 1/2 clauses cited; cited [8][14], gold [14] [12]
+- cuad-hard-080 [direct, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-080 [direct, rep 1] citation-support: 1/2 cited sentences supported
+- cuad-hard-081 [direct, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [22]
+- cuad-hard-081 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-081 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-084 [direct, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [26]
+- cuad-hard-084 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-084 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-086 [direct, rep 1] clause-recall: 0/3 clauses cited; cited [30], gold [20] [33] [20]
+- cuad-hard-086 [direct, rep 1] clause-precision: 0/1 citations contain the clause
+- cuad-hard-087 [direct, rep 1] clause-recall: 0/2 clauses cited; cited nothing, gold [18] [16]
+- cuad-hard-087 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-087 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-089 [direct, rep 1] clause-recall: 0/1 clauses cited; cited [19], gold [20]
+- cuad-hard-089 [direct, rep 1] clause-precision: 0/1 citations contain the clause
+- cuad-hard-089 [direct, rep 1] citation-support: 1/2 cited sentences supported
+- cuad-hard-090 [direct, rep 1] clause-recall: 1/2 clauses cited; cited [10][148], gold [148] [69]
+- cuad-hard-090 [direct, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-093 [direct, rep 1] clause-recall: 0/2 clauses cited; cited nothing, gold [82] [67]
+- cuad-hard-093 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-093 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-096 [direct, rep 1] clause-recall: 1/3 clauses cited; cited [31][44], gold [31] [36] [17]
+- cuad-hard-096 [direct, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-097 [direct, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [33]
+- cuad-hard-097 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-097 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-099 [direct, rep 1] clause-recall: 0/2 clauses cited; cited nothing, gold [22] [22]
+- cuad-hard-099 [direct, rep 1] clause-precision: nothing cited
+- cuad-hard-099 [direct, rep 1] citation-support: no cited sentence
+- cuad-hard-001 [direct, rep 2] clause-recall: 3/4 clauses cited; cited [25][30], gold [30] [25] [29] [30]
+- cuad-hard-003 [direct, rep 2] clause-recall: 0/4 clauses cited; cited nothing, gold [50] [50] [50] [50]
+- cuad-hard-003 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-003 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-004 [direct, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [54]
+- cuad-hard-004 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-004 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-009 [direct, rep 2] clause-recall: 1/5 clauses cited; cited [10], gold [51] [48] [57] [56] [10]
+- cuad-hard-011 [direct, rep 2] citation-support: 0/1 cited sentences supported
+- cuad-hard-012 [direct, rep 2] clause-recall: absence not stated
+- cuad-hard-012 [direct, rep 2] clause-precision: cited [74] for an absent clause
+- cuad-hard-013 [direct, rep 2] clause-recall: 0/2 clauses cited; cited [1], gold [50] [57]
+- cuad-hard-013 [direct, rep 2] clause-precision: 0/1 citations contain the clause
+- cuad-hard-013 [direct, rep 2] citation-support: 0/1 cited sentences supported
+- cuad-hard-017 [direct, rep 2] clause-recall: 2/3 clauses cited; cited [119][5][153], gold [126] [119] [119]
+- cuad-hard-017 [direct, rep 2] clause-precision: 1/3 citations contain the clause
+- cuad-hard-019 [direct, rep 2] clause-precision: 1/2 citations contain the clause
+- cuad-hard-020 [direct, rep 2] clause-recall: 1/2 clauses cited; cited [111], gold [111] [112]
+- cuad-hard-021 [direct, rep 2] clause-recall: 0/2 clauses cited; cited nothing, gold [36] [33]
+- cuad-hard-021 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-021 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-023 [direct, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [27]
+- cuad-hard-023 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-023 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-024 [direct, rep 2] clause-recall: 1/3 clauses cited; cited [28], gold [27] [27] [28]
+- cuad-hard-026 [direct, rep 2] clause-recall: 1/4 clauses cited; cited [16], gold [17] [16] [17] [29]
+- cuad-hard-027 [direct, rep 2] clause-recall: 1/2 clauses cited; cited [16], gold [24] [16]
+- cuad-hard-029 [direct, rep 2] clause-recall: 4/11 clauses cited; cited [54][55][56], gold [13] [21] [14] [21] [55] [55] [13] [20] [13] [54] [56]
+- cuad-hard-029 [direct, rep 2] citation-support: 2/3 cited sentences supported
+- cuad-hard-030 [direct, rep 2] citation-support: 0/2 cited sentences supported
+- cuad-hard-031 [direct, rep 2] clause-recall: 3/4 clauses cited; cited [2][23], gold [23] [23] [23] [24]
+- cuad-hard-031 [direct, rep 2] clause-precision: 1/2 citations contain the clause
+- cuad-hard-031 [direct, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-033 [direct, rep 2] clause-precision: 1/2 citations contain the clause
+- cuad-hard-037 [direct, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [23]
+- cuad-hard-037 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-037 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-039 [direct, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [24]
+- cuad-hard-039 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-039 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-041 [direct, rep 2] clause-recall: 0/3 clauses cited; cited [48][49], gold [71] [71] [71]
+- cuad-hard-041 [direct, rep 2] clause-precision: 0/2 citations contain the clause
+- cuad-hard-043 [direct, rep 2] clause-precision: 2/3 citations contain the clause
+- cuad-hard-044 [direct, rep 2] clause-recall: 1/2 clauses cited; cited [17], gold [17] [18]
+- cuad-hard-047 [direct, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [61]
+- cuad-hard-047 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-047 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-049 [direct, rep 2] clause-recall: 3/8 clauses cited; cited [32][11][12], gold [29] [29] [11][12] [29] [27] [29] [32] [12]
+- cuad-hard-051 [direct, rep 2] clause-recall: 2/3 clauses cited; cited [14], gold [14] [18] [14]
+- cuad-hard-053 [direct, rep 2] clause-recall: 1/2 clauses cited; cited [87], gold [87] [91]
+- cuad-hard-054 [direct, rep 2] citation-support: 0/1 cited sentences supported
+- cuad-hard-056 [direct, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [20]
+- cuad-hard-056 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-056 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-057 [direct, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [23]
+- cuad-hard-057 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-057 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-059 [direct, rep 2] clause-recall: 0/2 clauses cited; cited nothing, gold [94] [94]
+- cuad-hard-059 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-059 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-061 [direct, rep 2] clause-recall: 2/4 clauses cited; cited [52][140], gold [52] [106] [140] [106]
+- cuad-hard-061 [direct, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-064 [direct, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-066 [direct, rep 2] clause-recall: 1/2 clauses cited; cited [23], gold [21] [23]
+- cuad-hard-069 [direct, rep 2] clause-recall: 0/3 clauses cited; cited [40], gold [10] [10] [10]
+- cuad-hard-069 [direct, rep 2] clause-precision: 0/1 citations contain the clause
+- cuad-hard-071 [direct, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [25]
+- cuad-hard-071 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-071 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-073 [direct, rep 2] clause-recall: 2/10 clauses cited; cited [21][23], gold [15] [15] [25] [23] [15] [36] [11] [27] [36] [21]
+- cuad-hard-074 [direct, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [6]
+- cuad-hard-074 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-074 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-076 [direct, rep 2] clause-recall: 1/3 clauses cited; cited [29], gold [29] [30] [30]
+- cuad-hard-080 [direct, rep 2] clause-recall: 1/2 clauses cited; cited [8][14], gold [14] [12]
+- cuad-hard-080 [direct, rep 2] clause-precision: 1/2 citations contain the clause
+- cuad-hard-080 [direct, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-081 [direct, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [22]
+- cuad-hard-081 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-081 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-084 [direct, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [26]
+- cuad-hard-084 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-084 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-086 [direct, rep 2] clause-recall: 2/3 clauses cited; cited [20], gold [20] [33] [20]
+- cuad-hard-087 [direct, rep 2] clause-recall: 0/2 clauses cited; cited nothing, gold [18] [16]
+- cuad-hard-087 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-087 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-089 [direct, rep 2] clause-recall: 0/1 clauses cited; cited [19], gold [20]
+- cuad-hard-089 [direct, rep 2] clause-precision: 0/1 citations contain the clause
+- cuad-hard-089 [direct, rep 2] citation-support: 0/1 cited sentences supported
+- cuad-hard-090 [direct, rep 2] clause-precision: 2/3 citations contain the clause
+- cuad-hard-090 [direct, rep 2] citation-support: 2/3 cited sentences supported
+- cuad-hard-093 [direct, rep 2] clause-recall: 0/2 clauses cited; cited nothing, gold [82] [67]
+- cuad-hard-093 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-093 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-096 [direct, rep 2] clause-recall: 1/3 clauses cited; cited [31], gold [31] [36] [17]
+- cuad-hard-097 [direct, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [33]
+- cuad-hard-097 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-097 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-099 [direct, rep 2] clause-recall: 0/2 clauses cited; cited nothing, gold [22] [22]
+- cuad-hard-099 [direct, rep 2] clause-precision: nothing cited
+- cuad-hard-099 [direct, rep 2] citation-support: no cited sentence
+- cuad-hard-001 [direct, rep 3] clause-recall: 1/4 clauses cited; cited [25], gold [30] [25] [29] [30]
+- cuad-hard-001 [direct, rep 3] citation-support: 1/2 cited sentences supported
+- cuad-hard-003 [direct, rep 3] clause-recall: 0/4 clauses cited; cited nothing, gold [50] [50] [50] [50]
+- cuad-hard-003 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-003 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-004 [direct, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [54]
+- cuad-hard-004 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-004 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-009 [direct, rep 3] clause-recall: 1/5 clauses cited; cited [56], gold [51] [48] [57] [56] [10]
+- cuad-hard-009 [direct, rep 3] citation-support: 0/1 cited sentences supported
+- cuad-hard-011 [direct, rep 3] clause-recall: 0/2 clauses cited; cited nothing, gold [42] [41]
+- cuad-hard-011 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-011 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-012 [direct, rep 3] clause-recall: absence not stated
+- cuad-hard-012 [direct, rep 3] clause-precision: cited [73] for an absent clause
+- cuad-hard-012 [direct, rep 3] citation-support: 0/1 cited sentences supported
+- cuad-hard-013 [direct, rep 3] clause-recall: 0/2 clauses cited; cited nothing, gold [50] [57]
+- cuad-hard-013 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-013 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-017 [direct, rep 3] clause-recall: 2/3 clauses cited; cited [119][5], gold [126] [119] [119]
+- cuad-hard-017 [direct, rep 3] clause-precision: 1/2 citations contain the clause
+- cuad-hard-020 [direct, rep 3] clause-recall: 1/2 clauses cited; cited [111], gold [111] [112]
+- cuad-hard-021 [direct, rep 3] clause-recall: 0/2 clauses cited; cited nothing, gold [36] [33]
+- cuad-hard-021 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-021 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-023 [direct, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [27]
+- cuad-hard-023 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-023 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-024 [direct, rep 3] clause-recall: 1/3 clauses cited; cited [28], gold [27] [27] [28]
+- cuad-hard-026 [direct, rep 3] clause-recall: 1/4 clauses cited; cited [16], gold [17] [16] [17] [29]
+- cuad-hard-027 [direct, rep 3] clause-recall: 1/2 clauses cited; cited [16][3], gold [24] [16]
+- cuad-hard-027 [direct, rep 3] clause-precision: 1/2 citations contain the clause
+- cuad-hard-029 [direct, rep 3] clause-recall: 7/11 clauses cited; cited [13][14][55][56], gold [13] [21] [14] [21] [55] [55] [13] [20] [13] [54] [56]
+- cuad-hard-029 [direct, rep 3] citation-support: 1/2 cited sentences supported
+- cuad-hard-031 [direct, rep 3] clause-precision: 2/3 citations contain the clause
+- cuad-hard-033 [direct, rep 3] clause-precision: 1/2 citations contain the clause
+- cuad-hard-036 [direct, rep 3] citation-support: 1/2 cited sentences supported
+- cuad-hard-037 [direct, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [23]
+- cuad-hard-037 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-037 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-041 [direct, rep 3] clause-precision: 1/3 citations contain the clause
+- cuad-hard-041 [direct, rep 3] citation-support: 2/3 cited sentences supported
+- cuad-hard-043 [direct, rep 3] clause-precision: 2/3 citations contain the clause
+- cuad-hard-044 [direct, rep 3] clause-recall: 1/2 clauses cited; cited [17], gold [17] [18]
+- cuad-hard-044 [direct, rep 3] citation-support: 0/1 cited sentences supported
+- cuad-hard-047 [direct, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [61]
+- cuad-hard-047 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-047 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-048 [direct, rep 3] clause-recall: absence not stated
+- cuad-hard-049 [direct, rep 3] clause-recall: 3/8 clauses cited; cited [32][11][12], gold [29] [29] [11][12] [29] [27] [29] [32] [12]
+- cuad-hard-049 [direct, rep 3] citation-support: 1/2 cited sentences supported
+- cuad-hard-051 [direct, rep 3] clause-recall: 2/3 clauses cited; cited [14], gold [14] [18] [14]
+- cuad-hard-053 [direct, rep 3] clause-recall: 1/2 clauses cited; cited [87], gold [87] [91]
+- cuad-hard-054 [direct, rep 3] clause-recall: 0/2 clauses cited; cited nothing, gold [23] [23]
+- cuad-hard-054 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-054 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-056 [direct, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [20]
+- cuad-hard-056 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-056 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-057 [direct, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [23]
+- cuad-hard-057 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-057 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-059 [direct, rep 3] clause-recall: 0/2 clauses cited; cited nothing, gold [94] [94]
+- cuad-hard-059 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-059 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-060 [direct, rep 3] clause-recall: 0/2 clauses cited; cited [34], gold [27] [26]
+- cuad-hard-060 [direct, rep 3] clause-precision: 0/1 citations contain the clause
+- cuad-hard-061 [direct, rep 3] clause-recall: 0/4 clauses cited; cited [116], gold [52] [106] [140] [106]
+- cuad-hard-061 [direct, rep 3] clause-precision: 0/1 citations contain the clause
+- cuad-hard-062 [direct, rep 3] clause-recall: absence not stated
+- cuad-hard-062 [direct, rep 3] clause-precision: cited [9] for an absent clause
+- cuad-hard-063 [direct, rep 3] clause-recall: 1/3 clauses cited; cited [3][28], gold [30] [3] [30]
+- cuad-hard-063 [direct, rep 3] clause-precision: 1/2 citations contain the clause
+- cuad-hard-063 [direct, rep 3] citation-support: 1/2 cited sentences supported
+- cuad-hard-066 [direct, rep 3] clause-recall: 1/2 clauses cited; cited [23], gold [21] [23]
+- cuad-hard-069 [direct, rep 3] clause-recall: 0/3 clauses cited; cited [40], gold [10] [10] [10]
+- cuad-hard-069 [direct, rep 3] clause-precision: 0/1 citations contain the clause
+- cuad-hard-071 [direct, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [25]
+- cuad-hard-071 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-071 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-073 [direct, rep 3] clause-recall: 2/10 clauses cited; cited [21][14][23], gold [15] [15] [25] [23] [15] [36] [11] [27] [36] [21]
+- cuad-hard-073 [direct, rep 3] clause-precision: 2/3 citations contain the clause
+- cuad-hard-074 [direct, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [6]
+- cuad-hard-074 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-074 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-076 [direct, rep 3] clause-recall: 1/3 clauses cited; cited [29], gold [29] [30] [30]
+- cuad-hard-078 [direct, rep 3] clause-recall: absence not stated
+- cuad-hard-079 [direct, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [20]
+- cuad-hard-079 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-079 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-080 [direct, rep 3] clause-recall: 1/2 clauses cited; cited [8][14], gold [14] [12]
+- cuad-hard-080 [direct, rep 3] clause-precision: 1/2 citations contain the clause
+- cuad-hard-080 [direct, rep 3] citation-support: 1/2 cited sentences supported
+- cuad-hard-081 [direct, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [22]
+- cuad-hard-081 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-081 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-084 [direct, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [26]
+- cuad-hard-084 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-084 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-086 [direct, rep 3] clause-recall: 2/3 clauses cited; cited [20], gold [20] [33] [20]
+- cuad-hard-087 [direct, rep 3] clause-recall: 0/2 clauses cited; cited nothing, gold [18] [16]
+- cuad-hard-087 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-087 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-089 [direct, rep 3] clause-recall: 0/1 clauses cited; cited [19], gold [20]
+- cuad-hard-089 [direct, rep 3] clause-precision: 0/1 citations contain the clause
+- cuad-hard-089 [direct, rep 3] citation-support: 0/1 cited sentences supported
+- cuad-hard-090 [direct, rep 3] clause-recall: 0/2 clauses cited; cited [10][13], gold [148] [69]
+- cuad-hard-090 [direct, rep 3] clause-precision: 0/2 citations contain the clause
+- cuad-hard-090 [direct, rep 3] citation-support: 0/1 cited sentences supported
+- cuad-hard-093 [direct, rep 3] clause-recall: 0/2 clauses cited; cited [91], gold [82] [67]
+- cuad-hard-093 [direct, rep 3] clause-precision: 0/1 citations contain the clause
+- cuad-hard-096 [direct, rep 3] clause-recall: 1/3 clauses cited; cited [31], gold [31] [36] [17]
+- cuad-hard-097 [direct, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [33]
+- cuad-hard-097 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-097 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-099 [direct, rep 3] clause-recall: 0/2 clauses cited; cited nothing, gold [22] [22]
+- cuad-hard-099 [direct, rep 3] clause-precision: nothing cited
+- cuad-hard-099 [direct, rep 3] citation-support: no cited sentence
+- cuad-hard-001 [review-v1, rep 1] clause-recall: 3/4 clauses cited; cited [25][30], gold [30] [25] [29] [30]
+- cuad-hard-004 [review-v1, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-007 [review-v1, rep 1] clause-precision: 2/3 citations contain the clause
+- cuad-hard-007 [review-v1, rep 1] citation-support: 1/2 cited sentences supported
+- cuad-hard-009 [review-v1, rep 1] clause-precision: 5/6 citations contain the clause
+- cuad-hard-011 [review-v1, rep 1] clause-recall: 1/2 clauses cited; cited [42], gold [42] [41]
+- cuad-hard-012 [review-v1, rep 1] clause-recall: absence not stated
+- cuad-hard-012 [review-v1, rep 1] clause-precision: cited [74][75][76][77][118] for an absent clause
+- cuad-hard-012 [review-v1, rep 1] citation-support: 2/4 cited sentences supported
+- cuad-hard-013 [review-v1, rep 1] clause-recall: 1/2 clauses cited; cited [57][67][81], gold [50] [57]
+- cuad-hard-013 [review-v1, rep 1] clause-precision: 1/3 citations contain the clause
+- cuad-hard-013 [review-v1, rep 1] citation-support: 0/1 cited sentences supported
+- cuad-hard-016 [review-v1, rep 1] citation-support: 0/1 cited sentences supported
+- cuad-hard-017 [review-v1, rep 1] clause-precision: 2/7 citations contain the clause
+- cuad-hard-017 [review-v1, rep 1] citation-support: 2/3 cited sentences supported
+- cuad-hard-018 [review-v1, rep 1] clause-recall: absence not stated
+- cuad-hard-018 [review-v1, rep 1] clause-precision: cited [88][89][96][98] for an absent clause
+- cuad-hard-018 [review-v1, rep 1] citation-support: 1/2 cited sentences supported
+- cuad-hard-019 [review-v1, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-019 [review-v1, rep 1] citation-support: 1/2 cited sentences supported
+- cuad-hard-020 [review-v1, rep 1] clause-recall: 1/2 clauses cited; cited [111], gold [111] [112]
+- cuad-hard-021 [review-v1, rep 1] clause-precision: 2/4 citations contain the clause
+- cuad-hard-023 [review-v1, rep 1] clause-precision: 1/3 citations contain the clause
+- cuad-hard-029 [review-v1, rep 1] clause-recall: 9/11 clauses cited; cited [13][14][21][29][54][55], gold [13] [21] [14] [21] [55] [55] [13] [20] [13] [54] [56]
+- cuad-hard-029 [review-v1, rep 1] clause-precision: 5/6 citations contain the clause
+- cuad-hard-029 [review-v1, rep 1] citation-support: 2/3 cited sentences supported
+- cuad-hard-031 [review-v1, rep 1] clause-recall: 3/4 clauses cited; cited [23][26], gold [23] [23] [23] [24]
+- cuad-hard-031 [review-v1, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-037 [review-v1, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [23]
+- cuad-hard-037 [review-v1, rep 1] clause-precision: nothing cited
+- cuad-hard-037 [review-v1, rep 1] citation-support: no cited sentence
+- cuad-hard-038 [review-v1, rep 1] clause-recall: absence not stated
+- cuad-hard-040 [review-v1, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [19]
+- cuad-hard-040 [review-v1, rep 1] clause-precision: nothing cited
+- cuad-hard-040 [review-v1, rep 1] citation-support: no cited sentence
+- cuad-hard-043 [review-v1, rep 1] citation-support: 1/2 cited sentences supported
+- cuad-hard-045 [review-v1, rep 1] clause-recall: absence not stated
+- cuad-hard-045 [review-v1, rep 1] clause-precision: cited [66][68][94] for an absent clause
+- cuad-hard-047 [review-v1, rep 1] clause-recall: 0/1 clauses cited; cited [14][33][63], gold [61]
+- cuad-hard-047 [review-v1, rep 1] clause-precision: 0/3 citations contain the clause
+- cuad-hard-049 [review-v1, rep 1] clause-precision: 5/8 citations contain the clause
+- cuad-hard-054 [review-v1, rep 1] clause-recall: 0/2 clauses cited; cited nothing, gold [23] [23]
+- cuad-hard-054 [review-v1, rep 1] clause-precision: nothing cited
+- cuad-hard-054 [review-v1, rep 1] citation-support: no cited sentence
+- cuad-hard-056 [review-v1, rep 1] clause-recall: 0/1 clauses cited; cited [49], gold [20]
+- cuad-hard-056 [review-v1, rep 1] clause-precision: 0/1 citations contain the clause
+- cuad-hard-057 [review-v1, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [23]
+- cuad-hard-057 [review-v1, rep 1] clause-precision: nothing cited
+- cuad-hard-057 [review-v1, rep 1] citation-support: no cited sentence
+- cuad-hard-058 [review-v1, rep 1] clause-recall: absence not stated
+- cuad-hard-061 [review-v1, rep 1] clause-precision: 3/8 citations contain the clause
+- cuad-hard-062 [review-v1, rep 1] clause-recall: absence not stated
+- cuad-hard-062 [review-v1, rep 1] clause-precision: cited [9] for an absent clause
+- cuad-hard-063 [review-v1, rep 1] citation-support: 1/2 cited sentences supported
+- cuad-hard-065 [review-v1, rep 1] clause-precision: cited [74] for an absent clause
+- cuad-hard-066 [review-v1, rep 1] clause-recall: 1/2 clauses cited; cited [23], gold [21] [23]
+- cuad-hard-067 [review-v1, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-069 [review-v1, rep 1] clause-recall: 0/3 clauses cited; cited [40], gold [10] [10] [10]
+- cuad-hard-069 [review-v1, rep 1] clause-precision: 0/1 citations contain the clause
+- cuad-hard-070 [review-v1, rep 1] clause-recall: 1/2 clauses cited; cited [11], gold [19] [11]
+- cuad-hard-071 [review-v1, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [25]
+- cuad-hard-071 [review-v1, rep 1] clause-precision: nothing cited
+- cuad-hard-071 [review-v1, rep 1] citation-support: no cited sentence
+- cuad-hard-073 [review-v1, rep 1] clause-precision: 7/12 citations contain the clause
+- cuad-hard-074 [review-v1, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [6]
+- cuad-hard-074 [review-v1, rep 1] clause-precision: nothing cited
+- cuad-hard-074 [review-v1, rep 1] citation-support: no cited sentence
+- cuad-hard-076 [review-v1, rep 1] clause-precision: 2/4 citations contain the clause
+- cuad-hard-077 [review-v1, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-077 [review-v1, rep 1] citation-support: 1/2 cited sentences supported
+- cuad-hard-079 [review-v1, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-080 [review-v1, rep 1] clause-recall: 1/2 clauses cited; cited [8][14], gold [14] [12]
+- cuad-hard-080 [review-v1, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-081 [review-v1, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [22]
+- cuad-hard-081 [review-v1, rep 1] clause-precision: nothing cited
+- cuad-hard-081 [review-v1, rep 1] citation-support: no cited sentence
+- cuad-hard-082 [review-v1, rep 1] clause-recall: absence not stated
+- cuad-hard-084 [review-v1, rep 1] clause-recall: 0/1 clauses cited; cited nothing, gold [26]
+- cuad-hard-084 [review-v1, rep 1] clause-precision: nothing cited
+- cuad-hard-084 [review-v1, rep 1] citation-support: no cited sentence
+- cuad-hard-085 [review-v1, rep 1] clause-recall: absence not stated
+- cuad-hard-086 [review-v1, rep 1] clause-recall: 2/3 clauses cited; cited [20], gold [20] [33] [20]
+- cuad-hard-087 [review-v1, rep 1] clause-recall: 0/2 clauses cited; cited nothing, gold [18] [16]
+- cuad-hard-087 [review-v1, rep 1] clause-precision: nothing cited
+- cuad-hard-087 [review-v1, rep 1] citation-support: no cited sentence
+- cuad-hard-090 [review-v1, rep 1] clause-precision: 2/4 citations contain the clause
+- cuad-hard-091 [review-v1, rep 1] clause-precision: 1/2 citations contain the clause
+- cuad-hard-096 [review-v1, rep 1] clause-precision: 3/5 citations contain the clause
+- cuad-hard-096 [review-v1, rep 1] citation-support: 1/3 cited sentences supported
+- cuad-hard-097 [review-v1, rep 1] citation-support: 0/1 cited sentences supported
+- cuad-hard-001 [review-v1, rep 2] clause-recall: 3/4 clauses cited; cited [25][30], gold [30] [25] [29] [30]
+- cuad-hard-001 [review-v1, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-005 [review-v1, rep 2] clause-recall: absence not stated
+- cuad-hard-006 [review-v1, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-007 [review-v1, rep 2] clause-precision: 2/3 citations contain the clause
+- cuad-hard-007 [review-v1, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-011 [review-v1, rep 2] citation-support: 2/3 cited sentences supported
+- cuad-hard-012 [review-v1, rep 2] clause-recall: absence not stated
+- cuad-hard-012 [review-v1, rep 2] clause-precision: cited [74][75][76][77][118] for an absent clause
+- cuad-hard-012 [review-v1, rep 2] citation-support: 2/4 cited sentences supported
+- cuad-hard-013 [review-v1, rep 2] clause-precision: 2/3 citations contain the clause
+- cuad-hard-013 [review-v1, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-017 [review-v1, rep 2] clause-precision: 2/7 citations contain the clause
+- cuad-hard-017 [review-v1, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-018 [review-v1, rep 2] clause-recall: absence not stated
+- cuad-hard-018 [review-v1, rep 2] clause-precision: cited [88][89][96][98] for an absent clause
+- cuad-hard-018 [review-v1, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-019 [review-v1, rep 2] clause-precision: 1/2 citations contain the clause
+- cuad-hard-019 [review-v1, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-020 [review-v1, rep 2] clause-recall: 1/2 clauses cited; cited [111], gold [111] [112]
+- cuad-hard-021 [review-v1, rep 2] clause-precision: 2/4 citations contain the clause
+- cuad-hard-021 [review-v1, rep 2] citation-support: 3/4 cited sentences supported
+- cuad-hard-024 [review-v1, rep 2] clause-recall: 1/3 clauses cited; cited [28], gold [27] [27] [28]
+- cuad-hard-027 [review-v1, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-029 [review-v1, rep 2] clause-recall: 9/11 clauses cited; cited [13][14][21][29][43][54][55], gold [13] [21] [14] [21] [55] [55] [13] [20] [13] [54] [56]
+- cuad-hard-029 [review-v1, rep 2] clause-precision: 5/7 citations contain the clause
+- cuad-hard-029 [review-v1, rep 2] citation-support: 4/5 cited sentences supported
+- cuad-hard-031 [review-v1, rep 2] clause-precision: 2/3 citations contain the clause
+- cuad-hard-041 [review-v1, rep 2] clause-precision: 1/2 citations contain the clause
+- cuad-hard-045 [review-v1, rep 2] clause-recall: absence not stated
+- cuad-hard-045 [review-v1, rep 2] clause-precision: cited [97] for an absent clause
+- cuad-hard-047 [review-v1, rep 2] clause-precision: 1/3 citations contain the clause
+- cuad-hard-048 [review-v1, rep 2] clause-recall: absence not stated
+- cuad-hard-049 [review-v1, rep 2] clause-precision: 5/10 citations contain the clause
+- cuad-hard-054 [review-v1, rep 2] clause-recall: 0/2 clauses cited; cited nothing, gold [23] [23]
+- cuad-hard-054 [review-v1, rep 2] clause-precision: nothing cited
+- cuad-hard-054 [review-v1, rep 2] citation-support: no cited sentence
+- cuad-hard-055 [review-v1, rep 2] clause-recall: absence not stated
+- cuad-hard-056 [review-v1, rep 2] clause-recall: 0/1 clauses cited; cited [49], gold [20]
+- cuad-hard-056 [review-v1, rep 2] clause-precision: 0/1 citations contain the clause
+- cuad-hard-057 [review-v1, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [23]
+- cuad-hard-057 [review-v1, rep 2] clause-precision: nothing cited
+- cuad-hard-057 [review-v1, rep 2] citation-support: no cited sentence
+- cuad-hard-061 [review-v1, rep 2] clause-precision: 3/11 citations contain the clause
+- cuad-hard-061 [review-v1, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-062 [review-v1, rep 2] clause-recall: absence not stated
+- cuad-hard-062 [review-v1, rep 2] clause-precision: cited [9] for an absent clause
+- cuad-hard-063 [review-v1, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-066 [review-v1, rep 2] clause-recall: 1/2 clauses cited; cited [23], gold [21] [23]
+- cuad-hard-067 [review-v1, rep 2] clause-precision: 1/2 citations contain the clause
+- cuad-hard-067 [review-v1, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-069 [review-v1, rep 2] clause-recall: 0/3 clauses cited; cited [40], gold [10] [10] [10]
+- cuad-hard-069 [review-v1, rep 2] clause-precision: 0/1 citations contain the clause
+- cuad-hard-071 [review-v1, rep 2] clause-precision: 1/2 citations contain the clause
+- cuad-hard-073 [review-v1, rep 2] clause-precision: 7/12 citations contain the clause
+- cuad-hard-073 [review-v1, rep 2] citation-support: 1/5 cited sentences supported
+- cuad-hard-074 [review-v1, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [6]
+- cuad-hard-074 [review-v1, rep 2] clause-precision: nothing cited
+- cuad-hard-074 [review-v1, rep 2] citation-support: no cited sentence
+- cuad-hard-076 [review-v1, rep 2] clause-precision: 2/4 citations contain the clause
+- cuad-hard-077 [review-v1, rep 2] clause-precision: 1/2 citations contain the clause
+- cuad-hard-079 [review-v1, rep 2] clause-precision: 1/2 citations contain the clause
+- cuad-hard-080 [review-v1, rep 2] clause-recall: 1/2 clauses cited; cited [8][14], gold [14] [12]
+- cuad-hard-080 [review-v1, rep 2] clause-precision: 1/2 citations contain the clause
+- cuad-hard-081 [review-v1, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [22]
+- cuad-hard-081 [review-v1, rep 2] clause-precision: nothing cited
+- cuad-hard-081 [review-v1, rep 2] citation-support: no cited sentence
+- cuad-hard-084 [review-v1, rep 2] clause-recall: 0/1 clauses cited; cited nothing, gold [26]
+- cuad-hard-084 [review-v1, rep 2] clause-precision: nothing cited
+- cuad-hard-084 [review-v1, rep 2] citation-support: no cited sentence
+- cuad-hard-086 [review-v1, rep 2] clause-recall: 2/3 clauses cited; cited [20], gold [20] [33] [20]
+- cuad-hard-087 [review-v1, rep 2] clause-recall: 0/2 clauses cited; cited nothing, gold [18] [16]
+- cuad-hard-087 [review-v1, rep 2] clause-precision: nothing cited
+- cuad-hard-087 [review-v1, rep 2] citation-support: no cited sentence
+- cuad-hard-090 [review-v1, rep 2] clause-precision: 2/4 citations contain the clause
+- cuad-hard-091 [review-v1, rep 2] clause-precision: 1/2 citations contain the clause
+- cuad-hard-093 [review-v1, rep 2] clause-precision: 2/4 citations contain the clause
+- cuad-hard-096 [review-v1, rep 2] clause-precision: 3/4 citations contain the clause
+- cuad-hard-096 [review-v1, rep 2] citation-support: 1/2 cited sentences supported
+- cuad-hard-097 [review-v1, rep 2] citation-support: 0/1 cited sentences supported
+- cuad-hard-098 [review-v1, rep 2] clause-recall: absence not stated
+- cuad-hard-001 [review-v1, rep 3] clause-recall: 1/4 clauses cited; cited [25], gold [30] [25] [29] [30]
+- cuad-hard-004 [review-v1, rep 3] clause-precision: 1/2 citations contain the clause
+- cuad-hard-011 [review-v1, rep 3] clause-precision: 2/3 citations contain the clause
+- cuad-hard-012 [review-v1, rep 3] clause-recall: absence not stated
+- cuad-hard-012 [review-v1, rep 3] clause-precision: cited [74][75][76][77][118] for an absent clause
+- cuad-hard-012 [review-v1, rep 3] citation-support: 1/4 cited sentences supported
+- cuad-hard-013 [review-v1, rep 3] clause-precision: 2/5 citations contain the clause
+- cuad-hard-013 [review-v1, rep 3] citation-support: 1/3 cited sentences supported
+- cuad-hard-017 [review-v1, rep 3] clause-precision: 2/9 citations contain the clause
+- cuad-hard-017 [review-v1, rep 3] citation-support: 1/4 cited sentences supported
+- cuad-hard-018 [review-v1, rep 3] clause-recall: absence not stated
+- cuad-hard-018 [review-v1, rep 3] clause-precision: cited [88][89][96][98] for an absent clause
+- cuad-hard-018 [review-v1, rep 3] citation-support: 1/2 cited sentences supported
+- cuad-hard-019 [review-v1, rep 3] clause-precision: 1/2 citations contain the clause
+- cuad-hard-020 [review-v1, rep 3] clause-recall: 1/2 clauses cited; cited [111], gold [111] [112]
+- cuad-hard-021 [review-v1, rep 3] clause-precision: 2/4 citations contain the clause
+- cuad-hard-024 [review-v1, rep 3] clause-recall: 1/3 clauses cited; cited [28], gold [27] [27] [28]
+- cuad-hard-029 [review-v1, rep 3] clause-recall: 9/11 clauses cited; cited [13][14][21][43][54][55], gold [13] [21] [14] [21] [55] [55] [13] [20] [13] [54] [56]
+- cuad-hard-029 [review-v1, rep 3] clause-precision: 5/6 citations contain the clause
+- cuad-hard-029 [review-v1, rep 3] citation-support: 1/2 cited sentences supported
+- cuad-hard-031 [review-v1, rep 3] clause-recall: 3/4 clauses cited; cited [23][26], gold [23] [23] [23] [24]
+- cuad-hard-031 [review-v1, rep 3] clause-precision: 1/2 citations contain the clause
+- cuad-hard-037 [review-v1, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [23]
+- cuad-hard-037 [review-v1, rep 3] clause-precision: nothing cited
+- cuad-hard-037 [review-v1, rep 3] citation-support: no cited sentence
+- cuad-hard-045 [review-v1, rep 3] clause-precision: cited [35] for an absent clause
+- cuad-hard-046 [review-v1, rep 3] citation-support: 0/1 cited sentences supported
+- cuad-hard-047 [review-v1, rep 3] clause-recall: 0/1 clauses cited; cited [33][63], gold [61]
+- cuad-hard-047 [review-v1, rep 3] clause-precision: 0/2 citations contain the clause
+- cuad-hard-047 [review-v1, rep 3] citation-support: 1/2 cited sentences supported
+- cuad-hard-049 [review-v1, rep 3] clause-precision: 5/8 citations contain the clause
+- cuad-hard-049 [review-v1, rep 3] citation-support: 3/4 cited sentences supported
+- cuad-hard-051 [review-v1, rep 3] clause-precision: 2/3 citations contain the clause
+- cuad-hard-053 [review-v1, rep 3] clause-precision: 2/3 citations contain the clause
+- cuad-hard-053 [review-v1, rep 3] citation-support: 1/3 cited sentences supported
+- cuad-hard-054 [review-v1, rep 3] clause-recall: 0/2 clauses cited; cited nothing, gold [23] [23]
+- cuad-hard-054 [review-v1, rep 3] clause-precision: nothing cited
+- cuad-hard-054 [review-v1, rep 3] citation-support: no cited sentence
+- cuad-hard-056 [review-v1, rep 3] clause-recall: 0/1 clauses cited; cited [49], gold [20]
+- cuad-hard-056 [review-v1, rep 3] clause-precision: 0/1 citations contain the clause
+- cuad-hard-059 [review-v1, rep 3] citation-support: 0/1 cited sentences supported
+- cuad-hard-061 [review-v1, rep 3] clause-precision: 3/11 citations contain the clause
+- cuad-hard-061 [review-v1, rep 3] citation-support: 2/3 cited sentences supported
+- cuad-hard-062 [review-v1, rep 3] clause-recall: absence not stated
+- cuad-hard-062 [review-v1, rep 3] clause-precision: cited [9] for an absent clause
+- cuad-hard-063 [review-v1, rep 3] citation-support: 1/2 cited sentences supported
+- cuad-hard-066 [review-v1, rep 3] clause-recall: 1/2 clauses cited; cited [23], gold [21] [23]
+- cuad-hard-067 [review-v1, rep 3] clause-precision: 1/2 citations contain the clause
+- cuad-hard-067 [review-v1, rep 3] citation-support: 1/2 cited sentences supported
+- cuad-hard-069 [review-v1, rep 3] clause-recall: 0/3 clauses cited; cited [40], gold [10] [10] [10]
+- cuad-hard-069 [review-v1, rep 3] clause-precision: 0/1 citations contain the clause
+- cuad-hard-069 [review-v1, rep 3] citation-support: 0/1 cited sentences supported
+- cuad-hard-071 [review-v1, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [25]
+- cuad-hard-071 [review-v1, rep 3] clause-precision: nothing cited
+- cuad-hard-071 [review-v1, rep 3] citation-support: no cited sentence
+- cuad-hard-072 [review-v1, rep 3] clause-recall: absence not stated
+- cuad-hard-073 [review-v1, rep 3] clause-precision: 7/12 citations contain the clause
+- cuad-hard-076 [review-v1, rep 3] clause-precision: 2/4 citations contain the clause
+- cuad-hard-077 [review-v1, rep 3] clause-precision: 1/2 citations contain the clause
+- cuad-hard-079 [review-v1, rep 3] clause-precision: 1/2 citations contain the clause
+- cuad-hard-080 [review-v1, rep 3] clause-recall: 1/2 clauses cited; cited [8][14], gold [14] [12]
+- cuad-hard-080 [review-v1, rep 3] clause-precision: 1/2 citations contain the clause
+- cuad-hard-081 [review-v1, rep 3] clause-precision: 1/2 citations contain the clause
+- cuad-hard-084 [review-v1, rep 3] clause-recall: 0/1 clauses cited; cited nothing, gold [26]
+- cuad-hard-084 [review-v1, rep 3] clause-precision: nothing cited
+- cuad-hard-084 [review-v1, rep 3] citation-support: no cited sentence
+- cuad-hard-086 [review-v1, rep 3] clause-recall: 2/3 clauses cited; cited [20], gold [20] [33] [20]
+- cuad-hard-087 [review-v1, rep 3] clause-recall: 0/2 clauses cited; cited nothing, gold [18] [16]
+- cuad-hard-087 [review-v1, rep 3] clause-precision: nothing cited
+- cuad-hard-087 [review-v1, rep 3] citation-support: no cited sentence
+- cuad-hard-088 [review-v1, rep 3] clause-recall: absence not stated
+- cuad-hard-090 [review-v1, rep 3] clause-precision: 2/4 citations contain the clause
+- cuad-hard-090 [review-v1, rep 3] citation-support: 0/1 cited sentences supported
+- cuad-hard-091 [review-v1, rep 3] clause-precision: 1/3 citations contain the clause
+- cuad-hard-093 [review-v1, rep 3] clause-precision: 2/3 citations contain the clause
+- cuad-hard-096 [review-v1, rep 3] clause-precision: 3/4 citations contain the clause
+- cuad-hard-096 [review-v1, rep 3] citation-support: 1/3 cited sentences supported
+- cuad-hard-099 [review-v1, rep 3] clause-recall: 0/2 clauses cited; cited [56], gold [22] [22]
+- cuad-hard-099 [review-v1, rep 3] clause-precision: 0/1 citations contain the clause
+- cuad-hard-099 [review-v1, rep 3] citation-support: 0/1 cited sentences supported

@@ -1,0 +1,287 @@
+# Benchmark report
+
+Run: 2026-08-29T10-03-01-328Z
+
+Models used, as recorded by the proxy:
+
+- direct: qwen/qwen3.6-35b-a3b
+- cite-v1: qwen/qwen3.6-35b-a3b
+- judge for asqa: deepseek/deepseek-v4-flash-0731
+
+## Suite: asqa
+
+| task | system | n | str-em | citation-recall | citation-precision | consistency | avg latency ms | avg tokens in/out | avg calls | harness cost/run | judge cost/run | total cost, all runs |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| asqa | direct | 75 | 13% (avg 46%) | 32% (avg 66%) | 31% (avg 64%) | 20% | 11090 | 5024/2176 | 1.0 | $0.0024 | $0.0002 | $0.19 |
+| asqa | cite-v1 | 75 | 13% (avg 52%) | 87% (avg 92%) | 81% (avg 93%) | 24% | 35599 | 17706/8384 | 4.7 | $0.0093 | $0.0002 | $0.71 |
+| ALL | direct | 75 | 13% (avg 46%) | 32% (avg 66%) | 31% (avg 64%) | 20% | 11090 | 5024/2176 | 1.0 | $0.0024 | $0.0002 | $0.19 |
+| ALL | cite-v1 | 75 | 13% (avg 52%) | 87% (avg 92%) | 81% (avg 93%) | 24% | 35599 | 17706/8384 | 4.7 | $0.0093 | $0.0002 | $0.71 |
+
+Graders (a cell is the pass rate; a value in parentheses is the mean score when it differs):
+
+- str-em — Every gold short answer appears in the output. The score is the share of sub-questions answered.
+- citation-recall — Every sentence is supported by the passages it cites. The score is the share of supported sentences.
+- citation-precision — Every citation is necessary: its passage supports the sentence and is not redundant. The score is the share of such citations.
+- str-em — Every gold short answer appears in the output. The score is the share of sub-questions answered.
+- citation-recall — Every sentence is supported by the passages it cites. The score is the share of supported sentences.
+- citation-precision — Every citation is necessary: its passage supports the sentence and is not redundant. The score is the share of such citations.
+
+## Failures (257)
+
+- asqa-000 [direct, rep 1] str-em: error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}} error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- asqa-000 [direct, rep 1] citation-recall: error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}} error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- asqa-000 [direct, rep 1] citation-precision: error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}} error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- asqa-001 [direct, rep 1] str-em: 2/3 sub-questions answered; missing: Dami Im
+- asqa-001 [direct, rep 1] citation-precision: 3/5 citations necessary
+- asqa-002 [direct, rep 1] str-em: 2/4 sub-questions answered; missing: 2004 | 2004.
+- asqa-002 [direct, rep 1] citation-recall: 2/3 sentences supported, 0 without citation
+- asqa-002 [direct, rep 1] citation-precision: 3/5 citations necessary
+- asqa-003 [direct, rep 1] str-em: 4/6 sub-questions answered; missing: James Phelps | Rupert Grint
+- asqa-003 [direct, rep 1] citation-recall: 2/3 sentences supported, 0 without citation
+- asqa-003 [direct, rep 1] citation-precision: 2/4 citations necessary
+- asqa-004 [direct, rep 1] str-em: 2/4 sub-questions answered; missing: 38 | 38
+- asqa-004 [direct, rep 1] citation-recall: 2/3 sentences supported, 0 without citation
+- asqa-004 [direct, rep 1] citation-precision: 2/3 citations necessary
+- asqa-005 [direct, rep 1] str-em: 2/4 sub-questions answered; missing: Real Madrid and Liverpool | Gareth Bale
+- asqa-006 [direct, rep 1] str-em: 2/4 sub-questions answered; missing: Susan Sarandon | Susan Sarandon
+- asqa-006 [direct, rep 1] citation-recall: 0/2 sentences supported, 2 without citation
+- asqa-006 [direct, rep 1] citation-precision: 0/0 citations necessary
+- asqa-007 [direct, rep 1] citation-recall: 1/2 sentences supported, 0 without citation
+- asqa-007 [direct, rep 1] citation-precision: 1/2 citations necessary
+- asqa-008 [direct, rep 1] citation-recall: 3/4 sentences supported, 0 without citation
+- asqa-008 [direct, rep 1] citation-precision: 3/4 citations necessary
+- asqa-009 [direct, rep 1] str-em: 1/2 sub-questions answered; missing: 7
+- asqa-009 [direct, rep 1] citation-recall: 2/3 sentences supported, 0 without citation
+- asqa-009 [direct, rep 1] citation-precision: 2/3 citations necessary
+- asqa-010 [direct, rep 1] str-em: 2/4 sub-questions answered; missing: Carol Sawyer Yussel | a ghostly depiction of the late wife of Lazar Wolf
+- asqa-010 [direct, rep 1] citation-recall: 0/2 sentences supported, 0 without citation
+- asqa-010 [direct, rep 1] citation-precision: 0/2 citations necessary
+- asqa-011 [direct, rep 1] str-em: 1/2 sub-questions answered; missing: 1991 Major League Baseball All-Star Game
+- asqa-011 [direct, rep 1] citation-recall: 2/3 sentences supported, 0 without citation
+- asqa-011 [direct, rep 1] citation-precision: 2/3 citations necessary
+- asqa-012 [direct, rep 1] str-em: 0/2 sub-questions answered; missing: Sunbeam Alpine | Rootes Group
+- asqa-012 [direct, rep 1] citation-recall: 3/5 sentences supported, 0 without citation
+- asqa-012 [direct, rep 1] citation-precision: 4/6 citations necessary
+- asqa-013 [direct, rep 1] str-em: 1/6 sub-questions answered; missing: August 4, 2011 | October 20, 2011 | January 5, 2012 | March 15, 2012 | October 4, 2012
+- asqa-013 [direct, rep 1] citation-recall: 1/2 sentences supported, 0 without citation
+- asqa-013 [direct, rep 1] citation-precision: 1/2 citations necessary
+- asqa-014 [direct, rep 1] str-em: 0/4 sub-questions answered; missing: season 8 | season 11 | 8 | 11
+- asqa-014 [direct, rep 1] citation-recall: 3/4 sentences supported, 0 without citation
+- asqa-014 [direct, rep 1] citation-precision: 3/4 citations necessary
+- asqa-000 [direct, rep 2] str-em: 1/3 sub-questions answered; missing: Daei | Sinclair
+- asqa-000 [direct, rep 2] citation-recall: 4/5 sentences supported, 0 without citation
+- asqa-000 [direct, rep 2] citation-precision: 4/5 citations necessary
+- asqa-001 [direct, rep 2] str-em: 2/3 sub-questions answered; missing: Dami Im
+- asqa-001 [direct, rep 2] citation-recall: 1/2 sentences supported, 0 without citation
+- asqa-001 [direct, rep 2] citation-precision: 1/2 citations necessary
+- asqa-002 [direct, rep 2] str-em: 2/4 sub-questions answered; missing: 2004 | 2004.
+- asqa-002 [direct, rep 2] citation-recall: 1/2 sentences supported, 0 without citation
+- asqa-002 [direct, rep 2] citation-precision: 1/2 citations necessary
+- asqa-003 [direct, rep 2] str-em: 4/6 sub-questions answered; missing: Richard Fish | James Phelps
+- asqa-004 [direct, rep 2] str-em: 2/4 sub-questions answered; missing: 38 | 38
+- asqa-005 [direct, rep 2] str-em: 2/4 sub-questions answered; missing: Real Madrid and Liverpool | Gareth Bale
+- asqa-006 [direct, rep 2] str-em: 2/4 sub-questions answered; missing: Susan Sarandon | Susan Sarandon
+- asqa-006 [direct, rep 2] citation-recall: 0/2 sentences supported, 2 without citation
+- asqa-006 [direct, rep 2] citation-precision: 0/0 citations necessary
+- asqa-007 [direct, rep 2] citation-recall: 2/3 sentences supported, 0 without citation
+- asqa-007 [direct, rep 2] citation-precision: 2/3 citations necessary
+- asqa-008 [direct, rep 2] citation-recall: 0/3 sentences supported, 0 without citation
+- asqa-008 [direct, rep 2] citation-precision: 0/3 citations necessary
+- asqa-009 [direct, rep 2] str-em: 1/2 sub-questions answered; missing: 7
+- asqa-009 [direct, rep 2] citation-recall: 3/4 sentences supported, 0 without citation
+- asqa-009 [direct, rep 2] citation-precision: 3/4 citations necessary
+- asqa-010 [direct, rep 2] str-em: 2/4 sub-questions answered; missing: Carol Sawyer Yussel | a ghostly depiction of the late wife of Lazar Wolf
+- asqa-011 [direct, rep 2] str-em: 1/2 sub-questions answered; missing: 1991 Major League Baseball All-Star Game
+- asqa-012 [direct, rep 2] str-em: 0/2 sub-questions answered; missing: Sunbeam Alpine | Rootes Group
+- asqa-012 [direct, rep 2] citation-recall: 3/5 sentences supported, 0 without citation
+- asqa-012 [direct, rep 2] citation-precision: 4/6 citations necessary
+- asqa-013 [direct, rep 2] str-em: 1/6 sub-questions answered; missing: August 4, 2011 | October 20, 2011 | January 5, 2012 | March 15, 2012 | October 4, 2012
+- asqa-013 [direct, rep 2] citation-recall: 1/2 sentences supported, 0 without citation
+- asqa-013 [direct, rep 2] citation-precision: 1/2 citations necessary
+- asqa-014 [direct, rep 2] str-em: 0/4 sub-questions answered; missing: season 8 | season 11 | 8 | 11
+- asqa-014 [direct, rep 2] citation-recall: 3/4 sentences supported, 0 without citation
+- asqa-014 [direct, rep 2] citation-precision: 3/4 citations necessary
+- asqa-000 [direct, rep 3] str-em: 1/3 sub-questions answered; missing: Daei | Sinclair
+- asqa-000 [direct, rep 3] citation-recall: 1/5 sentences supported, 1 without citation
+- asqa-000 [direct, rep 3] citation-precision: 1/4 citations necessary
+- asqa-001 [direct, rep 3] str-em: 2/3 sub-questions answered; missing: Dami Im
+- asqa-001 [direct, rep 3] citation-recall: 1/3 sentences supported, 0 without citation
+- asqa-001 [direct, rep 3] citation-precision: 1/3 citations necessary
+- asqa-002 [direct, rep 3] str-em: 2/4 sub-questions answered; missing: 2004 | 2004.
+- asqa-002 [direct, rep 3] citation-precision: 4/6 citations necessary
+- asqa-003 [direct, rep 3] str-em: 4/6 sub-questions answered; missing: Richard Fish | James Phelps
+- asqa-003 [direct, rep 3] citation-recall: 3/5 sentences supported, 0 without citation
+- asqa-003 [direct, rep 3] citation-precision: 3/5 citations necessary
+- asqa-004 [direct, rep 3] str-em: 0/4 sub-questions answered; missing: six | 38 | 6 | 38
+- asqa-004 [direct, rep 3] citation-recall: 1/2 sentences supported, 0 without citation
+- asqa-004 [direct, rep 3] citation-precision: 1/2 citations necessary
+- asqa-005 [direct, rep 3] str-em: 2/4 sub-questions answered; missing: Real Madrid and Liverpool | Gareth Bale
+- asqa-005 [direct, rep 3] citation-recall: 1/2 sentences supported, 0 without citation
+- asqa-005 [direct, rep 3] citation-precision: 1/2 citations necessary
+- asqa-006 [direct, rep 3] str-em: 2/4 sub-questions answered; missing: Susan Sarandon | Susan Sarandon
+- asqa-006 [direct, rep 3] citation-recall: 0/3 sentences supported, 2 without citation
+- asqa-006 [direct, rep 3] citation-precision: 0/1 citations necessary
+- asqa-009 [direct, rep 3] str-em: 0/2 sub-questions answered; missing: 7 | 5
+- asqa-010 [direct, rep 3] str-em: 2/4 sub-questions answered; missing: Carol Sawyer Yussel | a ghostly depiction of the late wife of Lazar Wolf
+- asqa-010 [direct, rep 3] citation-recall: 2/3 sentences supported, 0 without citation
+- asqa-010 [direct, rep 3] citation-precision: 2/4 citations necessary
+- asqa-011 [direct, rep 3] str-em: 1/2 sub-questions answered; missing: 1991 Major League Baseball All-Star Game
+- asqa-012 [direct, rep 3] str-em: 0/2 sub-questions answered; missing: Sunbeam Alpine | Rootes Group
+- asqa-012 [direct, rep 3] citation-recall: 3/5 sentences supported, 0 without citation
+- asqa-012 [direct, rep 3] citation-precision: 3/5 citations necessary
+- asqa-013 [direct, rep 3] str-em: 1/6 sub-questions answered; missing: August 4, 2011 | October 20, 2011 | January 5, 2012 | March 15, 2012 | October 4, 2012
+- asqa-013 [direct, rep 3] citation-recall: 1/2 sentences supported, 0 without citation
+- asqa-013 [direct, rep 3] citation-precision: 1/2 citations necessary
+- asqa-014 [direct, rep 3] str-em: 0/4 sub-questions answered; missing: season 8 | season 11 | 8 | 11
+- asqa-014 [direct, rep 3] citation-recall: 1/3 sentences supported, 0 without citation
+- asqa-014 [direct, rep 3] citation-precision: 1/4 citations necessary
+- asqa-000 [direct, rep 4] str-em: 1/3 sub-questions answered; missing: Daei | Sinclair
+- asqa-000 [direct, rep 4] citation-recall: 3/4 sentences supported, 1 without citation
+- asqa-001 [direct, rep 4] str-em: 2/3 sub-questions answered; missing: Dami Im
+- asqa-001 [direct, rep 4] citation-recall: 1/3 sentences supported, 0 without citation
+- asqa-001 [direct, rep 4] citation-precision: 1/3 citations necessary
+- asqa-002 [direct, rep 4] str-em: 2/4 sub-questions answered; missing: 2004 | 2004.
+- asqa-002 [direct, rep 4] citation-recall: 2/3 sentences supported, 0 without citation
+- asqa-002 [direct, rep 4] citation-precision: 2/3 citations necessary
+- asqa-003 [direct, rep 4] str-em: 4/6 sub-questions answered; missing: Richard Fish | James Phelps
+- asqa-003 [direct, rep 4] citation-recall: 2/4 sentences supported, 0 without citation
+- asqa-003 [direct, rep 4] citation-precision: 2/6 citations necessary
+- asqa-004 [direct, rep 4] str-em: 0/4 sub-questions answered; missing: six | 38 | 6 | 38
+- asqa-005 [direct, rep 4] str-em: 2/4 sub-questions answered; missing: Real Madrid and Liverpool | Gareth Bale
+- asqa-005 [direct, rep 4] citation-recall: 1/2 sentences supported, 0 without citation
+- asqa-005 [direct, rep 4] citation-precision: 1/2 citations necessary
+- asqa-006 [direct, rep 4] str-em: 2/4 sub-questions answered; missing: Susan Sarandon | Susan Sarandon
+- asqa-006 [direct, rep 4] citation-recall: 1/2 sentences supported, 1 without citation
+- asqa-007 [direct, rep 4] citation-recall: 2/3 sentences supported, 0 without citation
+- asqa-007 [direct, rep 4] citation-precision: 2/3 citations necessary
+- asqa-009 [direct, rep 4] str-em: 1/2 sub-questions answered; missing: 5
+- asqa-009 [direct, rep 4] citation-recall: 3/4 sentences supported, 0 without citation
+- asqa-009 [direct, rep 4] citation-precision: 3/4 citations necessary
+- asqa-010 [direct, rep 4] str-em: 2/4 sub-questions answered; missing: Carol Sawyer Yussel | a ghostly depiction of the late wife of Lazar Wolf
+- asqa-011 [direct, rep 4] str-em: 1/2 sub-questions answered; missing: 1991 Major League Baseball All-Star Game
+- asqa-012 [direct, rep 4] str-em: 0/2 sub-questions answered; missing: Sunbeam Alpine | Rootes Group
+- asqa-012 [direct, rep 4] citation-recall: 4/5 sentences supported, 0 without citation
+- asqa-012 [direct, rep 4] citation-precision: 4/5 citations necessary
+- asqa-013 [direct, rep 4] str-em: 1/6 sub-questions answered; missing: August 4, 2011 | October 20, 2011 | January 5, 2012 | March 15, 2012 | October 4, 2012
+- asqa-013 [direct, rep 4] citation-recall: 1/2 sentences supported, 0 without citation
+- asqa-013 [direct, rep 4] citation-precision: 1/2 citations necessary
+- asqa-014 [direct, rep 4] str-em: 0/4 sub-questions answered; missing: season 8 | season 11 | 8 | 11
+- asqa-014 [direct, rep 4] citation-recall: 1/3 sentences supported, 0 without citation
+- asqa-014 [direct, rep 4] citation-precision: 1/3 citations necessary
+- asqa-000 [direct, rep 5] str-em: 1/3 sub-questions answered; missing: Daei | Sinclair
+- asqa-001 [direct, rep 5] str-em: 2/3 sub-questions answered; missing: Dami Im
+- asqa-001 [direct, rep 5] citation-precision: 4/6 citations necessary
+- asqa-002 [direct, rep 5] str-em: 2/4 sub-questions answered; missing: 2004 | 2004.
+- asqa-003 [direct, rep 5] str-em: 4/6 sub-questions answered; missing: Richard Fish | James Phelps
+- asqa-003 [direct, rep 5] citation-recall: 3/5 sentences supported, 0 without citation
+- asqa-003 [direct, rep 5] citation-precision: 3/5 citations necessary
+- asqa-004 [direct, rep 5] str-em: 2/4 sub-questions answered; missing: 38 | 38
+- asqa-005 [direct, rep 5] str-em: 2/4 sub-questions answered; missing: Real Madrid and Liverpool | Gareth Bale
+- asqa-005 [direct, rep 5] citation-recall: 1/2 sentences supported, 0 without citation
+- asqa-005 [direct, rep 5] citation-precision: 1/2 citations necessary
+- asqa-006 [direct, rep 5] str-em: 2/4 sub-questions answered; missing: Susan Sarandon | Susan Sarandon
+- asqa-006 [direct, rep 5] citation-recall: 1/3 sentences supported, 0 without citation
+- asqa-006 [direct, rep 5] citation-precision: 1/4 citations necessary
+- asqa-009 [direct, rep 5] str-em: 1/2 sub-questions answered; missing: 7
+- asqa-009 [direct, rep 5] citation-recall: 3/4 sentences supported, 0 without citation
+- asqa-009 [direct, rep 5] citation-precision: 3/4 citations necessary
+- asqa-010 [direct, rep 5] str-em: 2/4 sub-questions answered; missing: Carol Sawyer Yussel | a ghostly depiction of the late wife of Lazar Wolf
+- asqa-010 [direct, rep 5] citation-recall: 0/2 sentences supported, 0 without citation
+- asqa-010 [direct, rep 5] citation-precision: 0/2 citations necessary
+- asqa-011 [direct, rep 5] str-em: 1/2 sub-questions answered; missing: 1991 Major League Baseball All-Star Game
+- asqa-012 [direct, rep 5] str-em: 0/2 sub-questions answered; missing: Sunbeam Alpine | Rootes Group
+- asqa-012 [direct, rep 5] citation-recall: 3/5 sentences supported, 0 without citation
+- asqa-012 [direct, rep 5] citation-precision: 3/6 citations necessary
+- asqa-013 [direct, rep 5] str-em: 1/6 sub-questions answered; missing: August 4, 2011 | October 20, 2011 | January 5, 2012 | March 15, 2012 | October 4, 2012
+- asqa-013 [direct, rep 5] citation-recall: 1/2 sentences supported, 0 without citation
+- asqa-013 [direct, rep 5] citation-precision: 1/2 citations necessary
+- asqa-014 [direct, rep 5] str-em: 0/4 sub-questions answered; missing: season 8 | season 11 | 8 | 11
+- asqa-000 [cite-v1, rep 1] str-em: 1/3 sub-questions answered; missing: Daei | Sinclair
+- asqa-001 [cite-v1, rep 1] str-em: 2/3 sub-questions answered; missing: Dami Im
+- asqa-002 [cite-v1, rep 1] str-em: 2/4 sub-questions answered; missing: 2004 | 2004.
+- asqa-003 [cite-v1, rep 1] str-em: 5/6 sub-questions answered; missing: James Phelps
+- asqa-003 [cite-v1, rep 1] citation-precision: 6/7 citations necessary
+- asqa-004 [cite-v1, rep 1] str-em: 2/4 sub-questions answered; missing: 38 | 38
+- asqa-005 [cite-v1, rep 1] str-em: 2/4 sub-questions answered; missing: Real Madrid and Liverpool | Gareth Bale
+- asqa-006 [cite-v1, rep 1] str-em: 2/4 sub-questions answered; missing: Susan Sarandon | Susan Sarandon
+- asqa-006 [cite-v1, rep 1] citation-recall: 1/3 sentences supported, 2 without citation
+- asqa-009 [cite-v1, rep 1] str-em: 1/2 sub-questions answered; missing: 7
+- asqa-010 [cite-v1, rep 1] str-em: 2/4 sub-questions answered; missing: Carol Sawyer Yussel | a ghostly depiction of the late wife of Lazar Wolf
+- asqa-010 [cite-v1, rep 1] citation-recall: 2/3 sentences supported, 0 without citation
+- asqa-010 [cite-v1, rep 1] citation-precision: 3/4 citations necessary
+- asqa-011 [cite-v1, rep 1] str-em: 1/2 sub-questions answered; missing: 1991 Major League Baseball All-Star Game
+- asqa-012 [cite-v1, rep 1] str-em: 0/2 sub-questions answered; missing: Sunbeam Alpine | Rootes Group
+- asqa-013 [cite-v1, rep 1] str-em: 1/6 sub-questions answered; missing: August 4, 2011 | October 20, 2011 | January 5, 2012 | March 15, 2012 | October 4, 2012
+- asqa-013 [cite-v1, rep 1] citation-recall: 2/3 sentences supported, 0 without citation
+- asqa-013 [cite-v1, rep 1] citation-precision: 2/3 citations necessary
+- asqa-014 [cite-v1, rep 1] str-em: 0/4 sub-questions answered; missing: season 8 | season 11 | 8 | 11
+- asqa-000 [cite-v1, rep 2] str-em: 1/3 sub-questions answered; missing: Daei | Sinclair
+- asqa-001 [cite-v1, rep 2] str-em: 2/3 sub-questions answered; missing: Dami Im
+- asqa-002 [cite-v1, rep 2] str-em: 2/4 sub-questions answered; missing: 2004 | 2004.
+- asqa-003 [cite-v1, rep 2] str-em: 5/6 sub-questions answered; missing: James Phelps
+- asqa-004 [cite-v1, rep 2] str-em: 2/4 sub-questions answered; missing: 38 | 38
+- asqa-005 [cite-v1, rep 2] str-em: 2/4 sub-questions answered; missing: Real Madrid and Liverpool | Gareth Bale
+- asqa-006 [cite-v1, rep 2] str-em: 2/4 sub-questions answered; missing: Susan Sarandon | Susan Sarandon
+- asqa-006 [cite-v1, rep 2] citation-recall: 0/1 sentences supported, 1 without citation
+- asqa-006 [cite-v1, rep 2] citation-precision: 0/0 citations necessary
+- asqa-009 [cite-v1, rep 2] str-em: 1/2 sub-questions answered; missing: 7
+- asqa-010 [cite-v1, rep 2] str-em: 2/4 sub-questions answered; missing: Carol Sawyer Yussel | a ghostly depiction of the late wife of Lazar Wolf
+- asqa-011 [cite-v1, rep 2] str-em: 1/2 sub-questions answered; missing: 1991 Major League Baseball All-Star Game
+- asqa-012 [cite-v1, rep 2] str-em: 0/2 sub-questions answered; missing: Sunbeam Alpine | Rootes Group
+- asqa-013 [cite-v1, rep 2] str-em: 1/6 sub-questions answered; missing: August 4, 2011 | October 20, 2011 | January 5, 2012 | March 15, 2012 | October 4, 2012
+- asqa-014 [cite-v1, rep 2] citation-recall: 4/5 sentences supported, 0 without citation
+- asqa-014 [cite-v1, rep 2] citation-precision: 4/5 citations necessary
+- asqa-000 [cite-v1, rep 3] str-em: 1/3 sub-questions answered; missing: Daei | Sinclair
+- asqa-001 [cite-v1, rep 3] str-em: 2/3 sub-questions answered; missing: Dami Im
+- asqa-002 [cite-v1, rep 3] str-em: 2/4 sub-questions answered; missing: 2004 | 2004.
+- asqa-003 [cite-v1, rep 3] str-em: 4/6 sub-questions answered; missing: James Phelps | Rupert Grint
+- asqa-004 [cite-v1, rep 3] str-em: 2/4 sub-questions answered; missing: 38 | 38
+- asqa-005 [cite-v1, rep 3] str-em: 2/4 sub-questions answered; missing: Real Madrid and Liverpool | Gareth Bale
+- asqa-006 [cite-v1, rep 3] str-em: 2/4 sub-questions answered; missing: Susan Sarandon | Susan Sarandon
+- asqa-006 [cite-v1, rep 3] citation-recall: 0/1 sentences supported, 1 without citation
+- asqa-006 [cite-v1, rep 3] citation-precision: 0/0 citations necessary
+- asqa-009 [cite-v1, rep 3] str-em: 1/2 sub-questions answered; missing: 7
+- asqa-010 [cite-v1, rep 3] str-em: 2/4 sub-questions answered; missing: Carol Sawyer Yussel | a ghostly depiction of the late wife of Lazar Wolf
+- asqa-011 [cite-v1, rep 3] str-em: 1/2 sub-questions answered; missing: 1991 Major League Baseball All-Star Game
+- asqa-012 [cite-v1, rep 3] str-em: 0/2 sub-questions answered; missing: Sunbeam Alpine | Rootes Group
+- asqa-013 [cite-v1, rep 3] str-em: 1/6 sub-questions answered; missing: August 4, 2011 | October 20, 2011 | January 5, 2012 | March 15, 2012 | October 4, 2012
+- asqa-013 [cite-v1, rep 3] citation-precision: 3/4 citations necessary
+- asqa-014 [cite-v1, rep 3] str-em: 2/4 sub-questions answered; missing: season 11 | 11
+- asqa-014 [cite-v1, rep 3] citation-precision: 9/10 citations necessary
+- asqa-000 [cite-v1, rep 4] str-em: 1/3 sub-questions answered; missing: Daei | Sinclair
+- asqa-001 [cite-v1, rep 4] str-em: 2/3 sub-questions answered; missing: Dami Im
+- asqa-001 [cite-v1, rep 4] citation-precision: 6/7 citations necessary
+- asqa-002 [cite-v1, rep 4] str-em: 2/4 sub-questions answered; missing: 2004 | 2004.
+- asqa-003 [cite-v1, rep 4] str-em: 3/6 sub-questions answered; missing: Richard Fish | James Phelps | Rupert Grint
+- asqa-004 [cite-v1, rep 4] str-em: 2/4 sub-questions answered; missing: 38 | 38
+- asqa-005 [cite-v1, rep 4] str-em: 2/4 sub-questions answered; missing: Real Madrid and Liverpool | Gareth Bale
+- asqa-006 [cite-v1, rep 4] str-em: 2/4 sub-questions answered; missing: Susan Sarandon | Susan Sarandon
+- asqa-006 [cite-v1, rep 4] citation-recall: 0/2 sentences supported, 2 without citation
+- asqa-006 [cite-v1, rep 4] citation-precision: 0/0 citations necessary
+- asqa-007 [cite-v1, rep 4] str-em: 1/2 sub-questions answered; missing: Charlie Kelly
+- asqa-009 [cite-v1, rep 4] str-em: 1/2 sub-questions answered; missing: 7
+- asqa-010 [cite-v1, rep 4] str-em: 2/4 sub-questions answered; missing: Carol Sawyer Yussel | a ghostly depiction of the late wife of Lazar Wolf
+- asqa-011 [cite-v1, rep 4] str-em: 1/2 sub-questions answered; missing: 1991 Major League Baseball All-Star Game
+- asqa-012 [cite-v1, rep 4] str-em: 0/2 sub-questions answered; missing: Sunbeam Alpine | Rootes Group
+- asqa-013 [cite-v1, rep 4] str-em: 1/6 sub-questions answered; missing: August 4, 2011 | October 20, 2011 | January 5, 2012 | March 15, 2012 | October 4, 2012
+- asqa-013 [cite-v1, rep 4] citation-recall: 2/3 sentences supported, 0 without citation
+- asqa-013 [cite-v1, rep 4] citation-precision: 3/4 citations necessary
+- asqa-014 [cite-v1, rep 4] str-em: 2/4 sub-questions answered; missing: season 11 | 11
+- asqa-014 [cite-v1, rep 4] citation-precision: 4/5 citations necessary
+- asqa-000 [cite-v1, rep 5] str-em: 1/3 sub-questions answered; missing: Daei | Sinclair
+- asqa-001 [cite-v1, rep 5] str-em: 2/3 sub-questions answered; missing: Dami Im
+- asqa-001 [cite-v1, rep 5] citation-recall: 4/5 sentences supported, 0 without citation
+- asqa-001 [cite-v1, rep 5] citation-precision: 7/9 citations necessary
+- asqa-002 [cite-v1, rep 5] str-em: 2/4 sub-questions answered; missing: 2004 | 2004.
+- asqa-002 [cite-v1, rep 5] citation-precision: 16/17 citations necessary
+- asqa-003 [cite-v1, rep 5] str-em: 4/6 sub-questions answered; missing: James Phelps | Rupert Grint
+- asqa-004 [cite-v1, rep 5] str-em: 2/4 sub-questions answered; missing: 38 | 38
+- asqa-005 [cite-v1, rep 5] str-em: 2/4 sub-questions answered; missing: Real Madrid and Liverpool | Gareth Bale
+- asqa-006 [cite-v1, rep 5] str-em: 2/4 sub-questions answered; missing: Susan Sarandon | Susan Sarandon
+- asqa-006 [cite-v1, rep 5] citation-recall: 1/3 sentences supported, 2 without citation
+- asqa-009 [cite-v1, rep 5] str-em: 1/2 sub-questions answered; missing: 7
+- asqa-010 [cite-v1, rep 5] str-em: 2/4 sub-questions answered; missing: Carol Sawyer Yussel | a ghostly depiction of the late wife of Lazar Wolf
+- asqa-011 [cite-v1, rep 5] str-em: 1/2 sub-questions answered; missing: 1991 Major League Baseball All-Star Game
+- asqa-012 [cite-v1, rep 5] str-em: 0/2 sub-questions answered; missing: Sunbeam Alpine | Rootes Group
+- asqa-013 [cite-v1, rep 5] str-em: 1/6 sub-questions answered; missing: August 4, 2011 | October 20, 2011 | January 5, 2012 | March 15, 2012 | October 4, 2012
+- asqa-014 [cite-v1, rep 5] str-em: 3/4 sub-questions answered; missing: season 11
