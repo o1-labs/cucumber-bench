@@ -14,7 +14,7 @@ used directly, within acceptable cost and latency limits?
 
 | lane | system | purpose |
 | --- | --- | --- |
-| A | `deepseek/deepseek-v4-pro-0813`, `direct` | reference level |
+| A | `moonshotai/kimi-k2.5`, `direct` | reference: a stronger affordable model |
 | B | `qwen/qwen3.6-35b-a3b`, `direct` | control |
 | C | `qwen/qwen3.6-35b-a3b`, custom harness | can we establish a technical edge via a custom harness? |
 | D | optional: a specialised model inside the harness (the existing `cuad-qwen3` finetune in `review-ft`) | what a task-specific model adds; not the study's goal |
@@ -29,8 +29,19 @@ reference, never causal.
 Lane D is optional. Do not fine-tune or post-train models: the goal of this study is the
 harness alone. Lane D exists only to place the one existing finetune next to the control.
 
-Lane A must not be the judge model (`deepseek/deepseek-v4-flash-0731`): the judge would
-grade its own answers. `deepseek-v4-pro-0813` is a dated snapshot and a different variant.
+## Why DeepSeek flash as the judge, Kimi k2.5 as lane A
+
+- The judge must come from a family no lane uses: a judge never grades its own answers.
+- Judge `deepseek/deepseek-v4-flash-0731`: the cheapest capable judge of the candidate
+  families ($0.065/M input; grading makes many small calls), a dated snapshot, and every
+  stored grade used it, so runs stay comparable.
+- Lane A `moonshotai/kimi-k2.5`: no overlap with the judge family, its 262K context covers
+  every case, and the full cuad-hard reference lane costs about $5. `z-ai/glm-5.3` is the
+  stronger, pricier alternative (about $15).
+- Judge sensitivity: before a shared claim, regrade with `z-ai/glm-5.3-flash` and report
+  both results when they disagree (see the protocol).
+- When a benchmark's official release names its own judge or scorer model, that model wins
+  over this choice (see the protocol's scoring rules).
 
 ## Why Qwen3.6-35B-A3B as the control
 
@@ -44,7 +55,7 @@ grade its own answers. `deepseek-v4-pro-0813` is a dated snapshot and a differen
 - Existing results show usable performance with headroom (54% clause recall on cuad-hard).
 
 **Limitation:** B vs C holds for this exact Qwen3.6 configuration. It does not show that the
-harness improves every model or reaches frontier quality; lane A shows that gap.
+harness improves every model or beats stronger models; lane A shows that gap.
 
 ## The transfer rule (Qwen3.8)
 

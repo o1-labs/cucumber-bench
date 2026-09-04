@@ -22,7 +22,7 @@ This document covers the rules that code cannot enforce. The generated run recor
 
 | Lane | System                                                    | Purpose           |
 | ---- | --------------------------------------------------------- | ----------------- |
-| A    | Frontier model using `direct`                             | Reference level   |
+| A    | A stronger reference model using `direct`                 | Reference level   |
 | B    | Control model using `direct`                              | Control           |
 | C    | Same model as B using the custom harness                  | Harness treatment |
 | D    | Optional: specialised model and harness, such as a fine-tuned model | Stack treatment   |
@@ -69,6 +69,13 @@ transfer checks.
 - Sandbox and grader errors count as failed grades. The report also shows the error rate separately.
 - Do not change benchmark cases or graders because a harness performs poorly.
 - If the benchmark provides an official scorer, reproduce and pin that implementation. A custom judge does not become the official scorer.
+- When the official scorer names a judge model (an LLM or a checkpoint), use exactly that
+  model, or the closest available one, and record the substitution next to the numbers.
+  Example: ALCE scores citations with a pinned NLI checkpoint; our `citation-*` graders
+  approximate it with the shared judge, and a report that uses them must say so.
+- Check judge sensitivity before a shared claim: regrade the run with a judge from another
+  family (`npm run regrade -- runs/<id> --judge z-ai/glm-5.3-flash`) and report both when
+  they disagree.
 
 ## Reporting
 
