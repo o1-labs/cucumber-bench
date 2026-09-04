@@ -22,14 +22,23 @@ This document covers the rules that code cannot enforce. The generated run recor
 
 | Lane | System                                                    | Purpose           |
 | ---- | --------------------------------------------------------- | ----------------- |
-| A    | Frontier model using `direct`                             | Reference level   |
+| A    | A stronger reference model using `direct`                 | Reference level   |
 | B    | Control model using `direct`                              | Control           |
 | C    | Same model as B using the custom harness                  | Harness treatment |
-| D    | Specialised model and harness, such as a fine-tuned model | Stack treatment   |
+| D    | Optional: specialised model and harness, such as a fine-tuned model | Stack treatment   |
+| B2/C2 | Optional: a second control model, `direct` and the same frozen harness | Transfer check |
 
 - B versus C measures the **harness effect**. Both lanes must use the same model, provider, settings, cases, and repetitions.
 - D versus B compares two **stacks**. The model and harness can both change, so describe the result as a stack comparison.
 - A provides a reference level. A comparison with A cannot show causality because the models differ.
+- B2 versus C2 measures the **transfer** of the frozen harness to a second model. B2 and C2
+  must match each other like B and C. Declare a transfer check before locked-test outputs are
+  inspected; one added after is a separate follow-up experiment.
+
+Before a locked test run, the experiment plan (`docs/EXPERIMENT-PLAN.md`) must state: the
+decision the run supports, why each control and reference model was selected, the primary
+metric and the metrics that must not regress, the cost and latency limits, and any planned
+transfer checks.
 
 ## Data and tuning
 
@@ -44,7 +53,8 @@ This document covers the rules that code cannot enforce. The generated run recor
 
 - Each harness declares its models and providers in `harness.json`. The proxy rejects model calls that are not declared.
 - Final runs must use exact model versions and providers. Do not use `latest` aliases or automatic provider routing.
-- Lanes B and C must use the same provider as well as the same model.
+- Lanes B and C must use the same provider as well as the same model. Paired lanes must
+  match on everything the request sets, temperature above all; declare any other difference.
 - Final runs use `BENCH_SANDBOX=docker` and a clean Git commit. `run.json` records the commit and any changed files.
 - Use several repetitions when model output or harness behaviour can vary.
 - Do not truncate inputs without reporting it. Compare `tokensIn` with the expected input size and investigate material differences. A lane with provider-side truncation is invalid unless the protocol explicitly allows and reports it.
@@ -59,6 +69,13 @@ This document covers the rules that code cannot enforce. The generated run recor
 - Sandbox and grader errors count as failed grades. The report also shows the error rate separately.
 - Do not change benchmark cases or graders because a harness performs poorly.
 - If the benchmark provides an official scorer, reproduce and pin that implementation. A custom judge does not become the official scorer.
+- When the official scorer names a judge model (an LLM or a checkpoint), use exactly that
+  model, or the closest available one, and record the substitution next to the numbers.
+  Example: ALCE scores citations with a pinned NLI checkpoint; our `citation-*` graders
+  approximate it with the shared judge, and a report that uses them must say so.
+- Check judge sensitivity before a shared claim: regrade the run with a judge from another
+  family (`npm run regrade -- runs/<id> --judge z-ai/glm-5.3-flash`) and report both when
+  they disagree.
 
 ## Reporting
 

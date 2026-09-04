@@ -1,0 +1,99 @@
+<!doctype html>
+<!-- generated from HOW-TO-BUILD-A-HARNESS.md by npm run site; edit the markdown, not this file -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to build a harness · cucumber-bench</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 760px; margin: 3rem auto; padding: 0 1rem; color: #1b1f24; }
+  h1 { font-size: 1.6rem; } h2 { font-size: 1.2rem; margin-top: 2rem; } h3 { font-size: 1.05rem; }
+  a { color: #2a78d6; }
+  code { background: rgba(0,0,0,0.05); padding: 1px 4px; border-radius: 4px; font-size: 0.9em; }
+  pre { background: rgba(0,0,0,0.05); padding: 12px; border-radius: 8px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e1e0d9; vertical-align: top; }
+  .top { color: #57606a; font-size: 14px; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #0f1115; color: #e6e8eb; } a { color: #3987e5; }
+    code, pre { background: rgba(255,255,255,0.08); } th, td { border-color: #2c2c2a; }
+    .top { color: #9aa0aa; }
+  }
+</style>
+<p class="top"><a href="index.html">cucumber-bench</a></p>
+<h1>How to build a harness</h1>
+<p>A <b>harness</b> is the system under test: one case in, one output out. The runner starts it in a sandbox, feeds it the public case, and grades the output with the benchmark's graders.</p>
+<h2>1. The protocol</h2>
+<p>The harness is a program. It reads one JSON object from stdin and writes one to stdout.</p>
+<p><b>stdin</b></p>
+<pre><code>{
+  &quot;publicCase&quot;: { &quot;id&quot;: &quot;...&quot;, &quot;suite&quot;: &quot;...&quot;, &quot;task&quot;: &quot;...&quot;, &quot;instructions&quot;: &quot;...&quot;, &quot;input&quot;: &quot;...&quot;,
+                  &quot;docs&quot;: [{ &quot;title&quot;: &quot;...&quot;, &quot;text&quot;: &quot;...&quot; }], &quot;examples&quot;: [{ &quot;q&quot;: &quot;...&quot;, &quot;a&quot;: &quot;...&quot; }],
+                  &quot;question&quot;: &quot;...&quot;, &quot;choices&quot;: [&quot;...&quot;] },
+  &quot;proxyUrl&quot;: &quot;http://127.0.0.1:PORT&quot;,
+  &quot;token&quot;: &quot;the bearer token of this run&quot;,
+  &quot;models&quot;: { &quot;main&quot;: &quot;...&quot;, &quot;safety&quot;: &quot;...&quot;, &quot;compose&quot;: &quot;...&quot; }
+}</code></pre>
+<p><code>docs</code> are passages the answer may cite as <code>[1][2]</code>, numbered from 1. <code>examples</code> are worked examples. <code>question</code> and <code>choices</code> exist for label tasks only. <code>models</code> are the manifest's, extra roles included.</p>
+<p><b>stdout</b>: <code>{ &quot;output&quot;: &quot;...&quot;, &quot;trace&quot;: { ... } }</code> or <code>{ &quot;error&quot;: &quot;message&quot; }</code>.</p>
+<p><b>Models</b>, only through the proxy, with <code>Authorization: Bearer {token}</code>, in the OpenAI chat-completions format:</p>
+<table><thead><tr><th>route</th><th>note</th></tr></thead><tbody><tr><td><code>POST {proxyUrl}/v1/chat/completions</code></td><td>the guarded route; every prompt is recorded, the <code>leakage</code> grader reads them</td></tr><tr><td><code>POST {proxyUrl}/safety/v1/chat/completions</code></td><td>the trusted safety route; raw data may go here</td></tr></tbody></table>
+<p>The proxy adds the key, injects the default temperature when the request sets none, refuses a model the manifest does not name, and stops the run at its call limit (<code>BENCH_MAX_CALLS</code>, default 20, or the manifest's <code>maxCalls</code>). The harness never sees private cases, keys, or upstream URLs.</p>
+<p>End every prompt with a <b>label line</b> that names what the model writes next (<code>Answer:</code>, <code>Quotes:</code>). The test mock routes on that last line, so the instructions above it can change without touching the tests.</p>
+<h2>2. The manifest</h2>
+<p><code>harnesses/&lt;name&gt;/harness.json</code>:</p>
+<pre><code>{
+  &quot;name&quot;: &quot;my-harness&quot;,
+  &quot;description&quot;: &quot;One sentence for the chart.&quot;,
+  &quot;entry&quot;: &quot;src/entry.ts&quot;,
+  &quot;suites&quot;: [&quot;cuad-hard&quot;, &quot;cuad-hard-dev&quot;],
+  &quot;models&quot;: { &quot;main&quot;: &quot;qwen/qwen3.6-35b-a3b&quot; }
+}</code></pre>
+<table><thead><tr><th>field</th><th>meaning</th></tr></thead><tbody><tr><td><code>suites</code></td><td>the benchmarks this harness runs on; the runner skips the others</td></tr><tr><td><code>models</code></td><td><code>main</code> required, <code>safety</code> defaults to <code>main</code>, further roles (e.g. <code>compose</code>) as needed; all usable on the guarded route</td></tr><tr><td><code>providers</code></td><td>per-model upstreams: <code>{ &quot;&lt;model-id&gt;&quot;: { &quot;baseUrl&quot;: &quot;...&quot;, &quot;keyEnv&quot;: &quot;HF_TOKEN&quot; } }</code>. <code>keyEnv</code> names the env variable with the key. A model not named uses <code>BENCH_BASE_URL</code></td></tr><tr><td><code>maxCalls</code></td><td>a higher call limit, e.g. one call per passage</td></tr><tr><td><code>image</code>, <code>imageEntry</code>, <code>dockerfile</code></td><td>for a harness with dependencies: its own docker image</td></tr></tbody></table>
+<p><b>The same harness with another model</b> (e.g. a finetune): a second folder whose manifest points at the first one's entry:</p>
+<pre><code>{ &quot;name&quot;: &quot;direct-ft&quot;, &quot;entry&quot;: &quot;../direct/src/entry.ts&quot;, &quot;suites&quot;: [&quot;cuad-hard&quot;],
+  &quot;models&quot;: { &quot;main&quot;: &quot;my-finetune&quot; },
+  &quot;providers&quot;: { &quot;my-finetune&quot;: { &quot;baseUrl&quot;: &quot;http://my-server:11434/v1&quot; } } }</code></pre>
+<p>For docker mode, also name the first harness's <code>image</code> and <code>imageEntry</code>.</p>
+<h2>3. The entry</h2>
+<p>Without dependencies, use <code>harnesses/lib.ts</code>:</p>
+<pre><code>import { readInput, generateVia, respond } from '../../lib.js';
+
+let { publicCase: c, proxyUrl, token, models } = await readInput();
+let generate = generateVia(proxyUrl, token, models.main);
+try {
+  respond({ output: await generate(`${c.instructions}\n\n${c.input}\n\nAnswer:`) });
+} catch (err: any) {
+  respond({ error: String(err?.message ?? err) });
+}</code></pre>
+<p><code>generateVia(proxyUrl, token, model, route?)</code> binds one model; <code>'/safety/v1'</code> gives the safety route. Examples: <code>harnesses/direct</code> is the minimum, <code>harnesses/placeholder</code> a three-stage pipeline, <code>harnesses/review-ft</code> a full multi-model pipeline, all without dependencies.</p>
+<p>With dependencies (e.g. the Vercel AI SDK): add <code>package.json</code>, <code>tsconfig.json</code> and a <code>Dockerfile</code>, and name the image in the manifest. <code>harnesses/cite-v1</code> is the template. <code>npm run harness:install</code> installs all dependencies; <code>npm run sandbox:build</code> builds the images.</p>
+<h2>4. A benchmark</h2>
+<p><code>benchmarks/&lt;suite&gt;/benchmark.json</code> names the graders and, when they need one, the judge:</p>
+<pre><code>{ &quot;name&quot;: &quot;asqa&quot;, &quot;graders&quot;: [&quot;str-em&quot;, &quot;./graders.ts&quot;], &quot;judge&quot;: { &quot;model&quot;: &quot;deepseek/deepseek-v4-flash-0731&quot; } }</code></pre>
+<p>A grader is a core grader by name (<code>exact</code>, <code>str-em</code>) or a module exporting <code>{ graders }</code>:</p>
+<pre><code>let graders: Grader[] = [{
+  name: 'my-grader',
+  description: 'One sentence that says what passes; it goes into the glossary.',
+  async grade(pub, priv, result, ctx) {
+    return { grader: 'my-grader', pass: true, score: 1, detail: 'why' };
+  },
+}];</code></pre>
+<p><code>ctx.judge(prompt)</code> asks the judge model; its usage is counted apart from the harness. A grader never sees an errored run: the runner fails those itself.</p>
+<p>Cases are two files in <code>cases/</code>: <code>&lt;id&gt;.public.json</code> (what the system sees) and <code>&lt;id&gt;.private.json</code> (<code>graders</code> and the gold data). The file name is the id, the folder is the suite, and the loader checks both. An <code>import.ts</code> rebuilds the cases deterministically from a pinned source; raw data stays out of Git.</p>
+<h2>5. The trace</h2>
+<p>A harness records its stages, <code>input safety → agent → output safety</code>:</p>
+<pre><code>{
+  &quot;source&quot;: &quot;the input&quot;, &quot;transformedSource&quot;: &quot;after input safety&quot;,
+  &quot;rawOutput&quot;: &quot;the agent output&quot;, &quot;releasedOutput&quot;: &quot;after output safety&quot;,
+  &quot;stages&quot;: [
+    { &quot;name&quot;: &quot;input-safety&quot;, &quot;module&quot;: &quot;regex+safety-model&quot;, &quot;version&quot;: &quot;1&quot;, &quot;policy&quot;: &quot;pii-v1&quot;,
+      &quot;mode&quot;: &quot;hybrid&quot;, &quot;findings&quot;: [&quot;email:a@b.c&quot;], &quot;decision&quot;: &quot;modified&quot; }
+  ]
+}</code></pre>
+<p><code>mode</code>: <code>passthrough</code>, <code>regex</code>, <code>llm</code>, <code>hybrid</code>. <code>decision</code>: <code>pass</code>, <code>modified</code>, <code>blocked</code>. A stage without work is <code>passthrough</code>. Graders do not read the trace; it is for you: <code>results.jsonl</code> keeps it, so you can replay a changed rule on stored drafts before you pay for a run.</p>
+<h2>6. The loop</h2>
+<ol><li><b>Run</b> on the dev suite: <code>npm run bench -- --systems my-harness --suites cuad-hard-dev --concurrency 10</code>. One case, many times: <code>--cases cuad-hard-dev-104 --reps 5</code>.</li><li><b>Read</b> <code>runs/&lt;id&gt;/report.md</code>: the Failures list per case, the paired comparison for the noise. One case in detail: <code>jq 'select(.run.caseId==&quot;cuad-hard-dev-104&quot;)' runs/&lt;id&gt;/results.jsonl</code></li><li><b>Test</b>: <code>npm test</code> runs every harness against the mock model in seconds. Add a test in <code>test/harnesses.test.ts</code> when you add a stage.</li><li><b>The final run</b>, when the dev numbers hold: <code>BENCH_SANDBOX=docker npm run bench -- --systems direct,my-harness --suites cuad-hard --reps 3 --concurrency 10</code>, then <code>npm run store -- runs/&lt;id&gt;</code> to pin it and publish its chart.</li></ol>
+<h2>7. Rules</h2>
+<ul><li>Use the control model and settings from <a href="EXPERIMENT-PLAN.html">EXPERIMENT-PLAN.md</a> (<code>qwen/qwen3.6-35b-a3b</code> today), or document the exception there.</li><li>Tune on <code>*-dev</code> suites only; the test suites are locked.</li><li>Do not change graders or cases to make a harness pass.</li><li>Keep models, temperatures and cases fixed between runs you compare; <code>run.json</code> records them.</li><li>No task-specific rules in harness code: the case gives the question, the passages and the answer form; the manifest says where the harness runs.</li></ul>
+<p>The full experiment rules (lanes, splits, pinning, reporting): <a href="PROTOCOL.html">PROTOCOL.md</a>.</p>
