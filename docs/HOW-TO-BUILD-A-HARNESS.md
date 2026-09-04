@@ -165,6 +165,8 @@ for a run.
 
 ## 7. Rules
 
+- Use the control model and settings from [EXPERIMENT-PLAN.md](EXPERIMENT-PLAN.md)
+  (`qwen/qwen3.6-35b-a3b` today), or document the exception there.
 - Tune on `*-dev` suites only; the test suites are locked.
 - Do not change graders or cases to make a harness pass.
 - Keep models, temperatures and cases fixed between runs you compare; `run.json` records them.

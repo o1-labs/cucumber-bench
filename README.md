@@ -130,6 +130,12 @@ headers). The raw data is not in the repository.
 - **consistency**: with repetitions, the share of repetitions that gave the same answer.
 - An incomplete run is marked at the top of the report and in `run.json`.
 
+## Current experiment
+
+The study compares `qwen/qwen3.6-35b-a3b` used directly (control) with the same model in a
+custom harness (treatment); `qwen/qwen3.8-27b` is an optional transfer check. The rationale,
+model matrix, and decision criteria are in [docs/EXPERIMENT-PLAN.md](docs/EXPERIMENT-PLAN.md).
+
 ## Rules
 
 - Tune a harness on a `*-dev` suite only. The test suites are locked.

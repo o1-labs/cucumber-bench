@@ -72,5 +72,6 @@ suite's `import.ts` from pinned sources (ALCE/ASQA, CUAD); raw data stays out of
 
 - [README.md](README.md): commands, options, configuration, grader definitions.
 - [docs/HOW-TO-BUILD-A-HARNESS.md](docs/HOW-TO-BUILD-A-HARNESS.md): the wire protocol, manifest fields, the tuning loop.
+- [docs/EXPERIMENT-PLAN.md](docs/EXPERIMENT-PLAN.md): the current study: decision, model matrix, thresholds.
 - [docs/PROTOCOL.md](docs/PROTOCOL.md): comparison lanes, splits, pinning, scoring, reporting.
 - `.env.example`: every environment variable, with defaults.
