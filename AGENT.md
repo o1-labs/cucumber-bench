@@ -54,6 +54,10 @@ suite's `import.ts` from pinned sources (ALCE/ASQA, CUAD); raw data stays out of
   then `npm run store` and a chart merge with the `direct-4b` baseline run.
 - Before that run: pin the finetune to a versioned tag (`cuad-qwen3:v1`, not `:latest`) and
   confirm its training data does not contain the benchmark's contracts (contamination).
+- Fix `direct`: it sends temperature 1 (`harnesses/direct/src/entry.ts`) while the harnesses
+  draft at 0; every lane must use the benchmark default. Until then, B vs C is confounded.
+- The two pinned runs are pilots (no `run.json`, process sandbox, the temperature mismatch):
+  development evidence, not official claims.
 
 ## Rules that bind you
 

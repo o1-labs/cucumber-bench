@@ -25,7 +25,7 @@ This document covers the rules that code cannot enforce. The generated run recor
 | A    | Frontier model using `direct`                             | Reference level   |
 | B    | Control model using `direct`                              | Control           |
 | C    | Same model as B using the custom harness                  | Harness treatment |
-| D    | Specialised model and harness, such as a fine-tuned model | Stack treatment   |
+| D    | Optional: specialised model and harness, such as a fine-tuned model | Stack treatment   |
 | B2/C2 | Optional: a second control model, `direct` and the same frozen harness | Transfer check |
 
 - B versus C measures the **harness effect**. Both lanes must use the same model, provider, settings, cases, and repetitions.

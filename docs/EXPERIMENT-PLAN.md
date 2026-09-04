@@ -5,29 +5,40 @@ results are in `runs/<id>/report.md`. When they differ, say so in the shared pos
 
 ## The decision
 
-Should we invest in a task-specific harness for an economical open-weight model, because it
-gives a meaningful quality improvement over the same model used directly, within acceptable
-cost and latency limits?
+Can we establish a technical edge with a custom harness on top of a plain, generally
+available model? Concretely: should we invest in a task-specific harness for an economical
+open-weight model, because it gives a meaningful quality improvement over the same model
+used directly, within acceptable cost and latency limits?
 
 ## The model matrix
 
 | lane | system | purpose |
 | --- | --- | --- |
-| A | frontier model, `direct` (model not selected yet) | reference level |
+| A | `deepseek/deepseek-v4-pro-0813`, `direct` | reference level |
 | B | `qwen/qwen3.6-35b-a3b`, `direct` | control |
-| C | `qwen/qwen3.6-35b-a3b`, custom harness | harness treatment |
-| D | specialised stack, e.g. the `cuad-qwen3` finetune inside `review-ft` | stack treatment |
+| C | `qwen/qwen3.6-35b-a3b`, custom harness | can we establish a technical edge via a custom harness? |
+| D | optional: a specialised model inside the harness (the existing `cuad-qwen3` finetune in `review-ft`) | what a task-specific model adds; not the study's goal |
 | B2 | optional: `qwen/qwen3.8-27b`, `direct` | transfer control |
 | C2 | optional: `qwen/qwen3.8-27b`, the same frozen harness | transfer treatment |
 
 Permitted claims: B vs C is the harness effect on Qwen3.6. B2 vs C2 is the transfer of the
-frozen harness to Qwen3.8. D vs B is a stack comparison. A is a reference, never causal.
+frozen harness to Qwen3.8. D vs B is a **stack comparison**: a stack is the model and the
+harness together, both change at once, so the result cannot isolate either one. A is a
+reference, never causal.
+
+Lane D is optional. Do not fine-tune or post-train models: the goal of this study is the
+harness alone. Lane D exists only to place the one existing finetune next to the control.
+
+Lane A must not be the judge model (`deepseek/deepseek-v4-flash-0731`): the judge would
+grade its own answers. `deepseek-v4-pro-0813` is a dated snapshot and a different variant.
 
 ## Why Qwen3.6-35B-A3B as the control
 
 - Its native 262K context covers the target documents; no extended-context method needed.
-- Sparse: 35B total, ~3B active parameters per token, so runs are cheap to repeat and
-  self-hosting is plausible.
+- Sparse: 35B total, ~3B active parameters per token, so runs are cheap to repeat.
+  Self-hosting stays possible: a nice-to-have, not a requirement.
+- Open weights give more control than a closed frontier model, if we later decide to
+  customize or fine-tune seriously.
 - It is a general-purpose, non-task-specific control model (post-trained, not a pretrained
   base checkpoint), so B vs C measures harness value, not fine-tuning value.
 - Existing results show usable performance with headroom (54% clause recall on cuad-hard).
@@ -52,12 +63,3 @@ Draft thresholds; adjust and freeze them before the locked run.
 | Long-context retrieval | planned: LongBench v2 or RULER sample | set at import | | | | | |
 | Abstention | planned: AbstentionBench | set at import | | | | | |
 | Instruction following | planned: IFEval | set at import | | | | | |
-
-## Open items before a locked run
-
-- `direct` sends temperature 1 while the harnesses draft at 0: fix so every lane uses the
-  benchmark default. Until then, B vs C is confounded.
-- Pin `cuad-qwen3:latest` to a versioned tag; pin the provider for final runs.
-- Select the lane A model.
-- The two pinned runs are pilots (no `run.json`, process sandbox, the temperature
-  mismatch): development evidence, not official claims.
