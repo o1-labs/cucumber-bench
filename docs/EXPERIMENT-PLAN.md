@@ -12,14 +12,14 @@ used directly, within acceptable cost and latency limits?
 
 ## The model matrix
 
-| lane | system | purpose |
-| --- | --- | --- |
-| A | `moonshotai/kimi-k2.5`, `direct` | reference: a stronger affordable model |
-| B | `qwen/qwen3.6-35b-a3b`, `direct` | control |
-| C | `qwen/qwen3.6-35b-a3b`, custom harness | can we establish a technical edge via a custom harness? |
-| D | optional: a specialised model inside the harness (the existing `cuad-qwen3` finetune in `review-ft`) | what a task-specific model adds; not the study's goal |
-| B2 | optional: `qwen/qwen3.8-27b`, `direct` | transfer control |
-| C2 | optional: `qwen/qwen3.8-27b`, the same frozen harness | transfer treatment |
+| lane | system                                                                                               | purpose                                                 |
+| ---- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| A    | `moonshotai/kimi-k2.5`, `direct`                                                                     | reference: a stronger affordable model                  |
+| B    | `qwen/qwen3.6-35b-a3b`, `direct`                                                                     | control                                                 |
+| C    | `qwen/qwen3.6-35b-a3b`, custom harness                                                               | can we establish a technical edge via a custom harness? |
+| D    | optional: a specialised model inside the harness (the existing `cuad-qwen3` finetune in `review-ft`) | what a task-specific model adds; not the study's goal   |
+| B2   | optional: `qwen/qwen3.8-27b`, `direct`                                                               | transfer control                                        |
+| C2   | optional: `qwen/qwen3.8-27b`, the same frozen harness                                                | transfer treatment                                      |
 
 Permitted claims: B vs C is the harness effect on Qwen3.6. B2 vs C2 is the transfer of the
 frozen harness to Qwen3.8. D vs B is a **stack comparison**: a stack is the model and the
@@ -62,15 +62,3 @@ harness improves every model or beats stronger models; lane A shows that gap.
 Freeze the harness, prompts, graders, metrics, and thresholds first. Then run B2/C2 on the
 same cases, provider class, and repetitions. Report it separately. Never tune the harness
 from locked-test outputs; a transfer check added after seeing test results is a new experiment.
-
-## Work streams and success criteria
-
-Draft thresholds; adjust and freeze them before the locked run.
-
-| stream | suite | primary metric | min gain (C−B) | must not regress | max cost/run | max latency/run | scale |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Faithfulness and evidence | `cuad-hard` (live) | clause-recall pass rate | +10 points, 95% CI above 0 | clause-precision, citation-support: −5 max | $0.05 | 120 s | 100 × 3 |
-| Faithfulness and evidence | `asqa` (live) | citation-recall pass rate | +10 points, 95% CI above 0 | citation-precision, str-em: −5 max | $0.02 | 60 s | 100 × 3 |
-| Long-context retrieval | planned: LongBench v2 or RULER sample | set at import | | | | | |
-| Abstention | planned: AbstentionBench | set at import | | | | | |
-| Instruction following | planned: IFEval | set at import | | | | | |
