@@ -5,3 +5,8 @@ node_modules/
 .omc
 *.pdf
 harnesses/*/dist/
+# longbench v2: 465 MB of data and cases, rebuilt by fetch.ts and import.ts; the qwen tokenizer files
+benchmarks/longbench-v2/data/
+benchmarks/longbench-v2/cases/
+benchmarks/longbench-v2-dev/cases/
+harnesses/lb2-direct/tokenizer/

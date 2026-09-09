@@ -25,7 +25,8 @@ type PublicCase = {
   input: string;
   // context passages the answer may cite, numbered from 1 in order (asqa; cuad later)
   docs?: { title: string; text: string }[];
-  // worked examples (few-shot); label tasks also carry the question and the allowed labels
+  // worked examples (few-shot); label tasks also carry the question and the allowed labels;
+  // a multiple-choice task carries the question and the option texts, in their original order
   examples?: { q: string; a: string }[];
   question?: string;
   choices?: string[];
@@ -42,6 +43,8 @@ type PrivateCase = {
   // clause graders: the gold clause excerpts and the 0-based docs that contain each; [] when the
   // contract has no such clause
   clauses?: { text: string; passages: number[] }[];
+  // benchmark metadata for breakdowns (domain, difficulty, ...): private, so a system never sees it
+  meta?: { [key: string]: string };
 };
 
 // costUsd is what the provider reported (openrouter returns usage.cost per request);

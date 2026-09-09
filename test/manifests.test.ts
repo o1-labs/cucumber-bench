@@ -9,7 +9,7 @@ import { join } from 'node:path';
 describe('manifests', () => {
   it('should discover every harness with its suites and image', async () => {
     let hs = await loadHarnesses('harnesses');
-    assert.deepEqual(hs.map((h) => h.name), ['cite-v1', 'direct', 'direct-4b', 'direct-4b-ft', 'legal-v1', 'placeholder', 'review-ft', 'review-v1']);
+    assert.deepEqual(hs.map((h) => h.name), ['cite-v1', 'direct', 'direct-4b', 'direct-4b-ft', 'lb2-direct', 'lb2-direct-trunc', 'legal-v1', 'placeholder', 'review-ft', 'review-v1']);
     // a variant harness: reuses the direct entry, brings its own model and provider
     assert.deepEqual(hs.find((h) => h.name === 'direct-4b')!.providers, {
       'Qwen/Qwen3-4B-Instruct-2507:nscale': { baseUrl: 'https://router.huggingface.co/v1', keyEnv: 'HF_TOKEN' },
@@ -49,6 +49,8 @@ describe('manifests', () => {
       ['cuad-hard', ['clause-recall', 'clause-precision', 'citation-support']],
       ['cuad-hard-dev', ['clause-recall', 'clause-precision', 'citation-support']],
       ['legalbench', ['exact']],
+      ['longbench-v2', ['mc-answer']],
+      ['longbench-v2-dev', ['mc-answer']],
       ['redaction', ['removal', 'leakage', 'retention']],
     ]);
   });
@@ -57,7 +59,7 @@ describe('manifests', () => {
     let bs = await loadBenchmarks('benchmarks');
     let all = uniqueGraders(bs);
     assert.deepEqual(all.map((g) => g.name), [
-      'str-em', 'citation-recall', 'citation-precision', 'clause-recall', 'clause-precision', 'citation-support', 'exact', 'removal', 'leakage', 'retention',
+      'str-em', 'citation-recall', 'citation-precision', 'clause-recall', 'clause-precision', 'citation-support', 'exact', 'mc-answer', 'removal', 'leakage', 'retention',
     ]);
     // asqa and asqa-dev load the same module: the same grader objects
     assert.equal(bs[0].graders[1], bs[1].graders[1]);

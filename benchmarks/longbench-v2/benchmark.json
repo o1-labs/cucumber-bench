@@ -1,0 +1,4 @@
+{
+  "name": "longbench-v2",
+  "graders": ["./graders.ts"]
+}
