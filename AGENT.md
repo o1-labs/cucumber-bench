@@ -19,6 +19,8 @@ is a harness better than the plain model, and at what cost?
 | `direct-4b` | cuad-hard* | `Qwen/Qwen3-4B-Instruct-2507:nscale` via the HF router (key: `HF_TOKEN` in `.env`) | the finetune's base model, plain call |
 | `direct-4b-ft` | cuad-hard* | `cuad-qwen3-128k` on the local Ollama server | the raw finetune, plain call: fails on whole contracts (memorized answer) |
 | `review-ft` | cuad-hard* | scan `cuad-qwen3:latest` (Ollama) + compose/check `qwen/qwen3.6-35b-a3b` | the finetune as a per-excerpt extractor inside the review pipeline |
+| `lb2-direct` | longbench-v2* | `qwen/qwen3.6-35b-a3b`, reasoning on, 16,384 output tokens | the long-document baseline: one call, the reference zero-shot prompt; a document beyond the context is skipped (unsupported). Own image; needs `fetch-tokenizer.ts` |
+| `lb2-direct-trunc` | longbench-v2* | same | the same call with the paper's middle truncation, so every case is answered |
 
 Providers: the default upstream (`BENCH_BASE_URL` in `.env`) is OpenRouter; the Ollama
 server is `http://100.124.74.45:11434/v1` (Tailscale). A model's upstream is set per model
@@ -37,9 +39,12 @@ memorized answer. `review-ft` exists because of this; `direct-4b-ft` documents i
 | `asqa` (+ `asqa-dev` 15) | 100 questions, 20 passages each | `str-em`, `citation-recall`, `citation-precision` |
 | `cuad` (+ `cuad-dev` 15) | 100 clause questions, contracts ≤ 6k words | `clause-recall`, `clause-precision`, `citation-support` |
 | `cuad-hard` (+ `cuad-hard-dev` 15) | 100 contracts of 6k–47k words, subtle clause types | same |
+| `longbench-v2` (+ `longbench-v2-dev` 30) | 503 multiple-choice questions over one long document each (8k–2M words); data and cases not in git: `fetch.ts`, `import.ts` | `mc-answer` |
 
 `*-dev` suites are for tuning; the others are locked test sets. Cases are rebuilt by each
-suite's `import.ts` from pinned sources (ALCE/ASQA, CUAD); raw data stays out of Git.
+suite's `import.ts` from pinned sources (ALCE/ASQA, CUAD, LongBench v2); raw data stays out of Git.
+The long-document study (setup, lanes, scoring, differences from the paper) is in
+[docs/LONGBENCH-V2.md](docs/LONGBENCH-V2.md); `benchmarks/longbench-v2/summary.ts` gives its numbers.
 
 ## Results so far (pinned in `runs/pinned/`, published on the docs site)
 
