@@ -1,0 +1,11 @@
+{
+  "id": "selfaware-dev-113",
+  "graders": [
+    "answered",
+    "answer-correct"
+  ],
+  "answerable": true,
+  "acceptableAnswers": [
+    "tobacco"
+  ]
+}

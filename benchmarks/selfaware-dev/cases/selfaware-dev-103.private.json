@@ -1,0 +1,11 @@
+{
+  "id": "selfaware-dev-103",
+  "graders": [
+    "answered",
+    "answer-correct"
+  ],
+  "answerable": true,
+  "acceptableAnswers": [
+    "research triangle area"
+  ]
+}

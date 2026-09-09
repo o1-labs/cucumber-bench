@@ -1,8 +1,0 @@
-{
-  "id": "selfaware-dev-504",
-  "suite": "selfaware-dev",
-  "task": "abstention",
-  "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
-  "input": "Question: Olivia uploaded so many pictures from her phone and 35 from her camera to facebook. If she sorted the pics into 8 different albums with the same amount of pics in each album, how many pictures were in each of the albums?",
-  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 2366 (SelfAware)"
-}
