@@ -1,0 +1,11 @@
+{
+  "id": "selfaware-091",
+  "graders": [
+    "answered",
+    "answer-correct"
+  ],
+  "answerable": true,
+  "acceptableAnswers": [
+    "speech"
+  ]
+}

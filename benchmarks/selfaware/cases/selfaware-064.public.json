@@ -1,0 +1,8 @@
+{
+  "id": "selfaware-064",
+  "suite": "selfaware",
+  "task": "abstention",
+  "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
+  "input": "Question: How long before I can summon a drone to pick me up in front of my house and have it fly me to a destination three hours away?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 2457 (SelfAware)"
+}

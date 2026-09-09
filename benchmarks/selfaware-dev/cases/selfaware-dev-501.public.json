@@ -1,0 +1,8 @@
+{
+  "id": "selfaware-dev-501",
+  "suite": "selfaware-dev",
+  "task": "abstention",
+  "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
+  "input": "Question: Media such as a radio and television have started to make their presences felt since what years?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 1108 (squadqa_train)"
+}

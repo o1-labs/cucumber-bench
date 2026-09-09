@@ -1,0 +1,11 @@
+{
+  "id": "selfaware-087",
+  "graders": [
+    "answered",
+    "answer-correct"
+  ],
+  "answerable": true,
+  "acceptableAnswers": [
+    "over 5,000 years old"
+  ]
+}

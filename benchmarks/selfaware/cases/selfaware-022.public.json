@@ -1,0 +1,8 @@
+{
+  "id": "selfaware-022",
+  "suite": "selfaware",
+  "task": "abstention",
+  "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
+  "input": "Question: If you had fun while you were wasting time, can you still say that you wasted time?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 2499 (SelfAware)"
+}

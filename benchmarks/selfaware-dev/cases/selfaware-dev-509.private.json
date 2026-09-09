@@ -1,0 +1,11 @@
+{
+  "id": "selfaware-dev-509",
+  "graders": [
+    "answered",
+    "answer-correct"
+  ],
+  "answerable": true,
+  "acceptableAnswers": [
+    "charles and ray eames"
+  ]
+}

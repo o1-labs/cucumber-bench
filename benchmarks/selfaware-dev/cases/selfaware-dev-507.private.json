@@ -1,0 +1,11 @@
+{
+  "id": "selfaware-dev-507",
+  "graders": [
+    "answered",
+    "answer-correct"
+  ],
+  "answerable": true,
+  "acceptableAnswers": [
+    "is relatively less congested"
+  ]
+}

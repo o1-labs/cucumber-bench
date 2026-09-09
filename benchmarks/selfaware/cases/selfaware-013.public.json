@@ -1,0 +1,8 @@
+{
+  "id": "selfaware-013",
+  "suite": "selfaware",
+  "task": "abstention",
+  "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
+  "input": "Question: Who believed that action needed to be taken to level out the social and economic playing field before natural selection could occur to improve humanity?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 768 (squadqa_train)"
+}

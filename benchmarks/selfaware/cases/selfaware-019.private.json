@@ -1,0 +1,11 @@
+{
+  "id": "selfaware-019",
+  "graders": [
+    "answered",
+    "answer-correct"
+  ],
+  "answerable": true,
+  "acceptableAnswers": [
+    "guy bourdin"
+  ]
+}
