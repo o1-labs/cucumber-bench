@@ -22,7 +22,9 @@ assert(runDir, 'usage: npm run regrade -- runs/<runId> [--judge <model>] [--conc
 
 let jsonl = await readFile(join(runDir, 'results.jsonl'), 'utf8');
 let old: RunRecord[] = jsonl.trim().split('\n').map((line) => JSON.parse(line));
-let project = await loadProject({ judgeOverride: values.judge });
+// only the run's suites are loaded; a run from before run.json existed loads every suite
+let stored = await readFile(join(runDir, 'run.json'), 'utf8').then(JSON.parse, () => undefined);
+let project = await loadProject({ judgeOverride: values.judge, suites: stored?.suites });
 let { cfg, cases, graders, help, judgeFor } = project;
 let caseOf = new Map(cases.map((c) => [c.pub.id, c]));
 let proxy = await startProxyFor(cfg);

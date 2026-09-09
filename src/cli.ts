@@ -29,7 +29,8 @@ let { values } = parseArgs({
 // locked test set that is shared. results.jsonl always has them
 let details = !values['no-details'];
 
-let project = await loadProject();
+// only the selected suites' cases are loaded (a long-document suite is hundreds of MB)
+let project = await loadProject({ suites: values.suites?.split(',').map((s) => s.trim()) });
 let { cfg, benchmarks, graders, help } = project;
 let cases = project.cases;
 let systems = (values.systems?.split(',') ?? [...project.systems.keys()]).map((name) => {

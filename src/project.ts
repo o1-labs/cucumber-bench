@@ -22,11 +22,12 @@ type Project = {
   help: { systems: { [name: string]: string }; graders: { [name: string]: string } };
 };
 
-async function loadProject(opts: { judgeOverride?: string } = {}): Promise<Project> {
+// suites: load only those benchmarks' cases (all without); judgeOverride: one judge for every suite
+async function loadProject(opts: { judgeOverride?: string; suites?: string[] } = {}): Promise<Project> {
   let cfg = resolveModelConfig();
   let harnesses = await loadHarnesses('harnesses');
   let benchmarks = await loadBenchmarks('benchmarks');
-  let cases = await loadCases('benchmarks');
+  let cases = await loadCases('benchmarks', opts.suites);
   let graders = uniqueGraders(benchmarks);
 
   // a harness names its models; the safety model defaults to the main one. a model with a

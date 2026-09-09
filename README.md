@@ -73,6 +73,7 @@ Copy `.env.example` to `.env` (gitignored, loaded automatically).
 | `BENCH_MAX_JUDGE_CALLS` | `100` | judge calls per run |
 | `BENCH_COST_IN`, `BENCH_COST_OUT` | unset | $ per 1M tokens, for a provider that reports no cost |
 | `BENCH_SANDBOX` | unset | `docker`: each run in a fresh container |
+| `BENCH_SANDBOX_TIMEOUT_MS` | `300000` | wall clock per run in the sandbox; raise it with `BENCH_TIMEOUT_MS` for long documents |
 
 Sandbox modes: by default a harness is a child process with a bare environment (no keys),
 the **development mode**; it still shares the file system. `BENCH_SANDBOX=docker` runs
@@ -91,6 +92,8 @@ each case in a fresh hardened container (read-only, no capabilities, resource ca
 | `direct-4b` | cuad-hard | `direct` with the plain Qwen3-4B-Instruct-2507, hosted on nscale: the finetune's baseline |
 | `direct-4b-ft` | cuad-hard | `direct` with `cuad-qwen3`, the CUAD finetune on the local server |
 | `review-ft` | cuad-hard | the review pipeline with `cuad-qwen3` as the scan extractor and a general model for compose and check |
+| `lb2-direct` | longbench-v2 | the long-document baseline: one call with the whole document in the reference zero-shot prompt; a document beyond the context limit is skipped and reported as unsupported |
+| `lb2-direct-trunc` | longbench-v2 | the same call with the paper's truncation: the middle of a document beyond the limit is removed until it fits |
 
 Every harness names its models in its manifest, and, per model, the provider it lives on
 (`providers`); a model without one uses `BENCH_BASE_URL`.
@@ -104,6 +107,7 @@ Every harness names its models in its manifest, and, per model, the provider it 
 | `asqa` (+ `asqa-dev`, 15) | 100 questions with 20 passages each | [ALCE](https://github.com/princeton-nlp/ALCE), ASQA | `str-em`, `citation-recall`, `citation-precision` |
 | `cuad` (+ `cuad-dev`, 15) | 100 clause questions over contracts ≤ 6,000 words, 12 clause types, 30% absent | [CUAD](https://github.com/TheAtticusProject/cuad) (CC BY 4.0) | `clause-recall`, `clause-precision`, `citation-support` |
 | `cuad-hard` (+ `cuad-hard-dev`, 15) | 100 contracts of 6,000–47,000 words, 7 subtle clause types, multi-instance questions | same | same |
+| `longbench-v2` (+ `longbench-v2-dev`, 30) | 503 multiple-choice questions over one long document each, 8k–2M words, six domains; not in git, see [docs/LONGBENCH-V2.md](docs/LONGBENCH-V2.md) | [zai-org/LongBench-v2](https://huggingface.co/datasets/zai-org/LongBench-v2) (Apache-2.0) | `mc-answer` |
 
 The graders, one line each:
 
@@ -115,6 +119,7 @@ The graders, one line each:
 - `clause-precision`: every cited passage contains the clause; for an absent clause, nothing is cited.
 - `citation-support`: every sentence is supported by its cited passages; an uncited sentence passes only as a statement about the documents (judge).
 - `removal`: no protected span survives; `leakage`: no protected span reached the model (measured at the proxy); `retention`: 90% of the other content survives.
+- `mc-answer`: the letter in "The correct answer is (X)" equals the gold letter; no letter, or several different ones, is invalid and fails.
 
 Import scripts: `benchmarks/asqa/import.ts` and `benchmarks/cuad/import.ts` (see their
 headers). The raw data is not in the repository.

@@ -5,8 +5,9 @@ export { sandboxedSystem, dockerArgv };
 // internal API, exported for tests
 export { containerName };
 
-// wall clock per run, then SIGKILL
-const TIMEOUT_MS = 300_000;
+// wall clock per run, then SIGKILL. a harness that retries long model calls needs more than the
+// default: BENCH_SANDBOX_TIMEOUT_MS
+const TIMEOUT_MS = Number(process.env.BENCH_SANDBOX_TIMEOUT_MS ?? 300_000);
 
 // every system runs this way: a child process with a bare environment (development
 // mode: it shares the file system), or a docker container in docker mode, speaking
