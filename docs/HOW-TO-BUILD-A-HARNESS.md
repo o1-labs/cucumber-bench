@@ -127,7 +127,9 @@ grader never sees an errored run: the runner fails those itself.
 
 Cases are two files in `cases/`: `<id>.public.json` (what the system sees) and
 `<id>.private.json` (`graders` and the gold data). The file name is the id, the folder is
-the suite, and the loader checks both. An `import.ts` rebuilds the cases deterministically
+the suite, and the loader checks both. The core types only `id` and `graders` of a private
+case: the gold fields are the grader's own. Declare them in the grader module as a `Gold`
+type with an accessor that checks them, as `clausesOf` in `benchmarks/cuad/graders.ts` does. An `import.ts` rebuilds the cases deterministically
 from a pinned source; raw data stays out of Git.
 
 ## 5. The trace

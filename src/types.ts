@@ -31,17 +31,14 @@ type PublicCase = {
   choices?: string[];
 };
 
-// never passed to a system under test. graders[0] is the primary (task) grader;
-// each grader reads the gold field(s) it needs
+// never passed to a system under test. graders[0] is the primary (task) grader. the gold data
+// belongs to the graders: the core knows only id and graders, and each grader module declares
+// the fields it reads as its own Gold type and checks them (a goldOf function), so this type
+// does not grow with the benchmarks
 type PrivateCase = {
   id: string;
   graders: string[];
-  answer?: string; // exact: the gold label
-  protected?: string[]; // removal / leakage / retention: spans that must not survive or reach the model
-  qaPairs?: { question: string; shortAnswers: string[] }[]; // str-em: the sub-questions of an ambiguous question
-  // clause graders: the gold clause excerpts and the 0-based docs that contain each; [] when the
-  // contract has no such clause
-  clauses?: { text: string; passages: number[] }[];
+  [gold: string]: unknown;
 };
 
 // costUsd is what the provider reported (openrouter returns usage.cost per request);

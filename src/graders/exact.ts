@@ -1,10 +1,13 @@
 import assert from 'node:assert/strict';
-import type { Grader } from '../types.js';
+import type { Grader, PrivateCase } from '../types.js';
 import { escapeRe } from '../text.js';
 
 export { exactGrader };
 // internal API, exported for tests
-export { extractChoice, normalize };
+export { extractChoice, normalize, type ExactGold };
+
+// the gold of a label case: the label
+type ExactGold = { answer: string };
 
 // exact-match grading of a label task against the private gold label.
 // the model output may be chatty, so we first try full-string match, then look
@@ -14,9 +17,9 @@ function exactGrader(): Grader {
     name: 'exact',
     description: 'The label in the output equals the gold label.',
     async grade(pub, priv, result) {
-      assert(pub.choices && priv.answer !== undefined, `exact: case ${priv.id} needs choices and a gold answer`);
+      assert(pub.choices && typeof priv.answer === 'string', `exact: case ${priv.id} needs choices and a gold answer`);
       let extracted = extractChoice(result.output, pub.choices) ?? '(none)';
-      let gold = normalize(priv.answer);
+      let gold = normalize((priv as PrivateCase & ExactGold).answer);
       let pass = extracted === gold;
       return { grader: 'exact', pass, score: pass ? 1 : 0, extracted, detail: `extracted=${extracted} gold=${gold}` };
     },

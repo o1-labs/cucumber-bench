@@ -5,7 +5,10 @@ import { escapeRe } from '../../src/text.js';
 // the graders of the redaction benchmark, loaded through benchmark.json
 export { graders };
 // internal API, exported for tests
-export { removalGrader, leakageGrader, retentionGrader, containsSpan, tokens };
+export { removalGrader, leakageGrader, retentionGrader, containsSpan, tokens, type RedactionGold };
+
+// the gold of a redaction case: the spans that must not survive or reach the model
+type RedactionGold = { protected: string[] };
 
 // utility passes when this share of the non-protected content survives
 const RETENTION_PASS = 0.9;
@@ -75,8 +78,8 @@ let graders: Grader[] = [removalGrader(), leakageGrader(), retentionGrader()];
 // internal helpers
 
 function protectedOf(priv: PrivateCase): string[] {
-  assert(priv.protected && priv.protected.length > 0, `case ${priv.id} has no protected spans`);
-  return priv.protected;
+  assert(Array.isArray(priv.protected) && priv.protected.length > 0, `case ${priv.id} has no protected spans`);
+  return (priv as PrivateCase & RedactionGold).protected;
 }
 
 function verdict(grader: string, total: number, bad: string[], what: string): GradeResult {

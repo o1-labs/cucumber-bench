@@ -10,7 +10,11 @@ import type { GradeContext, Grader, PrivateCase, PublicCase } from '../../src/ty
 // the answer must state the absence and cite nothing. loaded through benchmark.json
 export { graders };
 // internal API, exported for tests
-export { clauseRecallGrader, clausePrecisionGrader, citationSupportGrader };
+export { clauseRecallGrader, clausePrecisionGrader, citationSupportGrader, clausesOf, type ClauseGold };
+
+// the gold of a clause question: the clause excerpts and the 0-based docs that contain each;
+// [] when the contract has no such clause
+type ClauseGold = { clauses: { text: string; passages: number[] }[] };
 
 // a clause counts as quoted when this many consecutive words of it are in the answer
 const QUOTE_WORDS = 8;
@@ -115,9 +119,9 @@ function docsOf(pub: PublicCase) {
   return pub.docs;
 }
 
-function clausesOf(priv: PrivateCase) {
+function clausesOf(priv: PrivateCase): ClauseGold['clauses'] {
   assert(Array.isArray(priv.clauses), `cuad graders: case ${priv.id} needs clauses`);
-  return priv.clauses;
+  return (priv as PrivateCase & ClauseGold).clauses;
 }
 
 // an uncited sentence is acceptable only as a statement about the documents themselves
