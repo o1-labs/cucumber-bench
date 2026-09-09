@@ -10,7 +10,9 @@
     "cuad",
     "cuad-dev",
     "cuad-hard",
-    "cuad-hard-dev"
+    "cuad-hard-dev",
+    "selfaware",
+    "selfaware-dev"
   ],
   "models": {
     "main": "qwen/qwen3.6-35b-a3b"

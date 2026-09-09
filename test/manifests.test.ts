@@ -35,6 +35,8 @@ describe('manifests', () => {
       ['cuad-hard-dev', ['clause-recall', 'clause-precision', 'citation-support']],
       ['legalbench', ['exact']],
       ['redaction', ['removal', 'leakage', 'retention']],
+      ['selfaware', ['abstention', 'answered', 'answer-correct']],
+      ['selfaware-dev', ['abstention', 'answered', 'answer-correct']],
     ]);
   });
 
@@ -43,6 +45,7 @@ describe('manifests', () => {
     let all = uniqueGraders(bs);
     assert.deepEqual(all.map((g) => g.name), [
       'str-em', 'citation-recall', 'citation-precision', 'clause-recall', 'clause-precision', 'citation-support', 'exact', 'removal', 'leakage', 'retention',
+      'abstention', 'answered', 'answer-correct',
     ]);
     // asqa and asqa-dev load the same module: the same grader objects
     assert.equal(bs[0].graders[1], bs[1].graders[1]);

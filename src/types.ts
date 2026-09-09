@@ -42,6 +42,12 @@ type PrivateCase = {
   // clause graders: the gold clause excerpts and the 0-based docs that contain each; [] when the
   // contract has no such clause
   clauses?: { text: string; passages: number[] }[];
+  // abstention graders: whether the question has a definite answer. it selects the case's
+  // graders at import time (abstention, or answered + answer-correct) and each of them
+  // asserts on it, so a case cannot be graded as the wrong kind
+  answerable?: boolean;
+  // answer-correct: the gold short answers of an answerable question; any one of them counts
+  acceptableAnswers?: string[];
 };
 
 // costUsd is what the provider reported (openrouter returns usage.cost per request);
