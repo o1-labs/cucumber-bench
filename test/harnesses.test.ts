@@ -1,9 +1,12 @@
 import { describe, it, beforeAll, afterAll } from 'vitest';
 import assert from 'node:assert/strict';
+import { existsSync, readFileSync } from 'node:fs';
+import { createServer } from 'node:http';
+import type { AddressInfo } from 'node:net';
 import { mockUpstream, models, tsx, type Mock } from './upstream.js';
 import { containerName, sandboxedSystem } from '../src/sandbox.js';
 import { loadCases } from '../src/caseStore.js';
-import type { ModelProxy } from '../src/types.js';
+import type { ModelProxy, PublicCase } from '../src/types.js';
 
 let mock: Mock;
 let seen: any[];
@@ -208,5 +211,100 @@ describe('review-v1 (review harness)', () => {
     assert.equal(check.module, 'citation-check');
     assert.deepEqual(check.findings, ['s1: uncited dropped, not about the documents', 's2: [2] quote verified']);
     assert.equal(check.decision, 'modified');
+  });
+});
+
+// the tokenizer files are downloaded, not in git (harnesses/lb2-direct/fetch-tokenizer.ts)
+describe.skipIf(!existsSync('harnesses/lb2-direct/tokenizer/tokenizer.json'))('lb2-direct (longbench v2 baseline)', () => {
+  let argv = tsx('harnesses/lb2-direct/src/entry.ts');
+  let options = JSON.parse(readFileSync('harnesses/lb2-direct/harness.json', 'utf8')).options;
+  // about 600 tokens: HEAD, 300 words, MIDDLE, 300 words, TAIL. the mock answers the letter named in the question
+  let pub: PublicCase = {
+    id: 'lb-1', suite: 'longbench-v2-dev', task: 'longbench-v2', instructions: 'Please read the following text and answer the question below.',
+    input: `HEAD ${'word '.repeat(300)}MIDDLE ${'word '.repeat(300)}TAIL`, question: 'Which one? MOCK_ANSWER_C', choices: ['alpha', 'beta', 'gamma', 'delta'],
+  };
+  let run = (over: { [k: string]: unknown }, p: ModelProxy = proxy) =>
+    sandboxedSystem('lb2-direct', argv, models, undefined, undefined, undefined, { ...options, ...over }).run(pub, { runId: 't', repetition: 1, proxy: p });
+
+  it('should make one call in the reference prompt layout with the generation settings, and keep the answer raw', async () => {
+    let result = await run({});
+    assert.equal(result.error, undefined);
+    assert.equal(result.output, 'The correct answer is (C)');
+    assert.equal(result.modelCalls, 1);
+    let prompt = result.modelRequests![0];
+    assert.ok(prompt.startsWith('Please read the following text and answer the question below.\n\n<text>\nHEAD word'));
+    assert.ok(prompt.includes('MIDDLE'));
+    assert.ok(
+      prompt.endsWith(
+        'TAIL\n</text>\n\nWhat is the correct answer to this question: Which one? MOCK_ANSWER_C\nChoices:\n(A) alpha\n(B) beta\n(C) gamma\n(D) delta\n\n' +
+          'Format your response as follows: "The correct answer is (insert answer here)".',
+      ),
+    );
+    let body = seen[seen.length - 1];
+    assert.equal(body.max_tokens, options.outputTokens);
+    assert.deepEqual(body.reasoning, options.reasoning);
+    assert.equal(body.messages.length, 1);
+    let [input, agent] = result.trace!.stages;
+    assert.equal(input.decision, 'pass');
+    assert.match(input.findings[1], /^document \d+ tokens; budget \d+ /);
+    assert.match(agent.findings.join('\n'), /attempts 1: 1: ok in \ds/);
+    assert.equal(result.trace!.transformedSource, '(the case input, unchanged)');
+  });
+
+  it('should skip a document beyond the context limit as context_overflow, with the counts, and call no model', async () => {
+    let calls = seen.length;
+    let result = await run({ contextTokens: 400, outputTokens: 100 });
+    assert.equal(result.error, undefined);
+    assert.match(result.skipped!, /^context_overflow: \d+ document tokens, \d+ fit$/);
+    assert.equal(result.modelCalls, 0);
+    assert.equal(seen.length, calls);
+    assert.equal(result.trace!.stages[0].decision, 'blocked');
+  });
+
+  it('should cut the middle of the document with truncate_middle and record the original and retained counts', async () => {
+    let result = await run({ contextTokens: 400, outputTokens: 100, overflow: 'truncate_middle' });
+    assert.equal(result.error, undefined);
+    let prompt = result.modelRequests![0];
+    assert.ok(prompt.includes('<text>\nHEAD word') && prompt.includes('word TAIL\n</text>') && !prompt.includes('MIDDLE'));
+    let input = result.trace!.stages[0];
+    assert.equal(input.decision, 'modified');
+    let text = input.findings.join('\n');
+    let [, original, retained] = text.match(/truncate_middle: (\d+) tokens cut to (\d+)/)!;
+    let [, budget] = text.match(/budget (\d+)/)!;
+    assert.ok(Number(retained) <= Number(budget) && Number(retained) < Number(original), text);
+    assert.ok(result.trace!.transformedSource.startsWith('HEAD word') && !result.trace!.transformedSource.includes('MIDDLE'));
+  });
+
+  it('should refuse options that name another prompt or harness version', async () => {
+    let result = await run({ prompt: '0shot.txt@other' });
+    assert.match(result.error!, /options\.prompt "0shot.txt@other" is not the prompt this harness implements/);
+    result = await run({ version: '0' });
+    assert.match(result.error!, /options\.version "0" is not this harness's version/);
+  });
+
+  it('should retry a transient failure, and not a final one', async () => {
+    // a stand-in for the proxy: fails as told, then answers
+    let statuses: number[] = [];
+    let server = createServer((req, res) => {
+      let status = statuses.shift() ?? 200;
+      res.writeHead(status, { 'content-type': 'application/json' });
+      res.end(status === 200 ? JSON.stringify({ choices: [{ message: { content: 'The correct answer is (A)' }, finish_reason: 'stop' }] }) : JSON.stringify({ error: { message: `status ${status}` } }));
+    });
+    await new Promise<void>((r) => server.listen(0, '127.0.0.1', r));
+    let stub: ModelProxy = {
+      url: `http://127.0.0.1:${(server.address() as AddressInfo).port}`, register: () => 't',
+      usage: () => ({ modelCalls: 0, tokensIn: 0, tokensOut: 0, costUsd: 0, models: [] }), requests: () => [], close: async () => {},
+    };
+    try {
+      statuses = [503];
+      let result = await run({}, stub);
+      assert.equal(result.output, 'The correct answer is (A)');
+      assert.match(result.trace!.stages[1].findings.join('\n'), /attempts 2: 1: 503 .* in \ds; 2: ok in \ds/);
+      statuses = [400];
+      result = await run({}, stub);
+      assert.match(result.error!, /^model call failed after 1 attempt\(s\): 1: 400/);
+    } finally {
+      await new Promise((r) => server.close(r));
+    }
   });
 });

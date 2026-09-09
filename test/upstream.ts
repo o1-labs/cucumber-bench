@@ -45,6 +45,8 @@ async function mockUpstream(): Promise<Mock> {
         : label === 'Passages:' ? (prompt.includes('Claim: Alpha') ? '[2][7]' : prompt.includes('Claim: The documents') ? 'keep' : 'none')
         // the few-shot answer of direct and cite-v1
         : label === 'Answer:' ? 'Alpha holds the record [1][2][3]. Beta is unsupported [4]. The documents do not say who holds the gamma record.'
+        // longbench v2: the reference answer form; (B) unless the text names another letter
+        : label.startsWith('Format your response as follows:') ? `The correct answer is (${prompt.match(/MOCK_ANSWER_([A-D])/)?.[1] ?? 'B'})`
         : 'Yes';
       res.setHeader('content-type', 'application/json');
       res.end(
