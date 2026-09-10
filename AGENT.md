@@ -52,6 +52,14 @@ The long-document study (setup, lanes, scoring, differences from the paper) is i
 - cuad-hard: `review-v1` 75% clause recall vs `direct` 54% (run `2026-08-30T06-12-48-622Z`).
 - cuad-hard-dev (not pinned, tuning): `review-ft` 80% recall / 80% precision / 93% support
   at $0.004 per contract.
+- longbench-v2-dev (not pinned, tuning; run `2026-09-09T14-38-56-934Z`, 30 cases, 1 rep, $0.93 for
+  both lanes): `lb2-direct` 44% accuracy (12/27) at 90% coverage; `lb2-direct-trunc` 43% (13/30),
+  0/3 on the truncated long documents. Easy 75%, hard 32%; short 75%, medium 32%. The lanes agree on
+  24 of 27 shared cases: near-deterministic at temperature 0. Failure classes of the 13 wrong
+  answers on complete documents: evidence not aggregated across the text (~5), a missed detail or
+  qualifier (~4), near-paraphrase options picked "to be safe" (~3), a self-override (1). Invalid:
+  2 degenerate reasoning loops with no answer, 1 refusal ("N/A, question does not match").
+  Summary: `npx tsx benchmarks/longbench-v2/summary.ts runs/<id>`.
 
 ## Open work
 
@@ -63,6 +71,9 @@ The long-document study (setup, lanes, scoring, differences from the paper) is i
   draft at 0; every lane must use the benchmark default. Until then, B vs C is confounded.
 - The two pinned runs are pilots (no `run.json`, process sandbox, the temperature mismatch):
   development evidence, not official claims.
+- LongBench v2: the first custom harness, `lb2-evidence` (evidence scan per chunk, then one answer
+  call from the organized evidence), against the failure classes above; the dev set stays at 30.
+  Then the locked `longbench-v2` run: both baseline lanes and the frozen harness, docker, 3 reps.
 
 ## Rules that bind you
 
