@@ -3,6 +3,6 @@
   "suite": "selfaware-dev",
   "task": "abstention",
   "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
-  "input": "Question: Which of the following speculates what might become of Earth should humanity instantly disappear: Life After People or The Vanishing Prairie?",
-  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 1597 (hotpot_train)"
+  "input": "Question: Up to how far off can the Deal Timeball be from Coordinated Universal Time?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 2267 (hotpot_train)"
 }

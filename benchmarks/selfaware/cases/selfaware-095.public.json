@@ -3,6 +3,6 @@
   "suite": "selfaware",
   "task": "abstention",
   "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
-  "input": "Question: What may self-identification not correlate with precisely?",
-  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 147 (squadqa_train)"
+  "input": "Question: What Dreams Are Made Of included \"Locked Away\" performed by a singer who is the lead singer for who?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 202 (hotpot_train)"
 }

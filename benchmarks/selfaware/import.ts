@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { parseArgs } from 'node:util';
 
 // usage: npx tsx benchmarks/selfaware/import.ts [--data <path to SelfAware.json>] [--count 100] [--offset 0] [--suite selfaware] [--out benchmarks/selfaware/cases]
-// the development set: --count 15 --offset 500 --suite selfaware-dev --out benchmarks/selfaware-dev/cases
+// the development set: --count 16 --offset 100 --suite selfaware-dev --out benchmarks/selfaware-dev/cases
 //
 // source: yinzhangyue/SelfAware, data/SelfAware.json, pinned below by commit and sha256.
 // licence: CC BY-SA 4.0 (the dataset's own `license` field). the raw file stays out of git.
@@ -20,13 +20,23 @@ import { parseArgs } from 'node:util';
 //
 // three decisions worth knowing, all of them ours and none of them the source's:
 //
-// 1. TRIVIAQA IS EXCLUDED. SelfAware's answerable half is drawn from SQuAD, HotpotQA and
-//    TriviaQA. The TriviaQA items carry Wikipedia alias expansions as gold answers - up to
-//    358 strings, including fragments like 'gamy', 'sun d' and '💤', and at least one item
-//    whose answer list belongs to a different question entirely. Containment matching
-//    against such a list produces false positives, so answer-correct would flatter every
-//    system equally and hide real differences. SQuAD and HotpotQA carry human-written short
-//    answers (median 1, max 4 per item). Pass --sources to override.
+// 1. THE ANSWERABLE HALF IS HOTPOTQA ONLY. SelfAware draws it from SQuAD, HotpotQA and
+//    TriviaQA, and two of the three are unusable here for different reasons.
+//    SQuAD questions are written against a specific paragraph, which SelfAware discards.
+//    Standing alone they are often not answerable at all - "How many passengers will the new
+//    airport be able to handle?" (gold: 120 million), "How is a court hierarchy established?"
+//    (gold: the judiciary acts). A calibrated system SHOULD decline those, and the answered
+//    grader would score the decline as a failure: the metric that exists to catch
+//    over-abstention would instead punish correct behaviour.
+//    TriviaQA questions are self-contained, but their gold is Wikipedia alias expansion - up
+//    to 358 strings per item, including fragments like 'gamy', 'sun d' and '💤', and at least
+//    one item whose answer list belongs to a different question entirely. Containment against
+//    such a list produces false positives that flatter every system equally.
+//    HotpotQA is written to be answerable without a passage and carries exactly one
+//    human-written short answer per item (182 items, median 11 characters), so containment
+//    matching is sound and a decline is unambiguously wrong. Pass --sources to override.
+//    The cost of this choice: the answerable half is all multi-hop trivia, narrower in style
+//    than the source's own mix, which sharpens the provenance limitation noted below.
 //
 // 2. THE SPLIT IS BALANCED, NOT NATURAL. The source is 31% unanswerable. We sample 50/50 so
 //    that abstention and answered each get half the cases: at 100 cases that is n=50 per
@@ -66,7 +76,7 @@ let { values } = parseArgs({
     offset: { type: 'string', default: '0' },
     suite: { type: 'string', default: 'selfaware' },
     out: { type: 'string', default: 'benchmarks/selfaware/cases' },
-    sources: { type: 'string', default: 'squadqa_train,squadqa_dev,hotpot_train,hotpot_dev' },
+    sources: { type: 'string', default: 'hotpot_train,hotpot_dev' },
     seed: { type: 'string', default: 'selfaware-v1' },
   },
 });
@@ -83,8 +93,8 @@ let items: Item[] = JSON.parse(raw).example;
 assert(items.length === EXPECTED_ITEMS, `expected ${EXPECTED_ITEMS} items, got ${items.length}`);
 
 // the two pools, each shuffled once by a fixed seed so every import gives the same order.
-// the test set takes from the front and the dev set from offset 500: with 1032 and 1669
-// items in the pools the two splits cannot overlap, and neither moves when count changes.
+// the test set takes from the front and the dev set from an offset past it (100 for the
+// 182-item hotpot pool), so the splits cannot overlap and neither moves when count changes.
 let unanswerable = items.filter((i) => !i.answerable);
 let answerable = items.filter((i) => i.answerable && sources.includes(i.source));
 assert(unanswerable.length === EXPECTED_UNANSWERABLE, `expected ${EXPECTED_UNANSWERABLE} unanswerable items, got ${unanswerable.length}`);

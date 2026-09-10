@@ -3,6 +3,6 @@
   "suite": "selfaware-dev",
   "task": "abstention",
   "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
-  "input": "Question: Which form of writing extended before the invention of paper?",
-  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 495 (squadqa_train)"
+  "input": "Question: The sitcom that Nancy Travis starred in as Vanessa Baxter in had how many episodes total?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 1198 (hotpot_train)"
 }

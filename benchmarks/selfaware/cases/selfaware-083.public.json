@@ -3,6 +3,6 @@
   "suite": "selfaware",
   "task": "abstention",
   "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
-  "input": "Question: What are probably the primary forces of nature which shaped human races?",
-  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 648 (squadqa_train)"
+  "input": "Question: who would you be more likely to see in a show, Ian Bremmer or Lucine Amara",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 960 (hotpot_train)"
 }

@@ -3,6 +3,6 @@
   "suite": "selfaware",
   "task": "abstention",
   "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
-  "input": "Question: What type of consciousness is similar but not identical to consciousness itself?",
-  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 1883 (squadqa_train)"
+  "input": "Question: A business such as Eatza Pizza or Pizza Fusion, which have more then 10 locations are considered to be what?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 994 (hotpot_dev)"
 }

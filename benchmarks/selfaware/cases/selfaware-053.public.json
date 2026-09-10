@@ -3,6 +3,6 @@
   "suite": "selfaware",
   "task": "abstention",
   "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
-  "input": "Question: Who was on the other end of the first cross country phone call?",
-  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 197 (squadqa_train)"
+  "input": "Question: What theme park has a land area of 25 ha, which is home to a flight motion simulation attraction?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 762 (hotpot_train)"
 }

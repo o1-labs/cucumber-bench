@@ -3,6 +3,6 @@
   "suite": "selfaware",
   "task": "abstention",
   "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
-  "input": "Question: Where does the homing pigeon vanish?",
-  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 1209 (squadqa_train)"
+  "input": "Question: In \"A Short Drink from a Certain Fountain,\" the experimental youth serum alludes to what famous spring?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 805 (hotpot_train)"
 }

@@ -3,6 +3,6 @@
   "suite": "selfaware",
   "task": "abstention",
   "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
-  "input": "Question: What the marginal utility of wealth per income per person do as that person becomes richer?",
-  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 2330 (squadqa_dev)"
+  "input": "Question: KFC Eleven was a fast casual dining restaurant launched by KFC on which date, they \"KFC Eleven\" refers to Colonel Sanders' secret 11 herbs and spices, the KFC Original Recipe is the secret mix of ingredients that fast food restaurant chain KFC uses to produce fried chicken?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 821 (hotpot_train)"
 }

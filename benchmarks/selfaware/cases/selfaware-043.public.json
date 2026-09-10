@@ -3,6 +3,6 @@
   "suite": "selfaware",
   "task": "abstention",
   "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
-  "input": "Question: Come from the Heart:was first recorded by an artist that sang what genre of music?",
-  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 75 (hotpot_dev)"
+  "input": "Question: In what two decades did an  electronic, digital or computer device that outputs a video signal or visual image to display a video game that one or more people can play, become popular?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 948 (hotpot_train)"
 }

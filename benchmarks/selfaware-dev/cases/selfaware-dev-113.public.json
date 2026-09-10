@@ -3,6 +3,6 @@
   "suite": "selfaware-dev",
   "task": "abstention",
   "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
-  "input": "Question: The invention of cigarettes made what popular?",
-  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 1684 (squadqa_train)"
+  "input": "Question: Anywhere but Home is a DVD that includes all four music videos by which debut studio album from Evanescence?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 1021 (hotpot_train)"
 }
