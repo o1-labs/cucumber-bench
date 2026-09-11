@@ -1,8 +1,8 @@
 import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
-import { citationSupportGrader, clausePrecisionGrader, clauseRecallGrader } from '../benchmarks/cuad/graders.js';
+import { citationSupportGrader, clauseGold, clausePrecisionGrader, clauseRecallGrader, type ClauseGold } from '../benchmarks/cuad/graders.js';
 import { loadCases } from '../src/caseStore.js';
-import type { GradeContext, PrivateCase, PublicCase, RunResult } from '../src/types.js';
+import type { GradeContext, PublicCase, RunResult } from '../src/types.js';
 
 let pub = {
   id: 'c',
@@ -13,8 +13,8 @@ let pub = {
     { title: 'X, part 3 of 3', text: 'Signed by both parties.' },
   ],
 } as PublicCase;
-let present = { id: 'c', graders: [], clauses: [{ text: 'governed by the laws of the State of Delaware', passages: [1] }] } as PrivateCase;
-let absent = { id: 'c', graders: [], clauses: [] } as PrivateCase;
+let present: ClauseGold = { clauses: [{ text: 'governed by the laws of the State of Delaware', passages: [1] }] };
+let absent: ClauseGold = { clauses: [] };
 
 // fake judge: entailment when the premise contains the quoted part of the hypothesis (or the
 // whole hypothesis without its final period); absence when the answer says "no" and "clause";
@@ -111,11 +111,11 @@ describe('cuad graders', () => {
   it('should load the cuad cases with gold passages that contain the clause text', async () => {
     let cases = await loadCases('benchmarks/cuad');
     assert.equal(cases.length, 100);
-    let absentCases = cases.filter((c) => c.priv.clauses!.length === 0);
+    let absentCases = cases.filter((c) => clauseGold(c.priv, c.pub.id).clauses.length === 0);
     assert.equal(absentCases.length, 30);
     for (let { pub, priv } of cases) {
       assert.deepEqual(priv.graders, ['clause-recall', 'clause-precision', 'citation-support']);
-      for (let clause of priv.clauses!) {
+      for (let clause of clauseGold(priv, pub.id).clauses) {
         let text = clause.passages.map((p) => pub.docs![p].text).join(' ');
         // the first words of the clause are in its gold passages
         assert.ok(text.includes(clause.text.split(' ').slice(0, 5).join(' ')), `${pub.id}: clause not in its passages`);

@@ -27,6 +27,7 @@ async function runSuite(opts: {
   onRecord?: (r: RunRecord) => void;
 }): Promise<RunRecord[]> {
   let { runId, cases, systems, graders, proxy, judgeFor, repetitions, concurrency = 1 } = opts;
+  checkGold(cases, graders);
   assert(repetitions >= 1, `runSuite: repetitions must be >= 1, got ${repetitions}`);
   assert(concurrency >= 1, `runSuite: concurrency must be >= 1, got ${concurrency}`);
 
@@ -90,7 +91,7 @@ async function gradeRun(
       continue;
     }
     try {
-      grades.push(await grader.grade(pub, priv, run, ctx));
+      grades.push(await grader.grade(pub, grader.gold(priv, priv.id), run, ctx));
     } catch (err: any) {
       grades.push({ grader: name, pass: false, score: 0, detail: `grader error: ${String(err?.message ?? err)}` });
       status = 'grade_error';
@@ -100,6 +101,18 @@ async function gradeRun(
 }
 
 // internal helpers
+
+// every case's gold, parsed by every grader it lists: a malformed case or an unknown grader
+// stops the run here, before a model call is paid for
+function checkGold(cases: Case[], graders: Grader[]) {
+  for (let { priv } of cases) {
+    for (let name of priv.graders) {
+      let grader = graders.find((g) => g.name === name);
+      assert(grader, `case ${priv.id} lists the grader ${name}, which no benchmark provides`);
+      grader.gold(priv, priv.id);
+    }
+  }
+}
 
 // runs fn over items with at most n in flight
 async function pool<T>(items: T[], n: number, fn: (item: T, i: number) => Promise<void>) {

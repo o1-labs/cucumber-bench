@@ -110,24 +110,37 @@ images.
 { "name": "asqa", "graders": ["str-em", "./graders.ts"], "judge": { "model": "deepseek/deepseek-v4-flash-0731" } }
 ```
 
-A grader is a core grader by name (`exact`, `str-em`) or a module exporting `{ graders }`:
+A grader is a core grader by name (`exact`, `str-em`) or a module exporting `{ graders }`.
+A grader owns its gold: it declares the type, and `gold(raw, id)` builds it from the raw
+private case, checking every field. The runner calls `gold` for every case before the first
+model call, so a malformed case stops the run before anything is paid for, and `grade` gets
+the checked, typed gold:
 
 ```ts
-let graders: Grader[] = [{
+type MyGold = { answer: string };
+
+let graders: Grader<MyGold>[] = [{
   name: 'my-grader',
   description: 'One sentence that says what passes; it goes into the glossary.',
-  async grade(pub, priv, result, ctx) {
-    return { grader: 'my-grader', pass: true, score: 1, detail: 'why' };
+  gold(raw, id) {
+    let { answer } = fieldsOf(raw, id, 'my-grader'); // src/gold.ts: the raw case as unknown fields
+    assert(typeof answer === 'string', `my-grader: case ${id} needs an answer`);
+    return { answer };
+  },
+  async grade(pub, gold, result, ctx) {
+    return { grader: 'my-grader', pass: result.output.includes(gold.answer), score: 1, detail: 'why' };
   },
 }];
 ```
 
+A grader that reads no gold is a `Grader<undefined>` with `gold: () => undefined`.
 `ctx.judge(prompt)` asks the judge model; its usage is counted apart from the harness. A
 grader never sees an errored run: the runner fails those itself.
 
 Cases are two files in `cases/`: `<id>.public.json` (what the system sees) and
 `<id>.private.json` (`graders` and the gold data). The file name is the id, the folder is
-the suite, and the loader checks both. An `import.ts` rebuilds the cases deterministically
+the suite, and the loader checks both. The core types only `id` and `graders` of a private
+case; the other fields are the gold of the graders the case lists. An `import.ts` rebuilds the cases deterministically
 from a pinned source; raw data stays out of Git.
 
 ## 5. The trace

@@ -104,9 +104,22 @@ describe('runSuite', () => {
     assert.ok(Date.now() - t0 < 2 * 60, 'the second system waited for the first');
   });
 
+  it('should refuse the run before any system runs when a case has malformed gold', async () => {
+    let [c] = await loadCases('benchmarks/legalbench');
+    let bad = { pub: c.pub, priv: { id: c.priv.id, graders: ['exact'], answer: 42 } };
+    let system = fakeSystem('Yes');
+    let calls = 0;
+    let counting = { ...system, run: (...args: Parameters<typeof system.run>) => (calls++, system.run(...args)) };
+    await assert.rejects(
+      runSuite({ runId: 'test', cases: [bad], systems: [counting], graders: [exactGrader()], proxy, judgeFor: () => 'j', repetitions: 1 }),
+      /exact: case .* needs a gold answer/,
+    );
+    assert.equal(calls, 0);
+  });
+
   it('should record a failed grade, not crash, when a grader throws', async () => {
     let cases = (await loadCases('benchmarks/legalbench')).slice(0, 2);
-    let broken = { name: 'exact', description: 'x', async grade() { throw Error('judge down'); } };
+    let broken = { name: 'exact', description: 'x', gold: () => undefined, async grade() { throw Error('judge down'); } };
     let records = await runSuite({
       runId: 'test', cases, systems: [fakeSystem('Yes')], graders: [broken], proxy, judgeFor: () => 'j', repetitions: 1,
     });

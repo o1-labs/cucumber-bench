@@ -31,17 +31,12 @@ type PublicCase = {
   choices?: string[];
 };
 
-// never passed to a system under test. graders[0] is the primary (task) grader;
-// each grader reads the gold field(s) it needs
+// never passed to a system under test. graders[0] is the primary (task) grader. the file also
+// holds the gold data, but that belongs to the graders: each one declares its Gold type and
+// builds it from the raw case (Grader.gold). the core reads only id and graders
 type PrivateCase = {
   id: string;
   graders: string[];
-  answer?: string; // exact: the gold label
-  protected?: string[]; // removal / leakage / retention: spans that must not survive or reach the model
-  qaPairs?: { question: string; shortAnswers: string[] }[]; // str-em: the sub-questions of an ambiguous question
-  // clause graders: the gold clause excerpts and the 0-based docs that contain each; [] when the
-  // contract has no such clause
-  clauses?: { text: string; passages: number[] }[];
 };
 
 // costUsd is what the provider reported (openrouter returns usage.cost per request);
@@ -108,11 +103,16 @@ type Models = { main: string; safety: string; [role: string]: string };
 // the proxy, on a token of its own so grading cost is counted apart from the harness
 type GradeContext = { judge: (prompt: string) => Promise<string> };
 
-type Grader = {
+// a grader over its own gold type. gold(raw, id) turns the private case, as loaded from json,
+// into Gold, and throws (naming the case) when a field is missing or malformed. the runner
+// calls it for every case before the first model call, and again before grade, so grade sees
+// checked, typed gold. a grader that reads no gold is a Grader<undefined>
+type Grader<Gold = unknown> = {
   name: string;
   // one sentence that says what passes: shown in the report and chart glossary
   description: string;
-  grade(pub: PublicCase, priv: PrivateCase, result: RunResult, ctx: GradeContext): Promise<GradeResult>;
+  gold(raw: unknown, id: string): Gold;
+  grade(pub: PublicCase, gold: Gold, result: RunResult, ctx: GradeContext): Promise<GradeResult>;
 };
 
 type ModelProxy = {

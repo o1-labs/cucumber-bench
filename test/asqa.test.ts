@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
 import { citationPrecisionGrader, citationRecallGrader, citationsOf, removeCitations, sentences } from '../benchmarks/asqa/graders.js';
-import type { GradeContext, PrivateCase, PublicCase, RunResult } from '../src/types.js';
+import type { GradeContext, PublicCase, RunResult } from '../src/types.js';
 
 let pub = {
   id: 'q',
@@ -11,7 +11,6 @@ let pub = {
     { title: 'Noise', text: 'Nothing relevant here.' },
   ],
 } as PublicCase;
-let priv = { id: 'q', graders: [] } as PrivateCase;
 
 // fake judge: parses premise and hypothesis back out of the prompt; entails when the
 // premise contains the hypothesis text without its final period
@@ -43,7 +42,7 @@ describe('citation graders', () => {
   let out = 'Alice was born in 1990 in Oslo [1]. Bob lives in Paris [2][3]. Carol likes tea.';
 
   it('recall: supported sentences over all sentences; an uncited sentence counts as unsupported', async () => {
-    let g = await citationRecallGrader().grade(pub, priv, result(out), ctx);
+    let g = await citationRecallGrader().grade(pub, undefined, result(out), ctx);
     assert.equal(g.pass, false);
     assert.ok(Math.abs(g.score - 2 / 3) < 1e-9, g.detail);
     assert.match(g.detail ?? '', /1 without citation/);
@@ -52,18 +51,18 @@ describe('citation graders', () => {
   it('precision: a redundant citation is not necessary', async () => {
     let r = result(out);
     calls = [];
-    let g = await citationPrecisionGrader().grade(pub, priv, r, ctx);
+    let g = await citationPrecisionGrader().grade(pub, undefined, r, ctx);
     // [1] necessary; [2] supports alone; [3] does not, and [2] alone does -> over-citation
     assert.ok(Math.abs(g.score - 2 / 3) < 1e-9, g.detail);
     assert.equal(g.pass, false);
     // recall and precision share judgments through the per-run memo
     let before = calls.length;
-    await citationRecallGrader().grade(pub, priv, r, ctx);
+    await citationRecallGrader().grade(pub, undefined, r, ctx);
     assert.equal(calls.length, before);
   });
 
   it('should pass a fully supported, minimally cited answer', async () => {
-    let g = await citationPrecisionGrader().grade(pub, priv, result('Bob lives in Paris [2].'), ctx);
+    let g = await citationPrecisionGrader().grade(pub, undefined, result('Bob lives in Paris [2].'), ctx);
     assert.equal(g.pass, true);
     assert.equal(g.score, 1);
   });

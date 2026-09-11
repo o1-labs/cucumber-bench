@@ -10,11 +10,12 @@ export { citationRecallGrader, citationPrecisionGrader, sentences, citationsOf, 
 
 // citation recall: every sentence is supported by the passages it cites.
 // a sentence without citations counts as unsupported.
-function citationRecallGrader(): Grader {
+function citationRecallGrader(): Grader<undefined> {
   return {
     name: 'citation-recall',
     description: 'Every sentence is supported by the passages it cites. The score is the share of supported sentences.',
-    async grade(pub, _priv, result, ctx) {
+    gold: () => undefined,
+    async grade(pub, _gold, result, ctx) {
       let docs = docsOf(pub);
       let sents = sentences(result.output);
       if (sents.length === 0) return { grader: 'citation-recall', pass: false, score: 0, detail: 'no sentences' };
@@ -41,11 +42,12 @@ function citationRecallGrader(): Grader {
 
 // citation precision: every citation is necessary. a citation is not necessary when
 // its passage alone does not support the sentence and the other cited passages do.
-function citationPrecisionGrader(): Grader {
+function citationPrecisionGrader(): Grader<undefined> {
   return {
     name: 'citation-precision',
     description: 'Every citation is necessary: its passage supports the sentence and is not redundant. The score is the share of such citations.',
-    async grade(pub, _priv, result, ctx) {
+    gold: () => undefined,
+    async grade(pub, _gold, result, ctx) {
       let docs = docsOf(pub);
       let total = 0, precise = 0;
       // sentences, and the citations within a sentence, are judged in parallel

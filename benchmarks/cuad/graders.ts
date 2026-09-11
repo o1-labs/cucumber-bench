@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { citationsOf, entails, passages, removeCitations, sentences } from '../asqa/graders.js';
 import { longestRun } from '../../src/text.js';
-import type { GradeContext, Grader, PrivateCase, PublicCase } from '../../src/types.js';
+import type { GradeContext, Grader, PublicCase } from '../../src/types.js';
+import { fieldsOf } from '../../src/gold.js';
 
 // clause questions over a contract split into numbered passages (CUAD, Hendrycks et al. 2021).
 // the private case holds the gold clause texts and the passages that contain them, so what the
@@ -10,7 +11,11 @@ import type { GradeContext, Grader, PrivateCase, PublicCase } from '../../src/ty
 // the answer must state the absence and cite nothing. loaded through benchmark.json
 export { graders };
 // internal API, exported for tests
-export { clauseRecallGrader, clausePrecisionGrader, citationSupportGrader };
+export { clauseRecallGrader, clausePrecisionGrader, citationSupportGrader, clauseGold, type ClauseGold };
+
+// the gold of a clause question: the clause excerpts and the 0-based docs that contain each;
+// [] when the contract has no such clause
+type ClauseGold = { clauses: { text: string; passages: number[] }[] };
 
 // a clause counts as quoted when this many consecutive words of it are in the answer
 const QUOTE_WORDS = 8;
@@ -20,14 +25,15 @@ const MIN_WORDS = 3;
 // clause recall: for every gold clause, the answer quotes it (QUOTE_WORDS consecutive words)
 // and cites a passage that contains it. a citation to the right passage with other text is not
 // a find. absent clause: the answer states that the contract has no such clause (judge).
-function clauseRecallGrader(): Grader {
+function clauseRecallGrader(): Grader<ClauseGold> {
   return {
     name: 'clause-recall',
     description:
       'For every clause the contract has, the answer quotes it and cites a passage that contains it. The score is the share of clauses found. ' +
       'When the contract has no such clause, the answer must say so.',
-    async grade(pub, priv, result, ctx) {
-      let clauses = clausesOf(priv);
+    gold: clauseGold,
+    async grade(pub, gold, result, ctx) {
+      let clauses = gold.clauses;
       let cited = citationsOf(result.output, docsOf(pub).length);
       if (clauses.length === 0) {
         let stated = await statesAbsence(ctx, pub, result.output);
@@ -48,22 +54,23 @@ function clauseRecallGrader(): Grader {
 }
 
 // clause precision: every cited passage contains a gold clause. absent clause: nothing is cited.
-function clausePrecisionGrader(): Grader {
+function clausePrecisionGrader(): Grader<ClauseGold> {
   return {
     name: 'clause-precision',
     description:
       'Every cited passage contains the clause. The score is the share of citations that do. ' +
       'When the contract has no such clause, the answer must cite nothing.',
-    async grade(pub, priv, result) {
-      let clauses = clausesOf(priv);
+    gold: clauseGold,
+    async grade(pub, gold, result) {
+      let clauses = gold.clauses;
       let cited = citationsOf(result.output, docsOf(pub).length);
       if (clauses.length === 0) {
         let clean = cited.length === 0;
         return { grader: 'clause-precision', pass: clean, score: clean ? 1 : 0, detail: clean ? 'nothing cited' : `cited ${cited.map((p) => `[${p + 1}]`).join('')} for an absent clause` };
       }
       if (cited.length === 0) return { grader: 'clause-precision', pass: false, score: 0, detail: 'nothing cited' };
-      let gold = new Set(clauses.flatMap((c) => c.passages));
-      let right = cited.filter((p) => gold.has(p)).length;
+      let goldPassages = new Set(clauses.flatMap((c) => c.passages));
+      let right = cited.filter((p) => goldPassages.has(p)).length;
       return {
         grader: 'clause-precision',
         pass: right === cited.length,
@@ -78,13 +85,14 @@ function clausePrecisionGrader(): Grader {
 // a sentence without citations passes only when it is a statement about the documents
 // themselves ("the contract contains no such clause"); an uncited fact is unsupported.
 // fragments under MIN_WORDS ("Yes.") are not judged.
-function citationSupportGrader(): Grader {
+function citationSupportGrader(): Grader<ClauseGold> {
   return {
     name: 'citation-support',
     description:
       'Every sentence is supported by the passages it cites; a sentence without citations passes only when it is a statement about the documents, not a fact. ' +
       'The score is the share of such sentences.',
-    async grade(pub, priv, result, ctx) {
+    gold: clauseGold,
+    async grade(pub, gold, result, ctx) {
       let docs = docsOf(pub);
       let sents = sentences(result.output).filter((s) => removeCitations(s).split(' ').length >= MIN_WORDS);
       if (sents.length === 0) return { grader: 'citation-support', pass: false, score: 0, detail: 'no sentence' };
@@ -115,9 +123,15 @@ function docsOf(pub: PublicCase) {
   return pub.docs;
 }
 
-function clausesOf(priv: PrivateCase) {
-  assert(Array.isArray(priv.clauses), `cuad graders: case ${priv.id} needs clauses`);
-  return priv.clauses;
+// the gold of a clause question, checked: clauses may be [] (the contract has no such clause)
+function clauseGold(raw: unknown, id: string): ClauseGold {
+  let { clauses } = fieldsOf(raw, id, 'cuad graders');
+  assert(
+    Array.isArray(clauses) &&
+      clauses.every((c) => typeof c?.text === 'string' && Array.isArray(c.passages) && c.passages.every((p: unknown) => Number.isInteger(p))),
+    `cuad graders: case ${id} needs clauses, each with a text and its passages`,
+  );
+  return { clauses };
 }
 
 // an uncited sentence is acceptable only as a statement about the documents themselves

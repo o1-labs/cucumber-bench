@@ -1,12 +1,12 @@
 import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
 import { exactGrader, extractChoice, normalize } from '../src/graders/exact.js';
-import type { PublicCase, PrivateCase, RunResult } from '../src/types.js';
+import type { PublicCase, RunResult } from '../src/types.js';
 
 describe('exactGrader', () => {
   let pub = { id: 'c1', choices: ['Yes', 'No'] } as PublicCase;
-  let priv: PrivateCase = { id: 'c1', graders: ['exact'], answer: 'Yes' };
   let grader = exactGrader();
+  let gold = grader.gold({ id: 'c1', graders: ['exact'], answer: 'Yes' }, 'c1');
   let ctx = { judge: async () => 'no' };
 
   function result(output: string, error?: string): RunResult {
@@ -48,12 +48,12 @@ describe('exactGrader', () => {
   });
 
   it('should pass on exact answer and fail on wrong answer', async () => {
-    assert.equal((await grader.grade(pub, priv, result('Yes.'), ctx)).pass, true);
-    assert.equal((await grader.grade(pub, priv, result('No'), ctx)).pass, false);
+    assert.equal((await grader.grade(pub, gold, result('Yes.'), ctx)).pass, true);
+    assert.equal((await grader.grade(pub, gold, result('No'), ctx)).pass, false);
   });
 
   it('should record (none) when nothing could be extracted', async () => {
-    let g = await grader.grade(pub, priv, result('I am not sure.'), ctx);
+    let g = await grader.grade(pub, gold, result('I am not sure.'), ctx);
     assert.equal(g.pass, false);
     assert.equal(g.score, 0);
     assert.equal(g.extracted, '(none)');
