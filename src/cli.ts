@@ -36,7 +36,12 @@ let systems = (values.systems?.split(',') ?? [...project.systems.keys()]).map((n
 if (values.suites) {
   let wanted = values.suites.split(',').map((s) => s.trim());
   cases = cases.filter((c) => wanted.includes(c.pub.suite));
-  if (cases.length === 0) throw Error(`no cases in suites ${values.suites}. available: ${benchmarks.map((b) => b.name).join(', ')}`);
+  if (cases.length === 0) {
+    // a benchmark folder without cases is an imported suite whose import has not run
+    let empty = wanted.filter((s) => benchmarks.some((b) => b.name === s) && !project.cases.some((c) => c.pub.suite === s));
+    let hint = empty.length ? ` the suite${empty.length > 1 ? 's' : ''} ${empty.join(', ')} ha${empty.length > 1 ? 've' : 's'} no cases: run the import script of the benchmark (see its import.ts and the npm run import:* scripts).` : '';
+    throw Error(`no cases in suites ${values.suites}.${hint} available: ${[...new Set(project.cases.map((c) => c.pub.suite))].join(', ')}`);
+  }
   // only harnesses that list one of the suites run
   systems = systems.filter((s) => s.suites?.some((suite) => wanted.includes(suite)));
   if (systems.length === 0) throw Error(`no selected harness lists a suite in ${values.suites}`);

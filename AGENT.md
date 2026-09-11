@@ -37,9 +37,15 @@ memorized answer. `review-ft` exists because of this; `direct-4b-ft` documents i
 | `asqa` (+ `asqa-dev` 15) | 100 questions, 20 passages each | `str-em`, `citation-recall`, `citation-precision` |
 | `cuad` (+ `cuad-dev` 15) | 100 clause questions, contracts ≤ 6k words | `clause-recall`, `clause-precision`, `citation-support` |
 | `cuad-hard` (+ `cuad-hard-dev` 15) | 100 contracts of 6k–47k words, subtle clause types | same |
+| `longmemeval` (+ `longmemeval-dev` 15) | 100 questions over ~48-session chat histories (~120k tokens), 6 types, 6 unanswerable | `longmemeval` (the official prompts; the official judge is `gpt-4o-2024-08-06`, the standard judge stands in: OpenAI models are blocked on the provider workspace) |
+| `longmemeval-oracle` (+ `-dev` 15) | the same questions over the evidence sessions only | same |
 
 `*-dev` suites are for tuning; the others are locked test sets. Cases are rebuilt by each
 suite's `import.ts` from pinned sources (ALCE/ASQA, CUAD); raw data stays out of Git.
+The `longmemeval*` cases stay out of Git too: `npm run import:longmemeval` rebuilds them from
+the pinned Hugging Face commit (sha256-checked) with a fixed, type-stratified split. The
+cases are ~500 KB each; runs need `BENCH_TIMEOUT_MS=300000`. Only `direct` lists the suites
+so far; a memory harness (retrieval over `docs`, one passage per session) is the open work.
 
 ## Results so far (pinned in `runs/pinned/`, published on the docs site)
 

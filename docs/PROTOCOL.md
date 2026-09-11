@@ -107,6 +107,7 @@ Before adding a benchmark:
 
 | Capability            | Candidates                                                                                                                                                                      |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Long-term memory      | [LongMemEval](https://github.com/xiaowu0162/LongMemEval): added as `longmemeval*`, with the official judge pinned.                                                          |
 | Abstention            | [AbstentionBench](https://github.com/facebookresearch/AbstentionBench), [SelfAware](https://github.com/yinzhangyue/SelfAware)                                                   |
 | Long context          | [LongBench v2](https://github.com/THUDM/LongBench), [RULER](https://github.com/NVIDIA/RULER). Use a fixed sample for RULER during development because the full matrix is large. |
 | Instruction following | [IFEval](https://github.com/google-research/google-research/tree/master/instruction_following_eval), [FollowBench](https://github.com/YJiangcm/FollowBench)                     |

@@ -10,7 +10,11 @@
     "cuad",
     "cuad-dev",
     "cuad-hard",
-    "cuad-hard-dev"
+    "cuad-hard-dev",
+    "longmemeval",
+    "longmemeval-dev",
+    "longmemeval-oracle",
+    "longmemeval-oracle-dev"
   ],
   "models": {
     "main": "qwen/qwen3.6-35b-a3b"

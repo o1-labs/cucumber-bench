@@ -103,6 +103,8 @@ Every harness names its models in its manifest, and, per model, the provider it 
 | `asqa` (+ `asqa-dev`, 15) | 100 questions with 20 passages each | [ALCE](https://github.com/princeton-nlp/ALCE), ASQA | `str-em`, `citation-recall`, `citation-precision` |
 | `cuad` (+ `cuad-dev`, 15) | 100 clause questions over contracts ≤ 6,000 words, 12 clause types, 30% absent | [CUAD](https://github.com/TheAtticusProject/cuad) (CC BY 4.0) | `clause-recall`, `clause-precision`, `citation-support` |
 | `cuad-hard` (+ `cuad-hard-dev`, 15) | 100 contracts of 6,000–47,000 words, 7 subtle clause types, multi-instance questions | same | same |
+| `longmemeval` (+ `longmemeval-dev`, 15) | 100 questions about a chat history of ~48 sessions (~120k tokens), 6 question types, 6% unanswerable | [LongMemEval](https://github.com/xiaowu0162/LongMemEval) (MIT), the `S` release | `longmemeval` |
+| `longmemeval-oracle` (+ `longmemeval-oracle-dev`, 15) | the same questions over the evidence sessions only: the upper bound | same, the `oracle` release | same |
 
 The graders, one line each:
 
@@ -114,9 +116,15 @@ The graders, one line each:
 - `clause-precision`: every cited passage contains the clause; for an absent clause, nothing is cited.
 - `citation-support`: every sentence is supported by its cited passages; an uncited sentence passes only as a statement about the documents (judge).
 - `removal`: no protected span survives; `leakage`: no protected span reached the model (measured at the proxy); `retention`: 90% of the other content survives.
+- `longmemeval`: the official LongMemEval judge prompts (a yes/no template per question type) say the answer contains the gold answer, or abstains when the question is unanswerable. The official judge is `gpt-4o-2024-08-06`; the suite names the repo's standard judge instead, a substitution the report records.
 
 Import scripts: `benchmarks/asqa/import.ts` and `benchmarks/cuad/import.ts` (see their
 headers). The raw data is not in the repository.
+
+The `longmemeval*` suites are not tracked either: `npm run import:longmemeval` downloads the
+data at a pinned commit (once, into `benchmarks/longmemeval/data/`), verifies it, and writes the
+cases. Run it after a fresh clone; the bench command says so when a suite has no cases. A
+`longmemeval` case is a ~120k-token prompt: set `BENCH_TIMEOUT_MS=300000` for it.
 
 ## Reading the results
 

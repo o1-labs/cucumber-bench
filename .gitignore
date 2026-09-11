@@ -5,3 +5,6 @@ node_modules/
 .omc
 *.pdf
 harnesses/*/dist/
+# imported suites: the raw data and the cases are rebuilt by npm run import:longmemeval
+benchmarks/longmemeval/data/
+benchmarks/longmemeval*/cases/

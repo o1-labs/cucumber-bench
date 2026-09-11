@@ -34,6 +34,10 @@ describe('manifests', () => {
       ['cuad-hard', ['clause-recall', 'clause-precision', 'citation-support']],
       ['cuad-hard-dev', ['clause-recall', 'clause-precision', 'citation-support']],
       ['legalbench', ['exact']],
+      ['longmemeval', ['longmemeval']],
+      ['longmemeval-dev', ['longmemeval']],
+      ['longmemeval-oracle', ['longmemeval']],
+      ['longmemeval-oracle-dev', ['longmemeval']],
       ['redaction', ['removal', 'leakage', 'retention']],
     ]);
   });
@@ -42,7 +46,7 @@ describe('manifests', () => {
     let bs = await loadBenchmarks('benchmarks');
     let all = uniqueGraders(bs);
     assert.deepEqual(all.map((g) => g.name), [
-      'str-em', 'citation-recall', 'citation-precision', 'clause-recall', 'clause-precision', 'citation-support', 'exact', 'removal', 'leakage', 'retention',
+      'str-em', 'citation-recall', 'citation-precision', 'clause-recall', 'clause-precision', 'citation-support', 'exact', 'longmemeval', 'removal', 'leakage', 'retention',
     ]);
     // asqa and asqa-dev load the same module: the same grader objects
     assert.equal(bs[0].graders[1], bs[1].graders[1]);

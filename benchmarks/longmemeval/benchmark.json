@@ -1,0 +1,7 @@
+{
+  "name": "longmemeval",
+  "graders": ["./graders.ts"],
+  "judge": {
+    "model": "deepseek/deepseek-v4-flash-0731"
+  }
+}
