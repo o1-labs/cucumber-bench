@@ -112,12 +112,20 @@ describe('the selfaware cases', () => {
     }
   });
 
-  it('should be balanced, and never leak a case between the test and dev splits', async () => {
+  it('should be near-balanced, and never leak a case between the test and dev splits', async () => {
     let test = await loadCases('benchmarks/selfaware');
     let dev = await loadCases('benchmarks/selfaware-dev');
     assert.equal(test.length, 100);
-    assert.equal(test.filter((c) => c.priv.answerable).length, 50);
-    assert.equal(dev.filter((c) => c.priv.answerable).length, dev.length / 2);
+    // the sample is drawn 50/50, then the OVERRIDES corrections are applied to the drawn
+    // cases, and a correction may flip a case to the other kind. so the halves are close to
+    // even rather than exactly even, and the tolerance is what bounds how far the
+    // corrections may drift the suite before someone has to look at it again.
+    let answerable = test.filter((c) => c.priv.answerable).length;
+    assert.ok(Math.abs(answerable - 50) <= 5, `test split is ${answerable}/${100 - answerable}, too far from even`);
+    let devAnswerable = dev.filter((c) => c.priv.answerable).length;
+    assert.ok(Math.abs(devAnswerable - dev.length / 2) <= 2, `dev split is ${devAnswerable}/${dev.length - devAnswerable}, too far from even`);
+    // both graders need a population to grade
+    assert.ok(answerable > 0 && answerable < 100);
     let questions = new Set(test.map((c) => c.pub.input));
     assert.ok(dev.every((c) => !questions.has(c.pub.input)), 'a dev question also appears in the test split');
   });

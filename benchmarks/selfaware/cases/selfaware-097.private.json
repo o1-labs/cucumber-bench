@@ -6,6 +6,12 @@
   ],
   "answerable": true,
   "acceptableAnswers": [
-    "singing voice"
+    "soprano",
+    "mezzo-soprano",
+    "contralto",
+    "countertenor",
+    "tenor",
+    "baritone",
+    "bass"
   ]
 }

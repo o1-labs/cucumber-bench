@@ -1,7 +1,11 @@
 {
   "id": "selfaware-094",
   "graders": [
-    "abstention"
+    "answered",
+    "answer-correct"
   ],
-  "answerable": false
+  "answerable": true,
+  "acceptableAnswers": [
+    "yawning is a brainstem reflex and does not require wakefulness"
+  ]
 }

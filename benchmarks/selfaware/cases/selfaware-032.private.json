@@ -1,7 +1,11 @@
 {
   "id": "selfaware-032",
   "graders": [
-    "abstention"
+    "answered",
+    "answer-correct"
   ],
-  "answerable": false
+  "answerable": true,
+  "acceptableAnswers": [
+    "the sun"
+  ]
 }

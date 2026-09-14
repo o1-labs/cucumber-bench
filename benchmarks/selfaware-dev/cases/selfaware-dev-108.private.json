@@ -1,7 +1,11 @@
 {
   "id": "selfaware-dev-108",
   "graders": [
-    "abstention"
+    "answered",
+    "answer-correct"
   ],
-  "answerable": false
+  "answerable": true,
+  "acceptableAnswers": [
+    "yes, there are places on earth where no human has set foot, such as the deep ocean floor and unexplored cave systems"
+  ]
 }

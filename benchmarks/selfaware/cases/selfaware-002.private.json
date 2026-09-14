@@ -1,7 +1,11 @@
 {
   "id": "selfaware-002",
   "graders": [
-    "abstention"
+    "answered",
+    "answer-correct"
   ],
-  "answerable": false
+  "answerable": true,
+  "acceptableAnswers": [
+    "ultraviolet light bleaches the melanin already present in dead hair keratin, while in living skin it stimulates melanocytes to produce more melanin"
+  ]
 }

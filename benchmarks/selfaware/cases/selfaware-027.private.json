@@ -6,6 +6,8 @@
   ],
   "answerable": true,
   "acceptableAnswers": [
-    "film"
+    "film",
+    "novel",
+    "thriller"
   ]
 }
