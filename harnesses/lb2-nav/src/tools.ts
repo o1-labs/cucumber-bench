@@ -10,9 +10,11 @@ type Command = { kind: 'search'; words: string } | { kind: 'read'; from: number;
 // characters shown around a match
 const SNIPPET = 200;
 
-// the command is the last non-empty line of a reply; a reply with no command is the answer
+// the command is the last non-empty line of a reply; a reply with no command is the answer.
+// the model sometimes echoes the label line after its command; the echo is ignored
 function parseCommand(reply: string): Command | undefined {
-  let line = reply.trim().split('\n').pop()!.trim().replace(/^[`*_]+|[`*_]+$/g, '');
+  let lines = reply.trim().split('\n').filter((l) => l.trim() && !/^next command:?$/i.test(l.trim()));
+  let line = (lines.pop() ?? '').trim().replace(/^[`*_]+|[`*_]+$/g, '');
   let m = line.match(/^search:\s*(.+)$/i);
   // the model tends to quote the words; the quote marks are not part of the text
   if (m) return { kind: 'search', words: m[1].trim().replace(/^["'“]+|["'”]+$/g, '').trim() };
