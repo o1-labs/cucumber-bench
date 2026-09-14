@@ -1,0 +1,12 @@
+{
+  "name": "direct-t0",
+  "description": "One model call at the benchmark's own temperature. Identical to direct except that it sets no temperature, so the proxy injects the benchmark default. This is the matched control: against it, a harness comparison isolates the harness from the decoding setting.",
+  "entry": "src/entry.ts",
+  "suites": [
+    "selfaware",
+    "selfaware-dev"
+  ],
+  "models": {
+    "main": "qwen/qwen3.6-35b-a3b"
+  }
+}

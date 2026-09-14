@@ -1,6 +1,9 @@
 import { describe, it, beforeAll, afterAll } from 'vitest';
 import assert from 'node:assert/strict';
 import { mockUpstream, models, tsx, type Mock } from './upstream.js';
+
+// the temperature the mock proxy injects when a harness sets none; see test/upstream.ts
+const DEFAULT_TEMPERATURE = 0.3;
 import { containerName, sandboxedSystem } from '../src/sandbox.js';
 import { loadCases } from '../src/caseStore.js';
 import type { ModelProxy } from '../src/types.js';
@@ -31,6 +34,31 @@ describe('sandboxedSystem', () => {
     assert.equal(result.trace, undefined);
     assert.ok(result.modelRequests![0].includes(pub.input));
     assert.ok(result.modelRequests![0].includes('A:'));
+    // temperature 1 is what makes this the status-quo lane, not an oversight: it is what a
+    // generic chat interface gives you. direct-t0 is the matched control at the default.
+    assert.equal(seen[seen.length - 1].temperature, 1);
+  });
+
+  it('should run direct-t0 identically to direct but at the benchmark temperature', async () => {
+    let { pub } = (await loadCases('benchmarks/legalbench'))[0];
+    let direct = sandboxedSystem('direct', tsx('harnesses/direct/src/entry.ts'), models);
+    let t0 = sandboxedSystem('direct-t0', tsx('harnesses/direct-t0/src/entry.ts'), models);
+    let a = await direct.run(pub, { runId: 't', repetition: 1, proxy });
+    let sentByDirect = seen[seen.length - 1];
+    let b = await t0.run(pub, { runId: 't', repetition: 1, proxy });
+    let sentByT0 = seen[seen.length - 1];
+    // the two lanes differ in exactly one field: everything else the request sets must match,
+    // or a comparison between them measures more than the decoding setting
+    // direct-t0 sets no temperature, so whatever the benchmark default is gets injected.
+    // the mock proxy's default is 0.3, production's is BENCH_TEMPERATURE (0): the test asserts
+    // that injection happened and that the two lanes differ, not a particular production value.
+    assert.equal(sentByDirect.temperature, 1);
+    assert.equal(sentByT0.temperature, DEFAULT_TEMPERATURE);
+    assert.notEqual(sentByT0.temperature, sentByDirect.temperature);
+    assert.deepEqual(sentByT0.messages, sentByDirect.messages);
+    assert.equal(sentByT0.model, sentByDirect.model);
+    assert.equal(a.modelCalls, b.modelCalls);
+    assert.equal(b.error, undefined);
   });
 
   it('should run the placeholder entry as a child process end to end', async () => {
