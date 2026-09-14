@@ -10,6 +10,7 @@ describe('lb2-nav tools', () => {
   describe('parseCommand', () => {
     it('should read the last line as the command, and anything else as the answer', () => {
       assert.deepEqual(parseCommand('I will look.\nsearch: fourth floor\n'), { kind: 'search', words: 'fourth floor' });
+      assert.deepEqual(parseCommand('search: "high-quality cases"'), { kind: 'search', words: 'high-quality cases' });
       assert.deepEqual(parseCommand('READ: 3-4'), { kind: 'read', from: 3, to: 4 });
       assert.deepEqual(parseCommand('`read: 7`'), { kind: 'read', from: 7, to: 7 });
       assert.equal(parseCommand('The correct answer is (B)'), undefined);

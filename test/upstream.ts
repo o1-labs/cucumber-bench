@@ -45,6 +45,13 @@ async function mockUpstream(): Promise<Mock> {
         : label === 'Passages:' ? (prompt.includes('Claim: Alpha') ? '[2][7]' : prompt.includes('Claim: The documents') ? 'keep' : 'none')
         // the few-shot answer of direct and cite-v1
         : label === 'Answer:' ? 'Alpha holds the record [1][2][3]. Beta is unsupported [4]. The documents do not say who holds the gamma record.'
+        // lb2-nav: a search for MIDDLE, a read of the hit, then the answer; a text naming MOCK_NAV_LOOP never answers
+        : label === 'Next command:' ? (
+            prompt.includes('MOCK_NAV_EMPTY') && body.reasoning?.enabled !== false && prompt.split('Next command:').length === 2 ? ''
+            : prompt.includes('MOCK_NAV_LOOP') ? 'search: word'
+            : prompt.split('Next command:').length === 2 ? 'Let me look.\nsearch: MIDDLE'
+            : prompt.split('Next command:').length === 3 ? `read: ${prompt.match(/\[line (\d+)\] .*middle/)?.[1] ?? 1}`
+            : `The correct answer is (${prompt.match(/MOCK_ANSWER_([A-D])/)?.[1] ?? 'B'})`)
         // longbench v2: the reference answer form; (B) unless the text names another letter
         : label.startsWith('Format your response as follows:') ? `The correct answer is (${prompt.match(/MOCK_ANSWER_([A-D])/)?.[1] ?? 'B'})`
         : 'Yes';

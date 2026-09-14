@@ -14,7 +14,8 @@ const SNIPPET = 200;
 function parseCommand(reply: string): Command | undefined {
   let line = reply.trim().split('\n').pop()!.trim().replace(/^[`*_]+|[`*_]+$/g, '');
   let m = line.match(/^search:\s*(.+)$/i);
-  if (m) return { kind: 'search', words: m[1].trim() };
+  // the model tends to quote the words; the quote marks are not part of the text
+  if (m) return { kind: 'search', words: m[1].trim().replace(/^["'“]+|["'”]+$/g, '').trim() };
   m = line.match(/^read:\s*(\d+)\s*(?:-\s*(\d+))?$/i);
   if (m) return { kind: 'read', from: Number(m[1]), to: Number(m[2] ?? m[1]) };
   return undefined;
