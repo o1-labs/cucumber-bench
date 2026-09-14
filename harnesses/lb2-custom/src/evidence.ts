@@ -4,7 +4,7 @@
 import assert from 'node:assert/strict';
 import type { Tok } from '../../lb2-direct/src/tokenizer.js';
 
-export { chunkDocument, rankChunks, parseQuotes, formatEvidence, NO_EVIDENCE, type Chunk, type Quote };
+export { chunkDocument, rankChunks, parseQuotes, termHits, mergeQuotes, formatEvidence, NO_EVIDENCE, type Chunk, type Quote };
 
 type Chunk = { index: number; start: number; text: string; tokens: number }; // index from 1; start: offset in the document
 type Quote = { chunk: number; tag: string; text: string; start: number; end: number }; // tag: A+ .. D-, or ?; text = doc.slice(start, end)
@@ -74,34 +74,95 @@ function rankChunks(chunks: Chunk[], query: string, k: number): Chunk[] {
 
 // the quotes of one scan answer that are in the chunk word for word (whitespace and quote marks
 // aside), with their offsets in the document, at most cap of them; the rest is dropped and
-// counted. "None" is no evidence
+// counted. a line without a tag continues the quote before it (the model wraps long quotes as
+// the text is wrapped); a quote with an ellipsis is looked up as its pieces. "None" is no evidence
 function parseQuotes(answer: string, chunk: Chunk, cap: number): { quotes: Quote[]; dropped: number } {
   let quotes: Quote[] = [];
   let dropped = 0;
   if (/^\s*none\b/i.test(answer)) return { quotes, dropped };
+  let items: { tag: string; text: string }[] = [];
   for (let line of answer.split('\n')) {
     if (!line.trim()) continue;
     let m = line.match(LINE_RE);
-    let text = m?.[2].replace(/^["“]|["”]$/g, '').trim();
-    let at = text ? locate(chunk.text, text) : undefined;
-    if (!m || !text || /^none$/i.test(text) || at === undefined) {
+    if (m) items.push({ tag: m[1], text: m[2] });
+    else if (items.length) items[items.length - 1].text += ` ${line.trim()}`;
+  }
+  for (let { tag, text } of items) {
+    text = text.replace(/^["“]|["”]$/g, '').trim();
+    if (!text || /^none$/i.test(text)) {
       dropped++;
       continue;
     }
-    if (quotes.length >= cap) break;
-    let start = chunk.start + at.start;
-    quotes.push({ chunk: chunk.index, tag: m[1], text: chunk.text.slice(at.start, at.end), start, end: chunk.start + at.end });
+    let pieces = locate(chunk.text, text) ? [text] : text.split(/\s*(?:\.\.\.|…)\s*/).filter((p) => p.split(/\s+/).length >= 3);
+    let found = pieces.map((piece) => locate(chunk.text, piece)).filter((at) => at !== undefined);
+    if (found.length === 0) {
+      dropped++;
+      continue;
+    }
+    for (let at of found) {
+      if (quotes.length >= cap) return { quotes, dropped };
+      quotes.push({ chunk: chunk.index, tag, text: chunk.text.slice(at.start, at.end), start: chunk.start + at.start, end: chunk.start + at.end });
+    }
   }
   return { quotes, dropped };
 }
 
-// the evidence block of the answer prompt: one line per quote, in document order
-function formatEvidence(quotes: Quote[], chunks: number): string {
+// the lines of the document that contain a term (case-insensitive, whitespace collapsed), each
+// with the line before and after it, as quotes tagged "?" with their offsets; at most perTerm per
+// term, in document order. a term on more than maxLines lines is too common to be a lookup and is
+// skipped; the skipped terms are returned. no model: a hit is in the text by construction
+function termHits(doc: string, chunks: Chunk[], terms: string[], perTerm: number, maxLines: number): { quotes: Quote[]; skipped: string[] } {
+  let starts: number[] = [0];
+  for (let i = 0; i < doc.length; i++) if (doc[i] === '\n') starts.push(i + 1);
+  let lines = doc.split('\n');
+  let quotes: Quote[] = [];
+  let skipped: string[] = [];
+  for (let term of terms) {
+    let needle = normalize(term);
+    if (needle.length < 2) continue;
+    let hits: number[] = [];
+    for (let i = 0; i < lines.length && hits.length <= maxLines; i++) if (normalize(lines[i]).includes(needle)) hits.push(i);
+    if (hits.length > maxLines) {
+      skipped.push(term);
+      continue;
+    }
+    for (let i of hits.slice(0, perTerm)) {
+      let from = Math.max(0, i - 1);
+      let to = Math.min(lines.length - 1, i + 1);
+      let start = starts[from];
+      let end = starts[to] + lines[to].length;
+      let chunk = 1;
+      for (let c of chunks) if (c.start <= start) chunk = c.index;
+      quotes.push({ chunk, tag: '?', text: doc.slice(start, end).trim(), start, end });
+    }
+  }
+  return { quotes, skipped };
+}
+
+// the quotes in document order, a quote inside or across one already there dropped
+function mergeQuotes(...lists: Quote[][]): Quote[] {
+  let all = lists.flat().sort((a, b) => a.start - b.start || b.end - a.end);
+  let out: Quote[] = [];
+  for (let q of all) {
+    let last = out[out.length - 1];
+    if (last && q.start < last.end) continue;
+    out.push(q);
+  }
+  return out;
+}
+
+// the evidence block: one line per quote, in document order; the tags only in the record, since
+// they are the scan model's judgment and steer the answer when it sees them
+function formatEvidence(quotes: Quote[], chunks: number, tags = false): string {
   if (quotes.length === 0) return NO_EVIDENCE;
-  return quotes.map((q) => `[chunk ${q.chunk} of ${chunks}] (${q.tag}) "${q.text}"`).join('\n');
+  return quotes.map((q) => `[chunk ${q.chunk} of ${chunks}] ${tags ? `(${q.tag}) ` : ''}"${q.text}"`).join('\n');
 }
 
 // internal helpers
+
+function normalize(s: string): string {
+  return s.replace(/[“”]/g, '"').replace(/[‘’]/g, "'").replace(/\s+/g, ' ').trim().toLowerCase();
+}
 
 function words(text: string): string[] {
   return text.toLowerCase().match(/[\p{L}\p{N}_]+/gu) ?? [];

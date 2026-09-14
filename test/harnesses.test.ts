@@ -412,51 +412,64 @@ describe.skipIf(!existsSync('harnesses/lb2-direct/tokenizer/tokenizer.json'))('l
 describe.skipIf(!existsSync('harnesses/lb2-direct/tokenizer/tokenizer.json'))('lb2-custom (longbench v2 evidence before the answer)', () => {
   let argv = tsx('harnesses/lb2-custom/src/entry.ts');
   let options = JSON.parse(readFileSync('harnesses/lb2-custom/harness.json', 'utf8')).options;
-  // 280 lines, about 7100 tokens; the mock quotes the first four words of each scanned excerpt
+  // 280 lines, about 7100 tokens; the mock frames the term MIDDLE, quotes the first four words of each scanned excerpt,
+  // and answers the letter named in the question
   let text = ['HEAD of the text here', ...Array.from({ length: 277 }, (_, i) => `line ${i + 1} ${'word '.repeat(20)}`), 'the MIDDLE line', 'TAIL'].join('\n');
-  let pub: PublicCase = {
+  let pub = (question: string): PublicCase => ({
     id: 'lb-1', suite: 'longbench-v2-dev', task: 'longbench-v2', instructions: 'Please read the following text and answer the question below.',
-    input: text, question: 'Which one? MOCK_ANSWER_C', choices: ['alpha', 'beta', 'gamma', 'delta'],
-  };
-  let run = (over: { [k: string]: unknown } = {}) =>
-    sandboxedSystem('lb2-custom', argv, models, undefined, undefined, undefined, { ...options, chunkTokens: 1024, topChunks: 3, ...over }).run(pub, { runId: 't', repetition: 1, proxy });
+    input: text, question, choices: ['alpha', 'beta', 'gamma', 'delta'],
+  });
+  let run = (over: { [k: string]: unknown } = {}, question = 'Which one? MOCK_ANSWER_C') =>
+    sandboxedSystem('lb2-custom', argv, models, undefined, 20, undefined, { ...options, chunkTokens: 1024, topChunks: 3, ...over }).run(pub(question), { runId: 't', repetition: 1, proxy });
 
-  it('should scan the selected chunks, keep the quotes that are in the text, and answer from the document and the evidence', async () => {
+  it('should frame, scan the selected chunks with the constraints, keep the quotes that are in the text, and answer from the document and the passages', async () => {
     let result = await run();
     assert.equal(result.error, undefined);
     assert.equal(result.output, 'The correct answer is (C)');
-    assert.equal(result.modelCalls, 4);
-    // the scans run in parallel: any order on the wire
-    let scans = result.modelRequests!.slice(0, 3);
+    assert.equal(result.modelCalls, 5);
+    let [frame, ...rest] = result.modelRequests!;
+    assert.ok(frame.startsWith('Question: Which one? MOCK_ANSWER_C\nChoices:\n(A) alpha') && frame.endsWith('to look for in the text.\nFrame:'));
+    // the scans run in parallel: any order on the wire. the framed term MIDDLE ranks the last chunk in
+    let scans = rest.slice(0, 3);
     let n = Number(scans[0].match(/Excerpt \d+ of (\d+) of the text/)![1]);
     assert.ok(n >= 5);
-    assert.ok(scans.every((p) => p.startsWith('Question: Which one? MOCK_ANSWER_C\nChoices:\n(A) alpha') && p.endsWith('write None.\nEvidence:')));
-    assert.ok(scans.some((p) => p.includes(`Excerpt 1 of ${n} of the text:\n<excerpt>\nHEAD of the text here\nline 1 word`)));
-    let answer = result.modelRequests![3];
+    assert.ok(scans.every((p) => p.includes('\n\nWhat the question requires:\n- only what the text says\n\nExcerpt ') && p.endsWith('write None.\nEvidence:')));
+    assert.ok(scans.some((p) => p.includes(`Excerpt 1 of ${n} of the text:\n<excerpt>\nHEAD of the text here\nline 1 word`)), 'chunk 1 scanned');
+    assert.ok(scans.some((p) => p.includes(`Excerpt ${n} of ${n} of the text:`)), 'the last chunk scanned');
+    let answer = rest[3];
     assert.ok(answer.startsWith('Please read the following text and answer the question below.\n\n<text>\nHEAD of the text here\nline 1 word'));
-    assert.ok(answer.includes(`TAIL\n</text>\n\nEvidence collected from the text, in order of appearance:\n[chunk 1 of ${n}] (C+) "HEAD of the text"\n[chunk 2 of ${n}] (C+) "line `));
+    assert.ok(answer.includes(`TAIL\n</text>\n\nPassages collected from the text, in order of appearance. Answer with one of the four letters even when no choice is fully shown.\n[chunk 1 of ${n}] "HEAD of the text"\n[chunk 2 of ${n}] "line `), 'the passages after the text, without tags');
+    // the framed term MIDDLE is looked up by the harness: its line with its neighbours joins the ledger
+    assert.ok(answer.includes(`[chunk ${n} of ${n}] "line 277 word ${'word '.repeat(19)}\nthe MIDDLE line\nTAIL"\n\nWhat is the correct answer`), 'the term hit in the ledger');
     assert.ok(answer.endsWith('(D) delta\n\nFormat your response as follows: "The correct answer is (insert answer here)".'));
     let [input, agent] = result.trace!.stages;
     assert.equal(input.decision, 'pass');
-    assert.equal(input.findings[1], `document ${result.trace!.stages[0].findings[1].match(/document (\d+)/)![1]} tokens in ${n} chunk(s) of at most 1024`);
-    assert.equal(input.findings[2], 'locate: 3 chunk(s) selected (the best 3 by term score: the scan is partial): 1, 2, 3');
-    assert.match(input.findings[3], /^extract: 3 call\(s\) in 3 attempt\(s\); 3 quote\(s\) kept, 3 dropped/);
-    assert.match(input.findings[5], /^answer context: document\+evidence; document \d+ tokens, budget \d+$/);
+    assert.equal(input.findings[1], 'frame: 1 constraint(s), 1 term(s)');
+    assert.equal(input.findings[3], `locate: 3 chunk(s) selected (the best 3 by term score: the scan is partial): 1, 2, ${n}`);
+    assert.equal(input.findings[4], 'extract: 3 call(s); 3 quote(s) kept, 3 dropped (not in the excerpt or no tag)');
+    assert.equal(input.findings[5], 'terms: 1 searched, 1 line group(s) found, 0 term(s) on more than 40 lines skipped; 4 passage(s) in the ledger after the merge');
+    assert.match(input.findings[6], /^answer context: document\+evidence; document \d+ tokens, budget \d+$/);
+    assert.match(input.findings[7], /^side usage: 4 call\(s\) in 4 attempt\(s\)/);
     assert.match(agent.findings[1], /^answer usage: prompt \d+ tokens/);
-    assert.equal(result.trace!.transformedSource.split('\n').length, 3);
+    // every reply is in the record, the dropped scan lines with them; the record keeps the tags
+    let raw = result.trace!.rawOutput;
+    assert.ok(raw.startsWith('--- frame ---\nConstraints:'));
+    assert.ok(raw.includes(`--- scan chunk ${n} ---\nC+ "line `) && raw.includes('D- nothing like this is in the excerpt'), 'the scan replies in the record');
+    assert.ok(raw.endsWith('--- answer ---\nThe correct answer is (C)'));
+    assert.ok(result.trace!.transformedSource.startsWith(`[chunk 1 of ${n}] (C+) "HEAD of the text"\n`));
   });
 
-  it('should answer from the evidence alone when the document does not fit, and scan every chunk when there are few', async () => {
+  it('should answer from the passages alone when the document does not fit, and scan every chunk when there are few', async () => {
     let result = await run({ contextTokens: 8000, outputTokens: 1024, chunkTokens: 4096, topChunks: 16 });
     assert.equal(result.error, undefined);
     assert.equal(result.output, 'The correct answer is (C)');
-    assert.equal(result.modelCalls, 3);
-    let answer = result.modelRequests![2];
-    assert.ok(answer.startsWith('Please read the following text and answer the question below.\n\n<text>\nEvidence collected from the text, in order of appearance:\n[chunk 1 of 2] (C+) "HEAD of the text"'));
+    assert.equal(result.modelCalls, 4);
+    let answer = result.modelRequests![3];
+    assert.ok(answer.startsWith('Please read the following text and answer the question below.\n\n<text>\nPassages collected from the text, in order of appearance. Answer with one of the four letters even when no choice is fully shown.\n[chunk 1 of 2] "HEAD of the text"'));
     assert.ok(!answer.includes('line 100 word'));
     let input = result.trace!.stages[0];
     assert.equal(input.decision, 'modified');
-    assert.equal(input.findings[2], 'locate: 2 chunk(s) selected (every chunk: the scan is complete)');
-    assert.match(input.findings[5], /^answer context: evidence \(the document does not fit\)/);
+    assert.equal(input.findings[3], 'locate: 2 chunk(s) selected (every chunk: the scan is complete)');
+    assert.match(input.findings[6], /^answer context: evidence \(the document does not fit\)/);
   });
 });

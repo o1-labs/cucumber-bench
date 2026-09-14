@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
-import { chunkDocument, formatEvidence, parseQuotes, rankChunks, type Chunk } from '../harnesses/lb2-custom/src/evidence.js';
+import { chunkDocument, formatEvidence, mergeQuotes, parseQuotes, rankChunks, termHits, type Chunk } from '../harnesses/lb2-custom/src/evidence.js';
 import type { Tok } from '../harnesses/lb2-direct/src/tokenizer.js';
 
 // a toy tokenizer: one token per character
@@ -35,11 +35,19 @@ describe('lb2-custom evidence', () => {
     let chunk: Chunk = { index: 2, start: 100, text: 'Eve paused on the "third" floor.\nA couple on the second floor.\n', tokens: 1 };
     it('should keep tagged quotes that are in the chunk, with their offsets in the document', () => {
       let { quotes, dropped } = parseQuotes('C+ "Eve paused on the “third” floor."\n- (D+) A couple   on the second floor.\nB- not in the text\nx', chunk, 10);
-      assert.equal(dropped, 2);
+      assert.equal(dropped, 1);
       assert.deepEqual(quotes.map((q) => [q.tag, q.text, q.start, q.end]), [
         ['C+', 'Eve paused on the "third" floor.', 100, 132],
         ['D+', 'A couple on the second floor.', 133, 162],
       ]);
+    });
+    it('should join a wrapped quote, look an ellipsis up as pieces, and count a quote once when dropped', () => {
+      let { quotes, dropped } = parseQuotes('C+ "Eve paused on the\n"third" floor."\nD+ "Eve paused ... A couple on the ... floor."\nA+ "Eve paused\nsomewhere else"', chunk, 10);
+      assert.deepEqual(quotes.map((q) => [q.tag, q.text]), [
+        ['C+', 'Eve paused on the "third" floor.'],
+        ['D+', 'A couple on the'],
+      ]);
+      assert.equal(dropped, 1);
     });
     it('should cap the quotes, and read None as no evidence', () => {
       assert.equal(parseQuotes('A+ Eve paused\nB+ A couple\nC+ floor', chunk, 2).quotes.length, 2);
@@ -47,11 +55,40 @@ describe('lb2-custom evidence', () => {
     });
   });
 
+  describe('termHits', () => {
+    let doc = 'LEGISLATIVE DAY 118\nCALENDAR DAY 118\nHOUSE MEETS AT 9 A.M.\nthe floor\nthe floor again\nthe floor once more\n';
+    let chunks: Chunk[] = [{ index: 1, start: 0, text: doc.slice(0, 40), tokens: 1 }, { index: 2, start: 40, text: doc.slice(40), tokens: 1 }];
+    it('should quote the lines containing a term with their neighbours, and skip a term that is too common', () => {
+      let { quotes, skipped } = termHits(doc, chunks, ['calendar day 118', 'floor', 'nowhere'], 5, 2);
+      assert.deepEqual(quotes.map((q) => [q.chunk, q.tag, q.text, q.start, q.end]), [[1, '?', 'LEGISLATIVE DAY 118\nCALENDAR DAY 118\nHOUSE MEETS AT 9 A.M.', 0, 58]]);
+      assert.deepEqual(skipped, ['floor']);
+      assert.equal(termHits(doc, chunks, ['floor'], 2, 5).quotes.length, 2);
+      assert.equal(termHits(doc, chunks, ['floor'], 5, 5).quotes[2].chunk, 2);
+    });
+  });
+
+  describe('mergeQuotes', () => {
+    it('should order by offset and drop a quote inside or across one kept', () => {
+      let q = (start: number, end: number) => ({ chunk: 1, tag: '?', text: 'x', start, end });
+      assert.deepEqual(mergeQuotes([q(10, 20), q(50, 60)], [q(0, 5), q(15, 30), q(55, 58), q(70, 80)]).map((x) => [x.start, x.end]), [[0, 5], [10, 20], [50, 60], [70, 80]]);
+    });
+  });
+
   describe('formatEvidence', () => {
     it('should lay the quotes out with their chunk, or say there is none', () => {
       let q = { chunk: 2, tag: 'D+', text: 'A couple', start: 0, end: 8 };
-      assert.equal(formatEvidence([q], 5), '[chunk 2 of 5] (D+) "A couple"');
+      assert.equal(formatEvidence([q], 5), '[chunk 2 of 5] "A couple"');
+      assert.equal(formatEvidence([q], 5, true), '[chunk 2 of 5] (D+) "A couple"');
       assert.match(formatEvidence([], 5), /^No passage/);
     });
+  });
+});
+
+describe('lb2-custom frame', () => {
+  it('should read the two sections, bullets and numbering aside', async () => {
+    let { parseFrame } = await import('../harnesses/lb2-custom/src/frame.js');
+    let frame = parseFrame('Constraints:\n- what the user said, not the assistant\n- the initial finding\nTerms:\n1. Becca\n2. floor\n');
+    assert.deepEqual(frame, { constraints: ['what the user said, not the assistant', 'the initial finding'], terms: ['Becca', 'floor'] });
+    assert.deepEqual(parseFrame('nothing useful'), { constraints: [], terms: [] });
   });
 });

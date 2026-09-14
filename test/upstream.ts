@@ -47,7 +47,8 @@ async function mockUpstream(): Promise<Mock> {
         : label === 'Passages:' ? (prompt.includes('Claim: Alpha') ? '[2][7]' : prompt.includes('Claim: The documents') ? 'keep' : 'none')
         // the few-shot answer of direct and cite-v1
         : label === 'Answer:' ? 'Alpha holds the record [1][2][3]. Beta is unsupported [4]. The documents do not say who holds the gamma record.'
-        // lb2-custom scan: one quote that is in the excerpt, one that is not
+        // lb2-custom frame and scan (one quote that is in the excerpt, one that is not)
+        : label === 'Frame:' ? 'Constraints:\n- only what the text says\nTerms:\nMIDDLE'
         : label === 'Evidence:' ? (excerpt ? `C+ "${excerpt}"\nD- nothing like this is in the excerpt` : 'None')
         // lb2-nav: a search for MIDDLE, a read of the hit, then the answer; a text naming MOCK_NAV_LOOP never answers
         : label === 'Next command:' ? (

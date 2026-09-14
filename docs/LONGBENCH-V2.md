@@ -65,6 +65,90 @@ npm run harness:install                          # tokenizers.js for lb2-direct
 npx tsx harnesses/lb2-direct/fetch-tokenizer.ts  # the pinned tokenizer files (13 MB, gitignored)
 ```
 
+## The custom harnesses: `lb2-nav` and `lb2-custom`
+
+Two harnesses built on the baseline, both with every document length in scope: neither skips nor
+truncates, so their coverage is 100%. Both keep the baseline's answer form, so `mc-answer` grades
+them unchanged. Both record every model reply in the trace.
+
+**`lb2-nav`, the navigator.** The model reads the text with two commands, one per turn in one
+conversation: `search: <words>` (every line containing the words, up to 20 hits with line numbers
+and a snippet) and `read: <from>-<to>` (a range of lines, at most 4,096 tokens). A reply without a
+command is the answer; at 24 steps the answer is forced. A document that fits the context is given
+whole, in the baseline's prompt, with the commands offered for checking passages; one that does not
+is navigated from its head. An empty reply (the model's reasoning looped until the output budget
+was spent) is repeated once with reasoning off.
+
+**`lb2-custom`, evidence before the answer.** Single-turn calls only:
+
+1. **Frame**, no document: the constraints of the question (who, when, which source) and the terms
+   to look for.
+2. **Locate**, no model: the document is cut into chunks of 4,096 tokens at line boundaries and
+   ranked against the question, the choices and the terms (BM25); the best 64 are selected, or
+   every chunk when there are at most 64, which the trace calls a complete scan.
+3. **Extract**: one call per selected chunk, eight in flight, reasoning off, with the constraints
+   in view, quoting the passages that bear on the question or on a choice. A quote is kept only
+   when it is found in the chunk, with its offsets; a wrapped quote is joined, an ellipsis is
+   looked up as its pieces. The lines containing a framed term join the quotes, found by the
+   harness alone, with one line of context.
+4. **Answer**: the baseline's call, with the passages laid out in document order after the whole
+   document when it fits the context, or as the text when it does not. The scan's tags (which
+   choice a quote supports) stay in the record and never reach the answer call.
+
+## Results on the dev set (30 cases, one repetition each)
+
+The 27 cases the baseline can take are the paired comparison; the 3 long documents (two code
+repositories of 3.3M and 3.6M tokens, one grammar book of 296k) are coverage.
+
+| lane | run | right of 27 | long, of 3 | invalid | cost |
+| --- | --- | --- | --- | --- | --- |
+| `lb2-direct` | three runs, 09-09 to 09-14 | 12, 12, 13 | unsupported | 1 | ~$0.45 |
+| `lb2-nav` v1, navigation only | 05-31 | 6 | 1 | 5 | $0.98 |
+| `lb2-nav` v2, whole text when it fits | 06-01 | 15 | 0 | 1 | $0.57 |
+| `lb2-custom` v3, document + passages | 12-28 | 13 | 2 | 0 | $0.92 |
+| `lb2-custom` v3, passages alone | 12-28 | 11 | 2 | 0 | $0.65 |
+| `lb2-custom` v4, + term hits | 12-59 | 14 | 2 | 0 | $0.89 |
+| `lb2-custom` v9, + notes for and against each choice | 15-03 | 13 | 3 | 1 | $1.55 |
+
+**The noise band.** Three runs of the baseline, same prompt, temperature 0, flipped 4 of 27
+letters between any two of them while scoring 12, 12 and 13. A one-repetition difference of one or
+two cases on this set means nothing. No lane above clears that band on the 27 shared cases.
+
+**What did measure.** Coverage: the custom harness answers every document and had 2 of the 3 long
+ones right in three runs, where the baseline has none; the navigator had 1. Invalid answers: the
+custom harness had none in three runs; the baseline refuses about one case in 30 with "none of the
+above" or "N/A". In `lb2-nav` v2 the model never used a command when it had the whole text (0 of
+26 cases), so that lane is the baseline plus navigation for overflow.
+
+**What did not.** Each of these was tried on the dev set or on a chosen subset and removed:
+
+- Pure navigation (`lb2-nav` v1): the model read a median 1% of the text before answering and
+  looped on one command turn in three; 6 of 27.
+- The scan's tags in the answer prompt: the answer followed the tags; two right baseline answers
+  flipped.
+- A verification call without the document (v2): 4 revisions, 0 corrections, 2 right answers
+  overturned.
+- A per-choice deliberation instruction in the answer call (v4): 13 against 14 without it, and
+  one answer turned into a refusal.
+- One focused check call per choice with the document in view (v5, eight chosen cases): one
+  gain, one loss, and in three cases all four statements were confirmed or all contradicted; at
+  four times the cost.
+- High reasoning effort asked of the provider: ignored, 1k to 4k reasoning tokens as before.
+- A challenge call against the drafted answer, then a decision call with both in view (v7, v8,
+  eight chosen cases): the challenge quoted the counter-evidence and closed with "stands"; the
+  decision, shown the draft, kept it in all eight cases.
+- Notes for and against each choice before any draft (v9): 4 of 8 on the chosen cases, then 13
+  of 27 on the dev set at $1.55: the two cases it had fixed came back wrong. The eight-case gain
+  was run-to-run variance.
+
+The frozen harness is version 10, the version 4 pipeline without any second reading.
+
+**The failures that remain** are the model's final judgment with the text in view, not
+retrieval: in the calendar-day, floors and dialogue cases the decisive lines were in the passages
+and the model reasoned past them in under 1,000 reasoning tokens. Shown its own draft next to
+evidence against it, it keeps the draft. Near-paraphrase options and inferences the text does not
+state stay wrong in every lane.
+
 ## Running it
 
 Long documents need long timeouts: the proxy's per-call timeout and the sandbox wall clock, which
@@ -79,8 +163,8 @@ npm run bench -- --systems lb2-direct --suites longbench-v2-dev --cases $(npx ts
 # the dev subset, both lanes
 npm run bench -- --systems lb2-direct,lb2-direct-trunc --suites longbench-v2-dev --concurrency 5
 
-# the full set, in docker, three repetitions
-BENCH_SANDBOX=docker npm run bench -- --systems lb2-direct,lb2-direct-trunc --suites longbench-v2 --reps 3 --concurrency 5
+# the full set, in docker, three repetitions (npm run sandbox:build first: the image holds lb2-custom too)
+BENCH_SANDBOX=docker npm run bench -- --systems lb2-direct,lb2-custom --suites longbench-v2 --reps 3 --concurrency 3
 
 # an interrupted run: the same flags, plus --resume
 npm run bench -- --resume runs/<id> --systems lb2-direct,lb2-direct-trunc --suites longbench-v2 --reps 3 --concurrency 5
