@@ -313,8 +313,10 @@ describe.skipIf(!existsSync('harnesses/lb2-direct/tokenizer/tokenizer.json'))('l
 describe.skipIf(!existsSync('harnesses/lb2-direct/tokenizer/tokenizer.json'))('lb2-nav (longbench v2 navigator)', () => {
   let argv = tsx('harnesses/lb2-nav/src/entry.ts');
   let options = JSON.parse(readFileSync('harnesses/lb2-nav/harness.json', 'utf8')).options;
-  // 40 lines; the mock searches MIDDLE, reads its line, then answers the letter named in the question
-  let text = ['HEAD', ...Array.from({ length: 37 }, (_, i) => `line ${i + 1} ${'word '.repeat(20)}`), 'the MIDDLE line', 'TAIL'].join('\n');
+  // 280 lines, about 7100 tokens; the mock searches MIDDLE, reads its line, then answers the letter named in the question
+  let text = ['HEAD', ...Array.from({ length: 277 }, (_, i) => `line ${i + 1} ${'word '.repeat(20)}`), 'the MIDDLE line', 'TAIL'].join('\n');
+  // a context the text does not fit: the model navigates from the head
+  let navigate = { contextTokens: 8192, outputTokens: 1024, readTokens: 512, maxSteps: 2, headTokens: 40 };
   let pub = (question: string): PublicCase => ({
     id: 'lb-1', suite: 'longbench-v2-dev', task: 'longbench-v2', instructions: 'Please read the following text and answer the question below.',
     input: text, question, choices: ['alpha', 'beta', 'gamma', 'delta'],
@@ -322,46 +324,73 @@ describe.skipIf(!existsSync('harnesses/lb2-direct/tokenizer/tokenizer.json'))('l
   let run = (question: string, over: { [k: string]: unknown } = {}) =>
     sandboxedSystem('lb2-nav', argv, models, undefined, undefined, undefined, { ...options, ...over }).run(pub(question), { runId: 't', repetition: 1, proxy });
 
-  it('should give the model the head and the commands, run a search and a read, and keep the answer raw', async () => {
-    let result = await run('Which one? MOCK_ANSWER_C', { headTokens: 40 });
+  it('should give the whole text in the reference prompt with the commands that fit, and keep the answer raw', async () => {
+    let result = await run('Which one? MOCK_ANSWER_C');
+    assert.equal(result.error, undefined);
+    assert.equal(result.output, 'The correct answer is (C)');
+    assert.equal(result.modelCalls, 1);
+    let prompt = result.modelRequests![0];
+    assert.ok(prompt.startsWith('You answer a question about a long text. The whole text is below.'));
+    assert.ok(prompt.includes('at most 24 in all:\nsearch: <words>') && prompt.includes('read: <from>-<to>'));
+    assert.ok(prompt.includes('\n\nPlease read the following text and answer the question below.\n\n<text>\nHEAD\nline 1 word'));
+    assert.ok(prompt.endsWith('TAIL\n</text>\n\nWhat is the correct answer to this question: Which one? MOCK_ANSWER_C\nChoices:\n(A) alpha\n(B) beta\n(C) gamma\n(D) delta\n\nFormat your response as follows: "The correct answer is (insert answer here)".'));
+    let [input, agent] = result.trace!.stages;
+    assert.equal(input.policy, 'context=whole');
+    assert.match(input.findings[1], /^document 280 lines, \d+ tokens; budget \d+; context: whole, 24 command\(s\) fit$/);
+    assert.equal(agent.findings[1], '0 step(s): 0 search(es), 0 read(s); 0 distinct line(s) read (0.0% of the text)');
+    // the record keeps the first message without the document
+    assert.ok(result.trace!.transformedSource.includes('<text>\n(the case input)\n</text>') && !result.trace!.transformedSource.includes('MIDDLE'));
+  });
+
+  it('should make the baseline call alone when no command fits next to the text', async () => {
+    let result = await run('Which one? MOCK_ANSWER_A', { contextTokens: 13400, outputTokens: 1024, maxSteps: 2, headTokens: 40 });
+    assert.equal(result.error, undefined);
+    assert.equal(result.output, 'The correct answer is (A)');
+    assert.equal(result.modelCalls, 1);
+    assert.ok(result.modelRequests![0].startsWith('Please read the following text and answer the question below.\n\n<text>\nHEAD\n'));
+    assert.match(result.trace!.stages[0].findings[1], /context: whole, 0 command\(s\) fit$/);
+  });
+
+  it('should navigate a text beyond the context: the head and the commands, a search and a read, then the answer', async () => {
+    let result = await run('Which one? MOCK_ANSWER_C', { ...navigate, maxSteps: 3 });
     assert.equal(result.error, undefined);
     assert.equal(result.output, 'The correct answer is (C)');
     assert.equal(result.modelCalls, 3);
     let first = result.modelRequests![0];
+    assert.ok(first.startsWith('You answer a question about a long text. You cannot see the text whole'));
     assert.ok(first.includes('search: <words>') && first.includes('read: <from>-<to>'));
-    assert.ok(first.includes('Which one? MOCK_ANSWER_C\nChoices:\n(A) alpha\n(B) beta\n(C) gamma\n(D) delta\n\nThe text has 40 lines and '));
+    assert.ok(first.includes('Which one? MOCK_ANSWER_C\nChoices:\n(A) alpha\n(B) beta\n(C) gamma\n(D) delta\n\nThe text has 280 lines and '));
     assert.ok(first.includes('[line 1] HEAD\n[line 2] line 1 word') && !first.includes('MIDDLE'));
     assert.ok(first.endsWith('to continue)\n\nNext command:'));
     // the conversation grows: the second call carries the command and the search result, the third the read
     let second = seen[seen.length - 2].messages;
     assert.equal(second.length, 3);
     assert.equal(second[1].content, 'Let me look.\nsearch: MIDDLE');
-    assert.equal(second[2].content, '1 line(s) match:\n[line 39] the middle line\n\nNext command:');
+    assert.equal(second[2].content, '1 line(s) match:\n[line 279] the middle line\n\nNext command:');
     let third = seen[seen.length - 1].messages;
-    assert.equal(third[3].content, 'read: 39');
-    assert.equal(third[4].content, '[line 39] the MIDDLE line\n\nNext command:');
+    assert.equal(third[3].content, 'read: 279');
+    assert.equal(third[4].content, '[line 279] the MIDDLE line\n\nNext command:');
     let [input, agent] = result.trace!.stages;
-    assert.match(input.findings[1], /^document 40 lines, \d+ tokens; head: \d+ line\(s\)/);
-    assert.deepEqual(agent.findings.slice(1, 4), ['1: search "MIDDLE" -> 1 line(s)', '2: read 39-39 -> 1 line(s)', '2 step(s): 1 search(es), 1 read(s); 1 distinct line(s) read (2.5% of the text)']);
+    assert.equal(input.policy, 'context=navigate');
+    assert.match(input.findings[1], /^document 280 lines, \d+ tokens; budget \d+; context: navigate; head: \d+ line\(s\) of at most 40 tokens$/);
+    assert.deepEqual(agent.findings.slice(1, 4), ['1: search "MIDDLE" -> 1 line(s)', '2: read 279-279 -> 1 line(s)', '2 step(s): 1 search(es), 1 read(s); 1 distinct line(s) read (0.4% of the text)']);
     assert.match(agent.findings[4], /^usage: 3 call\(s\) in 3 attempt\(s\)/);
     assert.ok(result.trace!.transformedSource.startsWith('[user]\nYou answer a question'));
     assert.ok(result.trace!.rawOutput.includes('--- call 3 ---\nThe correct answer is (C)'));
   });
 
   it('should force the answer at the step limit', async () => {
-    let result = await run('Which one? MOCK_NAV_LOOP MOCK_ANSWER_A', { maxSteps: 2 });
+    let result = await run('Which one? MOCK_NAV_LOOP MOCK_ANSWER_A', navigate);
     assert.equal(result.error, undefined);
     assert.equal(result.output, 'The correct answer is (A)');
     assert.equal(result.modelCalls, 3);
     let last = seen[seen.length - 1].messages;
     assert.equal(last.length, 5);
     assert.ok(last[4].content.endsWith('No more commands. Answer now from what you have read.\nFormat your response as follows: "The correct answer is (insert answer here)".'));
-    let agent = result.trace!.stages[1];
-    assert.ok(agent.findings[3].endsWith('; the answer was forced at the step limit'));
   });
 
   it('should repeat an empty reply once with reasoning off, and not take it as the answer', async () => {
-    let result = await run('Which one? MOCK_NAV_EMPTY MOCK_ANSWER_D');
+    let result = await run('Which one? MOCK_NAV_EMPTY MOCK_ANSWER_D', { ...navigate, maxSteps: 3 });
     assert.equal(result.error, undefined);
     assert.equal(result.output, 'The correct answer is (D)');
     assert.equal(result.modelCalls, 4);
@@ -373,7 +402,7 @@ describe.skipIf(!existsSync('harnesses/lb2-direct/tokenizer/tokenizer.json'))('l
     assert.ok(agent.findings[4].endsWith('; 1 empty reply repeated with reasoning off'));
   });
 
-  it('should refuse options the conversation cannot fit in the context', async () => {
+  it('should refuse options a navigated conversation cannot fit in the context', async () => {
     let result = await run('Which one?', { contextTokens: 1000 });
     assert.match(result.error!, /the conversation can reach \d+ tokens, over the context of 1000/);
   });

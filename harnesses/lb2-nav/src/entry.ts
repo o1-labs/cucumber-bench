@@ -1,10 +1,13 @@
-// the navigator for LongBench v2: the model never sees the document whole. it reads the text with
-// two commands, search (the lines containing some words, with line numbers) and read (a range of
-// lines), one command per turn, in one conversation, until it answers or the step budget is
-// spent; then it is asked to answer from what it has read. every quote the model can use came
-// back from a read, so the answer is grounded by construction, and any document length works:
-// there is no overflow. the answer form is the baseline's, so the grader is the same. the trace
-// keeps the whole transcript: what the model saw of the text, and every command with its result.
+// the navigator for LongBench v2. the model reads the text with two commands, search (the lines
+// containing some words, with line numbers) and read (a range of lines), one command per turn, in
+// one conversation, until it answers or the step budget is spent; then it is asked to answer
+// from what it has read. two contexts, chosen per case by the tokenizer: when the document fits
+// the context it is given whole, in the baseline's prompt, and the commands are for checking
+// passages, as many as the remaining room allows (none for the largest documents: then the call
+// is the baseline's); when it does not fit, the model sees the head of the text and navigates,
+// so any document length works: there is no overflow. the answer form is the baseline's, so the
+// grader is the same. the trace keeps the whole transcript: what the model saw of the text, and
+// every command with its result.
 // the model's reasoning can loop until the output budget is spent and the content is empty; an
 // empty reply is neither a command nor an answer, so the call is repeated once with reasoning off.
 // protocol: stdin {publicCase, proxyUrl, token, models, options} -> stdout {output, trace} | {error}
@@ -14,10 +17,15 @@ import type { Stage, Trace } from '../../../src/types.js';
 import { TOKENIZER_VERSION, encodeChunked, loadTokenizer } from '../../lb2-direct/src/tokenizer.js';
 import { parseCommand, read, search } from './tools.js';
 
-const VERSION = '1';
-const PROMPT_VERSION = 'nav/1';
-// the answer form of the reference implementation's prompt (prompts/0shot.txt of THUDM/LongBench), so
-// the grader reads the navigator's answer as it reads the baseline's
+const VERSION = '2';
+const PROMPT_VERSION = 'nav/2';
+// the reference implementation's zero-shot prompt (prompts/0shot.txt of THUDM/LongBench at commit
+// c5ea10bcd06285223c58dfed76bbc92d22273709, verbatim; copied from lb2-direct): the whole-text
+// call, and the answer form in both contexts, so the grader reads the answer as the baseline's
+const BASE_PROMPT =
+  'Please read the following text and answer the question below.\n\n<text>\n$DOC$\n</text>\n\n' +
+  'What is the correct answer to this question: $Q$\nChoices:\n(A) $C_A$\n(B) $C_B$\n(C) $C_C$\n(D) $C_D$\n\n' +
+  'Format your response as follows: "The correct answer is (insert answer here)".';
 const FORMAT = 'Format your response as follows: "The correct answer is (insert answer here)".';
 const NEXT = 'Next command:';
 // tokens reserved for the chat template and the model's own command lines over the whole conversation
@@ -47,37 +55,62 @@ try {
   let tok = loadTokenizer();
   let count = (s: string) => tok.encode(s).length;
 
-  // the document, as lines; the head is the model's first view of it
+  // the document, as lines, and its size: whole when it fits the context with the frame
   let doc = c.input.trim();
   let lines = doc.split('\n');
   let docTokens = encodeChunked(tok, doc).length;
-  let head = read(lines, 1, lines.length, count, o.headTokens);
+  let fill = (text: string) =>
+    BASE_PROMPT.replace('$DOC$', text)
+      .replace('$Q$', c.question!.trim())
+      .replace('$C_A$', c.choices![0].trim())
+      .replace('$C_B$', c.choices![1].trim())
+      .replace('$C_C$', c.choices![2].trim())
+      .replace('$C_D$', c.choices![3].trim());
+  let commands =
+    `search: <words>   every line of the text that contains the words (case-insensitive), up to ${o.searchHits} hits with line numbers\n` +
+    `read: <from>-<to>   the lines from..to, at most ${o.readTokens} tokens per read\n`;
+  let budget = o.contextTokens - o.outputTokens - OVERHEAD_TOKENS - count(fill(''));
+  let whole = docTokens <= budget;
+  // the commands that fit next to the whole text; none for the largest documents
+  let limit = whole ? Math.min(o.maxSteps, Math.floor((budget - docTokens) / o.readTokens)) : o.maxSteps;
   let stage = (name: string, mode: Stage['mode'], decision: Stage['decision'], findings: string[] = []): Stage => ({
-    name, module: 'lb2-nav', version: VERSION, policy: `maxSteps=${o.maxSteps}`, mode, findings, decision,
+    name, module: 'lb2-nav', version: VERSION, policy: `context=${whole ? 'whole' : 'navigate'}`, mode, findings, decision,
   });
+  let choices = c.choices.map((ch, i) => `(${'ABCD'[i]}) ${ch.trim()}`).join('\n');
+  let first: (text: string) => string;
+  let head = { lines: 0, text: '' };
+  if (whole && limit === 0) {
+    first = fill;
+  } else if (whole) {
+    first = (text) =>
+      'You answer a question about a long text. The whole text is below. Before you answer, you can check passages with ' +
+      `commands, one command as the last line of a message, at most ${limit} in all:\n${commands}` +
+      'Check the passages your answer rests on, and every choice, against the text. When you have checked enough, reply ' +
+      'with the answer alone, without a command.\n\n' + fill(text);
+  } else {
+    head = read(lines, 1, lines.length, count, o.headTokens);
+    first = () =>
+      'You answer a question about a long text. You cannot see the text whole: you read it with commands. ' +
+      `Reply with one command as the last line of your message:\n${commands}` +
+      'Search for the names, terms and numbers in the question and in each choice, read around the hits, and check every ' +
+      `choice against the text before you answer. When you have read enough, reply with the answer alone, without a command. ${FORMAT}\n\n` +
+      `What is the correct answer to this question: ${c.question!.trim()}\nChoices:\n${choices}\n\n` +
+      `The text has ${lines.length} lines and ${docTokens} tokens. Lines 1-${head.lines}:\n${head.text}\n\n${NEXT}`;
+  }
   let input = stage('input-safety', 'passthrough', 'pass', [
     `model ${models.main}; prompt ${PROMPT_VERSION}; tokenizer ${TOKENIZER_VERSION}`,
-    `document ${lines.length} lines, ${docTokens} tokens; head: ${head.lines} line(s) of at most ${o.headTokens} tokens`,
+    `document ${lines.length} lines, ${docTokens} tokens; budget ${budget}; ` +
+      (whole ? `context: whole, ${limit} command(s) fit` : `context: navigate; head: ${head.lines} line(s) of at most ${o.headTokens} tokens`),
   ]);
-  let choices = c.choices.map((ch, i) => `(${'ABCD'[i]}) ${ch.trim()}`).join('\n');
-  let first =
-    'You answer a question about a long text. You cannot see the text whole: you read it with commands. ' +
-    'Reply with one command as the last line of your message:\n' +
-    `search: <words>   every line of the text that contains the words (case-insensitive), up to ${o.searchHits} hits with line numbers\n` +
-    `read: <from>-<to>   the lines from..to, at most ${o.readTokens} tokens per read\n` +
-    'Search for the names, terms and numbers in the question and in each choice, read around the hits, and check every ' +
-    `choice against the text before you answer. When you have read enough, reply with the answer alone, without a command. ${FORMAT}\n\n` +
-    `What is the correct answer to this question: ${c.question.trim()}\nChoices:\n${choices}\n\n` +
-    `The text has ${lines.length} lines and ${docTokens} tokens. Lines 1-${head.lines}:\n${head.text}\n\n${NEXT}`;
 
   // the loop: one command per turn, the result as the next user message
-  let messages: Message[] = [{ role: 'user', content: first }];
+  let messages: Message[] = [{ role: 'user', content: first(doc) }];
   let log: string[] = [];
   let raws: string[] = [];
   let usage = { calls: 0, attempts: 0, promptTokens: 0, completionTokens: 0, reasoningTokens: 0, costUsd: 0 };
   let seen = new Set<number>();
   let steps = 0, searches = 0, reads = 0, empties = 0;
-  let forced = false;
+  let forced = false, repeated = false;
   let content: string;
   let call = async (reasoning: unknown) => {
     let body: any = { model: models.main, messages, max_tokens: o.outputTokens };
@@ -94,13 +127,14 @@ try {
   };
   for (;;) {
     let reply = await call(o.reasoning);
-    if (reply.content.trim() === '' && o.reasoning !== undefined) {
+    repeated = reply.content.trim() === '' && o.reasoning !== undefined;
+    if (repeated) {
       empties++;
       log.push(`${steps + 1}: empty reply (finish_reason ${reply.finishReason ?? '?'}); repeated with reasoning off`);
       reply = await call({ enabled: false });
     }
     let cmd = parseCommand(reply.content);
-    if (cmd === undefined || forced) {
+    if (cmd === undefined || forced || limit === 0) {
       content = reply.content;
       break;
     }
@@ -119,7 +153,7 @@ try {
       log.push(`${steps}: read ${cmd.from}-${cmd.to} -> ${r.lines} line(s)`);
       result = r.text;
     }
-    if (steps >= o.maxSteps) {
+    if (steps >= limit) {
       forced = true;
       result += `\n\nNo more commands. Answer now from what you have read.\n${FORMAT}`;
     } else {
@@ -132,13 +166,15 @@ try {
     `max_tokens ${o.outputTokens}; reasoning ${JSON.stringify(o.reasoning ?? null)}; temperature: the benchmark default (proxy)`,
     ...log,
     `${steps} step(s): ${searches} search(es), ${reads} read(s); ${seen.size} distinct line(s) read (${((100 * seen.size) / lines.length).toFixed(1)}% of the text)` +
-      (forced ? '; the answer was forced at the step limit' : '') + (empties ? `; ${empties} empty repl${empties === 1 ? 'y' : 'ies'} repeated with reasoning off` : ''),
+      (forced ? '; the answer was forced at the step limit' : '') + (empties ? `; ${empties} empty repl${empties === 1 ? 'y' : 'ies'} repeated with reasoning off` : '') +
+      (repeated ? '; the answer came from a repeat' : ''),
     `usage: ${usage.calls} call(s) in ${usage.attempts} attempt(s); prompt ${usage.promptTokens} tokens, completion ${usage.completionTokens}, ` +
       `reasoning ${usage.reasoningTokens}, cost $${usage.costUsd.toFixed(4)}`,
   ]);
   let trace: Trace = {
     source: '(the case input)',
-    transformedSource: messages.map((m) => `[${m.role}]\n${m.content}`).join('\n\n'),
+    // the case file holds the document; the record keeps the first message without it
+    transformedSource: [`[user]\n${first('(the case input)')}`, ...messages.slice(1).map((m) => `[${m.role}]\n${m.content}`)].join('\n\n'),
     rawOutput: raws.map((r, i) => `--- call ${i + 1} ---\n${r}`).join('\n\n'),
     releasedOutput: content,
     stages: [input, agent, stage('output-safety', 'passthrough', 'pass')],
@@ -148,7 +184,7 @@ try {
   respond({ error: String(err?.message ?? err) });
 }
 
-// the manifest's options: the versions must be the ones this code implements, and the whole
+// the manifest's options: the versions must be the ones this code implements, and a navigated
 // conversation must fit the context: the head, every read at its limit, and the answer
 function checkOptions(raw: { [key: string]: unknown }): Options {
   let o = raw as Options;
