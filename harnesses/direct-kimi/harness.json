@@ -1,0 +1,12 @@
+{
+  "name": "direct-kimi",
+  "description": "One model call with Kimi K2.5, at the benchmark's own temperature. The reference lane: a stronger, pricier model used plainly, to show how much headroom the task has. It reuses the direct-t0 entry so it is matched to the control on everything but the model - but the model differs, so this lane is a reference level and never supports a causal claim.",
+  "entry": "../direct-t0/src/entry.ts",
+  "suites": [
+    "selfaware",
+    "selfaware-dev"
+  ],
+  "models": {
+    "main": "moonshotai/kimi-k2.5"
+  }
+}
