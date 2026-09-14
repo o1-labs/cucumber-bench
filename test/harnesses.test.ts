@@ -407,3 +407,56 @@ describe.skipIf(!existsSync('harnesses/lb2-direct/tokenizer/tokenizer.json'))('l
     assert.match(result.error!, /the conversation can reach \d+ tokens, over the context of 1000/);
   });
 });
+
+// the tokenizer files are downloaded, not in git (harnesses/lb2-direct/fetch-tokenizer.ts)
+describe.skipIf(!existsSync('harnesses/lb2-direct/tokenizer/tokenizer.json'))('lb2-custom (longbench v2 evidence before the answer)', () => {
+  let argv = tsx('harnesses/lb2-custom/src/entry.ts');
+  let options = JSON.parse(readFileSync('harnesses/lb2-custom/harness.json', 'utf8')).options;
+  // 280 lines, about 7100 tokens; the mock quotes the first four words of each scanned excerpt
+  let text = ['HEAD of the text here', ...Array.from({ length: 277 }, (_, i) => `line ${i + 1} ${'word '.repeat(20)}`), 'the MIDDLE line', 'TAIL'].join('\n');
+  let pub: PublicCase = {
+    id: 'lb-1', suite: 'longbench-v2-dev', task: 'longbench-v2', instructions: 'Please read the following text and answer the question below.',
+    input: text, question: 'Which one? MOCK_ANSWER_C', choices: ['alpha', 'beta', 'gamma', 'delta'],
+  };
+  let run = (over: { [k: string]: unknown } = {}) =>
+    sandboxedSystem('lb2-custom', argv, models, undefined, undefined, undefined, { ...options, chunkTokens: 1024, topChunks: 3, ...over }).run(pub, { runId: 't', repetition: 1, proxy });
+
+  it('should scan the selected chunks, keep the quotes that are in the text, and answer from the document and the evidence', async () => {
+    let result = await run();
+    assert.equal(result.error, undefined);
+    assert.equal(result.output, 'The correct answer is (C)');
+    assert.equal(result.modelCalls, 4);
+    // the scans run in parallel: any order on the wire
+    let scans = result.modelRequests!.slice(0, 3);
+    let n = Number(scans[0].match(/Excerpt \d+ of (\d+) of the text/)![1]);
+    assert.ok(n >= 5);
+    assert.ok(scans.every((p) => p.startsWith('Question: Which one? MOCK_ANSWER_C\nChoices:\n(A) alpha') && p.endsWith('write None.\nEvidence:')));
+    assert.ok(scans.some((p) => p.includes(`Excerpt 1 of ${n} of the text:\n<excerpt>\nHEAD of the text here\nline 1 word`)));
+    let answer = result.modelRequests![3];
+    assert.ok(answer.startsWith('Please read the following text and answer the question below.\n\n<text>\nHEAD of the text here\nline 1 word'));
+    assert.ok(answer.includes(`TAIL\n</text>\n\nEvidence collected from the text, in order of appearance:\n[chunk 1 of ${n}] (C+) "HEAD of the text"\n[chunk 2 of ${n}] (C+) "line `));
+    assert.ok(answer.endsWith('(D) delta\n\nFormat your response as follows: "The correct answer is (insert answer here)".'));
+    let [input, agent] = result.trace!.stages;
+    assert.equal(input.decision, 'pass');
+    assert.equal(input.findings[1], `document ${result.trace!.stages[0].findings[1].match(/document (\d+)/)![1]} tokens in ${n} chunk(s) of at most 1024`);
+    assert.equal(input.findings[2], 'locate: 3 chunk(s) selected (the best 3 by term score: the scan is partial): 1, 2, 3');
+    assert.match(input.findings[3], /^extract: 3 call\(s\) in 3 attempt\(s\); 3 quote\(s\) kept, 3 dropped/);
+    assert.match(input.findings[5], /^answer context: document\+evidence; document \d+ tokens, budget \d+$/);
+    assert.match(agent.findings[1], /^answer usage: prompt \d+ tokens/);
+    assert.equal(result.trace!.transformedSource.split('\n').length, 3);
+  });
+
+  it('should answer from the evidence alone when the document does not fit, and scan every chunk when there are few', async () => {
+    let result = await run({ contextTokens: 8000, outputTokens: 1024, chunkTokens: 4096, topChunks: 16 });
+    assert.equal(result.error, undefined);
+    assert.equal(result.output, 'The correct answer is (C)');
+    assert.equal(result.modelCalls, 3);
+    let answer = result.modelRequests![2];
+    assert.ok(answer.startsWith('Please read the following text and answer the question below.\n\n<text>\nEvidence collected from the text, in order of appearance:\n[chunk 1 of 2] (C+) "HEAD of the text"'));
+    assert.ok(!answer.includes('line 100 word'));
+    let input = result.trace!.stages[0];
+    assert.equal(input.decision, 'modified');
+    assert.equal(input.findings[2], 'locate: 2 chunk(s) selected (every chunk: the scan is complete)');
+    assert.match(input.findings[5], /^answer context: evidence \(the document does not fit\)/);
+  });
+});

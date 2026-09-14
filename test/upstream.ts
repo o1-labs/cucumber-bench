@@ -31,6 +31,8 @@ async function mockUpstream(): Promise<Mock> {
       let label = prompt.trimEnd().split('\n').pop() ?? '';
       let quote = prompt.match(/Document \[2\]\(Title: .*?\): ((?:\S+ ){7}\S+)/)?.[1];
       let finding = prompt.match(/^\[2\] (".*")$/m)?.[1];
+      // lb2-custom scan: the first four words of the excerpt
+      let excerpt = prompt.match(/<excerpt>\n((?:\S+\s+){3}\S+)/)?.[1];
       let content =
         label === 'JSON array:' ? '["Heder", "Sanavi"]'
         // review-v1 scan: the first eight words of passage 2, when the batch has it
@@ -45,6 +47,8 @@ async function mockUpstream(): Promise<Mock> {
         : label === 'Passages:' ? (prompt.includes('Claim: Alpha') ? '[2][7]' : prompt.includes('Claim: The documents') ? 'keep' : 'none')
         // the few-shot answer of direct and cite-v1
         : label === 'Answer:' ? 'Alpha holds the record [1][2][3]. Beta is unsupported [4]. The documents do not say who holds the gamma record.'
+        // lb2-custom scan: one quote that is in the excerpt, one that is not
+        : label === 'Evidence:' ? (excerpt ? `C+ "${excerpt}"\nD- nothing like this is in the excerpt` : 'None')
         // lb2-nav: a search for MIDDLE, a read of the hit, then the answer; a text naming MOCK_NAV_LOOP never answers
         : label === 'Next command:' ? (
             prompt.includes('MOCK_NAV_EMPTY') && body.reasoning?.enabled !== false && prompt.split('Next command:').length === 2 ? ''
