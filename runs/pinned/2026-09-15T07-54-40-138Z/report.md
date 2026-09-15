@@ -1,0 +1,811 @@
+# Benchmark report
+
+Run: 2026-09-15T07-54-40-138Z
+
+Models used, as recorded by the proxy:
+
+- lb2-direct: qwen/qwen3.6-35b-a3b
+- lb2-direct-kimi: moonshotai/kimi-k2.5
+- lb2-custom: qwen/qwen3.6-35b-a3b
+
+## Suite: longbench-v2
+
+| task | system | n | errors | unsupported | mc-answer | consistency | avg latency ms | avg tokens in/out | avg calls | harness cost/run | judge cost/run | total cost, all runs |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| longbench-v2 | lb2-direct | 503 | 1% | 20% | 54% | n/a | 47676 | 67933/2378 | 0.8 | $0.0110 | n/a | $5.51 |
+| longbench-v2 | lb2-direct-kimi | 503 | 2% | 20% | 61% | n/a | 101460 | 65053/2563 | 0.9 | $0.0370 | n/a | $18.60 |
+| longbench-v2 | lb2-custom | 503 | 2% | 0% | 56% | n/a | 100480 | 202458/11686 | 33.7 | $0.0334 | n/a | $16.78 |
+| ALL | lb2-direct | 503 | 1% | 20% | 54% | n/a | 47676 | 67933/2378 | 0.8 | $0.0110 | n/a | $5.51 |
+| ALL | lb2-direct-kimi | 503 | 2% | 20% | 61% | n/a | 101460 | 65053/2563 | 0.9 | $0.0370 | n/a | $18.60 |
+| ALL | lb2-custom | 503 | 2% | 0% | 56% | n/a | 100480 | 202458/11686 | 33.7 | $0.0334 | n/a | $16.78 |
+
+## Paired comparison: longbench-v2
+
+Per case, each system's mean score over its repetitions; wins/ties/losses of A over B; the mean difference in points with a 95% bootstrap interval. An interval that contains 0 is consistent with no difference.
+
+| grader | A vs B | cases | wins/ties/losses | mean diff | 95% interval |
+| --- | --- | --- | --- | --- | --- |
+| mc-answer | lb2-direct vs lb2-direct-kimi | 400 | 28/316/56 | −7 | −11 … −3 |
+| mc-answer | lb2-direct vs lb2-custom | 400 | 29/327/44 | −4 | −8 … +1 |
+| mc-answer | lb2-direct-kimi vs lb2-custom | 400 | 47/319/34 | +3 | −1 … +8 |
+
+errors: the share of runs that failed in the sandbox or in a grader; they count as failed grades too.
+
+unsupported: the share of runs the harness skipped (e.g. the case exceeds its context limit); they are not graded and are out of every rate.
+
+Graders (a cell is the pass rate; a value in parentheses is the mean score when it differs):
+
+- mc-answer: The letter in "The correct answer is (X)" equals the gold letter. An output with no such answer, or with several different ones, is invalid and fails.
+
+## Failures (561)
+
+- longbench-v2-66ebbe4f5a08c7b9b35de533 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ebc3165a08c7b9b35deb38 [lb2-direct, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66ebc4af5a08c7b9b35dede0 [lb2-direct, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66ebc95f5a08c7b9b35df497 [lb2-direct, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ebcc1e5a08c7b9b35df87d [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ebd0825a08c7b9b35dfe9d [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66ebd0ea5a08c7b9b35dff57 [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66ebd3ba5a08c7b9b35e0446 [lb2-direct, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66ebd5125a08c7b9b35e0616 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ebd5675a08c7b9b35e06bf [lb2-direct, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66ebd92d5a08c7b9b35e0bf0 [lb2-direct, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66ebd9895a08c7b9b35e0c7c [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ebdfb65a08c7b9b35e140a [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ebe0fb5a08c7b9b35e14f5 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ebe30a5a08c7b9b35e1693 [lb2-direct, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66ebed525a08c7b9b35e1cb4 [lb2-direct, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66ebee0a5a08c7b9b35e1d05 [lb2-direct, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec0c4c821e116aacb1994a [lb2-direct, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec0d4b821e116aacb19af8 [lb2-direct, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ec0d51821e116aacb19b0f [lb2-direct, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec18a7821e116aacb1a72e [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ec1aef821e116aacb1aa1a [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ec1db2821e116aacb1ad69 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ec1de5821e116aacb1adca [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66ec1e3f821e116aacb1ae7d [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66ec1eb9821e116aacb1af36 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ec2e2a821e116aacb1bb9f [lb2-direct, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec2fde821e116aacb1bd18 [lb2-direct, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66ec31eb821e116aacb1bf28 [lb2-direct, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ec3352821e116aacb1c085 [lb2-direct, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ec3644821e116aacb1c312 [lb2-direct, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec542b821e116aacb1cc87 [lb2-direct, rep 1] mc-answer: extracted=(none) gold=D
+- longbench-v2-66ec5e39821e116aacb1cee1 [lb2-direct, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66ec6582821e116aacb1cf7a [lb2-direct, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66ece358821e116aacb1dc08 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ece958821e116aacb1df04 [lb2-direct, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ecfe1e821e116aacb1e41c [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ed0cb0821e116aacb1e6c1 [lb2-direct, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66ed168b821e116aacb1ea8c [lb2-direct, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66ed211f821e116aacb1ee0d [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ed23ce821e116aacb1ee84 [lb2-direct, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66ed2c87821e116aacb1f149 [lb2-direct, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66ed3148821e116aacb1f2ce [lb2-direct, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66ed364d821e116aacb1f47e [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66ed875e821e116aacb2023e [lb2-direct, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66ee3c6d821e116aacb20f6f [lb2-direct, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66ee490e821e116aacb2149c [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ef1a4d821e116aacb229d5 [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66efa466821e116aacb23219 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66efaf70821e116aacb234bd [lb2-direct, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66efc5e3821e116aacb23df1 [lb2-direct, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 263973 tokens (247589 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 263973 tokens (247589 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66efd10f821e116aacb2437c [lb2-direct, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66f118e1821e116aacb26b79 [lb2-direct, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66f14c70821e116aacb271ee [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f167c3821e116aacb274f4 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f19f04821e116aacb27bab [lb2-direct, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f245cc821e116aacb28698 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f25a2f821e116aacb28b2f [lb2-direct, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f26c5f821e116aacb2907c [lb2-direct, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f28ede821e116aacb29a27 [lb2-direct, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66f2a557821e116aacb2a510 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f2a98a821e116aacb2a8bf [lb2-direct, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f2ad2b821e116aacb2ac0f [lb2-direct, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f2adaf821e116aacb2aca9 [lb2-direct, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f2b11c821e116aacb2aeb6 [lb2-direct, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f2d224821e116aacb2bb8a [lb2-direct, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66f2ef20821e116aacb2c278 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f36490821e116aacb2cc22 [lb2-direct, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f37635821e116aacb2d017 [lb2-direct, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66f37eb9821e116aacb2d295 [lb2-direct, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f38969821e116aacb2d6ec [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f39ac5821e116aacb2da81 [lb2-direct, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f3a311821e116aacb2de19 [lb2-direct, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 574874 tokens (558490 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 574874 tokens (558490 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66f3abe6821e116aacb2e1d2 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f3ad93821e116aacb2e29f [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f3c081821e116aacb2e9fa [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f3c1c3821e116aacb2eaf6 [lb2-direct, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f3c219821e116aacb2eb4e [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f3cb88821e116aacb2eeb9 [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f3d2fc821e116aacb2f269 [lb2-direct, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f3dd59821e116aacb2f6ba [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f3de02821e116aacb2f73b [lb2-direct, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f3e473821e116aacb2fa73 [lb2-direct, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f3edfb821e116aacb2fc91 [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f3f095821e116aacb2fd28 [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f3f947821e116aacb3029b [lb2-direct, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 276833 tokens (260449 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 276833 tokens (260449 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66f3fb15821e116aacb303dc [lb2-direct, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66f41348821e116aacb30c89 [lb2-direct, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f41e45821e116aacb30ec3 [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f50109821e116aacb31f16 [lb2-direct, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f52567821e116aacb329bc [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f52c6d821e116aacb32cb0 [lb2-direct, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f55729821e116aacb3358b [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f55ddb821e116aacb33761 [lb2-direct, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f590fa821e116aacb33f35 [lb2-direct, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66f599ef821e116aacb34099 [lb2-direct, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f618f1bb02136c067c16f9 [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f67c18bb02136c067c21b8 [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f6b623bb02136c067c2646 [lb2-direct, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f6bcf3bb02136c067c2703 [lb2-direct, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66f78ecfbb02136c067c2f12 [lb2-direct, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f7c780bb02136c067c35e8 [lb2-direct, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 283058 tokens (266674 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 283058 tokens (266674 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66f8c9febb02136c067c4511 [lb2-direct, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 296661 tokens (280277 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 296661 tokens (280277 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66f8d4b3bb02136c067c45c2 [lb2-direct, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66f8d84cbb02136c067c465f [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f91f2cbb02136c067c4b1e [lb2-direct, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f947abbb02136c067c4ea6 [lb2-direct, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66f950acbb02136c067c5021 [lb2-direct, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f957e2bb02136c067c51c8 [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f95e11bb02136c067c5370 [lb2-direct, rep 1] mc-answer: extracted=(none) gold=B
+- longbench-v2-66f96115bb02136c067c541c [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f9625fbb02136c067c5456 [lb2-direct, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66f97d7fbb02136c067c56b2 [lb2-direct, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66fa0d88bb02136c067c5a8a [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66fa190bbb02136c067c5d32 [lb2-direct, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 279614 tokens (263230 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 279614 tokens (263230 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66fa415cbb02136c067c671c [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66fa6867bb02136c067c6b3b [lb2-direct, rep 1] mc-answer: extracted=(none) gold=D
+- longbench-v2-66fa700bbb02136c067c6c06 [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66fa9ff6bb02136c067c71e0 [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66faa8efbb02136c067c7357 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66fab090bb02136c067c74e7 [lb2-direct, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66fab4bfbb02136c067c754c [lb2-direct, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66fad00bbb02136c067c76ce [lb2-direct, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66fb6527bb02136c067c7b4f [lb2-direct, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66fba2bcbb02136c067c8112 [lb2-direct, rep 1] mc-answer: extracted=(none) gold=D
+- longbench-v2-66fe81dcbb02136c067ca2de [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66fe8eb3bb02136c067ca35f [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66fea153bb02136c067ca3e7 [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-6701cda0bb02136c067cb6eb [lb2-direct, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-670397b5bb02136c067ccec6 [lb2-direct, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-67039cfabb02136c067cd04e [lb2-direct, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-6703a0ecbb02136c067cd11b [lb2-direct, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-6704a442bb02136c067cdd91 [lb2-direct, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-6704a83dbb02136c067cde1b [lb2-direct, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-6707b3cabb02136c067d1021 [lb2-direct, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-67095b87bb02136c067d1bad [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-670aac92bb02136c067d218a [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-670bf1c4bb02136c067d2341 [lb2-direct, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-670bf6ddbb02136c067d2379 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-670bffa2bb02136c067d23b5 [lb2-direct, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-670c090bbb02136c067d2404 [lb2-direct, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-670cf163bb02136c067d26b6 [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-670cf1c0bb02136c067d26e5 [lb2-direct, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-670fb6a3bb02136c067d2b94 [lb2-direct, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-670fb813bb02136c067d2bec [lb2-direct, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-670fb882bb02136c067d2c1d [lb2-direct, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-670fb8dfbb02136c067d2c48 [lb2-direct, rep 1] mc-answer: extracted=(none) gold=D
+- longbench-v2-670fbae0bb02136c067d2c79 [lb2-direct, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-670fbb1fbb02136c067d2ca4 [lb2-direct, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-670fbb78bb02136c067d2cd3 [lb2-direct, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-670fbbd0bb02136c067d2d04 [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-670fbd96bb02136c067d2d49 [lb2-direct, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-670fbf5abb02136c067d2d9c [lb2-direct, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-670fbfa4bb02136c067d2dcb [lb2-direct, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-67189156bb02136c067d3b8d [lb2-direct, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-6719185cbb02136c067d40ab [lb2-direct, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-67192e81bb02136c067d427f [lb2-direct, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-6719b9f1bb02136c067d4389 [lb2-direct, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-6719bc01bb02136c067d43fa [lb2-direct, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-6719bce5bb02136c067d4447 [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-6719d65ebb02136c067d45dc [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-6719dc46bb02136c067d470b [lb2-direct, rep 1] mc-answer: extracted=(none) gold=B
+- longbench-v2-671b170cbb02136c067d4f4a [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-671b530dbb02136c067d5454 [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-671b56cfbb02136c067d54e9 [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-671b99e5bb02136c067d583d [lb2-direct, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-672464aebb02136c067d73e6 [lb2-direct, rep 1] mc-answer: extracted=(none) gold=D
+- longbench-v2-672494e5bb02136c067d7697 [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-6724c4aabb02136c067d78a6 [lb2-direct, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-6724c83fbb02136c067d7962 [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-6725d898bb02136c067d82d6 [lb2-direct, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-6725d92bbb02136c067d833c [lb2-direct, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-6725dabfbb02136c067d8450 [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-6725db01bb02136c067d847f [lb2-direct, rep 1] mc-answer: extracted=(none) gold=A
+- longbench-v2-6725db46bb02136c067d84b4 [lb2-direct, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-6725dbd1bb02136c067d8522 [lb2-direct, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-6725dc6abb02136c067d8586 [lb2-direct, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-6725dcb2bb02136c067d85b7 [lb2-direct, rep 1] mc-answer: extracted=(none) gold=A
+- longbench-v2-6725e351bb02136c067d8758 [lb2-direct, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-67285f8ebb02136c067d905d [lb2-direct, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-672864b4bb02136c067d916c [lb2-direct, rep 1] mc-answer: extracted=(none) gold=D
+- longbench-v2-67286533bb02136c067d919f [lb2-direct, rep 1] mc-answer: extracted=(none) gold=D
+- longbench-v2-67286795bb02136c067d92ab [lb2-direct, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-66ebc3165a08c7b9b35deb38 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66ebc4af5a08c7b9b35dede0 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66ebc95f5a08c7b9b35df497 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ebcc1e5a08c7b9b35df87d [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ebd0825a08c7b9b35dfe9d [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66ebd0ea5a08c7b9b35dff57 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ebd3ba5a08c7b9b35e0446 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66ebd5125a08c7b9b35e0616 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ebd5675a08c7b9b35e06bf [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66ebd92d5a08c7b9b35e0bf0 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66ebd9895a08c7b9b35e0c7c [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ebdfb65a08c7b9b35e140a [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ebe30a5a08c7b9b35e1693 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66ebed525a08c7b9b35e1cb4 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66ebee0a5a08c7b9b35e1d05 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec0c4c821e116aacb1994a [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec0d4b821e116aacb19af8 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ec0d51821e116aacb19b0f [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec0f7f821e116aacb19dde [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66ec18a7821e116aacb1a72e [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ec1aef821e116aacb1aa1a [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ec1db2821e116aacb1ad69 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ec1eb9821e116aacb1af36 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ec2374821e116aacb1b423 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66ec2e2a821e116aacb1bb9f [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec2fde821e116aacb1bd18 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66ec31eb821e116aacb1bf28 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ec3352821e116aacb1c085 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ec4e43821e116aacb1cb54 [lb2-direct-kimi, rep 1] mc-answer: run error: model call failed after 4 attempt(s): 1: network error: fetch failed in 301s; 2: network error: fetch failed in 301s; 3: network error: fetch failed in 301s; 4: network error: fetch failed in 301s error: model call failed after 4 attempt(s): 1: network error: fetch failed in 301s; 2: network error: fetch failed in 301s; 3: network error: fetch failed in 301s; 4: network error: fetch failed in 301s
+- longbench-v2-66ec542b821e116aacb1cc87 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ece958821e116aacb1df04 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ecf139821e116aacb1e0e1 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66ecfdbd821e116aacb1e3f7 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ecfe1e821e116aacb1e41c [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ed168b821e116aacb1ea8c [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66ed211f821e116aacb1ee0d [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ed23ce821e116aacb1ee84 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66ed2c87821e116aacb1f149 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66ed364d821e116aacb1f47e [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66ed875e821e116aacb2023e [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66ee3c6d821e116aacb20f6f [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66ee4287821e116aacb21258 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66eefa2f821e116aacb2284f [lb2-direct-kimi, rep 1] mc-answer: run error: model call failed after 4 attempt(s): 1: network error: fetch failed in 301s; 2: network error: fetch failed in 301s; 3: network error: fetch failed in 301s; 4: network error: fetch failed in 301s error: model call failed after 4 attempt(s): 1: network error: fetch failed in 301s; 2: network error: fetch failed in 301s; 3: network error: fetch failed in 301s; 4: network error: fetch failed in 301s
+- longbench-v2-66efaf70821e116aacb234bd [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66efc5e3821e116aacb23df1 [lb2-direct-kimi, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 263973 tokens (247589 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 263973 tokens (247589 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66f14c70821e116aacb271ee [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f19f04821e116aacb27bab [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f245cc821e116aacb28698 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f25a2f821e116aacb28b2f [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f26c5f821e116aacb2907c [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f284ff821e116aacb29763 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f28ede821e116aacb29a27 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f2a98a821e116aacb2a8bf [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f2aac2821e116aacb2a9de [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f2b11c821e116aacb2aeb6 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f2d224821e116aacb2bb8a [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66f2ef20821e116aacb2c278 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66f36490821e116aacb2cc22 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f37635821e116aacb2d017 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66f37eb9821e116aacb2d295 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f38969821e116aacb2d6ec [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f39ac5821e116aacb2da81 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f3a311821e116aacb2de19 [lb2-direct-kimi, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 574874 tokens (558490 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 574874 tokens (558490 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66f3abe6821e116aacb2e1d2 [lb2-direct-kimi, rep 1] mc-answer: run error: model call failed after 4 attempt(s): 1: network error: fetch failed in 301s; 2: network error: fetch failed in 301s; 3: network error: fetch failed in 301s; 4: network error: fetch failed in 301s error: model call failed after 4 attempt(s): 1: network error: fetch failed in 301s; 2: network error: fetch failed in 301s; 3: network error: fetch failed in 301s; 4: network error: fetch failed in 301s
+- longbench-v2-66f3ad93821e116aacb2e29f [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f3b843821e116aacb2e692 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f3c081821e116aacb2e9fa [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f3c1c3821e116aacb2eaf6 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f3cca6821e116aacb2ef7c [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f3d2fc821e116aacb2f269 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f3de02821e116aacb2f73b [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f3e473821e116aacb2fa73 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f3e58c821e116aacb2fabc [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f3edfb821e116aacb2fc91 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f3f947821e116aacb3029b [lb2-direct-kimi, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 276833 tokens (260449 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 276833 tokens (260449 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66f41348821e116aacb30c89 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f41e45821e116aacb30ec3 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f4eff3821e116aacb31bc8 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f50109821e116aacb31f16 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f52567821e116aacb329bc [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f52c6d821e116aacb32cb0 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f55ddb821e116aacb33761 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f568dc821e116aacb33995 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f590fa821e116aacb33f35 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66f599ef821e116aacb34099 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f618f1bb02136c067c16f9 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f659a8bb02136c067c1d68 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66f67c18bb02136c067c21b8 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f6909bbb02136c067c2380 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f6b623bb02136c067c2646 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f6bcf3bb02136c067c2703 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66f78ecfbb02136c067c2f12 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f793f4bb02136c067c306e [lb2-direct-kimi, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-66f7c780bb02136c067c35e8 [lb2-direct-kimi, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 283058 tokens (266674 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 283058 tokens (266674 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66f8c9febb02136c067c4511 [lb2-direct-kimi, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 296661 tokens (280277 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 296661 tokens (280277 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66f8d84cbb02136c067c465f [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66f91f2cbb02136c067c4b1e [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f947abbb02136c067c4ea6 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f950acbb02136c067c5021 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f95e11bb02136c067c5370 [lb2-direct-kimi, rep 1] mc-answer: extracted=(none) gold=B
+- longbench-v2-66f9625fbb02136c067c5456 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66f97d7fbb02136c067c56b2 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66fa0d88bb02136c067c5a8a [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66fa190bbb02136c067c5d32 [lb2-direct-kimi, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 279614 tokens (263230 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 279614 tokens (263230 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66fa415cbb02136c067c671c [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66fa50acbb02136c067c6827 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66fa700bbb02136c067c6c06 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66fab090bb02136c067c74e7 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66fad00bbb02136c067c76ce [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66fb6527bb02136c067c7b4f [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66fb8633bb02136c067c800b [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66fba2bcbb02136c067c8112 [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66fbab85bb02136c067c81dc [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66fd4f54bb02136c067c9987 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66fe81dcbb02136c067ca2de [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66fea153bb02136c067ca3e7 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-6701cda0bb02136c067cb6eb [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-67039cfabb02136c067cd04e [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-6703a0ecbb02136c067cd11b [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-6704a442bb02136c067cdd91 [lb2-direct-kimi, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-6704a83dbb02136c067cde1b [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-670646aebb02136c067cf85a [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-6707b3cabb02136c067d1021 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-67095b87bb02136c067d1bad [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-670bf6ddbb02136c067d2379 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-670bffa2bb02136c067d23b5 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-670cf163bb02136c067d26b6 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-670cf52abb02136c067d2728 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-670fb6a3bb02136c067d2b94 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-670fb882bb02136c067d2c1d [lb2-direct-kimi, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-670fb8dfbb02136c067d2c48 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-670fbb1fbb02136c067d2ca4 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-670fbb78bb02136c067d2cd3 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-670fbbd0bb02136c067d2d04 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-670fbd96bb02136c067d2d49 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-670fbf5abb02136c067d2d9c [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-670fbfa4bb02136c067d2dcb [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-67189156bb02136c067d3b8d [lb2-direct-kimi, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-67192e81bb02136c067d427f [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-6719b9f1bb02136c067d4389 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-6719bc01bb02136c067d43fa [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-6719bce5bb02136c067d4447 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-6719d65ebb02136c067d45dc [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-6719ef50bb02136c067d4911 [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-671b530dbb02136c067d5454 [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-671b99e5bb02136c067d583d [lb2-direct-kimi, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-6724c83fbb02136c067d7962 [lb2-direct-kimi, rep 1] mc-answer: extracted=(none) gold=D
+- longbench-v2-6725d92bbb02136c067d833c [lb2-direct-kimi, rep 1] mc-answer: extracted=(none) gold=D
+- longbench-v2-6725dabfbb02136c067d8450 [lb2-direct-kimi, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-6725db8bbb02136c067d84eb [lb2-direct-kimi, rep 1] mc-answer: extracted=(none) gold=B
+- longbench-v2-6725dda1bb02136c067d8654 [lb2-direct-kimi, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-6725e351bb02136c067d8758 [lb2-direct-kimi, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-67286634bb02136c067d91f0 [lb2-direct-kimi, rep 1] mc-answer: run error: model call failed after 4 attempt(s): 1: network error: fetch failed in 301s; 2: network error: fetch failed in 301s; 3: network error: fetch failed in 301s; 4: network error: fetch failed in 301s error: model call failed after 4 attempt(s): 1: network error: fetch failed in 301s; 2: network error: fetch failed in 301s; 3: network error: fetch failed in 301s; 4: network error: fetch failed in 301s
+- longbench-v2-67286795bb02136c067d92ab [lb2-direct-kimi, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-67286ab8bb02136c067d92e4 [lb2-direct-kimi, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-66ebbe4f5a08c7b9b35de533 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ebc04a5a08c7b9b35de740 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ebc3165a08c7b9b35deb38 [lb2-custom, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66ebcc1e5a08c7b9b35df87d [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ebd0ea5a08c7b9b35dff57 [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66ebd34d5a08c7b9b35e035d [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ebd3ba5a08c7b9b35e0446 [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66ebd49a5a08c7b9b35e0550 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ebd55f5a08c7b9b35e0698 [lb2-custom, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66ebd5675a08c7b9b35e06bf [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66ebd92d5a08c7b9b35e0bf0 [lb2-custom, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66ebdadd5a08c7b9b35e0e5b [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ebdd1c5a08c7b9b35e113b [lb2-custom, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66ebdfb65a08c7b9b35e140a [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ebe30a5a08c7b9b35e1693 [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ebeb5a5a08c7b9b35e1ba5 [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66ebed525a08c7b9b35e1cb4 [lb2-custom, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66ebee0a5a08c7b9b35e1d05 [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec0d4b821e116aacb19af8 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ec0d51821e116aacb19b0f [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec0f7f821e116aacb19dde [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66ec18a7821e116aacb1a72e [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66ec1aef821e116aacb1aa1a [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66ec1db2821e116aacb1ad69 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ec1eb9821e116aacb1af36 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ec21e6821e116aacb1b2d2 [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66ec2374821e116aacb1b423 [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66ec2e2a821e116aacb1bb9f [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec2fde821e116aacb1bd18 [lb2-custom, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66ec31eb821e116aacb1bf28 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ec3352821e116aacb1c085 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ec3644821e116aacb1c312 [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec542b821e116aacb1cc87 [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66ec5e39821e116aacb1cee1 [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66ece358821e116aacb1dc08 [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66ece958821e116aacb1df04 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ecfdbd821e116aacb1e3f7 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ecfe1e821e116aacb1e41c [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ed168b821e116aacb1ea8c [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66ed211f821e116aacb1ee0d [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ed23ce821e116aacb1ee84 [lb2-custom, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66ed24c5821e116aacb1eee6 [lb2-custom, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66ed2c87821e116aacb1f149 [lb2-custom, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66ed364d821e116aacb1f47e [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66ed3960821e116aacb1f616 [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66ed875e821e116aacb2023e [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66ee3c6d821e116aacb20f6f [lb2-custom, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66ee4287821e116aacb21258 [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66ee490e821e116aacb2149c [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66ee496a821e116aacb214d5 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66ee8bab821e116aacb21e44 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66efa466821e116aacb23219 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66efaf70821e116aacb234bd [lb2-custom, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66efc5e3821e116aacb23df1 [lb2-custom, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 268014 tokens (251630 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 268014 tokens (251630 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66f11349821e116aacb269e0 [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f118e1821e116aacb26b79 [lb2-custom, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66f120a9821e116aacb26d02 [lb2-custom, rep 1] mc-answer: extracted=(none) gold=A
+- longbench-v2-66f14c70821e116aacb271ee [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f19f04821e116aacb27bab [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f1cd02821e116aacb27d3f [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f24538821e116aacb2865e [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f26c5f821e116aacb2907c [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f28794821e116aacb298ee [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f299b3821e116aacb29cfa [lb2-custom, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66f2a255821e116aacb2a20b [lb2-custom, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66f2a414821e116aacb2a3af [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f2a557821e116aacb2a510 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f2a59d821e116aacb2a553 [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f2a98a821e116aacb2a8bf [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f2aac2821e116aacb2a9de [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f2ad2b821e116aacb2ac0f [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f2adaf821e116aacb2aca9 [lb2-custom, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 264045 tokens (247661 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 264045 tokens (247661 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66f2b11c821e116aacb2aeb6 [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f2cb0f821e116aacb2ba6d [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f2d224821e116aacb2bb8a [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66f2e0bc821e116aacb2bf37 [lb2-custom, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66f2ef20821e116aacb2c278 [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f37635821e116aacb2d017 [lb2-custom, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66f37eb9821e116aacb2d295 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f38969821e116aacb2d6ec [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f39ac5821e116aacb2da81 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f3a311821e116aacb2de19 [lb2-custom, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 643490 tokens (627106 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 643490 tokens (627106 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66f3abe6821e116aacb2e1d2 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f3ac0b821e116aacb2e203 [lb2-custom, rep 1] mc-answer: extracted=(none) gold=D
+- longbench-v2-66f3ad93821e116aacb2e29f [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f3b843821e116aacb2e692 [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f3c1c3821e116aacb2eaf6 [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f3c5f2821e116aacb2eccf [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f3cb88821e116aacb2eeb9 [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f3d2fc821e116aacb2f269 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f3dd59821e116aacb2f6ba [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f3de02821e116aacb2f73b [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f3e473821e116aacb2fa73 [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f3e604821e116aacb2fadf [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f3edfb821e116aacb2fc91 [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f3f095821e116aacb2fd28 [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f3f46f821e116aacb2ff5d [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f3fb15821e116aacb303dc [lb2-custom, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-66f3fb96821e116aacb3043f [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f40b9c821e116aacb30a99 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f40c5e821e116aacb30ad2 [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f40e44821e116aacb30b45 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f41348821e116aacb30c89 [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f41e45821e116aacb30ec3 [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66f43414821e116aacb310a1 [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f50109821e116aacb31f16 [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f51ab2821e116aacb325fb [lb2-custom, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-66f52926821e116aacb32b5e [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66f52c6d821e116aacb32cb0 [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f52f0f821e116aacb32ddb [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f55729821e116aacb3358b [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66f55ddb821e116aacb33761 [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66f568dc821e116aacb33995 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f57379821e116aacb33b7a [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f590fa821e116aacb33f35 [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66f599ef821e116aacb34099 [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f618f1bb02136c067c16f9 [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f6b623bb02136c067c2646 [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66f78ecfbb02136c067c2f12 [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f793f4bb02136c067c306e [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f7c780bb02136c067c35e8 [lb2-custom, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 289200 tokens (272816 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 289200 tokens (272816 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66f7f382bb02136c067c3a6c [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66f8c9febb02136c067c4511 [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66f8d84cbb02136c067c465f [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66f91f2cbb02136c067c4b1e [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66f947abbb02136c067c4ea6 [lb2-custom, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66f94f9ebb02136c067c4fde [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f950acbb02136c067c5021 [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-66f954a5bb02136c067c511a [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66f957e2bb02136c067c51c8 [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66f95e11bb02136c067c5370 [lb2-custom, rep 1] mc-answer: extracted=(none) gold=B
+- longbench-v2-66f9625fbb02136c067c5456 [lb2-custom, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66f97d7fbb02136c067c56b2 [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-66fa0d88bb02136c067c5a8a [lb2-custom, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 269975 tokens (253591 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 269975 tokens (253591 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-66fa190bbb02136c067c5d32 [lb2-custom, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66fa415cbb02136c067c671c [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66fa542bbb02136c067c686d [lb2-custom, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-66fa5fbcbb02136c067c6959 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66fa6702bb02136c067c6abb [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66fa69a4bb02136c067c6b75 [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66fa700bbb02136c067c6c06 [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66fa788abb02136c067c6d75 [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66fa9ff6bb02136c067c71e0 [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66faafd9bb02136c067c74a8 [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-66fad00bbb02136c067c76ce [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66fb6527bb02136c067c7b4f [lb2-custom, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66fb77e7bb02136c067c7db1 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-66fba2bcbb02136c067c8112 [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66fbab85bb02136c067c81dc [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66fcf2f2bb02136c067c9169 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66fcf725bb02136c067c924a [lb2-custom, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-66fcfa1cbb02136c067c932e [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-66fcfbbcbb02136c067c93d3 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-66fcfc9fbb02136c067c9411 [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-66fe81dcbb02136c067ca2de [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-66fe8eb3bb02136c067ca35f [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-66fea153bb02136c067ca3e7 [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-6700eb6ebb02136c067cb152 [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-6701cda0bb02136c067cb6eb [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-670397b5bb02136c067ccec6 [lb2-custom, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-67039cfabb02136c067cd04e [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-6703a0ecbb02136c067cd11b [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-6703f73cbb02136c067cd74a [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-67041f08bb02136c067cdb52 [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-6704a442bb02136c067cdd91 [lb2-custom, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-6704a83dbb02136c067cde1b [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-6704fe26bb02136c067ce670 [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-670646aebb02136c067cf85a [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-6707b3cabb02136c067d1021 [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-6707b84cbb02136c067d10a5 [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-6707f349bb02136c067d13b9 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-6708ae87bb02136c067d1847 [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-67095b87bb02136c067d1bad [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-670aac92bb02136c067d218a [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-670bf6ddbb02136c067d2379 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-670bffa2bb02136c067d23b5 [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-670cf163bb02136c067d26b6 [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-670cf1c0bb02136c067d26e5 [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-670cf52abb02136c067d2728 [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-670fb882bb02136c067d2c1d [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-670fb8dfbb02136c067d2c48 [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-670fbae0bb02136c067d2c79 [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-670fbb1fbb02136c067d2ca4 [lb2-custom, rep 1] mc-answer: extracted=C gold=A
+- longbench-v2-670fbb78bb02136c067d2cd3 [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-670fbbd0bb02136c067d2d04 [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-670fbd96bb02136c067d2d49 [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-670fbf5abb02136c067d2d9c [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-670fbfa4bb02136c067d2dcb [lb2-custom, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-67189156bb02136c067d3b8d [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-6719185cbb02136c067d40ab [lb2-custom, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-67192e81bb02136c067d427f [lb2-custom, rep 1] mc-answer: extracted=B gold=A
+- longbench-v2-6719b9f1bb02136c067d4389 [lb2-custom, rep 1] mc-answer: extracted=D gold=A
+- longbench-v2-6719bc01bb02136c067d43fa [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-6719bce5bb02136c067d4447 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-6719c1febb02136c067d44db [lb2-custom, rep 1] mc-answer: extracted=(none) gold=D
+- longbench-v2-6719d65ebb02136c067d45dc [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-6719ef50bb02136c067d4911 [lb2-custom, rep 1] mc-answer: extracted=D gold=C
+- longbench-v2-671b170cbb02136c067d4f4a [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-671b3d1bbb02136c067d5283 [lb2-custom, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-671b530dbb02136c067d5454 [lb2-custom, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-671b56cfbb02136c067d54e9 [lb2-custom, rep 1] mc-answer: extracted=B gold=D
+- longbench-v2-671b99e5bb02136c067d583d [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-67237d8ebb02136c067d6c06 [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+- longbench-v2-6723a770bb02136c067d7233 [lb2-custom, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 262853 tokens (246469 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 262853 tokens (246469 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-6724631ebb02136c067d7300 [lb2-custom, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 355603 tokens (339219 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 355603 tokens (339219 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-67246d0ebb02136c067d75f0 [lb2-custom, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 295592 tokens (279208 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 295592 tokens (279208 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-6724c4aabb02136c067d78a6 [lb2-custom, rep 1] mc-answer: extracted=C gold=B
+- longbench-v2-6724c5febb02136c067d78e7 [lb2-custom, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 277811 tokens (261427 of text input, 16384 in the output). Please reduce the length of either in 0s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 277811 tokens (261427 of text input, 16384 in the output). Please reduce the length of either in 0s
+- longbench-v2-6724cae7bb02136c067d79be [lb2-custom, rep 1] mc-answer: run error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 2473590 tokens (2457206 of text input, 16384 in the output). Please reduce the length of eith in 1s error: model call failed after 1 attempt(s): 1: 400 {"error":{"message":"This endpoint's maximum context length is 262144 tokens. However, you requested about 2473590 tokens (2457206 of text input, 16384 in the output). Please reduce the length of eith in 1s
+- longbench-v2-6725d7a9bb02136c067d822d [lb2-custom, rep 1] mc-answer: extracted=(none) gold=A
+- longbench-v2-6725d8dbbb02136c067d8309 [lb2-custom, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-6725d977bb02136c067d8373 [lb2-custom, rep 1] mc-answer: extracted=(none) gold=A
+- longbench-v2-6725dabfbb02136c067d8450 [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-6725db46bb02136c067d84b4 [lb2-custom, rep 1] mc-answer: extracted=(none) gold=C
+- longbench-v2-6725db8bbb02136c067d84eb [lb2-custom, rep 1] mc-answer: extracted=A gold=B
+- longbench-v2-6725dbd1bb02136c067d8522 [lb2-custom, rep 1] mc-answer: extracted=A gold=D
+- longbench-v2-6725dc6abb02136c067d8586 [lb2-custom, rep 1] mc-answer: extracted=A gold=C
+- longbench-v2-6725dcb2bb02136c067d85b7 [lb2-custom, rep 1] mc-answer: extracted=(none) gold=A
+- longbench-v2-6725dd39bb02136c067d861b [lb2-custom, rep 1] mc-answer: extracted=(none) gold=B
+- longbench-v2-6725e351bb02136c067d8758 [lb2-custom, rep 1] mc-answer: extracted=D gold=B
+- longbench-v2-672861afbb02136c067d90d8 [lb2-custom, rep 1] mc-answer: run error: model reply has no message: {"id":"gen-1789483744-bY9R0Mv2h3XJtukSxayF","error":{"message":"Upstream error from DeepInfra: This model's maximum context length is 262144 tokens. However, you requested 16384 output tokens and your prompt contains at least 245761 input tokens, for a total of at least 262145 tokens. Please reduce  error: model reply has no message: {"id":"gen-1789483744-bY9R0Mv2h3XJtukSxayF","error":{"message":"Upstream error from DeepInfra: This model's maximum context length is 262144 tokens. However, you requested 16384 output tokens and your prompt contains at least 245761 input tokens, for a total of at least 262145 tokens. Please reduce 
+- longbench-v2-67286533bb02136c067d919f [lb2-custom, rep 1] mc-answer: extracted=C gold=D
+- longbench-v2-67286795bb02136c067d92ab [lb2-custom, rep 1] mc-answer: extracted=B gold=C
+
+## Skipped (206)
+
+- longbench-v2-66ead7bd5a08c7b9b35dca7a [lb2-direct, rep 1]: context_overflow: 675039 document tokens, 245579 fit
+- longbench-v2-66ebc04a5a08c7b9b35de740 [lb2-direct, rep 1]: context_overflow: 360813 document tokens, 245579 fit
+- longbench-v2-66ebcc335a08c7b9b35df8b6 [lb2-direct, rep 1]: context_overflow: 661285 document tokens, 245575 fit
+- longbench-v2-66ebd2475a08c7b9b35e0155 [lb2-direct, rep 1]: context_overflow: 481596 document tokens, 245599 fit
+- longbench-v2-66ebd34d5a08c7b9b35e035d [lb2-direct, rep 1]: context_overflow: 886881 document tokens, 245493 fit
+- longbench-v2-66ebd55f5a08c7b9b35e0698 [lb2-direct, rep 1]: context_overflow: 323586 document tokens, 245613 fit
+- longbench-v2-66ebdd1c5a08c7b9b35e113b [lb2-direct, rep 1]: context_overflow: 2113553 document tokens, 245416 fit
+- longbench-v2-66ebeb5a5a08c7b9b35e1ba5 [lb2-direct, rep 1]: context_overflow: 608533 document tokens, 245471 fit
+- longbench-v2-66ec088c821e116aacb194d9 [lb2-direct, rep 1]: context_overflow: 360181 document tokens, 245609 fit
+- longbench-v2-66ec17e4821e116aacb1a6a7 [lb2-direct, rep 1]: context_overflow: 1737695 document tokens, 245575 fit
+- longbench-v2-66ec56dd821e116aacb1cd0e [lb2-direct, rep 1]: context_overflow: 1153020 document tokens, 245481 fit
+- longbench-v2-66ed24c5821e116aacb1eee6 [lb2-direct, rep 1]: context_overflow: 515364 document tokens, 245606 fit
+- longbench-v2-66ed3960821e116aacb1f616 [lb2-direct, rep 1]: context_overflow: 577688 document tokens, 245562 fit
+- longbench-v2-66ed5be2821e116aacb1fb57 [lb2-direct, rep 1]: context_overflow: 427809 document tokens, 245367 fit
+- longbench-v2-66ee4c55821e116aacb21596 [lb2-direct, rep 1]: context_overflow: 339156 document tokens, 245558 fit
+- longbench-v2-66f00f1a821e116aacb252cf [lb2-direct, rep 1]: context_overflow: 401616 document tokens, 245331 fit
+- longbench-v2-66f11349821e116aacb269e0 [lb2-direct, rep 1]: context_overflow: 385737 document tokens, 245354 fit
+- longbench-v2-66f1ae08821e116aacb27c9c [lb2-direct, rep 1]: context_overflow: 403910 document tokens, 245413 fit
+- longbench-v2-66f1cd02821e116aacb27d3f [lb2-direct, rep 1]: context_overflow: 583410 document tokens, 245606 fit
+- longbench-v2-66f1dac1821e116aacb27df1 [lb2-direct, rep 1]: context_overflow: 409932 document tokens, 245509 fit
+- longbench-v2-66f24538821e116aacb2865e [lb2-direct, rep 1]: context_overflow: 349547 document tokens, 245400 fit
+- longbench-v2-66f28794821e116aacb298ee [lb2-direct, rep 1]: context_overflow: 1144094 document tokens, 245559 fit
+- longbench-v2-66f2982b821e116aacb29c66 [lb2-direct, rep 1]: context_overflow: 1123009 document tokens, 245486 fit
+- longbench-v2-66f299b3821e116aacb29cfa [lb2-direct, rep 1]: context_overflow: 1123009 document tokens, 245494 fit
+- longbench-v2-66f2a14b821e116aacb2a128 [lb2-direct, rep 1]: context_overflow: 1123009 document tokens, 245351 fit
+- longbench-v2-66f2a255821e116aacb2a20b [lb2-direct, rep 1]: context_overflow: 1123009 document tokens, 245449 fit
+- longbench-v2-66f2a414821e116aacb2a3af [lb2-direct, rep 1]: context_overflow: 425353 document tokens, 245493 fit
+- longbench-v2-66f2a46d821e116aacb2a41a [lb2-direct, rep 1]: context_overflow: 440932 document tokens, 245591 fit
+- longbench-v2-66f2a4e3821e116aacb2a49b [lb2-direct, rep 1]: context_overflow: 1123009 document tokens, 245357 fit
+- longbench-v2-66f2a59d821e116aacb2a553 [lb2-direct, rep 1]: context_overflow: 806335 document tokens, 245518 fit
+- longbench-v2-66f2a80d821e116aacb2a760 [lb2-direct, rep 1]: context_overflow: 405358 document tokens, 245541 fit
+- longbench-v2-66f2abc5821e116aacb2aab7 [lb2-direct, rep 1]: context_overflow: 442240 document tokens, 245568 fit
+- longbench-v2-66f2b546821e116aacb2b152 [lb2-direct, rep 1]: context_overflow: 258561 document tokens, 245562 fit
+- longbench-v2-66f2cb0f821e116aacb2ba6d [lb2-direct, rep 1]: context_overflow: 601558 document tokens, 245603 fit
+- longbench-v2-66f3ac0b821e116aacb2e203 [lb2-direct, rep 1]: context_overflow: 2019204 document tokens, 245539 fit
+- longbench-v2-66f3c5f2821e116aacb2eccf [lb2-direct, rep 1]: context_overflow: 976654 document tokens, 245441 fit
+- longbench-v2-66f3df1e821e116aacb2f7be [lb2-direct, rep 1]: context_overflow: 4523227 document tokens, 245474 fit
+- longbench-v2-66f3e318821e116aacb2f9d1 [lb2-direct, rep 1]: context_overflow: 3604672 document tokens, 245585 fit
+- longbench-v2-66f3e604821e116aacb2fadf [lb2-direct, rep 1]: context_overflow: 667896 document tokens, 245457 fit
+- longbench-v2-66f3f1a5821e116aacb2fdc7 [lb2-direct, rep 1]: context_overflow: 405240 document tokens, 245482 fit
+- longbench-v2-66f3f46f821e116aacb2ff5d [lb2-direct, rep 1]: context_overflow: 265205 document tokens, 245390 fit
+- longbench-v2-66f3fb96821e116aacb3043f [lb2-direct, rep 1]: context_overflow: 1123009 document tokens, 245309 fit
+- longbench-v2-66f3fd3a821e116aacb30533 [lb2-direct, rep 1]: context_overflow: 2968740 document tokens, 245394 fit
+- longbench-v2-66f40501821e116aacb307e8 [lb2-direct, rep 1]: context_overflow: 322423 document tokens, 245539 fit
+- longbench-v2-66f40b9c821e116aacb30a99 [lb2-direct, rep 1]: context_overflow: 479852 document tokens, 245466 fit
+- longbench-v2-66f40c5e821e116aacb30ad2 [lb2-direct, rep 1]: context_overflow: 3805392 document tokens, 245597 fit
+- longbench-v2-66f40e44821e116aacb30b45 [lb2-direct, rep 1]: context_overflow: 1526256 document tokens, 245476 fit
+- longbench-v2-66f43414821e116aacb310a1 [lb2-direct, rep 1]: context_overflow: 438287 document tokens, 245602 fit
+- longbench-v2-66f51ab2821e116aacb325fb [lb2-direct, rep 1]: context_overflow: 381799 document tokens, 245600 fit
+- longbench-v2-66f52f0f821e116aacb32ddb [lb2-direct, rep 1]: context_overflow: 319617 document tokens, 241916 fit
+- longbench-v2-66f55828821e116aacb3363e [lb2-direct, rep 1]: context_overflow: 301536 document tokens, 245311 fit
+- longbench-v2-66f57379821e116aacb33b7a [lb2-direct, rep 1]: context_overflow: 3278528 document tokens, 245502 fit
+- longbench-v2-66f61d7dbb02136c067c1802 [lb2-direct, rep 1]: context_overflow: 276084 document tokens, 245565 fit
+- longbench-v2-66f7f382bb02136c067c3a6c [lb2-direct, rep 1]: context_overflow: 2302196 document tokens, 245554 fit
+- longbench-v2-66f7f963bb02136c067c3be1 [lb2-direct, rep 1]: context_overflow: 282976 document tokens, 245583 fit
+- longbench-v2-66f908e3bb02136c067c4992 [lb2-direct, rep 1]: context_overflow: 447594 document tokens, 245615 fit
+- longbench-v2-66f94f9ebb02136c067c4fde [lb2-direct, rep 1]: context_overflow: 530518 document tokens, 245236 fit
+- longbench-v2-66f954a5bb02136c067c511a [lb2-direct, rep 1]: context_overflow: 571216 document tokens, 245430 fit
+- longbench-v2-66fa1b54bb02136c067c5df7 [lb2-direct, rep 1]: context_overflow: 1908272 document tokens, 245601 fit
+- longbench-v2-66fa1e4cbb02136c067c5edf [lb2-direct, rep 1]: context_overflow: 1305752 document tokens, 245360 fit
+- longbench-v2-66fa208bbb02136c067c5fc1 [lb2-direct, rep 1]: context_overflow: 815314 document tokens, 245593 fit
+- longbench-v2-66fa2734bb02136c067c627a [lb2-direct, rep 1]: context_overflow: 477288 document tokens, 245450 fit
+- longbench-v2-66fa36c9bb02136c067c6517 [lb2-direct, rep 1]: context_overflow: 1754699 document tokens, 245606 fit
+- longbench-v2-66fa3843bb02136c067c655d [lb2-direct, rep 1]: context_overflow: 1220423 document tokens, 245447 fit
+- longbench-v2-66fa542bbb02136c067c686d [lb2-direct, rep 1]: context_overflow: 305109 document tokens, 245425 fit
+- longbench-v2-66fa5fbcbb02136c067c6959 [lb2-direct, rep 1]: context_overflow: 3565674 document tokens, 245246 fit
+- longbench-v2-66fa6702bb02136c067c6abb [lb2-direct, rep 1]: context_overflow: 1318770 document tokens, 245569 fit
+- longbench-v2-66fa69a4bb02136c067c6b75 [lb2-direct, rep 1]: context_overflow: 1189690 document tokens, 245492 fit
+- longbench-v2-66fa788abb02136c067c6d75 [lb2-direct, rep 1]: context_overflow: 270058 document tokens, 245554 fit
+- longbench-v2-66fa8ccdbb02136c067c6fa7 [lb2-direct, rep 1]: context_overflow: 548909 document tokens, 245548 fit
+- longbench-v2-66faa0f5bb02136c067c722c [lb2-direct, rep 1]: context_overflow: 835948 document tokens, 245359 fit
+- longbench-v2-66faafd9bb02136c067c74a8 [lb2-direct, rep 1]: context_overflow: 696078 document tokens, 245573 fit
+- longbench-v2-66fb75adbb02136c067c7d73 [lb2-direct, rep 1]: context_overflow: 3808235 document tokens, 245343 fit
+- longbench-v2-66fb77e7bb02136c067c7db1 [lb2-direct, rep 1]: context_overflow: 3565674 document tokens, 245342 fit
+- longbench-v2-66fcf53fbb02136c067c91e7 [lb2-direct, rep 1]: context_overflow: 295702 document tokens, 245566 fit
+- longbench-v2-66fcf725bb02136c067c924a [lb2-direct, rep 1]: context_overflow: 295702 document tokens, 245550 fit
+- longbench-v2-66fcf80dbb02136c067c928e [lb2-direct, rep 1]: context_overflow: 887034 document tokens, 245091 fit
+- longbench-v2-66fcf8dfbb02136c067c92cc [lb2-direct, rep 1]: context_overflow: 295673 document tokens, 245543 fit
+- longbench-v2-66fcfa1cbb02136c067c932e [lb2-direct, rep 1]: context_overflow: 295702 document tokens, 245521 fit
+- longbench-v2-66fcfb1cbb02136c067c938b [lb2-direct, rep 1]: context_overflow: 295702 document tokens, 245539 fit
+- longbench-v2-66fcfbbcbb02136c067c93d3 [lb2-direct, rep 1]: context_overflow: 295702 document tokens, 245524 fit
+- longbench-v2-66fcfc9fbb02136c067c9411 [lb2-direct, rep 1]: context_overflow: 295673 document tokens, 245536 fit
+- longbench-v2-66fcfd6fbb02136c067c9454 [lb2-direct, rep 1]: context_overflow: 295702 document tokens, 245559 fit
+- longbench-v2-66fcffd9bb02136c067c94c5 [lb2-direct, rep 1]: context_overflow: 295702 document tokens, 245534 fit
+- longbench-v2-6700d19dbb02136c067cb024 [lb2-direct, rep 1]: context_overflow: 1186080 document tokens, 244600 fit
+- longbench-v2-6700eb6ebb02136c067cb152 [lb2-direct, rep 1]: context_overflow: 2014634 document tokens, 245558 fit
+- longbench-v2-6703f57bbb02136c067cd714 [lb2-direct, rep 1]: context_overflow: 407490 document tokens, 245440 fit
+- longbench-v2-6703f73cbb02136c067cd74a [lb2-direct, rep 1]: context_overflow: 309546 document tokens, 245384 fit
+- longbench-v2-67040983bb02136c067cd996 [lb2-direct, rep 1]: context_overflow: 463163 document tokens, 245506 fit
+- longbench-v2-67041f08bb02136c067cdb52 [lb2-direct, rep 1]: context_overflow: 249426 document tokens, 245418 fit
+- longbench-v2-6704fe26bb02136c067ce670 [lb2-direct, rep 1]: context_overflow: 356468 document tokens, 245359 fit
+- longbench-v2-67066b87bb02136c067cfaa3 [lb2-direct, rep 1]: context_overflow: 1248056 document tokens, 245268 fit
+- longbench-v2-670765abbb02136c067d06b4 [lb2-direct, rep 1]: context_overflow: 830625 document tokens, 245431 fit
+- longbench-v2-6707b84cbb02136c067d10a5 [lb2-direct, rep 1]: context_overflow: 255611 document tokens, 245340 fit
+- longbench-v2-6707f349bb02136c067d13b9 [lb2-direct, rep 1]: context_overflow: 1920736 document tokens, 245322 fit
+- longbench-v2-6708ae87bb02136c067d1847 [lb2-direct, rep 1]: context_overflow: 690241 document tokens, 245282 fit
+- longbench-v2-670cb73fbb02136c067d2502 [lb2-direct, rep 1]: context_overflow: 2044801 document tokens, 245461 fit
+- longbench-v2-67237d8ebb02136c067d6c06 [lb2-direct, rep 1]: context_overflow: 514739 document tokens, 245575 fit
+- longbench-v2-6724631ebb02136c067d7300 [lb2-direct, rep 1]: context_overflow: 374991 document tokens, 245453 fit
+- longbench-v2-67246d0ebb02136c067d75f0 [lb2-direct, rep 1]: context_overflow: 346956 document tokens, 245444 fit
+- longbench-v2-6724c5febb02136c067d78e7 [lb2-direct, rep 1]: context_overflow: 338290 document tokens, 245586 fit
+- longbench-v2-6724cae7bb02136c067d79be [lb2-direct, rep 1]: context_overflow: 3222897 document tokens, 245584 fit
+- longbench-v2-672861afbb02136c067d90d8 [lb2-direct, rep 1]: context_overflow: 271772 document tokens, 245600 fit
+- longbench-v2-66ead7bd5a08c7b9b35dca7a [lb2-direct-kimi, rep 1]: context_overflow: 675039 document tokens, 245579 fit
+- longbench-v2-66ebc04a5a08c7b9b35de740 [lb2-direct-kimi, rep 1]: context_overflow: 360813 document tokens, 245579 fit
+- longbench-v2-66ebcc335a08c7b9b35df8b6 [lb2-direct-kimi, rep 1]: context_overflow: 661285 document tokens, 245575 fit
+- longbench-v2-66ebd2475a08c7b9b35e0155 [lb2-direct-kimi, rep 1]: context_overflow: 481596 document tokens, 245599 fit
+- longbench-v2-66ebd34d5a08c7b9b35e035d [lb2-direct-kimi, rep 1]: context_overflow: 886881 document tokens, 245493 fit
+- longbench-v2-66ebd55f5a08c7b9b35e0698 [lb2-direct-kimi, rep 1]: context_overflow: 323586 document tokens, 245613 fit
+- longbench-v2-66ebdd1c5a08c7b9b35e113b [lb2-direct-kimi, rep 1]: context_overflow: 2113553 document tokens, 245416 fit
+- longbench-v2-66ebeb5a5a08c7b9b35e1ba5 [lb2-direct-kimi, rep 1]: context_overflow: 608533 document tokens, 245471 fit
+- longbench-v2-66ec088c821e116aacb194d9 [lb2-direct-kimi, rep 1]: context_overflow: 360181 document tokens, 245609 fit
+- longbench-v2-66ec17e4821e116aacb1a6a7 [lb2-direct-kimi, rep 1]: context_overflow: 1737695 document tokens, 245575 fit
+- longbench-v2-66ec56dd821e116aacb1cd0e [lb2-direct-kimi, rep 1]: context_overflow: 1153020 document tokens, 245481 fit
+- longbench-v2-66ed24c5821e116aacb1eee6 [lb2-direct-kimi, rep 1]: context_overflow: 515364 document tokens, 245606 fit
+- longbench-v2-66ed3960821e116aacb1f616 [lb2-direct-kimi, rep 1]: context_overflow: 577688 document tokens, 245562 fit
+- longbench-v2-66ed5be2821e116aacb1fb57 [lb2-direct-kimi, rep 1]: context_overflow: 427809 document tokens, 245367 fit
+- longbench-v2-66ee4c55821e116aacb21596 [lb2-direct-kimi, rep 1]: context_overflow: 339156 document tokens, 245558 fit
+- longbench-v2-66f00f1a821e116aacb252cf [lb2-direct-kimi, rep 1]: context_overflow: 401616 document tokens, 245331 fit
+- longbench-v2-66f11349821e116aacb269e0 [lb2-direct-kimi, rep 1]: context_overflow: 385737 document tokens, 245354 fit
+- longbench-v2-66f1ae08821e116aacb27c9c [lb2-direct-kimi, rep 1]: context_overflow: 403910 document tokens, 245413 fit
+- longbench-v2-66f1cd02821e116aacb27d3f [lb2-direct-kimi, rep 1]: context_overflow: 583410 document tokens, 245606 fit
+- longbench-v2-66f1dac1821e116aacb27df1 [lb2-direct-kimi, rep 1]: context_overflow: 409932 document tokens, 245509 fit
+- longbench-v2-66f24538821e116aacb2865e [lb2-direct-kimi, rep 1]: context_overflow: 349547 document tokens, 245400 fit
+- longbench-v2-66f28794821e116aacb298ee [lb2-direct-kimi, rep 1]: context_overflow: 1144094 document tokens, 245559 fit
+- longbench-v2-66f2982b821e116aacb29c66 [lb2-direct-kimi, rep 1]: context_overflow: 1123009 document tokens, 245486 fit
+- longbench-v2-66f299b3821e116aacb29cfa [lb2-direct-kimi, rep 1]: context_overflow: 1123009 document tokens, 245494 fit
+- longbench-v2-66f2a14b821e116aacb2a128 [lb2-direct-kimi, rep 1]: context_overflow: 1123009 document tokens, 245351 fit
+- longbench-v2-66f2a255821e116aacb2a20b [lb2-direct-kimi, rep 1]: context_overflow: 1123009 document tokens, 245449 fit
+- longbench-v2-66f2a414821e116aacb2a3af [lb2-direct-kimi, rep 1]: context_overflow: 425353 document tokens, 245493 fit
+- longbench-v2-66f2a46d821e116aacb2a41a [lb2-direct-kimi, rep 1]: context_overflow: 440932 document tokens, 245591 fit
+- longbench-v2-66f2a4e3821e116aacb2a49b [lb2-direct-kimi, rep 1]: context_overflow: 1123009 document tokens, 245357 fit
+- longbench-v2-66f2a59d821e116aacb2a553 [lb2-direct-kimi, rep 1]: context_overflow: 806335 document tokens, 245518 fit
+- longbench-v2-66f2a80d821e116aacb2a760 [lb2-direct-kimi, rep 1]: context_overflow: 405358 document tokens, 245541 fit
+- longbench-v2-66f2abc5821e116aacb2aab7 [lb2-direct-kimi, rep 1]: context_overflow: 442240 document tokens, 245568 fit
+- longbench-v2-66f2b546821e116aacb2b152 [lb2-direct-kimi, rep 1]: context_overflow: 258561 document tokens, 245562 fit
+- longbench-v2-66f2cb0f821e116aacb2ba6d [lb2-direct-kimi, rep 1]: context_overflow: 601558 document tokens, 245603 fit
+- longbench-v2-66f3ac0b821e116aacb2e203 [lb2-direct-kimi, rep 1]: context_overflow: 2019204 document tokens, 245539 fit
+- longbench-v2-66f3c5f2821e116aacb2eccf [lb2-direct-kimi, rep 1]: context_overflow: 976654 document tokens, 245441 fit
+- longbench-v2-66f3df1e821e116aacb2f7be [lb2-direct-kimi, rep 1]: context_overflow: 4523227 document tokens, 245474 fit
+- longbench-v2-66f3e318821e116aacb2f9d1 [lb2-direct-kimi, rep 1]: context_overflow: 3604672 document tokens, 245585 fit
+- longbench-v2-66f3e604821e116aacb2fadf [lb2-direct-kimi, rep 1]: context_overflow: 667896 document tokens, 245457 fit
+- longbench-v2-66f3f1a5821e116aacb2fdc7 [lb2-direct-kimi, rep 1]: context_overflow: 405240 document tokens, 245482 fit
+- longbench-v2-66f3f46f821e116aacb2ff5d [lb2-direct-kimi, rep 1]: context_overflow: 265205 document tokens, 245390 fit
+- longbench-v2-66f3fb96821e116aacb3043f [lb2-direct-kimi, rep 1]: context_overflow: 1123009 document tokens, 245309 fit
+- longbench-v2-66f3fd3a821e116aacb30533 [lb2-direct-kimi, rep 1]: context_overflow: 2968740 document tokens, 245394 fit
+- longbench-v2-66f40501821e116aacb307e8 [lb2-direct-kimi, rep 1]: context_overflow: 322423 document tokens, 245539 fit
+- longbench-v2-66f40b9c821e116aacb30a99 [lb2-direct-kimi, rep 1]: context_overflow: 479852 document tokens, 245466 fit
+- longbench-v2-66f40c5e821e116aacb30ad2 [lb2-direct-kimi, rep 1]: context_overflow: 3805392 document tokens, 245597 fit
+- longbench-v2-66f40e44821e116aacb30b45 [lb2-direct-kimi, rep 1]: context_overflow: 1526256 document tokens, 245476 fit
+- longbench-v2-66f43414821e116aacb310a1 [lb2-direct-kimi, rep 1]: context_overflow: 438287 document tokens, 245602 fit
+- longbench-v2-66f51ab2821e116aacb325fb [lb2-direct-kimi, rep 1]: context_overflow: 381799 document tokens, 245600 fit
+- longbench-v2-66f52f0f821e116aacb32ddb [lb2-direct-kimi, rep 1]: context_overflow: 319617 document tokens, 241916 fit
+- longbench-v2-66f55828821e116aacb3363e [lb2-direct-kimi, rep 1]: context_overflow: 301536 document tokens, 245311 fit
+- longbench-v2-66f57379821e116aacb33b7a [lb2-direct-kimi, rep 1]: context_overflow: 3278528 document tokens, 245502 fit
+- longbench-v2-66f61d7dbb02136c067c1802 [lb2-direct-kimi, rep 1]: context_overflow: 276084 document tokens, 245565 fit
+- longbench-v2-66f7f382bb02136c067c3a6c [lb2-direct-kimi, rep 1]: context_overflow: 2302196 document tokens, 245554 fit
+- longbench-v2-66f7f963bb02136c067c3be1 [lb2-direct-kimi, rep 1]: context_overflow: 282976 document tokens, 245583 fit
+- longbench-v2-66f908e3bb02136c067c4992 [lb2-direct-kimi, rep 1]: context_overflow: 447594 document tokens, 245615 fit
+- longbench-v2-66f94f9ebb02136c067c4fde [lb2-direct-kimi, rep 1]: context_overflow: 530518 document tokens, 245236 fit
+- longbench-v2-66f954a5bb02136c067c511a [lb2-direct-kimi, rep 1]: context_overflow: 571216 document tokens, 245430 fit
+- longbench-v2-66fa1b54bb02136c067c5df7 [lb2-direct-kimi, rep 1]: context_overflow: 1908272 document tokens, 245601 fit
+- longbench-v2-66fa1e4cbb02136c067c5edf [lb2-direct-kimi, rep 1]: context_overflow: 1305752 document tokens, 245360 fit
+- longbench-v2-66fa208bbb02136c067c5fc1 [lb2-direct-kimi, rep 1]: context_overflow: 815314 document tokens, 245593 fit
+- longbench-v2-66fa2734bb02136c067c627a [lb2-direct-kimi, rep 1]: context_overflow: 477288 document tokens, 245450 fit
+- longbench-v2-66fa36c9bb02136c067c6517 [lb2-direct-kimi, rep 1]: context_overflow: 1754699 document tokens, 245606 fit
+- longbench-v2-66fa3843bb02136c067c655d [lb2-direct-kimi, rep 1]: context_overflow: 1220423 document tokens, 245447 fit
+- longbench-v2-66fa542bbb02136c067c686d [lb2-direct-kimi, rep 1]: context_overflow: 305109 document tokens, 245425 fit
+- longbench-v2-66fa5fbcbb02136c067c6959 [lb2-direct-kimi, rep 1]: context_overflow: 3565674 document tokens, 245246 fit
+- longbench-v2-66fa6702bb02136c067c6abb [lb2-direct-kimi, rep 1]: context_overflow: 1318770 document tokens, 245569 fit
+- longbench-v2-66fa69a4bb02136c067c6b75 [lb2-direct-kimi, rep 1]: context_overflow: 1189690 document tokens, 245492 fit
+- longbench-v2-66fa788abb02136c067c6d75 [lb2-direct-kimi, rep 1]: context_overflow: 270058 document tokens, 245554 fit
+- longbench-v2-66fa8ccdbb02136c067c6fa7 [lb2-direct-kimi, rep 1]: context_overflow: 548909 document tokens, 245548 fit
+- longbench-v2-66faa0f5bb02136c067c722c [lb2-direct-kimi, rep 1]: context_overflow: 835948 document tokens, 245359 fit
+- longbench-v2-66faafd9bb02136c067c74a8 [lb2-direct-kimi, rep 1]: context_overflow: 696078 document tokens, 245573 fit
+- longbench-v2-66fb75adbb02136c067c7d73 [lb2-direct-kimi, rep 1]: context_overflow: 3808235 document tokens, 245343 fit
+- longbench-v2-66fb77e7bb02136c067c7db1 [lb2-direct-kimi, rep 1]: context_overflow: 3565674 document tokens, 245342 fit
+- longbench-v2-66fcf53fbb02136c067c91e7 [lb2-direct-kimi, rep 1]: context_overflow: 295702 document tokens, 245566 fit
+- longbench-v2-66fcf725bb02136c067c924a [lb2-direct-kimi, rep 1]: context_overflow: 295702 document tokens, 245550 fit
+- longbench-v2-66fcf80dbb02136c067c928e [lb2-direct-kimi, rep 1]: context_overflow: 887034 document tokens, 245091 fit
+- longbench-v2-66fcf8dfbb02136c067c92cc [lb2-direct-kimi, rep 1]: context_overflow: 295673 document tokens, 245543 fit
+- longbench-v2-66fcfa1cbb02136c067c932e [lb2-direct-kimi, rep 1]: context_overflow: 295702 document tokens, 245521 fit
+- longbench-v2-66fcfb1cbb02136c067c938b [lb2-direct-kimi, rep 1]: context_overflow: 295702 document tokens, 245539 fit
+- longbench-v2-66fcfbbcbb02136c067c93d3 [lb2-direct-kimi, rep 1]: context_overflow: 295702 document tokens, 245524 fit
+- longbench-v2-66fcfc9fbb02136c067c9411 [lb2-direct-kimi, rep 1]: context_overflow: 295673 document tokens, 245536 fit
+- longbench-v2-66fcfd6fbb02136c067c9454 [lb2-direct-kimi, rep 1]: context_overflow: 295702 document tokens, 245559 fit
+- longbench-v2-66fcffd9bb02136c067c94c5 [lb2-direct-kimi, rep 1]: context_overflow: 295702 document tokens, 245534 fit
+- longbench-v2-6700d19dbb02136c067cb024 [lb2-direct-kimi, rep 1]: context_overflow: 1186080 document tokens, 244600 fit
+- longbench-v2-6700eb6ebb02136c067cb152 [lb2-direct-kimi, rep 1]: context_overflow: 2014634 document tokens, 245558 fit
+- longbench-v2-6703f57bbb02136c067cd714 [lb2-direct-kimi, rep 1]: context_overflow: 407490 document tokens, 245440 fit
+- longbench-v2-6703f73cbb02136c067cd74a [lb2-direct-kimi, rep 1]: context_overflow: 309546 document tokens, 245384 fit
+- longbench-v2-67040983bb02136c067cd996 [lb2-direct-kimi, rep 1]: context_overflow: 463163 document tokens, 245506 fit
+- longbench-v2-67041f08bb02136c067cdb52 [lb2-direct-kimi, rep 1]: context_overflow: 249426 document tokens, 245418 fit
+- longbench-v2-6704fe26bb02136c067ce670 [lb2-direct-kimi, rep 1]: context_overflow: 356468 document tokens, 245359 fit
+- longbench-v2-67066b87bb02136c067cfaa3 [lb2-direct-kimi, rep 1]: context_overflow: 1248056 document tokens, 245268 fit
+- longbench-v2-670765abbb02136c067d06b4 [lb2-direct-kimi, rep 1]: context_overflow: 830625 document tokens, 245431 fit
+- longbench-v2-6707b84cbb02136c067d10a5 [lb2-direct-kimi, rep 1]: context_overflow: 255611 document tokens, 245340 fit
+- longbench-v2-6707f349bb02136c067d13b9 [lb2-direct-kimi, rep 1]: context_overflow: 1920736 document tokens, 245322 fit
+- longbench-v2-6708ae87bb02136c067d1847 [lb2-direct-kimi, rep 1]: context_overflow: 690241 document tokens, 245282 fit
+- longbench-v2-670cb73fbb02136c067d2502 [lb2-direct-kimi, rep 1]: context_overflow: 2044801 document tokens, 245461 fit
+- longbench-v2-67237d8ebb02136c067d6c06 [lb2-direct-kimi, rep 1]: context_overflow: 514739 document tokens, 245575 fit
+- longbench-v2-6724631ebb02136c067d7300 [lb2-direct-kimi, rep 1]: context_overflow: 374991 document tokens, 245453 fit
+- longbench-v2-67246d0ebb02136c067d75f0 [lb2-direct-kimi, rep 1]: context_overflow: 346956 document tokens, 245444 fit
+- longbench-v2-6724c5febb02136c067d78e7 [lb2-direct-kimi, rep 1]: context_overflow: 338290 document tokens, 245586 fit
+- longbench-v2-6724cae7bb02136c067d79be [lb2-direct-kimi, rep 1]: context_overflow: 3222897 document tokens, 245584 fit
+- longbench-v2-672861afbb02136c067d90d8 [lb2-direct-kimi, rep 1]: context_overflow: 271772 document tokens, 245600 fit

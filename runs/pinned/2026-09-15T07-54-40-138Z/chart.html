@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cucumber-bench 2026-09-15T07-54-40-138Z</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb;
+  --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #8a5cd6; --s5: #d1a10a; --s6: #0f9db5; --s7: #d64d7a; --s8: #6b7280;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19;
+    --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #9b74e0; --s5: #e0b428; --s6: #22adc4; --s7: #e06a92; --s8: #9aa0aa;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19;
+  --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #9b74e0; --s5: #e0b428; --s6: #22adc4; --s7: #e06a92; --s8: #9aa0aa;
+}
+* { box-sizing: border-box; margin: 0; }
+body {
+  background: var(--page); color: var(--ink);
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding: 24px; max-width: 760px; margin: 0 auto;
+}
+h1 { font-size: 18px; font-weight: 600; }
+.sub { color: var(--ink-2); margin: 4px 0 20px; font-size: 13px; }
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px 18px; margin-bottom: 12px;
+}
+.card h2 { font-size: 14px; font-weight: 600; }
+.card .csub { color: var(--muted); font-size: 12px; margin: 1px 0 4px; }
+.help p, .help li, .defs li { font-size: 13px; color: var(--ink-2); }
+.help ul, .defs { margin: 6px 0 0 18px; padding: 0; }
+.defs { margin-top: 12px; }
+.help b, .defs b { color: var(--ink); font-weight: 600; }
+.legend { display: flex; gap: 16px; margin: 6px 0 2px; font-size: 12px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend .note { color: var(--muted); margin-left: auto; }
+.key { width: 12px; height: 12px; border-radius: 3px; display: inline-block; flex: none; }
+.s1 { background: var(--s1); }
+.s2 { background: var(--s2); }
+.s3 { background: var(--s3); }
+.s4 { background: var(--s4); }
+.s5 { background: var(--s5); }
+.s6 { background: var(--s6); }
+.s7 { background: var(--s7); }
+.s8 { background: var(--s8); }
+svg { width: 100%; height: auto; display: block; }
+.tick { font: 11px system-ui, sans-serif; fill: var(--muted); font-variant-numeric: tabular-nums; }
+.cat { font: 12px system-ui, sans-serif; fill: var(--ink-2); }
+.gridline { stroke: var(--grid); stroke-width: 1; }
+.baseline { stroke: var(--axis); stroke-width: 1; }
+.hit { fill: transparent; outline: none; cursor: default; }
+.hit:focus-visible + .focusring { stroke: var(--ink); stroke-width: 1.5; fill: none; }
+.lift { filter: brightness(1.12); }
+#tip {
+  display: none; position: fixed; z-index: 10; pointer-events: none;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.12); font-size: 12px;
+}
+.tip-task { color: var(--ink-2); margin-bottom: 4px; }
+.tip-row { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+.tip-row .key { width: 10px; height: 4px; border-radius: 2px; }
+.tip-val { font-weight: 600; font-variant-numeric: tabular-nums; }
+.tip-name { color: var(--ink-2); }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+td:nth-child(n+2), th:nth-child(n+2) { text-align: right; font-variant-numeric: tabular-nums; }
+th { color: var(--ink-2); font-weight: 500; }
+td.best { font-weight: 700; }
+th .key { vertical-align: -1px; }
+.scroll { overflow-x: auto; }
+</style>
+</head>
+<body>
+<h1>cucumber-bench</h1>
+<p class="sub">run 2026-09-15T07-54-40-138Z · 503 cases · 1 repetition</p>
+<div class="card help">
+  <h2>How to read this page</h2>
+  <p>Each system answered the cases of the benchmarks it runs on. A <b>grader</b> compares an answer with the private
+  gold data. It gives a <b>score</b> from 0 to 1, and a <b>pass</b> or a fail. The <b>mean score</b> is the average score:
+  how close the answers were. The <b>pass rate</b> is the share of answers that were fully correct. A grader without
+  partial credit shows the same number for both. In each chart, the bar is the mean score and the dot is the pass rate.
+  Higher is better.</p>
+  <ul><li><span class="key s1"></span> <b>lb2-direct</b>: The plain baseline for LongBench v2: one model call with the whole document, the question and the four choices, in the reference implementation's zero-shot prompt. The request is counted with the model's own tokenizer first; a document that does not fit the context is skipped (context_overflow) and reported as unsupported, so the accuracy is over complete documents only. Models: qwen/qwen3.6-35b-a3b.</li><li><span class="key s2"></span> <b>lb2-direct-kimi</b>: The lb2-direct baseline with Kimi K2.5 in place of Qwen: the same one call, prompt, context limit (262,144), output budget, reasoning setting and skip policy. The document is still counted with the pinned Qwen tokenizer, as a proxy for Kimi's; a document the provider counts beyond its limit fails as a run error, as with Qwen. Models: moonshotai/kimi-k2.5.</li><li><span class="key s3"></span> <b>lb2-custom</b>: Evidence before the answer, for LongBench v2: a frame call with no document writes down what the question requires and the terms to look for; the document is cut into chunks, the chunks that score best against the question, the choices and the terms are scanned (every chunk when there are at most topChunks) for the passages that bear on the question and on each choice, quoted word for word and checked against the text; the lines holding a framed term join them, found by the harness; and the answer is given in the baseline's one call with the passages laid out in document order after the whole document when it fits the context, or from the passages alone when it does not. Models: qwen/qwen3.6-35b-a3b.</li></ul>
+</div>
+<div class="card">
+  <h2>longbench-v2: results by grader</h2>
+  <p class="csub">Bar: the mean score (how close the answers were on average). Dot: the pass rate (the share of answers that were fully correct). Higher is better.</p>
+  <div class="legend"><span><span class="key s1"></span>lb2-direct</span><span><span class="key s2"></span>lb2-direct-kimi</span><span><span class="key s3"></span>lb2-custom</span><span class="note">bar = mean score · dot = pass rate</span></div>
+  <svg viewBox="0 0 640 240" aria-hidden="false"><line class="baseline" x1="44" x2="632" y1="200" y2="200"/>
+<text class="tick" x="38" y="203.5" text-anchor="end">0%</text>
+<line class="gridline" x1="44" x2="632" y1="153" y2="153"/>
+<text class="tick" x="38" y="156.5" text-anchor="end">25%</text>
+<line class="gridline" x1="44" x2="632" y1="106" y2="106"/>
+<text class="tick" x="38" y="109.5" text-anchor="end">50%</text>
+<line class="gridline" x1="44" x2="632" y1="59" y2="59"/>
+<text class="tick" x="38" y="62.5" text-anchor="end">75%</text>
+<line class="gridline" x1="44" x2="632" y1="12" y2="12"/>
+<text class="tick" x="38" y="15.5" text-anchor="end">100%</text>
+<path id="longbench-v-results-by-grader-0-0" fill="var(--s1)" d="M 300 200 L 300 102.01 Q 300 98.01 304 98.01 L 320 98.01 Q 324 98.01 324 102.01 L 324 200 Z"/>
+<circle cx="312" cy="98.01" r="5" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>
+<rect class="hit" x="298" y="12" width="28" height="188" tabindex="0" role="img" aria-label="mc-answer: lb2-direct 54% mean · 54% pass, lb2-direct-kimi 61% mean · 61% pass, lb2-custom 56% mean · 56% pass" data-tip="{&quot;task&quot;:&quot;mc-answer&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;lb2-direct&quot;,&quot;value&quot;:&quot;54% mean · 54% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;lb2-direct-kimi&quot;,&quot;value&quot;:&quot;61% mean · 61% pass&quot;},{&quot;key&quot;:&quot;s3&quot;,&quot;name&quot;:&quot;lb2-custom&quot;,&quot;value&quot;:&quot;56% mean · 56% pass&quot;}]}" data-col="longbench-v-results-by-grader-0-0"/>
+<rect class="focusring" x="298" y="12" width="28" height="188" fill="none"/>
+<path id="longbench-v-results-by-grader-0-1" fill="var(--s2)" d="M 326 200 L 326 88.85 Q 326 84.85 330 84.85 L 346 84.85 Q 350 84.85 350 88.85 L 350 200 Z"/>
+<circle cx="338" cy="84.85" r="5" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>
+<rect class="hit" x="324" y="12" width="28" height="188" tabindex="0" role="img" aria-label="mc-answer: lb2-direct 54% mean · 54% pass, lb2-direct-kimi 61% mean · 61% pass, lb2-custom 56% mean · 56% pass" data-tip="{&quot;task&quot;:&quot;mc-answer&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;lb2-direct&quot;,&quot;value&quot;:&quot;54% mean · 54% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;lb2-direct-kimi&quot;,&quot;value&quot;:&quot;61% mean · 61% pass&quot;},{&quot;key&quot;:&quot;s3&quot;,&quot;name&quot;:&quot;lb2-custom&quot;,&quot;value&quot;:&quot;56% mean · 56% pass&quot;}]}" data-col="longbench-v-results-by-grader-0-1"/>
+<rect class="focusring" x="324" y="12" width="28" height="188" fill="none"/>
+<path id="longbench-v-results-by-grader-0-2" fill="var(--s3)" d="M 352 200 L 352 99.3479125248509 Q 352 95.3479125248509 356 95.3479125248509 L 372 95.3479125248509 Q 376 95.3479125248509 376 99.3479125248509 L 376 200 Z"/>
+<circle cx="364" cy="95.3479125248509" r="5" fill="var(--s3)" stroke="var(--surface)" stroke-width="2"/>
+<rect class="hit" x="350" y="12" width="28" height="188" tabindex="0" role="img" aria-label="mc-answer: lb2-direct 54% mean · 54% pass, lb2-direct-kimi 61% mean · 61% pass, lb2-custom 56% mean · 56% pass" data-tip="{&quot;task&quot;:&quot;mc-answer&quot;,&quot;rows&quot;:[{&quot;key&quot;:&quot;s1&quot;,&quot;name&quot;:&quot;lb2-direct&quot;,&quot;value&quot;:&quot;54% mean · 54% pass&quot;},{&quot;key&quot;:&quot;s2&quot;,&quot;name&quot;:&quot;lb2-direct-kimi&quot;,&quot;value&quot;:&quot;61% mean · 61% pass&quot;},{&quot;key&quot;:&quot;s3&quot;,&quot;name&quot;:&quot;lb2-custom&quot;,&quot;value&quot;:&quot;56% mean · 56% pass&quot;}]}" data-col="longbench-v-results-by-grader-0-2"/>
+<rect class="focusring" x="350" y="12" width="28" height="188" fill="none"/>
+<text class="cat" x="338" y="216" text-anchor="middle">mc-answer</text></svg>
+</div>
+<div class="card">
+  <h2>longbench-v2: comparison</h2>
+  <p class="csub">One column per system, one row per metric. A grader cell shows the mean score, with the pass rate in parentheses. ↑ means higher is better, ↓ means lower is better. Bold marks the best value in the row. Runs per system: lb2-direct 503, lb2-direct-kimi 503, lb2-custom 503.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>metric</th><th><span class="key s1"></span> lb2-direct</th><th><span class="key s2"></span> lb2-direct-kimi</th><th><span class="key s3"></span> lb2-custom</th></tr></thead>
+    <tbody><tr><td>mc-answer ↑</td><td>54%</td><td class="best">61%</td><td>56%</td></tr>
+<tr><td>error rate ↓</td><td class="best">1%</td><td>2%</td><td>2%</td></tr>
+<tr><td>unsupported ↓</td><td>20%</td><td>20%</td><td class="best">0%</td></tr>
+<tr><td>consistency ↑</td><td>n/a</td><td>n/a</td><td>n/a</td></tr>
+<tr><td>latency s ↓</td><td class="best">47.7</td><td>101.5</td><td>100.5</td></tr>
+<tr><td>model calls per run ↓</td><td class="best">0.8</td><td>0.9</td><td>33.7</td></tr>
+<tr><td>harness cost per run ↓</td><td class="best">$0.0110</td><td>$0.0370</td><td>$0.0334</td></tr>
+<tr><td>judge cost per run ↓</td><td>n/a</td><td>n/a</td><td>n/a</td></tr>
+<tr><td>total cost, all 503 runs ↓</td><td class="best">$5.51</td><td>$18.60</td><td>$16.78</td></tr></tbody>
+  </table></div>
+</div>
+
+<div class="card">
+  <h2>Glossary</h2>
+  <ul class="defs">
+    <li><b>mc-answer</b>: The letter in &quot;The correct answer is (X)&quot; equals the gold letter. An output with no such answer, or with several different ones, is invalid and fails.</li>
+    <li><b>error rate</b>: the share of runs that failed in the sandbox or in a grader. A failed run counts as a failed grade.</li>
+    <li><b>unsupported</b>: the share of runs the harness skipped, e.g. because the case exceeds its context limit. A skipped run is not graded and is out of every rate.</li>
+    <li><b>consistency</b>: the share of repetitions that gave the same answer for a case, averaged over the cases. n/a with one repetition.</li>
+    <li><b>latency s</b>: the average time of one run, in seconds, sandbox start included.</li>
+    <li><b>model calls per run</b>: the average number of model calls in one run, safety-model calls included.</li>
+    <li><b>harness cost, judge cost per run</b>: the average cost of one run, and of grading it, as the provider reported. n/a for a free local model.</li>
+    <li><b>total cost, all runs</b>: (harness cost + judge cost per run) × the number of runs: the bill for this system in this benchmark.</li>
+  </ul>
+</div>
+<div id="tip" role="status"></div>
+<script>
+(function () {
+  var tip = document.getElementById('tip');
+  function show(el) {
+    var data = JSON.parse(el.getAttribute('data-tip'));
+    tip.replaceChildren();
+    var t = document.createElement('div');
+    t.className = 'tip-task';
+    t.textContent = data.task;
+    tip.appendChild(t);
+    data.rows.forEach(function (r) {
+      var row = document.createElement('div');
+      row.className = 'tip-row';
+      var key = document.createElement('span');
+      key.className = 'key ' + r.key;
+      var val = document.createElement('span');
+      val.className = 'tip-val';
+      val.textContent = r.value;
+      var name = document.createElement('span');
+      name.className = 'tip-name';
+      name.textContent = r.name;
+      row.appendChild(key); row.appendChild(val); row.appendChild(name);
+      tip.appendChild(row);
+    });
+    tip.style.display = 'block';
+    var col = document.getElementById(el.getAttribute('data-col'));
+    if (col) col.classList.add('lift');
+  }
+  function hide(el) {
+    tip.style.display = 'none';
+    var col = document.getElementById(el.getAttribute('data-col'));
+    if (col) col.classList.remove('lift');
+  }
+  function place(x, y) {
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    tip.style.left = Math.max(8, Math.min(x + 14, innerWidth - w - 8)) + 'px';
+    tip.style.top = Math.max(8, Math.min(y + 14, innerHeight - h - 8)) + 'px';
+  }
+  document.querySelectorAll('.hit').forEach(function (el) {
+    el.addEventListener('pointerenter', function () { show(el); });
+    el.addEventListener('pointermove', function (e) { place(e.clientX, e.clientY); });
+    el.addEventListener('pointerleave', function () { hide(el); });
+    el.addEventListener('focus', function () {
+      show(el);
+      var r = el.getBoundingClientRect();
+      place(r.left + r.width / 2, r.top);
+    });
+    el.addEventListener('blur', function () { hide(el); });
+  });
+})();
+</script>
+</body>
+</html>
