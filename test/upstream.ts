@@ -50,13 +50,6 @@ async function mockUpstream(): Promise<Mock> {
         // lb2-custom frame and scan (one quote that is in the excerpt, one that is not)
         : label === 'Frame:' ? 'Constraints:\n- only what the text says\nTerms:\nMIDDLE'
         : label === 'Evidence:' ? (excerpt ? `C+ "${excerpt}"\nD- nothing like this is in the excerpt` : 'None')
-        // lb2-nav: a search for MIDDLE, a read of the hit, then the answer; a text naming MOCK_NAV_LOOP never answers
-        : label === 'Next command:' ? (
-            prompt.includes('MOCK_NAV_EMPTY') && body.reasoning?.enabled !== false && prompt.split('Next command:').length === 2 ? ''
-            : prompt.includes('MOCK_NAV_LOOP') ? 'search: word'
-            : prompt.split('Next command:').length === 2 ? 'Let me look.\nsearch: MIDDLE'
-            : prompt.split('Next command:').length === 3 ? `read: ${prompt.match(/\[line (\d+)\] .*middle/)?.[1] ?? 1}`
-            : `The correct answer is (${prompt.match(/MOCK_ANSWER_([A-D])/)?.[1] ?? 'B'})`)
         // longbench v2: the reference answer form; (B) unless the text names another letter
         : label.startsWith('Format your response as follows:') ? `The correct answer is (${prompt.match(/MOCK_ANSWER_([A-D])/)?.[1] ?? 'B'})`
         : 'Yes';

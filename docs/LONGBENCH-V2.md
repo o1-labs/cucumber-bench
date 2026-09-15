@@ -71,6 +71,9 @@ npx tsx harnesses/lb2-direct/fetch-tokenizer.ts  # the pinned tokenizer files (1
 
 ## The custom harnesses: `lb2-nav` and `lb2-custom`
 
+`lb2-nav` and `lb2-direct-trunc` were removed from the tree on 2026-09-15; their runs and results stay
+here as the record of what was tried.
+
 Two harnesses built on the baseline, both with every document length in scope: neither skips nor
 truncates, so their coverage is 100%. Both keep the baseline's answer form, so `mc-answer` grades
 them unchanged. Both record every model reply in the trace.

@@ -9,8 +9,7 @@ COPY harnesses/lb2-direct/package.json harnesses/lb2-direct/package-lock.json ./
 RUN npm ci --prefix ./lb2-direct --omit=dev
 COPY harnesses/lb2-direct/src ./lb2-direct/src
 COPY harnesses/lb2-direct/tokenizer ./lb2-direct/tokenizer
-# lb2-nav and lb2-custom share this image: the tokenizer and its dependency
-COPY harnesses/lb2-nav/src ./lb2-nav/src
+# lb2-custom shares this image: the tokenizer and its dependency
 COPY harnesses/lb2-custom/src ./lb2-custom/src
 USER node
 ENTRYPOINT ["tsx"]
