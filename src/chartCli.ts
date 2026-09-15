@@ -1,9 +1,10 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import assert from 'node:assert/strict';
 import { loadProject } from './project.js';
 import { buildChartHtml } from './chart.js';
 import type { RunRecord } from './runner.js';
+import { readJsonl } from './jsonl.js';
 
 // usage: npm run chart -- runs/<runId> [runs/<runId> ...] [--combine]
 // several runs merge into one page, e.g. a new harness's run next to a stored baseline run of
@@ -18,8 +19,7 @@ assert(runDirs.length > 0, 'usage: npm run chart -- runs/<runId> [runs/<runId> .
 
 let records: RunRecord[] = [];
 for (let dir of runDirs) {
-  let jsonl = await readFile(join(dir, 'results.jsonl'), 'utf8');
-  records.push(...jsonl.trim().split('\n').map((line): RunRecord => JSON.parse(line)));
+  records.push(...(await readJsonl<RunRecord>(join(dir, 'results.jsonl'))));
 }
 let { cases, help } = await loadProject();
 if (combine) {

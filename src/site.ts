@@ -1,5 +1,6 @@
 import { copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { readJsonl } from './jsonl.js';
 
 export { publishSite };
 
@@ -11,7 +12,7 @@ async function publishSite(runDirs: string[]) {
   let entries: Entry[] = [];
   for (let dir of runDirs) {
     let id = dir.replace(/\/+$/, '').split('/').pop()!;
-    let records = (await readFile(join(dir, 'results.jsonl'), 'utf8')).trim().split('\n').map((l) => JSON.parse(l));
+    let records = await readJsonl(join(dir, 'results.jsonl'));
     let suites = [...new Set(records.map((r) => r.run.caseId.replace(/-\d+$/, '')))];
     let systems = [...new Set(records.map((r) => r.run.system))];
     let reps = Math.max(...records.map((r) => r.run.repetition));

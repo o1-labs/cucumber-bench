@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import assert from 'node:assert/strict';
 import type { RunRecord } from '../../src/runner.js';
 import { breakdown, tally, truncationOf, type Counts } from './tally.js';
+import { readJsonl } from '../../src/jsonl.js';
 
 // usage: npx tsx benchmarks/longbench-v2/summary.ts runs/<runId>
 // the LongBench v2 numbers of a run: per system, the outcome counts behind the accuracy, the
@@ -12,7 +13,7 @@ import { breakdown, tally, truncationOf, type Counts } from './tally.js';
 let runDir = process.argv[2];
 assert(runDir, 'usage: npx tsx benchmarks/longbench-v2/summary.ts runs/<runId>');
 let run = JSON.parse(await readFile(join(runDir, 'run.json'), 'utf8'));
-let records: RunRecord[] = (await readFile(join(runDir, 'results.jsonl'), 'utf8')).split('\n').filter((l) => l.trim()).map((l) => JSON.parse(l));
+let records: RunRecord[] = await readJsonl(join(runDir, 'results.jsonl'));
 
 // the metadata of every case in the run's suites; a dev sample's ids for the "without dev" row
 let meta = new Map<string, { [k: string]: string }>();

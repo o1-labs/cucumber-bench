@@ -1,7 +1,8 @@
-import { copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readdir, readFile } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import assert from 'node:assert/strict';
 import { publishSite } from './site.js';
+import { readJsonl, writeJsonl } from './jsonl.js';
 
 // usage: npm run store -- runs/<runId> [runs/<runId> ...]
 // pins a final run into runs/pinned/<runId>, the tracked archive: run.json, report.md and
@@ -9,6 +10,8 @@ import { publishSite } from './site.js';
 // copies. those duplicate the public cases the repo already holds, and they blow a
 // 100-case run past git's file limit. the full folder stays in runs/.
 // then rebuilds docs/ from every pinned run: the site shows exactly the pinned set.
+// characters of rawOutput kept per pinned record
+const RAW_CHARS = 40_000;
 let dirs = process.argv.slice(2);
 assert(dirs.length > 0, 'usage: npm run store -- runs/<runId> [runs/<runId> ...]');
 
@@ -30,19 +33,19 @@ for (let dir of dirs) {
   for (let f of manifest ? ['run.json', 'report.md', 'chart.html'] : ['report.md', 'chart.html']) {
     await copyFile(join(dir, f), join(dest, f));
   }
-  let slim = (await readFile(join(dir, 'results.jsonl'), 'utf8'))
-    .trim()
-    .split('\n')
-    .map((line) => {
-      let r = JSON.parse(line);
-      delete r.run.modelRequests;
-      if (r.run.trace) {
-        delete r.run.trace.source;
-        delete r.run.trace.transformedSource;
-      }
-      return JSON.stringify(r);
-    });
-  await writeFile(join(dest, 'results.jsonl'), slim.join('\n') + '\n');
+  let slim = (await readJsonl(join(dir, 'results.jsonl'))).map((r) => {
+    delete r.run.modelRequests;
+    if (r.run.trace) {
+      delete r.run.trace.source;
+      delete r.run.trace.transformedSource;
+      // a harness that records every call's reply (scan calls, a frame call) blows a 500-case run
+      // past git's file limit; the pinned record keeps the tail: the answer call's reply
+      let raw: string = r.run.trace.rawOutput ?? '';
+      if (raw.length > RAW_CHARS) r.run.trace.rawOutput = `(${raw.length - RAW_CHARS} characters of earlier calls in the full run folder)\n` + raw.slice(-RAW_CHARS);
+    }
+    return r;
+  });
+  await writeJsonl(join(dest, 'results.jsonl'), slim);
   console.log(`pinned to ${dest}`);
 }
 

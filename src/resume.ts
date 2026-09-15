@@ -1,8 +1,9 @@
-import { readFile } from 'node:fs/promises';
+
 import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 import type { Case } from './caseStore.js';
 import type { RunRecord } from './runner.js';
+import { readJsonl } from './jsonl.js';
 
 export { casesHash, loadRecords, assertResumable, jobKey };
 
@@ -26,11 +27,10 @@ function casesHash(cases: Case[]): string {
 
 // the records of a run folder; none when the run was interrupted before its first record
 async function loadRecords(dir: string): Promise<RunRecord[]> {
-  let text = await readFile(`${dir}/results.jsonl`, 'utf8').catch((err) => {
-    if (err.code === 'ENOENT') return '';
+  return readJsonl<RunRecord>(`${dir}/results.jsonl`).catch((err) => {
+    if (err.code === 'ENOENT') return [];
     throw err;
   });
-  return text.split('\n').filter((line) => line.trim()).map((line) => JSON.parse(line));
 }
 
 // throws on a difference that makes the old records incomparable; returns warnings for

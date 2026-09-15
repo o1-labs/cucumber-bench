@@ -8,6 +8,7 @@ import { gradeRun, pool } from './runner.js';
 import { buildReport } from './report.js';
 import { buildChartHtml } from './chart.js';
 import type { RunRecord } from './runner.js';
+import { readJsonl, writeJsonl } from './jsonl.js';
 
 // usage: npm run regrade -- runs/<runId> [--judge <model>] [--concurrency 1]
 // grades the stored outputs of a run again with the current graders, without running
@@ -20,8 +21,7 @@ let { values, positionals } = parseArgs({
 let runDir = positionals[0];
 assert(runDir, 'usage: npm run regrade -- runs/<runId> [--judge <model>] [--concurrency n]');
 
-let jsonl = await readFile(join(runDir, 'results.jsonl'), 'utf8');
-let old: RunRecord[] = jsonl.trim().split('\n').map((line) => JSON.parse(line));
+let old: RunRecord[] = await readJsonl(join(runDir, 'results.jsonl'));
 // only the run's suites are loaded; a run from before run.json existed loads every suite
 let stored = await readFile(join(runDir, 'run.json'), 'utf8').then(JSON.parse, () => undefined);
 let project = await loadProject({ judgeOverride: values.judge, suites: stored?.suites });
@@ -47,7 +47,7 @@ await pool(old, Number(values.concurrency), async ({ run }, i) => {
 });
 
 await proxy.close();
-await writeFile(join(outDir, 'results.jsonl'), records.map((r) => JSON.stringify(r)).join('\n') + '\n');
+await writeJsonl(join(outDir, 'results.jsonl'), records);
 // run.json: the regrade's own provenance; the harness runs are those of the source run
 await writeFile(
   join(outDir, 'run.json'),
