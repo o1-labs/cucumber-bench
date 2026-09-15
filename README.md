@@ -94,6 +94,7 @@ each case in a fresh hardened container (read-only, no capabilities, resource ca
 | `review-ft` | cuad-hard | the review pipeline with `cuad-qwen3` as the scan extractor and a general model for compose and check |
 | `lb2-direct` | longbench-v2 | the long-document baseline: one call with the whole document in the reference zero-shot prompt; a document beyond the context limit is skipped and reported as unsupported |
 | `lb2-direct-trunc` | longbench-v2 | the same call with the paper's truncation: the middle of a document beyond the limit is removed until it fits |
+| `lb2-direct-kimi` | longbench-v2 | `lb2-direct` with Kimi K2.5 (`moonshotai/kimi-k2.5`) in place of Qwen: the frontier-model baseline, same prompt, limits and skip policy |
 | `lb2-nav` | longbench-v2 | the navigator: the model reads the text with `search` and `read` commands, one per turn; a document that fits the context is given whole with the commands for checking, one that does not is navigated from its head |
 | `lb2-custom` | longbench-v2 | evidence before the answer: a frame call, a ranked chunk scan for verbatim passages checked against the text, the lines holding a framed term, then the baseline's call with the passages after the document, or from the passages alone when the document does not fit |
 

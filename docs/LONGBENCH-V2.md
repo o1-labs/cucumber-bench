@@ -51,6 +51,10 @@ frame and a reserve for the chat template. Two lanes, two manifests, one entry:
 | `lb2-direct` | `skip` | the case is skipped as `context_overflow` and reported as **unsupported**; the accuracy is over complete documents only, with the **coverage** next to it |
 | `lb2-direct-trunc` | `truncate_middle` | the middle of the document is removed at token boundaries until it fits, the question, choices and instructions untouched; the trace records the original and retained token counts |
 
+A third lane, `lb2-direct-kimi`, is the same entry and options with `moonshotai/kimi-k2.5` as the
+model: the frontier-model baseline. Its document counts still come from the pinned Qwen tokenizer,
+a proxy for Kimi's own; Kimi's context limit on the provider is the same 262,144 tokens.
+
 The manifest's `options` fix everything else: the context limit, the output budget, the reasoning
 setting, and the versions of the harness code, the prompt and the tokenizer. The entry refuses
 options that name versions it does not implement, so `run.json` always says what produced a record.

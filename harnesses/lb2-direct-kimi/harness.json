@@ -1,0 +1,25 @@
+{
+  "name": "lb2-direct-kimi",
+  "description": "The lb2-direct baseline with Kimi K2.5 in place of Qwen: the same one call, prompt, context limit (262,144), output budget, reasoning setting and skip policy. The document is still counted with the pinned Qwen tokenizer, as a proxy for Kimi's; a document the provider counts beyond its limit fails as a run error, as with Qwen.",
+  "entry": "../lb2-direct/src/entry.ts",
+  "suites": [
+    "longbench-v2",
+    "longbench-v2-dev"
+  ],
+  "models": {
+    "main": "moonshotai/kimi-k2.5"
+  },
+  "options": {
+    "version": "1",
+    "prompt": "0shot.txt@c5ea10bcd06285223c58dfed76bbc92d22273709",
+    "tokenizer": "Qwen/Qwen3.6-35B-A3B@995ad96eacd98c81ed38be0c5b274b04031597b0",
+    "contextTokens": 262144,
+    "outputTokens": 16384,
+    "overflow": "skip",
+    "reasoning": {
+      "enabled": true
+    }
+  },
+  "image": "cucumber-harness-lb2-direct",
+  "imageEntry": "/app/lb2-direct/src/entry.ts"
+}

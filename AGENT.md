@@ -21,6 +21,7 @@ is a harness better than the plain model, and at what cost?
 | `review-ft` | cuad-hard* | scan `cuad-qwen3:latest` (Ollama) + compose/check `qwen/qwen3.6-35b-a3b` | the finetune as a per-excerpt extractor inside the review pipeline |
 | `lb2-direct` | longbench-v2* | `qwen/qwen3.6-35b-a3b`, reasoning on, 16,384 output tokens | the long-document baseline: one call, the reference zero-shot prompt; a document beyond the context is skipped (unsupported). Own image; needs `fetch-tokenizer.ts` |
 | `lb2-direct-trunc` | longbench-v2* | same | the same call with the paper's middle truncation, so every case is answered |
+| `lb2-direct-kimi` | longbench-v2* | `moonshotai/kimi-k2.5`, reasoning on, 16,384 output tokens | `lb2-direct` with a frontier model: the same call, prompt, context limit and skip policy; the document is counted with the Qwen tokenizer as a proxy. About 4.5 times Qwen's input price |
 | `lb2-nav` | longbench-v2* | same | the navigator: `search` and `read` commands, one per turn; the whole text when it fits, navigation from the head when not. Shares the lb2-direct image |
 | `lb2-custom` | longbench-v2* | same; scan calls with reasoning off | evidence before the answer: frame, ranked chunk scan for checked verbatim passages, term hits, then the baseline's call with the passages. Shares the lb2-direct image |
 
