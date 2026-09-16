@@ -1,0 +1,11 @@
+{
+  "id": "selfaware-dev-131",
+  "graders": [
+    "answered",
+    "answer-correct"
+  ],
+  "answerable": true,
+  "acceptableAnswers": [
+    "the czech republic"
+  ]
+}

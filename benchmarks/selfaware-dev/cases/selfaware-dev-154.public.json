@@ -1,0 +1,8 @@
+{
+  "id": "selfaware-dev-154",
+  "suite": "selfaware-dev",
+  "task": "abstention",
+  "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
+  "input": "Question: If a person dies at sea and only their arm is recovered, how would he be displayed in a casket? Does it need to be a full sized casket?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 2642 (SelfAware)"
+}

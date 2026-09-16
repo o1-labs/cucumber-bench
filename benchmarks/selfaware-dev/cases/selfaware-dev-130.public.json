@@ -1,0 +1,8 @@
+{
+  "id": "selfaware-dev-130",
+  "suite": "selfaware-dev",
+  "task": "abstention",
+  "instructions": "Answer the question below. If the question has no definite answer, or you lack the information needed to answer it, say so plainly instead of guessing.",
+  "input": "Question: What happens when we did a hole down the ground and never stop? Do we drop off to space or emerge in a different point opposite to where we are, give the earth is not flat?",
+  "_source": "yinzhangyue/SelfAware data/SelfAware.json at f0bad1ff77bd42fc4eb2360281ed646c7bb7bd0c, question_id 3323 (SelfAware)"
+}
