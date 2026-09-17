@@ -102,6 +102,33 @@ was spent) is repeated once with reasoning off.
    document when it fits the context, or as the text when it does not. The scan's tags (which
    choice a quote supports) stay in the record and never reach the answer call.
 
+## The locked run (503 cases, one repetition, 2026-09-15)
+
+Run `2026-09-15T07-54-40-138Z`, pinned in `runs/pinned/`: `lb2-direct` and `lb2-direct-kimi`
+(the same call with `moonshotai/kimi-k2.5`) against `lb2-custom` version 10, process sandbox,
+concurrency 5. The two baselines skip the 103 documents beyond 262,144 tokens; the custom harness
+answers every document.
+
+| lane | over all 503 | the 394 both baselines answered | the 103 beyond the context | cost |
+| --- | --- | --- | --- | --- |
+| `lb2-direct`, Qwen 3.6-35B-A3B | 43.1% (217) | 55.1% (217) | skipped | $5.51 |
+| `lb2-direct-kimi`, Kimi K2.5 | 48.7% (245) | 62.2% (245) | skipped | $18.60 |
+| `lb2-custom`, Qwen 3.6-35B-A3B | **55.7% (280)** | 58.6% (231) | 46.6% (48) | $16.78 |
+
+Paired on the 400 cases the baselines took (the runner's bootstrap, 95% intervals): the custom
+harness over the Qwen baseline +4 points (−1 to +8); Kimi over the Qwen baseline +7 (+3 to +11);
+Kimi over the custom harness +3 (−1 to +8). So on the documents a baseline can read, the custom
+harness with the small model lands between the small and the frontier model, and the difference
+to either is not established by one repetition. Over the whole benchmark it is ahead of both, by
+coverage: 46.6% on the 103 documents no baseline can take, well above the 25% of a guess and close
+to the baselines' own rate on their documents. By length, `lb2-custom` scores 62% short, 55%
+medium and 45% long (108 cases); the Qwen baseline reads 18 of the 108 long documents.
+
+Errors: 6 to 11 cases per lane failed, mostly the provider's own context check, which estimates
+tokens by characters and rejects some whitespace-heavy documents our tokenizer counts as fitting;
+those count as failed in every lane's accuracy. Invalid answers: 15 for the Qwen baseline, 10 for
+Kimi, 13 for the custom harness.
+
 ## Results on the dev set (30 cases, one repetition each)
 
 The 27 cases the baseline can take are the paired comparison; the 3 long documents (two code

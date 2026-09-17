@@ -61,6 +61,12 @@ The long-document study (setup, lanes, scoring, differences from the paper) is i
   qualifier (~4), near-paraphrase options picked "to be safe" (~3), a self-override (1). Invalid:
   2 degenerate reasoning loops with no answer, 1 refusal ("N/A, question does not match").
   Summary: `npx tsx benchmarks/longbench-v2/summary.ts runs/<id>`.
+- longbench-v2, the locked run (pinned `2026-09-15T07-54-40-138Z`, 503 cases, 1 rep, process
+  sandbox): over all cases `lb2-custom` 55.7% (280), `lb2-direct` 43.1% (217), `lb2-direct-kimi`
+  48.7% (245); on the 394 cases both baselines answered 58.6% / 55.1% / 62.2%; on the 103
+  documents beyond the context `lb2-custom` 46.6%, the baselines skip. Paired on the shared cases,
+  custom over direct +4 points (95% −1 to +8), Kimi over direct +7 (+3 to +11). Cost $16.78 /
+  $5.51 / $18.60. Table and breakdowns: docs/LONGBENCH-V2.md, "The locked run".
 - longbench-v2-dev, the custom harnesses (2026-09-14, one rep each): on the 27 cases the baseline
   can take, `lb2-direct` scored 12, 12 and 13 over three runs with 4 letter flips between runs;
   `lb2-nav` v2 15, `lb2-custom` 13 to 14. No lane clears the noise band. What measured: coverage
@@ -81,10 +87,11 @@ The long-document study (setup, lanes, scoring, differences from the paper) is i
   draft at 0; every lane must use the benchmark default. Until then, B vs C is confounded.
 - The two pinned runs are pilots (no `run.json`, process sandbox, the temperature mismatch):
   development evidence, not official claims.
-- LongBench v2: the locked run, `lb2-direct` and `lb2-custom` (version 10, frozen) on the 503
-  cases in docker, 3 reps: `npm run sandbox:build`, then the command in docs/LONGBENCH-V2.md.
-  About $25 per repetition for the two lanes. The dev set is too small and too noisy to show a
-  gain of a few cases; paid experiments run on a few chosen cases, not the full set.
+- LongBench v2: the locked run is done with one repetition. Two more repetitions (about $40)
+  would turn the +4 of the custom harness over the Qwen baseline on the shared cases into a
+  measured difference or into noise; the coverage result needs none. A fix for the provider's
+  character-based context check (treat its 400 as overflow) would recover the 6 to 11 failed
+  cases per lane. Paid experiments run on a few chosen cases, not the full set.
 - The remaining LongBench failures are the model's final judgment with the decisive passage in
   view (under 1,000 reasoning tokens on 240k-token prompts). Untried levers: a vote over choice
   permutations, and a reasoning budget the provider honors.

@@ -69,6 +69,14 @@ first reading, at up to twice the cost. Version 10 is the version 6 pipeline.
 
 ## Measured so far
 
+On the locked set (503 cases, one repetition, run `2026-09-15T07-54-40-138Z`): 55.7% over all
+cases against 43.1% for the Qwen baseline and 48.7% for the same call with Kimi K2.5, which both
+skip the 103 documents beyond the context. On the 394 documents all three answered: 58.6%, between
+the Qwen baseline (55.1%) and Kimi (62.2%); on the 103 the baselines skip: 46.6%. Cost $16.78,
+three times the Qwen baseline and below Kimi.
+
+On the dev set, before the locked run:
+
 On the 30-case dev set, one repetition per version: 13 to 14 right of the 27 cases the baseline
 can take, against 12, 12 and 13 for the baseline over three runs, which is inside the baseline's
 own run-to-run noise of 4 letter flips. Two or three of the three long documents right in every
