@@ -41,6 +41,22 @@ rule. Freeze the provider and code before making a final comparison claim.
 
 ## Data and reconstruction
 
+On a fresh checkout, fetch and import the data with:
+
+```sh
+npm ci
+npm run data:legalbenchrag
+```
+
+This requires curl, Python 3 (standard library only), and Node.js. It downloads about 87 MB,
+extracts to a temporary directory, verifies the pinned data through the importer,
+and creates both test and development cases. Temporary downloads are removed when
+the script exits. It does not call a model or run the benchmark. Existing nonempty
+case/document directories are preserved; the command stops before downloading.
+Use `npm run data:legalbenchrag -- --out /tmp/legalbenchrag-rebuild` for a separate copy.
+
+For a manual download or an existing copy of the release:
+
 The [upstream repository](https://github.com/ZeroEntropy-AI/legalbenchrag/tree/431bc8f2488a81569ab7259fa633dcc50ab77f9a)
 is pinned at `431bc8f2488a81569ab7259fa633dcc50ab77f9a`. Download the release from the
 [upstream data link](https://www.dropbox.com/scl/fo/r7xfa5i3hdsbxex1w6amw/AID389Olvtm-ZLTKAPrw6k4?rlkey=5n8zrbk4c08lbit3iiexofmwg&dl=1),

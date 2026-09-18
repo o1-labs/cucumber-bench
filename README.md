@@ -120,6 +120,10 @@ The graders, one line each:
 Import scripts: `benchmarks/asqa/import.ts` and `benchmarks/cuad/import.ts` (see their
 headers). The raw data is not in the repository.
 
+For LegalBench-RAG, run `npm run data:legalbenchrag` after `npm ci` to download,
+verify, and import the data. Requires curl and Python 3; see the
+[benchmark guide](benchmarks/legalbenchrag/README.md).
+
 ## Reading the results
 
 - **pass rate**: the share of runs the grader passed. **mean score**: the average score

@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "data:legalbenchrag": "python3 benchmarks/legalbenchrag/fetch.py",
     "bench": "tsx --env-file-if-exists=.env src/cli.ts",
     "chart": "tsx --env-file-if-exists=.env src/chartCli.ts",
     "regrade": "tsx --env-file-if-exists=.env src/regradeCli.ts",
