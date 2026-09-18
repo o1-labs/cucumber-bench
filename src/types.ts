@@ -25,6 +25,8 @@ type PublicCase = {
   input: string;
   // context passages the answer may cite, numbered from 1 in order (asqa; cuad later)
   docs?: { title: string; text: string }[];
+  // Optional SHA-256 references to shared public documents, expanded by loadCases.
+  documentRefs?: string[];
   // worked examples (few-shot); label tasks also carry the question and the allowed labels
   examples?: { q: string; a: string }[];
   question?: string;

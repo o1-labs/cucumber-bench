@@ -1,0 +1,8 @@
+{
+  "name": "direct-qwen38",
+  "description": "Qwen3.8-27B direct reference: one call over complete supplied documents, with no retrieval or answer repair. LegalBench-RAG document-scoped extraction adaptation.",
+  "entry": "src/entry.ts",
+  "suites": ["legalbenchrag", "legalbenchrag-dev"],
+  "models": { "main": "qwen/qwen3.8-27b" },
+  "maxCalls": 1
+}

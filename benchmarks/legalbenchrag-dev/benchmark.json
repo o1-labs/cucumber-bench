@@ -1,0 +1,4 @@
+{
+  "name": "legalbenchrag-dev",
+  "graders": ["../legalbenchrag/graders.ts"]
+}

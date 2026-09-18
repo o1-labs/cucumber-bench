@@ -41,7 +41,7 @@ const CORE_GRADERS: { [name: string]: Grader } = { exact: exactGrader(), 'str-em
 
 async function loadHarnesses(root: string): Promise<HarnessManifest[]> {
   let out: HarnessManifest[] = [];
-  for (let dir of await subdirs(root)) {
+  for (let dir of await subdirs(root, 'harness.json')) {
     let m = JSON.parse(await readFile(join(dir, 'harness.json'), 'utf8'));
     assert(m.name && m.entry && Array.isArray(m.suites), `${dir}/harness.json needs name, entry, suites`);
     assert(typeof m.models?.main === 'string', `${dir}/harness.json needs models.main: the harness names its own model`);
@@ -58,7 +58,7 @@ async function loadHarnesses(root: string): Promise<HarnessManifest[]> {
 // graders are named core graders, or module paths ('./graders.ts', '../asqa/graders.ts') exporting { graders: Grader[] }
 async function loadBenchmarks(root: string): Promise<BenchmarkManifest[]> {
   let out: BenchmarkManifest[] = [];
-  for (let dir of await subdirs(root)) {
+  for (let dir of await subdirs(root, 'benchmark.json')) {
     let m = JSON.parse(await readFile(join(dir, 'benchmark.json'), 'utf8'));
     assert(m.name && Array.isArray(m.graders), `${dir}/benchmark.json needs name and graders`);
     let graders: Grader[] = [];
@@ -93,7 +93,11 @@ function uniqueGraders(benchmarks: BenchmarkManifest[]): Grader[] {
 
 // internal helpers
 
-async function subdirs(root: string): Promise<string[]> {
+async function subdirs(root: string, manifest: string): Promise<string[]> {
   let entries = await readdir(root, { withFileTypes: true });
-  return entries.filter((e) => e.isDirectory()).map((e) => join(root, e.name)).sort();
+  let dirs = entries.filter((e) => e.isDirectory()).map((e) => join(root, e.name)).sort();
+  // Ignore support/cache directories that contain no manifest. A present but malformed
+  // manifest still fails validation above.
+  const contents = await Promise.all(dirs.map((dir) => readdir(dir)));
+  return dirs.filter((_, i) => contents[i].includes(manifest));
 }

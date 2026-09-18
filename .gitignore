@@ -5,3 +5,5 @@ node_modules/
 .omc
 *.pdf
 harnesses/*/dist/
+/benchmarks/legalbenchrag*/cases/
+/benchmarks/legalbenchrag*/documents/

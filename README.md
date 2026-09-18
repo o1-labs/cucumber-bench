@@ -83,6 +83,7 @@ each case in a fresh hardened container (read-only, no capabilities, resource ca
 | harness | suites | what it does |
 | --- | --- | --- |
 | `direct` | all | one model call with the benchmark's prompt: the baseline |
+| `direct-qwen38` | legalbenchrag, legalbenchrag-dev | Qwen3.8-27B, one call over complete supplied documents; [document-scoped LegalBench-RAG reference](benchmarks/legalbenchrag/README.md) |
 | `placeholder` | legalbench, redaction | regex PII scrub, a two-call agent, regex again; no dependencies |
 | `legal-v1` | legalbench, redaction | input safety → agent → output safety; safety is regex plus a trusted safety model (Vercel AI SDK) |
 | `cite-v1` | asqa, cuad | the few-shot answer, then a check of every sentence's citations; an unsupported sentence is dropped |
@@ -99,6 +100,7 @@ Every harness names its models in its manifest, and, per model, the provider it 
 | suite | cases | source | graders |
 | --- | --- | --- | --- |
 | `legalbench` | 9 label cases | [nguha/legalbench](https://huggingface.co/datasets/nguha/legalbench) | `exact` |
+| `legalbenchrag` (+ `legalbenchrag-dev`) | 5,508 test / 1,381 dev questions | [LegalBench-RAG](https://github.com/ZeroEntropy-AI/legalbenchrag), adapted to supplied source documents | `rag-recall`, `rag-precision` |
 | `redaction` | 5 documents | [ai4privacy/pii-masking-300k](https://huggingface.co/datasets/ai4privacy/pii-masking-300k) | `removal`, `leakage`, `retention` |
 | `asqa` (+ `asqa-dev`, 15) | 100 questions with 20 passages each | [ALCE](https://github.com/princeton-nlp/ALCE), ASQA | `str-em`, `citation-recall`, `citation-precision` |
 | `cuad` (+ `cuad-dev`, 15) | 100 clause questions over contracts ≤ 6,000 words, 12 clause types, 30% absent | [CUAD](https://github.com/TheAtticusProject/cuad) (CC BY 4.0) | `clause-recall`, `clause-precision`, `citation-support` |

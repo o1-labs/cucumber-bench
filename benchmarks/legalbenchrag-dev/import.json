@@ -1,0 +1,42 @@
+{
+  "sourceCommit": "431bc8f2488a81569ab7259fa633dcc50ab77f9a",
+  "corpusSha256": "a8eda9cb938cb825b1dfa1d771ec4f1500aa2573e732a26f9e74b2e30e55468b",
+  "release": {
+    "contractnli": {
+      "count": 977,
+      "sha256": "bc60963c4880e3db3141e96f3a7b75e1dbe195cba8f10f0658872f43430fc77a"
+    },
+    "cuad": {
+      "count": 4042,
+      "sha256": "8e0405b15fb8869c631da424372b488e274f253a81634b78803b21c72c0601f9"
+    },
+    "maud": {
+      "count": 1676,
+      "sha256": "82ef159b87f73a9c68e7143fac88bf47ac212713b56617d7e87d6f1f0a781daf"
+    },
+    "privacy_qa": {
+      "count": 194,
+      "sha256": "12c7afcb0e6e84cdff59914495c3bce005d10bb4665cae12b64a9b57af8fb7b6"
+    }
+  },
+  "scope": "document-scoped extraction; source document selected from annotations; no corpus search",
+  "split": "legalbenchrag-split-v1: SHA-256 ordering, first ceil(20%) documents per dataset are dev",
+  "counts": {
+    "contractnli": {
+      "legalbenchrag": 758,
+      "legalbenchrag-dev": 219
+    },
+    "cuad": {
+      "legalbenchrag": 3279,
+      "legalbenchrag-dev": 763
+    },
+    "maud": {
+      "legalbenchrag": 1339,
+      "legalbenchrag-dev": 337
+    },
+    "privacy_qa": {
+      "legalbenchrag": 132,
+      "legalbenchrag-dev": 62
+    }
+  }
+}
