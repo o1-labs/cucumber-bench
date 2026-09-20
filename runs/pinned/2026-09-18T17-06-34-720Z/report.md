@@ -1,0 +1,6874 @@
+# Benchmark report
+
+Run: 2026-09-18T17-06-34-720Z
+
+Models used, as recorded by the proxy:
+
+- direct-qwen38: qwen/qwen3.8-27b
+
+## Suite: legalbenchrag
+
+| task | system | n | errors | rag-recall | rag-precision | consistency | avg latency ms | avg tokens in/out | avg calls | harness cost/run | judge cost/run | total cost, all runs |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| legalbenchrag-document-extraction | direct-qwen38 | 5508 | 6% | 22% (avg 48%) | 53% (avg 70%) | n/a | 74101 | 24423/3421 | 1.0 | $0.0142 | n/a | $78.11 |
+| ALL | direct-qwen38 | 5508 | 6% | 22% (avg 48%) | 53% (avg 70%) | n/a | 74101 | 24423/3421 | 1.0 | $0.0142 | n/a | $78.11 |
+
+errors: the share of runs that failed in the sandbox or in a grader; they count as failed grades too.
+
+Graders (a cell is the pass rate; a value in parentheses is the mean score when it differs):
+
+- rag-recall: Returned verbatim quotes cover the gold LegalBench-RAG character spans. The score is character recall.
+- rag-precision: Returned verbatim quotes are inside the gold LegalBench-RAG character spans. The score is character precision.
+
+## Failures (6850), details withheld (--no-details)
+
+- legalbenchrag-contractnli-0000 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0001 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0002 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0003 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0004 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0005 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0007 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0009 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0010 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0011 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0012 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0013 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0014 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0015 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0016 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0016 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0017 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0018 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0019 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0020 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0021 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0022 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0023 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0023 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0024 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0025 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0026 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0027 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0027 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0028 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0028 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0029 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0029 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0030 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0030 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0031 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0031 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0032 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0032 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0033 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0033 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0034 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0034 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0035 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0035 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0036 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0038 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0039 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0040 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0041 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0042 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0044 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0045 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0046 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0046 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0047 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0048 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0049 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0050 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0051 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0052 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0053 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0053 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0054 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0054 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0055 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0056 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0057 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0058 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0059 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0060 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0061 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0062 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0062 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0063 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0064 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0065 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0066 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0067 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0068 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0069 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0069 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0070 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0071 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0072 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0073 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0074 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0075 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0076 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0078 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0079 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0079 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0080 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0080 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0081 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0082 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0083 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0084 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0085 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0086 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0087 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0088 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0089 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0090 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0092 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0093 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0093 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0095 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0096 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0096 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0097 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0098 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0098 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0099 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0104 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0105 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0106 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0107 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0107 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0108 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0110 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0110 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0111 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0112 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0112 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0113 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0114 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0115 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0116 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0117 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0118 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0119 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0120 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0121 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0122 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0123 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0124 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0125 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0126 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0127 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0128 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0129 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0130 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0132 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0132 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0133 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0134 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0135 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0137 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0138 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0139 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0140 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0141 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0142 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0143 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0144 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0145 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0146 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0147 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0147 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0148 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0149 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0150 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0151 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0152 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0152 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0153 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0154 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0154 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0155 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0156 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0156 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0157 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0158 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0159 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0159 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0160 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0161 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0162 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0163 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0164 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0164 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0165 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0166 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0168 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0168 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0169 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0196 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0196 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0197 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0197 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0198 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0199 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0200 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0205 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0206 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0206 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0207 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0207 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0208 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0209 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0209 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0210 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0210 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0211 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0211 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0212 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0212 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0213 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0213 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0214 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0215 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0216 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0217 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0217 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0218 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0219 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0220 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0222 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0222 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0223 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0224 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0225 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0226 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0227 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0228 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0229 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0230 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0231 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0232 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0233 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0234 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0235 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0236 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0237 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0238 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0238 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0239 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0240 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0241 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0243 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0245 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0246 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0247 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0248 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0249 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0252 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0253 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0254 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0255 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0256 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0257 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0258 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0258 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0259 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0260 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0261 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0263 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0264 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0265 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0266 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0267 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0268 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0269 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0294 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0296 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0297 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0299 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0299 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0301 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0302 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0302 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0303 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0304 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0305 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0306 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0307 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0308 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0309 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0310 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0311 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0312 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0313 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0314 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0315 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0315 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0316 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0317 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0319 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0320 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0321 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0322 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0322 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0323 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0324 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0325 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0325 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0326 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0326 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0327 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0328 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0329 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0330 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0331 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0332 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0333 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0334 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0335 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0351 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0352 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0352 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0353 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0353 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0354 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0355 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0356 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0357 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0358 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0360 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0361 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0362 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0364 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0365 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0366 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0366 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0367 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0369 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0370 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0371 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0372 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0373 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0374 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0375 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0377 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0378 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0378 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0379 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0381 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0381 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0404 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0406 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0407 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0409 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0409 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0410 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0411 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0412 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0413 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0414 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0416 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0417 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0419 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0420 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0421 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0423 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0424 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0424 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0425 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0426 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0427 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0427 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0428 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0429 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0430 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0431 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0432 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0434 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0435 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0436 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0437 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0437 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0438 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0439 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0440 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0440 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0441 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0442 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0444 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0445 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0446 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0448 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0449 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0449 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0450 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0451 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0451 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0452 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0453 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0455 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0456 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0457 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0458 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0459 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0460 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0461 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0461 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0462 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0463 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0464 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0465 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0466 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0467 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0468 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0469 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0469 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0470 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0470 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0471 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0471 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0472 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0472 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0473 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0474 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0475 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0476 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0491 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0492 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0492 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0493 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0494 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0495 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0496 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0497 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0498 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0499 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0500 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0500 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0501 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0502 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0502 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0503 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0504 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0505 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0506 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0507 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0508 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0510 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0511 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0512 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0513 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0513 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0514 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0515 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0516 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0517 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0518 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0519 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0519 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0520 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0520 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0522 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0523 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0523 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0524 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0524 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0525 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0525 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0526 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0527 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0528 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0529 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0530 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0531 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0532 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0533 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0533 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0534 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0535 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0536 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0537 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0538 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0539 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0540 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0540 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0541 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0542 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0543 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0544 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0544 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0545 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0546 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0547 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0548 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0563 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0565 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0566 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0568 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0569 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0570 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0571 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0573 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0574 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0590 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0591 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0592 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0593 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0594 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0594 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0595 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0596 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0597 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0597 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0598 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0598 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0599 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0600 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0601 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0602 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0603 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0604 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0605 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0605 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0606 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0608 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0609 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0610 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0611 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0612 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0612 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0613 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0614 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0641 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0642 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0642 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0643 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0644 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0645 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0645 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0646 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0649 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0652 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0652 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0653 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0654 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0654 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0656 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0657 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0658 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0659 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0660 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0661 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0662 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0663 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0664 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0664 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0665 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0666 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0666 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0667 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0668 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0668 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0669 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0669 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0670 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0671 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0672 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0673 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0673 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0674 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0675 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0675 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0676 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0678 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0678 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0680 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0680 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0681 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0682 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0683 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0684 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0685 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0696 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0697 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0698 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0698 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0699 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0700 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0701 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0702 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0704 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0704 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0705 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0706 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0706 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0707 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0708 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0709 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0709 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0710 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0710 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0711 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0713 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0714 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0715 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0715 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0716 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0717 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0720 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0720 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0721 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0722 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0723 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0724 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0725 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0727 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0728 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0729 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0729 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0731 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0732 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0733 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0734 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0735 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0736 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0737 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0737 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0738 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0739 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0739 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0740 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0741 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0742 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0743 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0743 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0744 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0745 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0746 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0746 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0747 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0748 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0749 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0750 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0751 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0752 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0753 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0769 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0770 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0773 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0774 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0775 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0775 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0776 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0777 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0778 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0779 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0779 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0780 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0781 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0782 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0789 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0789 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0790 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0791 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0793 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0794 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0796 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0798 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0799 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0800 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0802 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0803 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0804 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0805 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0806 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0808 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0809 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0810 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0811 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0813 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0814 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0815 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0815 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0817 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0818 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0819 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0819 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0820 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0821 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0822 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0822 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0823 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0823 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0824 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0825 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0826 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0826 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0827 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0827 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0829 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0830 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0833 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0834 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0834 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0835 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0836 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0837 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0838 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0859 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0859 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0860 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0861 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0862 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0863 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0864 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0865 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0866 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0867 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0869 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0871 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0871 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0872 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0873 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0875 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0876 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0878 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0878 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0879 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0879 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0880 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0881 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0882 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0882 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0883 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0884 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0885 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0886 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0887 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0888 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0889 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0890 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0891 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0891 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0892 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0893 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0893 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0894 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0894 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0895 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0895 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0896 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0897 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0898 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0899 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0899 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0900 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0901 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0902 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0903 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0904 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0904 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0905 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0906 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0920 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0922 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0924 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0924 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0925 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0925 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0926 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0926 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0927 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0927 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0928 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0929 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0930 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0931 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0932 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0932 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0933 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0933 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0934 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0935 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0936 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0937 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0938 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0938 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0939 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0940 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0941 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0941 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0942 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0944 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0944 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0945 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0946 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0947 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0948 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0948 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0949 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0950 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0951 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0952 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0952 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0953 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0954 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0955 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0956 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0957 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0957 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0958 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0959 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0960 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0961 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0963 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0964 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0965 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0966 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0967 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0968 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0968 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0969 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0970 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0971 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-contractnli-0972 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0972 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-contractnli-0973 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0974 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0975 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-contractnli-0976 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0000 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0001 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0002 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0003 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0006 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0008 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0009 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0010 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0011 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0012 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0013 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0014 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0014 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0015 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0016 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0016 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0017 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0018 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0018 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0019 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0020 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0020 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0023 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0024 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0024 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0025 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0026 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0027 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0029 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0043 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0044 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0045 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0046 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0046 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0047 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0047 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0048 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0051 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0051 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0052 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0053 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0053 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0054 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0056 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0057 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0058 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0059 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0061 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0062 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0062 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0063 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0064 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0066 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0067 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0068 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0068 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0069 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0070 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0071 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0071 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0072 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0072 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0073 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0073 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0074 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0074 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0075 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0075 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0076 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0076 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0077 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0078 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0079 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0079 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0080 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0080 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0081 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0082 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0083 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0084 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0085 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0086 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0086 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0087 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0088 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0089 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0090 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0091 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0092 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0092 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0093 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0093 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0094 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0095 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0095 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0096 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0096 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0097 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0098 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0099 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0099 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0100 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0101 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0102 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0103 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0104 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0104 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0105 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0105 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0106 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0106 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0107 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0108 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0108 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0109 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0109 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0110 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0111 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0112 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0113 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0113 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0114 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0114 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0115 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0116 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0117 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0118 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0118 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0119 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0120 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0121 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0122 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0122 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0123 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0123 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0124 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0125 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0126 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0126 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0127 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0127 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0128 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0129 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0129 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0131 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0131 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0132 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0133 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0136 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0137 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0137 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0138 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0138 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0140 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0141 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0142 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0169 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0170 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0171 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0172 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0173 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0173 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0175 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0175 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0176 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0177 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0177 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0178 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0178 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0179 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0180 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0181 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0182 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0182 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0184 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0185 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0185 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0186 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0186 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0187 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0188 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0189 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0191 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0203 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0204 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0206 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0207 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0209 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0210 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0211 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0212 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0213 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0214 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0227 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0238 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0238 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0239 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0240 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0241 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0242 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0242 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0243 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0245 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0245 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0246 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0246 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0248 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0248 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0249 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0250 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0250 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0253 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0254 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0255 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0255 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0256 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0256 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0260 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0263 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0265 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0266 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0266 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0267 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0268 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0268 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0269 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0272 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0274 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0275 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0275 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0276 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0276 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0277 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0278 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0279 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0280 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0282 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0282 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0283 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0284 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0285 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0285 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0286 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0287 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0290 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0290 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0291 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0294 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0294 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0296 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0296 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0297 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0299 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0300 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0301 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0302 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0303 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0303 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0304 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0304 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0305 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0305 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0306 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0307 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0308 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0309 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0310 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0311 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0311 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0312 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0313 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0313 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0314 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0314 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0315 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0315 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0316 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0317 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0318 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0319 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0319 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0320 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0320 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0321 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0321 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0322 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0322 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0323 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0324 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0324 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0325 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0325 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0326 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0326 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0327 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0329 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0330 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0331 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0331 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0332 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0333 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0333 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0334 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0334 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0336 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0337 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0338 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0338 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0340 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0341 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0342 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0343 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0345 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0345 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0346 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0347 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0348 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0349 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0349 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0350 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0351 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0352 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0353 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0355 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0357 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0358 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0359 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0361 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0361 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0362 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0362 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0363 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0363 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0364 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0365 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0366 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0367 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0368 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0368 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0369 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0369 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0370 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0371 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0372 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0372 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0373 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0374 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0375 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0376 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0377 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0377 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0378 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0378 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0379 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0379 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0380 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0381 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0382 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0383 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0383 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0384 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0385 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0386 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0387 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0388 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0388 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0389 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0390 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0390 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0391 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0391 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0392 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0393 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0394 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0394 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0395 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0395 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0396 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0396 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0398 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0399 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0400 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0401 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0403 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0404 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0404 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0406 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0406 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0407 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0408 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0409 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0410 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0411 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0414 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0414 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0415 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0415 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0416 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0417 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0418 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0420 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0420 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0422 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0423 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0423 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0424 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0424 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0425 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0426 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0428 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0428 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0429 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0430 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0431 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0431 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0432 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0432 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0433 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0434 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0435 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0435 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0437 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0437 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0438 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0439 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0439 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0440 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0442 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0442 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0443 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0443 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0444 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0445 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0445 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0446 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0446 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0448 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0448 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0449 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0449 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0451 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0451 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0452 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0453 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0454 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0454 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0455 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0455 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0457 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0458 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0460 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0461 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0462 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0463 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0464 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0464 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0465 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0466 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0467 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0468 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0469 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0469 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0470 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0470 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0472 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0473 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0473 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0474 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0474 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0475 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0476 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0477 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0477 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0478 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0479 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0479 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0480 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0481 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0481 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0482 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0483 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0493 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0494 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0495 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0497 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0497 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0498 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0498 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0499 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0500 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0502 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0502 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0503 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0503 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0504 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0505 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0505 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0506 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0506 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0507 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0507 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0508 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0508 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0509 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0509 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0510 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0511 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0511 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0517 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0520 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0522 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0522 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0524 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0525 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0526 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0526 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0527 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0529 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0530 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0530 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0531 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0531 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0532 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0532 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0533 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0533 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0534 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0534 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0539 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0540 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0541 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0542 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0543 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0543 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0544 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0545 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0546 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0547 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0547 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0549 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0549 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0550 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0551 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0551 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0552 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0552 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0553 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0554 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0555 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0556 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0556 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0558 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0559 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0559 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0560 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0561 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0562 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0563 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0563 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0564 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0564 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0565 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0566 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0566 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0567 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0567 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0568 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0569 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0569 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0570 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0572 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0572 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0573 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0574 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0574 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0575 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0576 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0577 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0578 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0578 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0579 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0580 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0581 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0582 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0583 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0584 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0585 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0586 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0586 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0587 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0587 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0588 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0590 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0590 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0592 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0592 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0593 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0593 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0594 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0595 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0596 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0597 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0598 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0599 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0599 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0601 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0602 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0603 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0604 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0605 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0606 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0608 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0611 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0612 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0613 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0614 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0615 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0616 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0618 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0619 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0619 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0620 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0621 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0621 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0622 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0623 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0624 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0625 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0626 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0626 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0627 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0627 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0628 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0629 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0630 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0632 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0633 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0635 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0637 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0637 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0638 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0639 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0639 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0640 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0640 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0641 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0642 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0643 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0643 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0644 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0645 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0647 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0647 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0648 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0648 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0649 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0649 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0650 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0652 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0655 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0656 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0656 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0663 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0663 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0664 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0665 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0666 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0668 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0670 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0670 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0671 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0672 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0684 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0685 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0686 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0686 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0687 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0688 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0689 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0690 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0691 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0691 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0692 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0693 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0693 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0694 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0695 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0696 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0698 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0699 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0700 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0702 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0702 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0703 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0703 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0704 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0706 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0707 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0707 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0708 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0709 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0711 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0712 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0724 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0725 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0727 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0729 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0729 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0731 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0732 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0734 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0735 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0736 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0736 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0737 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0737 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0738 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0738 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0740 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0740 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0741 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0743 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0744 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0746 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0749 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0749 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0750 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0752 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0753 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0754 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0755 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0756 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0756 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0758 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0760 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0762 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0762 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0763 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0764 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0765 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0765 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0766 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0766 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0767 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0768 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0769 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0770 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0770 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0773 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0780 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0781 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0782 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0783 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0784 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0785 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0785 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0786 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0787 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0788 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0789 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0789 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0803 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0804 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0805 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0805 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0806 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0807 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0807 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0808 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0808 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0809 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0810 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0810 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0811 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0812 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0813 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0814 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0815 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0816 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0817 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0818 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0819 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0819 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0820 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0821 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0822 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0822 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0824 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0825 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0825 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0826 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0827 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0827 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0829 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0830 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0831 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0832 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0833 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0835 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0835 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0836 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0836 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0837 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0850 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0851 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0852 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0852 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0853 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0854 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0854 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0855 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0856 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0856 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0857 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0858 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0859 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0859 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0860 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0861 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0863 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0864 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0865 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0865 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0867 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0867 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0868 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0868 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0869 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0870 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0871 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0872 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0872 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0874 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0875 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0875 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0876 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0877 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0877 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0878 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0878 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0879 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0880 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0881 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0881 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0882 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0882 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0883 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0884 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0884 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0885 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0885 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-0886 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0886 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0887 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0888 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0889 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0889 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0890 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0891 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0893 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0896 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0897 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0899 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0900 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0900 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0901 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0901 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0902 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0903 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0904 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0905 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0905 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0906 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0907 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0908 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0909 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0910 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0911 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0911 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0912 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0913 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0914 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0914 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0915 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0917 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0918 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0918 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0934 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0935 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0936 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0937 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0938 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0939 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0940 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0941 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0941 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0942 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0943 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0943 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0944 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0945 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0946 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0947 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0949 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0949 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0950 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0950 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0951 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0952 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0953 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0954 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0955 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0956 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0958 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0960 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0962 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0962 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0963 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0963 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0964 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0964 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0965 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0966 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0966 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0967 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0968 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0969 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0969 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0970 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0970 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0971 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0971 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0972 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0973 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0974 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0975 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0975 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-0976 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0977 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0978 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0980 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-0981 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1012 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1013 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1014 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1015 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1017 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1017 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1018 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1018 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1020 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1021 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1022 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1024 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1028 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1029 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1030 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1031 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1032 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1033 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1034 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1035 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1036 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1036 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1037 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1038 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1038 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1039 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1040 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1040 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1041 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1042 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1042 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1043 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1043 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1044 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1045 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1046 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1047 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1047 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1048 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1048 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1049 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1050 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1051 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1051 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1052 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1052 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1053 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1053 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1054 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1055 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1057 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1057 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1071 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1074 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1075 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1075 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1076 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1078 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1078 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1079 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1081 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1081 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1082 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1083 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1085 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1085 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1086 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1086 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1087 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1088 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1089 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1090 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1091 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1091 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1093 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1093 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1094 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1095 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1096 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1097 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1097 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1099 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1100 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1101 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1102 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1104 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1105 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1107 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1109 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1110 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1111 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1112 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1113 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1114 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1116 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1116 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1117 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1118 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1119 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1120 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1120 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1122 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1123 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1124 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1125 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1126 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1127 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1129 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1129 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1130 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1130 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1131 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1131 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1132 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1133 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1135 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1135 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1142 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1144 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1144 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1145 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1146 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1147 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1147 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1148 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1148 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1150 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1150 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1151 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1151 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1152 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1153 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1155 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1156 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1157 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1158 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1159 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1159 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1160 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1160 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1161 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1164 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1164 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1165 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1166 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1167 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1168 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1170 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1171 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1172 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1172 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1200 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1200 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1201 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1202 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1203 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1204 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1204 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1205 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1206 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1206 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1207 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1208 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1209 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1210 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1211 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1212 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1213 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1213 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1215 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1215 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1216 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1216 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1217 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1218 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1219 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1220 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1220 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1221 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1221 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1222 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1223 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1224 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1224 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1225 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1226 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1228 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1228 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1229 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1230 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1232 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1233 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1235 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1237 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1238 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1239 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1240 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1241 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1242 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1242 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1243 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1244 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1244 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1245 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1247 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1248 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1248 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1265 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1266 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1267 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1268 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1269 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1269 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1270 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1271 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1271 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1272 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1273 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1273 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1274 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1275 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1276 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1277 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1278 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1278 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1279 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1280 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1280 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1281 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1281 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1295 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1296 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1297 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1297 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1298 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1298 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1299 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1299 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1300 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1300 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1301 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1301 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1302 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1302 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1303 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1303 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1304 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1304 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1305 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1305 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1306 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1306 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1307 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1307 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1308 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1309 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1310 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1310 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1311 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1312 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1313 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1313 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1314 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1314 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1315 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1315 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1316 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1316 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1317 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1317 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1318 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1319 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1320 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1320 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1321 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1321 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1322 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1323 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1324 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1325 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1326 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1344 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1344 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1346 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1348 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1350 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1350 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1351 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1352 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1353 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1353 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1354 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1355 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1356 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1357 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1359 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1359 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1360 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1361 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1362 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1364 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1365 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1365 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1366 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1366 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1367 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1367 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1368 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1369 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1370 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1371 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1374 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1374 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1375 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1376 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1377 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1378 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1380 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1381 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1381 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1382 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1383 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1384 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1385 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1387 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1388 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1388 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1389 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1389 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1390 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1391 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1392 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1393 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1394 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1394 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1395 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1396 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1396 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1397 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1397 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1398 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1398 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1399 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1401 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1401 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1413 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1414 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1415 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1416 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1417 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1417 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1419 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1420 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1421 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1422 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1422 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1424 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1425 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1425 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1426 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1427 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1428 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1429 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1429 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1430 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1430 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1431 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1432 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1433 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1433 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1434 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1435 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1435 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1436 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1436 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1437 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1438 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1439 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1440 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1440 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1441 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1441 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1444 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1444 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1445 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1446 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1447 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1448 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1450 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1450 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1451 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1451 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1452 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1453 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1454 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1464 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1465 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1466 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1468 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1469 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1469 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1470 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1470 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1471 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1472 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1473 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1474 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1475 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1475 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1476 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1476 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1477 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1478 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1479 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1481 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1482 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1484 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1484 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1485 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1486 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1486 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1487 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1488 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1488 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1489 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1490 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1490 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1491 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1492 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1493 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1493 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1494 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1495 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1496 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1497 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1498 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1498 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1499 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1499 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1500 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1500 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1501 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1502 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1502 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1503 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1503 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1505 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1505 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1507 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1509 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1509 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1510 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1511 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1513 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1513 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1514 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1514 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1515 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1516 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1516 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1517 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1518 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1519 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1520 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1520 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1521 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1522 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1523 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1523 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1524 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1525 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1525 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1526 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1526 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1527 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1527 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1528 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1528 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1529 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1529 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1530 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1531 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1531 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1532 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1532 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1533 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1534 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1535 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1536 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1536 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1537 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1538 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1550 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1551 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1553 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1553 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1554 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1555 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1556 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1556 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1557 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1558 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1559 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1559 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1560 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1561 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1562 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1563 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1563 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1564 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1565 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1566 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1566 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1567 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1568 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1569 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1570 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1570 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1571 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1571 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1572 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1572 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1573 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1574 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1575 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1575 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1576 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1576 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1577 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1578 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1579 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1579 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1580 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1581 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1581 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1582 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1583 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1584 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1585 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1585 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1586 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1586 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1587 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1587 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1588 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1588 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1589 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1590 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1590 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1591 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1591 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1592 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1592 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1593 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1593 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1594 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1594 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1595 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1596 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1597 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1598 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1598 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1599 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1600 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1601 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1601 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1602 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1603 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1604 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1604 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1605 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1605 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1607 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1607 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1608 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1608 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1610 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1617 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1625 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1625 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1628 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1629 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1630 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1631 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1632 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1632 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1633 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1635 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1636 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1638 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1638 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1640 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1640 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1641 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1641 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1646 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1647 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1650 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1650 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1651 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1652 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1653 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1656 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1657 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1658 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1659 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1660 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1662 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1662 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1665 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1666 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1667 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1668 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1668 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1669 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1670 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1671 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1672 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1674 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1674 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1675 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1675 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1676 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1677 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1678 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1679 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1680 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1681 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1681 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1682 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1682 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1683 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1684 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1685 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1694 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1695 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1697 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1698 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1698 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1699 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1700 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1700 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1701 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1702 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1702 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1703 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1703 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1704 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1704 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1705 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1705 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1706 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1706 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1707 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1708 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1708 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1709 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1709 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1710 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1710 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1711 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1712 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1712 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1713 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1713 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1714 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1715 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1716 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1717 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1718 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1718 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1719 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1722 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1723 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1726 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1727 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1727 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1728 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1729 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1731 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1733 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1734 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1735 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1735 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1736 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1737 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1738 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1738 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1739 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1740 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1741 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1742 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1743 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1744 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1744 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1746 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1747 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1748 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1748 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1750 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1751 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1751 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1752 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1752 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1754 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1756 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1757 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1757 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1758 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1759 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1760 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1760 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1761 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1761 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1762 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1762 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1763 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1764 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1764 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1765 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1765 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1766 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1766 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1767 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1767 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1776 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1777 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1778 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1779 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1779 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1780 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1782 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1782 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1783 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1784 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1784 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1785 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1786 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1788 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1788 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1789 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1790 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1792 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1793 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1794 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1795 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1796 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1796 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1797 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1803 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1804 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1806 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1808 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1809 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1809 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1810 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1811 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1812 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1813 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1815 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1816 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1822 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1822 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1823 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1825 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1826 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1827 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1827 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1828 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1829 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1829 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1830 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1831 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1832 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1833 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1834 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1835 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1835 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1837 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1838 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1839 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1841 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1842 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1844 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1844 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1846 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1847 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1848 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1851 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1851 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1853 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1856 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1858 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1861 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1861 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1863 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1863 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1864 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1865 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1871 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1871 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1872 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1875 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1877 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1878 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1879 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1881 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1882 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1882 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1883 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1884 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1884 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1885 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1885 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1886 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1887 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1887 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1888 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1889 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1890 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1890 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1891 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1891 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1893 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1895 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1896 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1896 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1901 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1902 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1903 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1904 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1905 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1906 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1906 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1907 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1908 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1909 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1910 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1910 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1911 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1912 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1913 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1914 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1916 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1918 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1918 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1919 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1920 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1920 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1921 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1922 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1923 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1924 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1926 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1926 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1927 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1927 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1928 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1929 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1931 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1931 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1932 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1932 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1933 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1935 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1935 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1936 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1936 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1937 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1937 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1938 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1938 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1939 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1939 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1940 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1940 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1941 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1941 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1943 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1944 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1945 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1946 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1947 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1948 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1948 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1949 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1950 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1951 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1954 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1956 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1964 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1964 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1965 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1966 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1966 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1967 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1967 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1968 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1969 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1969 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-1970 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1971 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1972 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1973 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1974 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1975 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1977 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1978 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1980 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1983 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1984 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1984 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1991 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1992 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1993 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1994 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1995 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1995 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-1997 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1998 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1999 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-1999 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2000 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2001 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2003 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2003 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2004 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2005 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2006 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2006 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2007 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2007 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2008 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2008 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2009 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2009 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2010 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2010 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2011 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2011 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2012 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2013 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2013 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2014 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2015 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2016 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2017 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2017 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2018 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2019 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2019 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2020 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2021 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2023 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2023 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2024 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2025 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2027 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2028 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2029 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2029 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2031 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2032 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2033 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2034 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2034 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2035 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2036 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2037 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2038 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2039 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2042 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2043 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2044 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2045 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2045 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2046 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2047 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2048 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2051 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2052 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2053 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2054 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2055 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2056 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2056 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2058 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2059 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2061 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2062 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2063 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2064 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2064 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2065 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2066 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2067 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2068 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2068 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2069 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2069 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2070 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2070 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2071 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2072 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2072 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2073 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2073 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2074 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2075 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2076 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2076 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2077 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2077 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2078 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2078 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2079 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2080 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2081 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2084 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2085 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2086 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2087 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2088 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2089 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2090 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2090 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2092 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2093 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2093 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2094 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2095 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2096 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2097 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2097 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2098 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2098 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2099 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2100 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2101 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2102 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2103 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2104 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2104 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2105 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2105 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2107 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2107 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2108 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2108 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2109 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2110 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2110 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2111 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2112 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2113 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2115 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2117 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2118 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2119 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2120 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2122 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2123 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2124 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2124 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2125 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2126 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2127 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2128 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2128 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2129 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2129 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2130 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2130 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2131 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2131 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2132 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2132 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2133 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2134 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2134 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2135 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2135 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2136 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2136 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2137 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2149 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2150 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2151 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2151 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2152 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2153 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2154 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2154 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2155 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2155 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2156 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2157 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2158 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2158 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2159 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2160 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2161 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2162 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2164 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2165 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2165 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2166 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2166 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2167 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2167 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2168 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2169 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2170 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2171 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2171 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2172 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2173 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2174 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2174 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2175 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2175 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2176 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2177 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2177 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2178 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2179 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2180 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2182 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2182 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2183 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2184 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2185 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2185 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2186 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2187 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2187 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2188 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2190 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2190 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2193 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2194 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2195 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2197 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2197 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2198 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2199 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2200 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2200 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2201 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2201 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2202 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2203 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2203 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2204 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2205 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2206 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2206 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2207 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2207 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2208 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2208 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2210 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2211 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2213 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2213 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2214 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2215 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2216 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2217 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2217 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2218 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2221 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2223 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2223 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2224 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2224 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2225 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2226 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2227 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2228 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2229 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2229 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2230 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2230 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2231 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2232 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2233 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2233 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2234 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2236 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2238 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2239 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2240 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2241 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2244 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2245 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2245 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2247 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2247 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2248 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2249 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2249 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2250 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2251 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2252 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2253 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2254 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2255 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2256 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2257 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2257 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2259 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2262 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2262 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2263 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2264 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2265 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2265 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2266 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2266 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2267 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2267 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2268 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2269 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2269 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2270 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2271 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2272 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2273 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2275 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2275 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2276 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2277 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2277 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2278 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2280 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2280 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2281 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2281 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2282 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2283 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2283 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2284 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2284 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2285 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2285 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2286 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2287 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2288 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2289 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2289 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2290 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2292 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2293 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2294 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2294 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2295 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2295 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2297 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2299 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2300 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2301 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2301 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2302 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2303 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2303 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2304 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2304 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2306 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2307 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2308 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2309 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2309 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2310 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2311 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2312 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2313 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2313 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2322 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2323 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2325 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: terminated"}}
+- legalbenchrag-cuad-2325 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: terminated"}}
+- legalbenchrag-cuad-2326 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2328 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2328 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2329 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2329 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2331 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2332 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2333 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2334 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2336 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2337 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2338 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2339 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: terminated"}}
+- legalbenchrag-cuad-2339 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: terminated"}}
+- legalbenchrag-cuad-2341 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2343 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2343 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2344 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2344 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2345 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2346 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2348 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2349 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2350 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2352 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2353 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2361 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2362 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2362 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2363 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2364 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2364 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2365 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2365 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2366 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2367 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2367 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2368 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2369 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2369 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2370 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2370 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2371 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2371 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2378 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2379 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2380 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2381 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2383 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2384 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2384 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2385 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2385 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2386 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2387 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2388 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2389 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2390 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2390 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2392 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2392 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2393 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2394 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2394 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2395 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2395 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2396 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2397 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2402 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2403 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2404 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2404 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2405 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2406 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2407 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2408 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2408 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2409 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2410 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2411 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2412 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2416 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2417 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2417 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2419 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2419 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2425 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2425 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2426 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2427 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2428 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2429 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2430 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2431 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2436 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2436 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2439 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2450 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2452 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2453 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2453 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2454 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2454 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2456 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2457 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2458 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2458 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2459 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2461 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2462 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2463 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2464 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2465 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2465 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2466 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2466 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2467 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2469 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2470 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2470 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2471 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2471 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2472 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2472 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2473 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2474 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2474 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2475 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2475 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2476 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2478 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2479 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2480 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2481 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2481 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2482 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2483 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2484 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2484 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2486 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2486 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2487 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2488 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2488 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2489 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2489 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2490 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2491 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2491 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2492 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2495 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2496 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2496 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2497 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2499 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2500 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2501 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2501 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2502 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2502 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2503 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2503 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2504 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2505 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2506 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2506 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2507 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2508 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2509 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2509 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2510 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2511 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2511 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2512 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2512 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2514 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2515 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2515 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2516 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2516 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2517 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2517 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2518 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2519 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2519 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2520 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2521 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2521 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2522 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2522 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2523 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2523 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2524 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2525 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2528 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2528 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2529 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2530 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2530 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2531 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2532 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2534 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2535 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2536 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2537 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2539 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2539 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2540 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2540 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2541 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2542 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2542 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2543 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2543 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2544 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2544 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2545 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2546 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2547 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2547 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2548 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2548 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2549 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2549 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2550 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2550 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2551 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2552 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2552 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2553 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2553 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2554 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2554 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2555 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2556 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2557 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2558 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2559 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2560 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2560 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2563 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2564 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2564 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2565 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2566 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2566 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2567 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2567 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2570 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2570 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2571 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2571 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2572 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2573 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2574 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2575 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2576 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2576 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2577 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2590 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2591 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2591 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2592 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2592 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2594 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2595 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2596 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2597 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2597 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2598 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2598 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2600 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2601 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2601 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2603 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: terminated"}}
+- legalbenchrag-cuad-2603 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: terminated"}}
+- legalbenchrag-cuad-2605 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2606 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2606 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2607 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2608 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2608 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2614 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2615 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2616 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2617 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2618 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2618 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2619 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2619 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2620 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2620 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2621 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2621 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2622 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2622 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2624 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2625 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2625 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2627 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2627 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2628 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2629 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2629 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2630 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2631 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2632 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2633 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2633 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2634 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2635 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2636 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2639 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2640 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2643 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2643 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2644 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2644 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2646 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2646 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2647 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2648 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2649 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2650 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2650 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2651 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2653 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2653 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2654 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2655 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2667 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2668 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2669 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2669 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2671 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2671 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2672 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2674 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2675 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2675 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2677 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2677 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2682 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2684 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2684 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2685 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2685 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2701 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2702 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2703 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2705 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2705 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2706 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2707 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2708 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2716 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2718 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2718 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2720 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2720 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2721 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2721 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2722 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2723 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2724 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2724 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2725 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2725 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2726 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2727 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2729 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2729 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2730 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2732 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2733 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2734 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2734 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2735 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2735 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2737 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2738 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2748 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2749 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2750 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2752 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2753 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2755 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2755 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2756 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2757 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2760 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2760 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2761 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2761 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2762 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2763 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2764 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2764 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2765 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2765 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2766 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2767 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2768 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2768 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2769 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2770 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2771 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2771 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2772 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2773 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2774 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2775 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2775 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2776 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2777 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2778 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2779 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2780 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2781 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2781 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2782 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2782 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2783 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2783 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2784 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2785 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2788 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2790 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2791 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2791 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2792 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2792 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2793 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2794 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2794 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2800 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2801 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2802 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2802 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2803 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2803 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2804 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2805 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2805 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2807 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2808 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2808 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2809 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2810 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2812 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2814 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2814 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2815 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2815 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2816 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2818 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2819 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2823 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2824 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2824 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2834 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2835 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2836 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2837 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2837 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2838 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2839 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2840 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2841 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2841 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2842 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2843 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2845 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2846 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2847 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2849 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2852 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2853 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2854 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2855 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2856 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2857 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2858 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2859 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2859 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2860 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2860 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2861 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2862 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2863 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2865 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2865 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2866 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2866 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2867 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2867 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2868 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2868 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2869 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2869 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2870 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2871 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2873 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2874 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2875 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2875 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2876 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2877 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2878 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2879 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2880 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2880 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2881 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2882 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2883 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2884 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2884 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2885 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2886 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2887 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2888 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2889 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2890 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2890 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2891 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2892 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2892 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2893 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2893 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2894 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2894 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2895 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2895 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2896 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2897 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2897 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2901 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2902 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2903 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2904 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2907 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2908 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2909 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2910 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2911 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2912 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2913 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2914 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2914 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-2916 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2918 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2918 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2919 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2921 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2937 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2938 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2939 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2940 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2941 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2942 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2943 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2944 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2944 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2945 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2946 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2946 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2948 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2949 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2950 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2950 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2951 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2951 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2967 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2968 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2968 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2969 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2970 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2970 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2971 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2972 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2973 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2973 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2974 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2974 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2976 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2988 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2990 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2990 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2991 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2993 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2993 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2994 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2994 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2995 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2995 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2996 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2996 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2997 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2997 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-2998 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2999 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-2999 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3000 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3000 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3001 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3001 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3002 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3003 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3004 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3005 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3005 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3012 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3014 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3014 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3015 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3016 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3017 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3018 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3018 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3019 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3020 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3020 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3021 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3022 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3023 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3024 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3024 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3025 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3025 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3029 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3030 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3031 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3032 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3033 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3033 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3035 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3036 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3036 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3037 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3037 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3038 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3039 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3039 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3041 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3041 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3051 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3051 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3052 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3053 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3053 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3054 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3054 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3055 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3056 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3057 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3058 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3059 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3060 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3061 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3064 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3065 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3066 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3067 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3067 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3068 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3079 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3079 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3080 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3081 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3081 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3082 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3082 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3083 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3083 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3093 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3095 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3096 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3097 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3098 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3098 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3099 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3100 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3101 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3102 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3103 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3103 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3112 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3113 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3114 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3116 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3116 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3117 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3120 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3121 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3121 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3137 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3137 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3138 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3139 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3141 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3142 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3143 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3145 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3145 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3146 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3148 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3149 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3150 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3151 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3152 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3152 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3153 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3153 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3154 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3154 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3155 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3156 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3156 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3158 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3159 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3160 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3160 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3161 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3162 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3163 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3164 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3165 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3166 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3167 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3167 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3168 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3168 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3169 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3171 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3172 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3174 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3174 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3175 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3176 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3177 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3178 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3178 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3179 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3179 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3180 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3181 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3181 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3183 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3185 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3187 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3188 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3189 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3190 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3192 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3193 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3194 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3196 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3198 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3199 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3200 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3200 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3201 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3202 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3202 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3203 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3204 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3205 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3207 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3218 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3218 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3219 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3220 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3221 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3223 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3225 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3225 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3226 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3226 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3227 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3228 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3230 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3231 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3232 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3232 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3233 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3234 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3235 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3236 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3237 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3237 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3238 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3238 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3239 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3240 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3240 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3241 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3242 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3242 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3243 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3244 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3245 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3248 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3249 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3249 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3250 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3250 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3251 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3251 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3252 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3253 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3253 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3255 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3255 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3256 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3257 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3258 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3259 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3261 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3261 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3262 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3262 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3263 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3264 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3265 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3267 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3268 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3269 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3272 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3272 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3273 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3274 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3274 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3275 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3275 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3277 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3277 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3278 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3279 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3282 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3284 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3284 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3286 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3288 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3288 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3289 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3289 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3290 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3290 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3292 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3293 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3293 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3295 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3296 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3298 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3298 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3299 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3299 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3300 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3301 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3301 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3302 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3302 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3303 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3303 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3305 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3308 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3310 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3311 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3311 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3312 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3312 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3313 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3314 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3314 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3315 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3317 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3318 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3322 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3322 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3323 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3324 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3325 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3325 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3327 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3328 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3329 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3330 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3331 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3332 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3332 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3333 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3334 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3336 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3337 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3338 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3339 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3340 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3340 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3341 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3342 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3342 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3358 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3359 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3360 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3360 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3361 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3362 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3362 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3363 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3364 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3364 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3365 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3365 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3366 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3366 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3367 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3367 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3368 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3369 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3370 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3370 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3371 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3372 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3372 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3373 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3375 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3376 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3376 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3377 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3377 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3378 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3378 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3379 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3380 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3381 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3382 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3384 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3384 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3385 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3388 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3388 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3389 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3389 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3390 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3390 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3391 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3394 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3397 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3398 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3398 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3399 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3399 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3401 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3401 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3402 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3402 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3403 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3404 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3404 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3405 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3406 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3407 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3407 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3409 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3409 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3410 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3410 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3411 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3411 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3412 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3412 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3413 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3413 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3414 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3415 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3415 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3416 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3416 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3417 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3417 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3418 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3418 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3419 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3420 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3420 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3421 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3421 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3435 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3436 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3437 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3438 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3438 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3439 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3439 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3441 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3441 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3442 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3442 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3443 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3444 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3444 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3445 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3445 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3446 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3446 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3447 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3447 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3448 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3449 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3449 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3450 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3451 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3452 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3453 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3454 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3454 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3455 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3455 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3456 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3457 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3457 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3458 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3459 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3460 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3461 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3461 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3462 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3463 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3464 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3465 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3466 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3468 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3468 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3469 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3469 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3470 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3470 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3471 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3473 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3473 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3474 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3475 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3475 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3476 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3476 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3477 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3477 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3478 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3479 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3479 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3481 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3482 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3482 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3483 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3483 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3485 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3486 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3486 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3487 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3488 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3489 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3492 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3494 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3495 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3496 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3497 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3499 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3500 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3537 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3540 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3541 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3541 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3542 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3543 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3543 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3544 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3546 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3547 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3547 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3548 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3549 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3549 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3550 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3551 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3554 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3555 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3556 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3556 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3557 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3558 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3558 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3559 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3560 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3561 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3561 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3562 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3563 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3564 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3565 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3565 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3567 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3568 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3569 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3569 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3570 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3571 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3572 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3574 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3574 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3575 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3576 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3577 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3578 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3579 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3580 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3580 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3581 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3581 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3583 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3583 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3584 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3585 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3586 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3587 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3588 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3589 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3589 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3590 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3591 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3592 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3592 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3593 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3594 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3595 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3595 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3596 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3597 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3598 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3599 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3600 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3600 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3602 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3603 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3604 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3605 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3606 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3606 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3607 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3608 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3609 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3610 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3610 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3611 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3612 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3613 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3614 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3615 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3615 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3617 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3618 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3619 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3620 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3621 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3622 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3623 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3624 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3626 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3626 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3627 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3628 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3630 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3630 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3636 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3636 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3638 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3639 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3640 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3640 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3641 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3642 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3642 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3643 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3644 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3645 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3646 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3647 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3648 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3649 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3650 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3651 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3653 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3654 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3654 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3655 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3655 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3656 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3657 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3658 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3658 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3659 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3660 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3660 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3662 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3663 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3663 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3664 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3664 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3665 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3665 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3666 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3667 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3668 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3669 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3670 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3670 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3671 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3671 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3672 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3674 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3674 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3675 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3675 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3676 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3693 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3693 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3694 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3695 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3696 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3696 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3697 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3697 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3698 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3698 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3699 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3700 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3701 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3701 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3702 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3702 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3703 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3704 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3704 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3705 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3706 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3707 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3708 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3709 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3709 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3710 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3711 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3713 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3714 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3715 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3716 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3717 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3719 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3720 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3721 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3721 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3722 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3722 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3723 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3724 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3725 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3726 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3727 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3728 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3731 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3731 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3732 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3733 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3734 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3736 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3737 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3738 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3738 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3739 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3739 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3740 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3741 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3742 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3743 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3744 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3745 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3759 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3759 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3761 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3763 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3765 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3765 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3766 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3767 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3768 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3769 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3770 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3771 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3771 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3772 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3772 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3773 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3773 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3775 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3777 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3780 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3780 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3783 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3783 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3784 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3785 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3786 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3787 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3787 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3788 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3790 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3791 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3791 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3792 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3792 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3793 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3793 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3794 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3794 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3795 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3795 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3796 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3797 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3798 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3800 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3801 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3803 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3804 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3805 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3806 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3807 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3808 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3821 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3821 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3822 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3823 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3824 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3826 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3827 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3828 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3828 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3829 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3830 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3831 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3831 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3832 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3832 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3833 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3833 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3834 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3835 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3836 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3838 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3840 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3841 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3842 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3843 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3845 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3846 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3846 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3847 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3848 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3849 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3850 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3850 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3853 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3855 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3856 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3857 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3858 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3860 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3861 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3862 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3862 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3879 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3879 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3880 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3881 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3881 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3882 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3882 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3883 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3884 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3885 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3885 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3886 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3886 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3887 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3888 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3888 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3889 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3890 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3890 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3891 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3891 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3892 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3892 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3893 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3893 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3894 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3895 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3897 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3917 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3917 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3918 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3919 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3920 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3921 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3921 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3922 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3923 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3923 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3924 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3925 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3925 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3926 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3927 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3929 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3931 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3931 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3932 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3933 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3935 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3935 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3936 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3937 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3938 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3938 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3939 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3940 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3941 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3941 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3942 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3942 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3943 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3944 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3945 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3946 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3946 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3947 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3948 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3951 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3952 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3952 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3953 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3953 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3954 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3954 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3955 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3955 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3957 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3958 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3958 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3959 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3960 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3960 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3962 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: terminated"}}
+- legalbenchrag-cuad-3962 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: terminated"}}
+- legalbenchrag-cuad-3963 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: terminated"}}
+- legalbenchrag-cuad-3963 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: terminated"}}
+- legalbenchrag-cuad-3964 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3965 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3966 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3966 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3967 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3970 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3972 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3973 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3973 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3974 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3974 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3975 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3976 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3977 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3978 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3979 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3979 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3980 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3980 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3981 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3981 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-3996 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3996 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-3997 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3998 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3999 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-3999 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4000 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4000 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4001 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4002 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4003 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4004 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4004 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4005 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4005 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4006 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4008 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4008 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4009 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4011 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4012 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4013 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4015 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-4015 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-cuad-4016 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4016 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4017 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4028 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4028 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4029 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4030 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4031 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4031 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4032 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4032 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4033 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4033 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4034 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4035 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4035 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4036 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4036 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4037 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4037 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-cuad-4038 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-cuad-4038 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0000 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0000 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0001 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0002 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0003 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0004 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0005 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0005 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0006 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0007 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0007 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0008 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0008 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0009 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0009 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0010 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0011 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0011 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0012 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0013 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0014 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0015 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0016 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0017 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0017 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0018 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0019 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0019 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0020 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0021 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0021 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0022 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0023 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0024 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0025 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0026 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0027 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0028 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0028 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0029 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0030 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0030 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0031 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0031 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0032 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0032 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0033 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0034 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0034 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0035 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0035 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0036 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0036 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0037 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0037 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0038 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0039 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0040 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0041 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0042 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0043 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0044 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0044 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0045 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0046 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0047 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0047 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0048 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0049 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0049 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0050 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0051 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0052 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0053 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0053 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0054 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0055 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0056 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0057 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0057 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0058 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0058 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0059 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0060 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0061 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0061 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0062 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0063 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0063 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0064 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0064 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0065 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0065 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0066 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0067 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0067 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0068 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0068 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0069 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0070 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0070 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0071 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0072 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0073 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0074 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0074 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0075 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0075 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0076 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0077 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0077 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0078 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0079 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0079 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0080 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0081 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0082 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0082 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0083 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0084 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0084 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0085 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0086 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0086 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0087 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0087 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0088 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0089 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0089 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0090 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0090 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0091 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0092 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0092 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0093 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0093 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0094 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0095 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0095 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0096 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0097 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0097 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0098 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0098 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0099 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0099 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0100 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0100 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0101 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0101 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0102 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0103 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0103 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0104 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0105 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0106 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0106 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0107 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0108 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0108 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0109 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0110 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0110 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0111 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0111 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0112 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0112 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0113 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0113 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0114 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0114 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0115 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0115 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0116 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0116 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0117 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0118 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0119 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0119 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0120 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0121 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0122 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0123 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0123 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0124 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0125 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0125 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0126 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0127 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0127 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0128 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0129 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0129 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0130 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0131 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0132 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0132 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0133 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0133 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0134 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0135 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0136 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0137 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0138 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0139 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0140 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0141 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0141 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0142 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0142 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0143 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0143 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0144 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0144 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0145 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0145 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0146 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0147 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0147 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0148 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0149 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0149 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0150 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0151 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0151 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0152 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0153 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0154 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0154 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0155 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0155 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0156 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0156 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0157 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0157 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0158 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0158 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0159 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0159 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0160 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0160 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0161 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0162 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0162 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0163 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0164 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0165 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0165 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0166 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0167 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0167 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0168 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0168 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0169 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0169 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0170 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0170 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0171 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0172 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0173 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0174 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0174 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0175 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0175 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0176 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0177 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0178 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0178 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0179 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0179 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0180 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0180 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0181 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0181 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0182 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0182 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0183 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0183 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0184 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0185 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0186 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0187 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0188 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0189 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0189 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0190 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0191 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0191 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0192 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0192 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0193 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0193 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0194 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0194 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0195 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0196 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0197 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0197 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0198 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0199 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0199 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0200 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0201 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0201 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0202 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0203 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0203 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0204 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0205 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0205 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0206 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0207 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0228 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0228 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0229 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0229 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0230 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0231 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0232 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0233 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0233 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0234 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0234 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0235 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0235 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0236 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0236 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0237 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0237 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0238 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0239 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0239 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0240 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0241 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0241 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0242 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0243 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0243 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0244 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0245 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0245 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0246 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0246 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0247 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0247 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0248 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0249 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0249 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0250 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0250 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0251 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0252 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0253 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0254 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0254 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0255 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0256 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0257 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0258 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0258 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0259 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0259 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0260 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0260 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0261 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0261 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0273 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0274 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0274 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0275 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0276 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0277 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0278 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0278 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0279 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0279 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0280 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0281 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0281 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0282 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0283 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0284 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0284 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0285 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0285 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0286 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0286 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0287 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0287 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0288 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0288 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0289 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0290 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0290 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0291 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0292 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0293 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0293 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0294 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0294 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0295 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0295 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0296 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0296 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0297 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0297 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0298 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0298 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0299 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0300 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0300 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0301 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0301 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0302 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0302 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0303 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0303 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0304 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0304 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0305 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0305 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0306 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0307 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0307 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0308 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0309 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0309 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0310 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0311 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0311 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0312 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0313 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0314 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0315 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0316 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0316 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0317 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0318 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0319 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0319 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0320 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0320 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0321 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0321 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0322 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0323 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0324 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0325 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0326 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0327 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0328 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0328 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0329 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0330 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0331 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0332 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0332 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0333 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0333 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0334 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0334 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0335 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0336 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0336 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0337 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0337 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0338 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0339 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0340 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0341 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0342 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0342 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0343 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0344 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0344 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0345 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0346 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0347 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0347 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0348 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0348 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0349 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0349 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0350 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0350 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0351 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0351 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0352 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0353 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0353 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0354 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0354 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0355 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0356 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0356 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0357 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0357 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0358 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0359 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0360 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0360 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0361 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0361 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0362 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0362 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0363 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0363 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0364 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0364 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0365 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0365 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0366 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0366 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0367 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0368 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0368 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0369 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0370 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0370 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0371 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0371 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0372 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0373 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0373 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0374 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0374 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0375 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0375 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0376 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0376 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0377 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0377 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0378 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0379 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0380 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0381 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0381 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0382 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0383 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0383 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0384 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0384 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0385 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0386 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0387 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0387 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0388 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0389 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0389 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0390 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0390 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0391 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0392 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0405 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0406 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0407 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0408 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0408 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0409 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0410 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0410 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0411 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0411 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0412 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0413 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0413 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0414 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0414 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0415 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0415 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0416 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0416 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0417 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0418 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0418 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0419 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0420 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0421 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0422 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0422 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0423 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0423 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0424 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0424 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0425 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0425 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0426 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0426 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0427 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0427 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0428 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0428 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0429 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0429 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0430 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0431 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0431 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0432 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0433 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0434 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0435 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0436 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0437 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0437 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0438 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0439 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0439 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0440 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0440 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0441 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0442 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0443 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0444 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0445 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0446 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0446 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0447 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0447 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0448 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0448 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0449 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0449 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0450 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0450 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0451 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0452 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0452 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0453 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0454 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0455 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0456 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0456 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0457 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0458 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0459 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0460 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0461 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0462 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0462 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0463 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0464 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0465 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0466 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0466 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0467 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0468 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0469 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0470 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0470 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0471 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0472 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0472 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0473 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0473 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0474 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0474 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0475 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0476 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0477 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0477 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0478 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0479 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0479 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0480 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0481 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0482 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0482 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0483 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0484 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0485 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0485 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0486 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0486 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0487 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0487 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0488 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0513 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0514 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0514 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0515 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0516 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0516 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0517 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0518 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0518 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0519 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0520 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0520 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0521 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0522 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0522 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0523 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0523 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0524 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0546 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0547 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0547 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0548 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0549 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0549 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0550 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0551 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0551 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0552 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0553 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0554 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0554 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0555 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0555 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0556 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0556 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0557 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0557 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0558 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0559 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0559 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0560 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0560 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0561 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0561 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0562 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0563 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0564 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0565 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0565 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0566 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0566 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0567 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0567 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0568 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0569 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0570 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0570 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0571 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0572 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0573 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0574 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0575 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0575 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0576 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0576 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0577 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0577 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0578 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0578 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0579 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0579 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0580 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0580 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0581 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0582 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0583 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0584 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0585 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0586 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0586 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0587 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0587 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0588 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0588 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0589 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0590 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0590 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0591 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0592 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0593 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0594 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0594 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0595 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0596 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0596 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0597 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0597 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0598 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0598 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0599 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0599 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0600 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0600 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0601 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0601 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0602 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0602 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0603 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0604 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0604 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0605 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0605 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0606 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0607 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0607 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0608 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0609 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0609 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0610 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0610 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0611 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0611 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0612 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0612 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0613 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0613 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0614 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0615 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0626 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0627 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0628 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0629 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0630 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0631 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0632 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0633 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0633 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0634 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0634 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0635 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0635 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0636 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0636 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0637 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0657 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0657 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0658 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0659 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0659 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0660 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0661 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0661 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0662 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0662 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0663 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0664 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0665 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0665 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0666 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0667 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0668 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0668 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0669 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0669 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0670 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0670 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0671 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0671 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0672 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0672 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0673 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0674 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0675 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0675 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0676 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0676 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0677 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0678 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0678 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0679 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0679 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0680 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0680 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0681 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0681 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0682 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0682 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0683 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0683 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0684 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0684 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0685 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0686 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0687 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0687 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0688 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0688 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0689 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0690 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0691 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0692 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0692 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0693 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0693 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0694 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0695 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0696 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0697 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0697 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0698 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0698 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0699 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0699 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0700 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0700 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0701 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0702 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0703 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0704 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0705 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0706 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0706 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0707 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0708 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0708 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0709 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0709 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0710 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0710 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0711 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0711 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0712 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0712 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0713 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0714 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0714 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0715 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0716 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0717 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0718 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0719 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0720 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0720 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0721 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0721 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0722 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0723 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0724 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0724 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0725 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0726 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0726 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0727 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0727 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0728 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0728 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0729 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0729 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0730 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0731 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0731 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0732 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0733 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0733 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0734 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0735 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0736 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0736 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0737 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0738 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0738 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0739 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0739 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0740 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0740 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0741 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0741 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0742 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0743 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0744 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0744 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0745 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0745 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0746 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0746 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0747 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0747 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0748 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0748 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0749 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0749 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0750 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0750 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0751 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0751 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0752 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0753 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0754 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0755 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0755 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0756 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0756 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0757 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0757 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0758 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0759 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0759 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0760 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0760 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0761 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0762 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0763 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0763 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0764 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0764 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0765 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0765 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0766 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0766 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0767 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0768 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0768 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0769 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0770 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0770 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0771 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0771 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0772 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0772 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0773 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0773 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0774 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0774 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0775 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0775 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0776 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0776 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0777 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0777 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0778 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0778 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0791 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0792 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0792 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0793 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0793 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0794 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0795 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0796 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0796 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0797 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0797 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0798 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0799 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0799 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0800 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0801 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0801 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0802 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0803 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0803 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0804 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0805 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0805 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0806 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0806 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0807 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0808 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0808 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0809 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0809 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0810 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0811 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0811 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0812 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0813 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0814 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0815 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0815 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0816 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0816 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0817 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0818 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0819 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0819 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0820 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0821 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0821 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0822 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0822 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0823 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0823 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0834 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0835 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0835 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0836 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0836 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0837 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0838 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0838 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0839 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0839 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0840 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0841 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0841 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0842 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0842 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0843 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0844 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0844 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0845 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0845 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0846 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0846 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0847 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0847 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0848 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0849 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0849 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0850 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0850 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0851 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0851 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0852 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0852 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0853 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0853 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0854 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0854 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0855 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0855 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0856 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0856 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0857 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0857 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0858 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0858 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0859 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0859 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0860 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0860 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0861 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0862 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0862 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0863 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0864 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0864 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0865 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0865 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0866 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0866 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0867 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0867 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0868 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0868 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0869 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0869 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0870 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0870 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0871 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0871 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0872 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0873 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0873 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0874 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0875 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0875 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0876 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0877 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0878 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0879 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0879 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0880 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0881 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0881 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0882 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0882 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0883 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0884 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0885 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0886 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0887 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0887 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0888 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0888 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0889 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0889 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0890 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0891 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0891 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0892 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0893 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0894 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0895 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0896 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0896 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0897 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0897 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0898 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0898 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0899 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0899 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0900 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0901 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0902 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0902 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0903 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0904 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0904 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0905 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0905 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0906 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0906 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0907 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0907 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0908 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0909 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0910 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0910 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0911 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0912 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0913 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0914 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0915 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0916 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0917 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0917 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0918 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0918 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0919 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0919 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0920 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0921 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0922 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0923 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0923 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0924 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0924 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0925 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0926 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0927 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0927 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0928 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0928 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0929 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0930 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0930 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0931 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0931 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0932 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0932 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0933 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0933 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0934 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0934 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0935 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0935 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0936 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0937 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0938 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0939 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0940 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0941 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0942 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0942 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0943 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0944 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0944 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0945 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0945 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0946 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0946 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0947 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0947 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0948 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0949 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0950 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0951 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0951 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0952 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0952 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0953 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0953 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0954 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0954 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0955 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0955 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0956 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0957 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0958 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0958 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0959 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0959 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0960 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0960 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0961 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0961 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0962 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0962 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0963 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0975 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0975 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0976 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0976 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0977 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0977 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0978 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0979 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0979 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0980 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0981 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0981 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0982 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0982 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0983 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0983 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0984 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0984 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0985 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0985 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-0986 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0987 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0988 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0988 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0989 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0989 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0990 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0991 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0992 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0993 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0994 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0994 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0995 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0995 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0996 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0996 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0997 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0997 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0998 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0998 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-0999 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-0999 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1000 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1013 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1014 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1014 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1015 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1015 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1016 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1016 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1017 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1018 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1019 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1020 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1020 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1021 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1021 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1022 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1022 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1023 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1023 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1035 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1035 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1036 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1036 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1037 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1037 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1038 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1038 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1039 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1039 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1040 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1040 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1041 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1041 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1042 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1042 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1043 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1043 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1044 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1044 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1045 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1045 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1046 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1046 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1047 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1048 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1049 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1049 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1050 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1051 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1051 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1052 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1053 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1054 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1054 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1055 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1055 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1056 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1056 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1057 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1057 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1058 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1058 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1059 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1060 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1060 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1061 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1062 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1063 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1064 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1064 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1065 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1065 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1066 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1066 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1067 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1068 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1069 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1069 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1070 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1071 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1072 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1072 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1073 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1073 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1074 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1074 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1075 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1076 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1076 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1077 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1077 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1078 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1079 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1079 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1080 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1080 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1081 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1081 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1082 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1083 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1083 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1084 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1085 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1085 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1086 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1086 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1087 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1087 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1088 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1089 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1089 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1090 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1090 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1091 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1091 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1092 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1093 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1093 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1094 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1095 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1095 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1096 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1096 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1097 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1098 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1098 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1099 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1100 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1101 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1101 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1102 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1102 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1103 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1103 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1104 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1104 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1105 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1105 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1106 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1126 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1127 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1127 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1128 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1129 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1129 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1130 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1130 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1131 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1131 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1132 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1133 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1133 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1134 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1134 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1135 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1135 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1136 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1136 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1137 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1137 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1138 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1138 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1139 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1139 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1140 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1140 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1141 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1141 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1142 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1142 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1143 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1143 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1144 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1144 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1145 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1145 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1146 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1146 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1147 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1148 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1148 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1149 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1150 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1150 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1151 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1152 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1153 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1153 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1154 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1155 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1155 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1156 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1167 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1168 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1169 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1169 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1170 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1170 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1171 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1172 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1172 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1173 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1173 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1174 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1174 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1185 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1186 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1187 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1188 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1188 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1189 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1190 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1191 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1191 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1192 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1192 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1193 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1194 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1195 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1196 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1197 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1198 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1198 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1199 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1200 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1215 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1216 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1216 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1217 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1218 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1219 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1219 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1220 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1220 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1221 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1222 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1223 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1223 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1224 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1224 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1225 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1225 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1226 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1226 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1227 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1228 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1229 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1229 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1230 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1230 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1231 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1231 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1232 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1232 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1233 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1233 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1234 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1234 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1235 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1236 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1236 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1237 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1238 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1238 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1239 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1239 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1240 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1240 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1241 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1242 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1242 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1243 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1244 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1244 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1245 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1246 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1247 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1247 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1248 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1248 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1249 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1249 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1250 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1250 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1265 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1266 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1266 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1267 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1268 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1268 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1269 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1269 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1270 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1271 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1271 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1272 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1272 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1273 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1273 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1274 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1274 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1275 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1275 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1276 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1277 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1278 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1279 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1279 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1280 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1280 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1281 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1281 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1282 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1283 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1283 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1284 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1285 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1285 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1286 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1286 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1298 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1299 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1299 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1300 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1300 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1301 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1302 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1302 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1303 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1303 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1304 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1305 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1306 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1306 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1307 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1307 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1308 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1308 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1309 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1309 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1310 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1311 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1311 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1312 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1313 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1314 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1314 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1315 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1315 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1316 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1317 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1317 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1318 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1318 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1319 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1320 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1321 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1321 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1322 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1322 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1323 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1323 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1324 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1324 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1325 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1326 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1326 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1327 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1328 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1328 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1329 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1329 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1330 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1330 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1331 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1331 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1332 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1332 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1333 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1333 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1334 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1334 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1344 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1344 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1345 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1345 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1346 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1347 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1347 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1348 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1348 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1349 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1350 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1350 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1351 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1351 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1352 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1352 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1353 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1354 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1354 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1355 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1355 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1356 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1357 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1357 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1358 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1358 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1359 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1360 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1361 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1361 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1362 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1362 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1363 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1363 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1364 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1365 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1365 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1366 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1366 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1367 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1368 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1369 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1370 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1370 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1371 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1372 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1372 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1373 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1373 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1374 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1375 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1375 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1376 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1376 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1377 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1377 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1378 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1378 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1379 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1379 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1380 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1380 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1381 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1382 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1383 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1384 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1384 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1385 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1386 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1386 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1387 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1387 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1388 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1388 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1389 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1389 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1390 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1391 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1391 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1392 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1393 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1394 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1394 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1395 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1396 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1396 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1397 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1397 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1398 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1398 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1399 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1400 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1401 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1401 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1402 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1403 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1404 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1404 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1405 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1406 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1407 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1407 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1408 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1409 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1409 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1410 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1411 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1412 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1412 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1413 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1414 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1415 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1416 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1417 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1417 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1418 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1419 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1420 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1420 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1421 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1421 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1422 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1422 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1423 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1423 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1424 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1424 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1425 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1425 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1426 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1427 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1428 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1429 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1429 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1430 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1430 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1431 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1432 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1432 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1433 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1434 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1435 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1435 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1436 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1436 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1437 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1438 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1438 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1439 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1440 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1441 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1441 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1442 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1443 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1443 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1444 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1444 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1445 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1445 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1446 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1447 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1447 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1448 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1448 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1449 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1450 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1450 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1451 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1451 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1452 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1452 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1453 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1454 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1454 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1455 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1456 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1456 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1457 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1458 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1459 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1460 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1461 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1461 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1462 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1463 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1463 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1464 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1465 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1466 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1466 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1467 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1468 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1469 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1470 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1470 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1471 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1472 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1472 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1473 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1489 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1489 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1490 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1491 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1491 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1492 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1492 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1493 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1494 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1495 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1495 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1496 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1496 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1497 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1498 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1498 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1499 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1499 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1500 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1500 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1501 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1502 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1502 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1503 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1504 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1520 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1521 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1521 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1522 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1523 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1523 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1524 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1525 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1526 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1526 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1527 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1528 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1529 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1529 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1530 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1531 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1531 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1532 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1533 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1533 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1534 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1535 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1536 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1536 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1537 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1537 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1538 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1539 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1539 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1540 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1540 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1541 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1542 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1542 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1543 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1544 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1544 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1545 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1545 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1546 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1547 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1548 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1549 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1550 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1550 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1551 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1551 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1552 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1553 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1554 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1554 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1555 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1555 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1556 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1556 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1557 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1557 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1558 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1559 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1560 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1560 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1561 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1562 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1562 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1563 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1564 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1565 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1565 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1566 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1566 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1567 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1567 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1580 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1581 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1581 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1582 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1583 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1584 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1585 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1586 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1587 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1587 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1588 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1589 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1590 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1591 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1592 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1593 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1593 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1594 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1595 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1596 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1597 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1598 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1599 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1599 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1600 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1601 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1601 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1602 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1602 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1603 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1613 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1614 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1614 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1615 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1616 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1616 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1617 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1617 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1618 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1618 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1619 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1619 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1620 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1620 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1621 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1621 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1622 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1622 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1623 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1624 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1651 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1652 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1652 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1653 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1654 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1655 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1656 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1657 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1657 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1658 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1658 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1659 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1659 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1660 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1660 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1661 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1661 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1662 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1663 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1663 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1664 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1665 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1666 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1666 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1667 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1667 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1668 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1669 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1670 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1670 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1671 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1672 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1672 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1673 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1674 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-maud-1674 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-maud-1675 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-maud-1675 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0019 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0019 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0020 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0021 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0021 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0022 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0022 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0023 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0023 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0024 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0024 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0025 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0025 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0026 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0027 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0027 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0028 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0028 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0029 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0029 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0030 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0031 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0031 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0032 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0032 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0033 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0033 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0034 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0034 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0035 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0035 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0036 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0036 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0037 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0037 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0038 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0038 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0039 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0039 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0040 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0041 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0041 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0042 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0042 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0043 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0043 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0044 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0044 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0045 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0046 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0046 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0047 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0047 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0048 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0048 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0049 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0050 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0050 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0051 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0051 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0052 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0052 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0053 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0054 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0054 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0055 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0055 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0056 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0057 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0058 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0059 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0060 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0061 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0062 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0063 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0064 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0064 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0065 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0066 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0067 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0068 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0068 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0069 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0070 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0071 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0072 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0072 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0073 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0074 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0075 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0076 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0077 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0077 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0078 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0079 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0080 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0080 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0081 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0082 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0082 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0083 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0084 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0085 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0086 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0087 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0088 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0088 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0089 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0090 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0090 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0091 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0091 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0092 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0093 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0094 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0094 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0095 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0096 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0097 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0098 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0098 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0099 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0100 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0101 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0102 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0103 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0104 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0105 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0105 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0106 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0107 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0108 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0109 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0110 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0111 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0111 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0112 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0113 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0113 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0114 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0115 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0116 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0117 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0118 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0118 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0119 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0119 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0120 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0121 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0122 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0122 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0123 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0124 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0125 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0126 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0127 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0127 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0128 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0128 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0129 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0129 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0130 [direct-qwen38, rep 1] rag-recall error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0130 [direct-qwen38, rep 1] rag-precision error: model call failed: 502 {"error":{"message":"proxy: The operation was aborted due to timeout"}}
+- legalbenchrag-privacy_qa-0131 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0132 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0132 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0133 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0133 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0134 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0135 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0136 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0137 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0138 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0138 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0139 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0140 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0140 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0141 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0141 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0142 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0142 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0143 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0143 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0144 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0145 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0146 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0146 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0147 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0147 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0148 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0149 [direct-qwen38, rep 1] rag-recall
+- legalbenchrag-privacy_qa-0149 [direct-qwen38, rep 1] rag-precision
+- legalbenchrag-privacy_qa-0150 [direct-qwen38, rep 1] rag-recall
