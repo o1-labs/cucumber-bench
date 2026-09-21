@@ -9,7 +9,7 @@ import { join } from 'node:path';
 describe('manifests', () => {
   it('should discover every harness with its suites and image', async () => {
     let hs = await loadHarnesses('harnesses');
-    assert.deepEqual(hs.map((h) => h.name), ['cite-v1', 'direct', 'direct-4b', 'direct-4b-ft', 'direct-kimi', 'direct-t0', 'legal-v1', 'placeholder', 'review-ft', 'review-v1']);
+    assert.deepEqual(hs.map((h) => h.name), ['cite-v1', 'direct', 'direct-4b', 'direct-4b-ft', 'direct-kimi', 'direct-t0', 'legal-v1', 'placeholder', 'review-ft', 'review-v1', 'vote-v1']);
     // a variant harness: reuses the direct entry, brings its own model and provider
     assert.deepEqual(hs.find((h) => h.name === 'direct-4b')!.providers, {
       'Qwen/Qwen3-4B-Instruct-2507:nscale': { baseUrl: 'https://router.huggingface.co/v1', keyEnv: 'HF_TOKEN' },

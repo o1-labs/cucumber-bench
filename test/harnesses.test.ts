@@ -61,6 +61,24 @@ describe('sandboxedSystem', () => {
     assert.equal(b.error, undefined);
   });
 
+  it('should run vote-v1: three samples, released only when a quorum agrees', async () => {
+    let { pub } = (await loadCases('benchmarks/legalbench'))[0];
+    let system = sandboxedSystem('vote-v1', tsx('harnesses/vote-v1/src/entry.ts'), models, undefined, 5);
+    let result = await system.run(pub, { runId: 't', repetition: 1, proxy });
+    // three samples, and the mock answers each identically, so the quorum releases that answer
+    assert.equal(result.modelCalls, 3);
+    assert.equal(result.error, undefined);
+    assert.equal(result.output, 'Yes');
+    // the variation between samples is the signal, so every sample is drawn at temperature 1
+    assert.ok(seen.slice(-3).every((r) => r.temperature === 1));
+    // the prompt asks for one short line: that is what makes agreement an exact comparison
+    assert.ok(result.modelRequests![0].includes('single short line'));
+    assert.ok(result.modelRequests![0].trimEnd().endsWith('Short answer:'));
+    let [sample, vote] = result.trace!.stages;
+    assert.equal(sample.findings.length, 3);
+    assert.equal(vote.decision, 'pass');
+  });
+
   it('should run the placeholder entry as a child process end to end', async () => {
     let { pub } = (await loadCases('benchmarks/legalbench'))[0];
     let system = sandboxedSystem('sandboxed', tsx('harnesses/placeholder/src/entry.ts'), models);

@@ -1,0 +1,13 @@
+{
+  "name": "vote-v1",
+  "description": "Samples the same question three times at temperature 1 and releases the answer only when two of the three agree, abstaining otherwise. The prompt asks for one short line, so agreement is an exact comparison rather than a similarity score. Built on a measured signal: on the dev suite, answerable cases whose samples agreed were answered correctly 69% of the time against 36% when they disagreed.",
+  "entry": "src/entry.ts",
+  "suites": [
+    "selfaware",
+    "selfaware-dev"
+  ],
+  "models": {
+    "main": "qwen/qwen3.6-35b-a3b"
+  },
+  "maxCalls": 5
+}
