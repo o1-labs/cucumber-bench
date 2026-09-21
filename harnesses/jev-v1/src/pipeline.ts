@@ -1,7 +1,7 @@
 // the pure parts of jev-v1: cutting a document into passages and sentences, the jev questions,
 // selection and expansion, and spans as quotes. no io here, so a lab script can drive them
 export {
-  chunk, sentences, buildNouls, buildSentenceNouls, select, expand, sentenceSpans, trimmed, mergeAdjacent, spansAsQuotes, occurrences,
+  chunk, sentences, buildNouls, buildSentenceNouls, select, expand, sentenceSpans, headingLike, trimmed, mergeAdjacent, spansAsQuotes, occurrences,
   CHUNK_TARGET, CHUNK_MAX, CHUNK_MIN, THRESHOLD, NEIGHBOUR_THRESHOLD, SENTENCE_THRESHOLD, FLOOR_KEEP, MAX_SELECTED_CHARS,
   type Chunk, type Passage, type Quote, type Span, type Sentence,
 };
@@ -154,6 +154,15 @@ function expand(chunks: Chunk[], seeds: Chunk[], tNeighbour = NEIGHBOUR_THRESHOL
     }
   }
   return chunks.filter((ch) => picked.has(ch.id));
+}
+
+// a heading or a bare label: a short line like "ARTICLE II ASSIGNMENTS", "Section 2.1 Transferred
+// IP." or "(b) Assignment of Assigned IP." jev passes these as lead-ins to the answer, but gold
+// spans rarely include them, so they cost precision for nothing (+2 points on 42 dev cases)
+function headingLike(span: Span): boolean {
+  const t = span.text.trim();
+  if (t.length >= 60) return false;
+  return /^(ARTICLE|Article|SECTION|Section)\s+[\dIVX]/.test(t) || /^[A-Z][A-Za-z\s;,&-]{2,50}\.?$/.test(t) || /^\(?[a-z\d]{1,3}\)\s+[A-Z][A-Za-z\s;,&-]{2,40}\.$/.test(t);
 }
 
 // a span without its leading and trailing whitespace: the grader counts every character

@@ -1,7 +1,7 @@
 import { readInput, respond } from '../../lib.js';
 import type { Stage } from '../../../src/types.js';
 import {
-  chunk, buildNouls, buildSentenceNouls, select, expand, sentenceSpans, trimmed, mergeAdjacent, spansAsQuotes,
+  chunk, buildNouls, buildSentenceNouls, select, expand, sentenceSpans, headingLike, trimmed, mergeAdjacent, spansAsQuotes,
   THRESHOLD, NEIGHBOUR_THRESHOLD, SENTENCE_THRESHOLD, FLOOR_KEEP, MAX_SELECTED_CHARS, type Chunk,
 } from './pipeline.js';
 
@@ -47,11 +47,15 @@ try {
     sentences: Object.fromEntries(sents.map((s) => [s.id, s.text])),
   }, buildSentenceNouls(sents), sents.map((s) => s.id));
   for (const s of sents) s.noul = answers[s.id];
-  let kept = sents.filter((s) => s.noul >= SENTENCE_THRESHOLD);
+  const passing = sents.filter((s) => s.noul >= SENTENCE_THRESHOLD);
+  const headings = passing.filter(headingLike);
+  let kept = passing.filter((s) => !headingLike(s));
   if (kept.length === 0) kept = [...sents].sort((a, b) => b.noul - a.noul).slice(0, 1);
   stages.push({
-    name: 'jev-sentences', module: 'typesafe-noul', version: '1', policy: `threshold=${SENTENCE_THRESHOLD}`,
-    mode: 'llm', findings: kept.map((s) => `${s.id}:${s.noul.toFixed(2)}`), decision: 'modified',
+    name: 'jev-sentences', module: 'typesafe-noul', version: '2', policy: `threshold=${SENTENCE_THRESHOLD},dropHeadings`,
+    mode: 'llm',
+    findings: [...kept.map((s) => `${s.id}:${s.noul.toFixed(2)}`), ...headings.map((s) => `${s.id}:${s.noul.toFixed(2)} dropped heading ${JSON.stringify(s.text.trim())}`)],
+    decision: 'modified',
   });
 
   const findings: string[] = [];

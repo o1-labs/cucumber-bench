@@ -39,7 +39,8 @@ let seen: any[];
 let failFirst = false;
 function mockNoul(state: any, id: string, instructions: string): number {
   const sentence = instructions.match(/`sentences\.(s\d+)`/)?.[1];
-  if (sentence) return state.sentences[sentence].includes('one year') ? 0.9 : 0.1;
+  // the clause heading passes too, so the heading filter has something to drop
+  if (sentence) return /one year|Term and Termination/.test(state.sentences[sentence]) ? 0.9 : 0.1;
   const passage: string = state.passages[id];
   if (passage.includes('Term and Termination')) return 0.92;
   if (passage.includes('Section 9.')) return 0.4;
@@ -143,6 +144,8 @@ describe('jev-v1 (two-stage jev evidence selection)', () => {
       'chunk:regex:pass', 'jev-passages:llm:modified', 'jev-sentences:llm:modified', 'emit:regex:pass',
     ]);
     assert.ok(stages[1].findings.some((f) => f.endsWith('(neighbour)')));
+    // the heading "Term and Termination." scored high but is not part of the answer
+    assert.ok(stages[2].findings.some((f) => f.includes('dropped heading "Term and Termination."')));
   });
 
   it('should retry a transient upstream failure and still answer', async () => {
