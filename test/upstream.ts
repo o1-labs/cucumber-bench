@@ -5,7 +5,7 @@ import type { ModelProxy } from '../src/types.js';
 
 export { mockUpstream, tsx, models, type Mock };
 
-type Mock = { proxy: ModelProxy; seen: any[]; close: () => Promise<void> };
+type Mock = { proxy: ModelProxy; seen: any[]; upstreamUrl: string; close: () => Promise<void> };
 
 let models = { main: 'test-model', safety: 'safety-model' };
 
@@ -25,6 +25,18 @@ async function mockUpstream(): Promise<Mock> {
     req.on('end', () => {
       let body = JSON.parse(Buffer.concat(chunks).toString());
       seen.push(body);
+      res.setHeader('content-type', 'application/json');
+      // the system one endpoint: a passage is relevant when it mentions the answer word
+      if (req.url?.endsWith('/systemone')) {
+        let answers = Object.fromEntries(
+          Object.keys(body.questions ?? {}).map((id) => {
+            let passage = body.state?.passages?.[id] ?? '';
+            return [id, { type: 'noul', noul: /answer/i.test(passage) ? 0.9 : 0.1 }];
+          }),
+        );
+        res.end(JSON.stringify({ model: body.model, answers, usage: { input_tokens: 40, output_tokens: 2 } }));
+        return;
+      }
       let prompt = (body.messages ?? []).map((m: any) => m.content).join('\n');
       // every harness prompt ends with a label line (what the model writes next); the answer
       // depends on the label, and on the data part of the prompt, never on its instructions
@@ -46,7 +58,6 @@ async function mockUpstream(): Promise<Mock> {
         // the few-shot answer of direct and cite-v1
         : label === 'Answer:' ? 'Alpha holds the record [1][2][3]. Beta is unsupported [4]. The documents do not say who holds the gamma record.'
         : 'Yes';
-      res.setHeader('content-type', 'application/json');
       res.end(
         JSON.stringify({
           id: 'x', object: 'chat.completion', created: 0, model: body.model,
@@ -69,6 +80,7 @@ async function mockUpstream(): Promise<Mock> {
   return {
     proxy,
     seen,
+    upstreamUrl: `http://127.0.0.1:${port}/v1`,
     async close() {
       await proxy.close();
       await new Promise((r) => upstream.close(r));

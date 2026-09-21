@@ -1,0 +1,11 @@
+{
+  "name": "jev-v1",
+  "description": "Two-stage evidence selection with Jev (TypeSafe System One), no generation: code cuts the document into clause-sized passages, Jev scores every passage against the question (one Noul each), the selection grows into neighbouring passages, then Jev scores every sentence of the selected passages in context and the sentences that pass are the verbatim quotes. LegalBench-RAG document-scoped extraction.",
+  "entry": "src/entry.ts",
+  "suites": ["legalbenchrag", "legalbenchrag-dev"],
+  "models": { "main": "jev-1.13.0" },
+  "providers": {
+    "jev-1.13.0": { "baseUrl": "https://api.typesafe.ai/v1", "keyEnv": "JEV_API_KEY", "costIn": 0.042 }
+  },
+  "maxCalls": 40
+}

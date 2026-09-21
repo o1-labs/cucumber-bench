@@ -38,7 +38,10 @@ async function loadProject(opts: { judgeOverride?: string } = {}): Promise<Proje
       let upstreams =
         h.providers &&
         Object.fromEntries(
-          Object.entries(h.providers).map(([model, p]) => [model, { url: p.baseUrl, key: keyFromEnv(p.keyEnv, `harness ${h.name}`) }]),
+          Object.entries(h.providers).map(([model, p]) => [
+            model,
+            { url: p.baseUrl, key: keyFromEnv(p.keyEnv, `harness ${h.name}`), costIn: p.costIn, costOut: p.costOut },
+          ]),
         );
       return [h.name, sandboxedSystem(h.name, argvFor(h), models, h.suites, h.maxCalls, upstreams)];
     }),

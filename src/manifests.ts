@@ -19,8 +19,9 @@ type HarnessManifest = {
   // further roles (e.g. compose) are the harness's own and also allowed on the guarded route
   models: { main: string; safety?: string; [role: string]: string | undefined };
   // per-model upstreams; a model not named goes to BENCH_BASE_URL. the url is infrastructure,
-  // not a secret; keyEnv names the env variable that holds the key (default: none)
-  providers?: { [model: string]: { baseUrl: string; keyEnv?: string } };
+  // not a secret; keyEnv names the env variable that holds the key (default: none).
+  // costIn/costOut: $ per 1M tokens, for a provider that reports no cost of its own
+  providers?: { [model: string]: { baseUrl: string; keyEnv?: string; costIn?: number; costOut?: number } };
   maxCalls?: number; // model calls per run this harness needs; default BENCH_MAX_CALLS (20)
   image: string; // docker image; the shared base image unless the harness has its own
   imageEntry: string; // the entry path inside the image
@@ -49,6 +50,10 @@ async function loadHarnesses(root: string): Promise<HarnessManifest[]> {
     for (let model of Object.keys(m.providers ?? {})) {
       assert(typeof m.providers[model].baseUrl === 'string', `${dir}/harness.json: providers[${model}] needs a baseUrl`);
       assert(Object.values(m.models).includes(model), `${dir}/harness.json: providers names ${model}, which is not one of the harness's models`);
+      for (let rate of ['costIn', 'costOut']) {
+        let v = m.providers[model][rate];
+        assert(v === undefined || (typeof v === 'number' && v >= 0), `${dir}/harness.json: providers[${model}].${rate} must be $ per 1M tokens`);
+      }
     }
     out.push({ dir, image: 'cucumber-harness-base', imageEntry: `/app/${m.name}/${m.entry}`, ...m });
   }

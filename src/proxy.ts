@@ -25,7 +25,7 @@ async function startProxy(opts: {
   maxCalls: number; // per registered run, on the guarded and safety routes; a run may register its own
   maxJudgeCalls: number; // per registered run on the judge route; citation graders ask many questions
 }): Promise<ModelProxy> {
-  type Upstream = { url: string; key: string };
+  type Upstream = { url: string; key: string; costIn?: number; costOut?: number };
   let runs = new Map<
     string,
     { runId: string; usage: Usage; requests: string[]; judge: boolean; models?: string[]; maxCalls?: number; upstreams?: { [model: string]: Upstream } }
@@ -41,7 +41,7 @@ async function startProxy(opts: {
     let state = runs.get(token);
     if (!state) return reply(res, 401, 'unknown run token');
     let route = req.method === 'POST' ? ROUTES[req.url ?? ''] : undefined;
-    if (!route) return reply(res, 404, 'only POST {,/safety,/judge}/v1/chat/completions is allowed');
+    if (!route) return reply(res, 404, 'only POST {,/safety,/judge}/v1/chat/completions and /jev/v1/systemone are allowed');
     // a token reaches its own routes only: the judge route is for graders, the others for harnesses
     if ((route === 'judge') !== state.judge) return reply(res, 403, `run ${state.runId}: this token cannot use the ${route} route`);
     let limit = route === 'judge' ? opts.maxJudgeCalls : state.maxCalls ?? opts.maxCalls;
@@ -55,22 +55,26 @@ async function startProxy(opts: {
       return reply(res, 403, `run ${state.runId}: model ${JSON.stringify(body.model)} is not one this run declared (${state.models.join(', ')})`);
     }
     state.usage.modelCalls++;
-    body.temperature ??= opts.defaultTemperature;
+    // a system one request has no sampling; the chat routes get the benchmark temperature
+    if (route !== 'systemone') body.temperature ??= opts.defaultTemperature;
     if (typeof body.model === 'string' && !state.usage.models.includes(body.model)) state.usage.models.push(body.model);
-    // ground truth for leakage grading: what actually reached the guarded model
+    // ground truth for leakage grading: what actually reached the guarded model. a system one
+    // state is data the harness chose to show a model, so it is recorded the same way
     if (route === 'guarded') {
       state.requests.push(
         (body.messages ?? [])
           .map((m: any) => (typeof m.content === 'string' ? m.content : JSON.stringify(m.content)))
           .join('\n'),
       );
+    } else if (route === 'systemone') {
+      state.requests.push(typeof body.state === 'string' ? body.state : JSON.stringify(body.state ?? null));
     }
 
     // a run may bring per-model upstreams (a harness with its own providers); the judge route never does
     let own = route === 'judge' ? undefined : state.upstreams?.[body.model];
     let url = route === 'judge' ? (opts.judgeUpstreamUrl ?? opts.upstreamUrl) : (own?.url ?? opts.upstreamUrl);
     let key = route === 'judge' ? (opts.judgeUpstreamKey ?? opts.upstreamKey) : (own?.key ?? opts.upstreamKey);
-    let upstream = await fetch(`${url}/chat/completions`, {
+    let upstream = await fetch(`${url}${route === 'systemone' ? '/systemone' : '/chat/completions'}`, {
       method: 'POST',
       headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` },
       body: JSON.stringify(body),
@@ -79,10 +83,17 @@ async function startProxy(opts: {
     let text = await upstream.text();
     try {
       let usage = JSON.parse(text).usage;
-      state.usage.tokensIn += usage?.prompt_tokens ?? 0;
-      state.usage.tokensOut += usage?.completion_tokens ?? 0;
-      // openrouter reports the charge in usd credits; other providers report nothing
-      state.usage.costUsd += Number(usage?.cost ?? 0);
+      // chat completions count prompt/completion tokens; system one counts input/output tokens
+      let tokensIn = usage?.prompt_tokens ?? usage?.input_tokens ?? 0;
+      let tokensOut = usage?.completion_tokens ?? usage?.output_tokens ?? 0;
+      state.usage.tokensIn += tokensIn;
+      state.usage.tokensOut += tokensOut;
+      // openrouter reports the charge in usd credits; a provider that reports nothing is
+      // priced by the rates its manifest entry declares, when it declares any
+      let reported = usage?.cost;
+      state.usage.costUsd += typeof reported === 'number' && reported > 0
+        ? reported
+        : (tokensIn * (own?.costIn ?? 0) + tokensOut * (own?.costOut ?? 0)) / 1e6;
     } catch {}
     res.writeHead(upstream.status, { 'content-type': 'application/json' });
     res.end(text);
@@ -115,10 +126,13 @@ async function startProxy(opts: {
 
 // internal helpers
 
-const ROUTES: { [path: string]: 'guarded' | 'safety' | 'judge' } = {
+// /jev/v1/systemone is the typesafe system one endpoint (typed judgments, no generation);
+// like the chat routes, the harness names the model and its manifest names the provider
+const ROUTES: { [path: string]: 'guarded' | 'safety' | 'judge' | 'systemone' } = {
   '/v1/chat/completions': 'guarded',
   '/safety/v1/chat/completions': 'safety',
   '/judge/v1/chat/completions': 'judge',
+  '/jev/v1/systemone': 'systemone',
 };
 
 function reply(res: ServerResponse, status: number, message: string) {

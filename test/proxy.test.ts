@@ -132,4 +132,49 @@ describe('proxy', () => {
     assert.equal(plain.choices[0].message.content, 'Yes');
     await new Promise((r) => other.close(r));
   });
+
+  it('should serve the system one route: no temperature, its own usage format, the manifest price, the state recorded', async () => {
+    let token = proxy.register('s1', {
+      models: ['jev-1.13.0'],
+      upstreams: { 'jev-1.13.0': { url: mock.upstreamUrl, key: 'jev-key', costIn: 0.042 } },
+    });
+    let body = {
+      model: 'jev-1.13.0',
+      state: { question: 'What is the term?', passages: { p0: 'The answer is one year.', p1: 'Signatures follow.' } },
+      questions: { p0: { type: 'noul', instructions: 'Does `passages.p0` answer `question`?' }, p1: { type: 'noul', instructions: 'Does `passages.p1` answer `question`?' } },
+    };
+    let res = await fetch(`${proxy.url}/jev/v1/systemone`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
+      body: JSON.stringify(body),
+    });
+    assert.equal(res.status, 200);
+    let data: any = await res.json();
+    assert.equal(data.answers.p0.noul, 0.9);
+    assert.equal(data.answers.p1.noul, 0.1);
+    assert.equal(seen[seen.length - 1].temperature, undefined);
+    // 40 input tokens at $0.042 per 1M, output free (no costOut)
+    assert.deepEqual(proxy.usage(token), { modelCalls: 1, tokensIn: 40, tokensOut: 2, costUsd: 40 * 0.042 / 1e6, models: ['jev-1.13.0'] });
+    // a chat provider that reports cost 0 is priced by the manifest rates too
+    let priced = proxy.register('s2', { upstreams: { m: { url: mock.upstreamUrl, key: 'k', costIn: 1, costOut: 2 } } });
+    await call(priced, { model: 'm', messages: [] });
+    assert.equal(proxy.usage(priced).costUsd, 0.001, 'the mock reports a real cost, which wins');
+    // the state reached a model: it is part of the leakage record like a guarded prompt
+    assert.deepEqual(proxy.requests(token), [JSON.stringify(body.state)]);
+    // an undeclared model is refused here too
+    let refused = await fetch(`${proxy.url}/jev/v1/systemone`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
+      body: JSON.stringify({ ...body, model: 'jev-latest' }),
+    });
+    assert.equal(refused.status, 403);
+    // a judge token stays off it
+    let judge = proxy.register('s1/judge', { judge: true });
+    let off = await fetch(`${proxy.url}/jev/v1/systemone`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${judge}` },
+      body: JSON.stringify(body),
+    });
+    assert.equal(off.status, 403);
+  });
 });

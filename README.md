@@ -84,6 +84,7 @@ each case in a fresh hardened container (read-only, no capabilities, resource ca
 | --- | --- | --- |
 | `direct` | all | one model call with the benchmark's prompt: the baseline |
 | `direct-qwen38` | legalbenchrag, legalbenchrag-dev | Qwen3.8-27B, one call over complete supplied documents; [document-scoped LegalBench-RAG reference](benchmarks/legalbenchrag/README.md) |
+| `jev-v1` | legalbenchrag, legalbenchrag-dev | two-stage evidence selection with Jev (TypeSafe System One, via `/jev/v1/systemone`), no generation: code cuts the document into clause-sized passages, Jev scores each against the question, the selection grows into neighbouring passages, then Jev scores every sentence of the selection in context; the sentences that pass are the verbatim quotes |
 | `placeholder` | legalbench, redaction | regex PII scrub, a two-call agent, regex again; no dependencies |
 | `legal-v1` | legalbench, redaction | input safety → agent → output safety; safety is regex plus a trusted safety model (Vercel AI SDK) |
 | `cite-v1` | asqa, cuad | the few-shot answer, then a check of every sentence's citations; an unsupported sentence is dropped |

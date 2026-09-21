@@ -12,6 +12,7 @@ export type {
   Grader,
   Models,
   ModelProxy,
+  Upstreams,
 };
 
 // visible to every system under test
@@ -117,16 +118,16 @@ type Grader<Gold = unknown> = {
   grade(pub: PublicCase, gold: Gold, result: RunResult, ctx: GradeContext): Promise<GradeResult>;
 };
 
+// per-model providers: the url and key, and $ per 1M tokens for one that reports no cost
+type Upstreams = { [model: string]: { url: string; key: string; costIn?: number; costOut?: number } };
+
 type ModelProxy = {
   url: string;
   // returns the bearer token for one run. a harness token reaches the guarded and safety routes
   // and only the models it names; a judge token (judge: true) reaches the judge route only.
   // models: the allowed model ids (any when omitted); maxCalls: this run's own call limit;
   // upstreams: per-model providers; a model not named goes to the main upstream
-  register(
-    runId: string,
-    opts?: { judge?: boolean; models?: string[]; maxCalls?: number; upstreams?: { [model: string]: { url: string; key: string } } },
-  ): string;
+  register(runId: string, opts?: { judge?: boolean; models?: string[]; maxCalls?: number; upstreams?: Upstreams }): string;
   usage(token: string): Usage;
   requests(token: string): string[]; // prompt texts that went through, in order
   close(): Promise<void>;

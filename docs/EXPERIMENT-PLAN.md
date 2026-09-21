@@ -62,3 +62,14 @@ harness improves every model or beats stronger models; lane A shows that gap.
 Freeze the harness, prompts, graders, metrics, and thresholds first. Then run B2/C2 on the
 same cases, provider class, and repetitions. Report it separately. Never tune the harness
 from locked-test outputs; a transfer check added after seeing test results is a new experiment.
+
+## The Jev lane (LegalBench-RAG)
+
+`jev-v1` selects evidence with TypeSafe's Jev (`jev-1.13.0`, a System One model that returns
+probabilities, not text) and generates nothing: code cuts the document into passages, Jev
+scores every passage and then every sentence of the selected passages, and the sentences that
+pass are the quotes. It shares no model with `direct-qwen38`, so `direct-qwen38` versus
+`jev-v1` is a **stack comparison** (lane D style), not a harness effect. Thresholds were tuned
+on 16 development cases with an offline lab against the Jev API (2026-09-21), then confirmed
+on a disjoint sample; the test suite stays locked. Jev is priced from its published rate
+(`costIn` in the manifest) because its API reports no cost.

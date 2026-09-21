@@ -33,6 +33,7 @@ chat-completions format:
 | --- | --- |
 | `POST {proxyUrl}/v1/chat/completions` | the guarded route; every prompt is recorded, the `leakage` grader reads them |
 | `POST {proxyUrl}/safety/v1/chat/completions` | the trusted safety route; raw data may go here |
+| `POST {proxyUrl}/jev/v1/systemone` | the TypeSafe System One endpoint (typed judgments: Noul, Choice, Score); the request body is the TypeSafe one, `model` included; its `state` is recorded like a guarded prompt |
 
 The proxy adds the key, injects the default temperature when the request sets none, refuses
 a model the manifest does not name, and stops the run at its call limit (`BENCH_MAX_CALLS`,
@@ -61,7 +62,7 @@ without touching the tests.
 | --- | --- |
 | `suites` | the benchmarks this harness runs on; the runner skips the others |
 | `models` | `main` required, `safety` defaults to `main`, further roles (e.g. `compose`) as needed; all usable on the guarded route |
-| `providers` | per-model upstreams: `{ "<model-id>": { "baseUrl": "...", "keyEnv": "HF_TOKEN" } }`. `keyEnv` names the env variable with the key. A model not named uses `BENCH_BASE_URL` |
+| `providers` | per-model upstreams: `{ "<model-id>": { "baseUrl": "...", "keyEnv": "HF_TOKEN" } }`. `keyEnv` names the env variable with the key. A model not named uses `BENCH_BASE_URL`. `costIn` and `costOut` ($ per 1M tokens) price a provider that reports no cost, e.g. TypeSafe; `harnesses/jev-v1` is the example |
 | `maxCalls` | a higher call limit, e.g. one call per passage |
 | `image`, `imageEntry`, `dockerfile` | for a harness with dependencies: its own docker image |
 

@@ -1,5 +1,5 @@
 import { spawn, spawnSync } from 'node:child_process';
-import type { Models, SystemUnderTest } from './types.js';
+import type { Models, SystemUnderTest, Upstreams } from './types.js';
 
 export { sandboxedSystem, dockerArgv };
 // internal API, exported for tests
@@ -20,7 +20,7 @@ function sandboxedSystem(
   models: Models,
   suites?: string[],
   maxCalls?: number,
-  upstreams?: { [model: string]: { url: string; key: string } },
+  upstreams?: Upstreams,
 ): SystemUnderTest {
   // a container reaches the host proxy through the gateway name, not loopback
   let docker = argv[0] === 'docker';
