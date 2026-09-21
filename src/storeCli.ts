@@ -1,7 +1,8 @@
-import { copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readdir, readFile } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import assert from 'node:assert/strict';
 import { publishSite } from './site.js';
+import { slimResults } from './store.js';
 
 // usage: npm run store -- runs/<runId> [runs/<runId> ...]
 // pins a final run into runs/pinned/<runId>, the tracked archive: run.json, report.md and
@@ -30,20 +31,9 @@ for (let dir of dirs) {
   for (let f of manifest ? ['run.json', 'report.md', 'chart.html'] : ['report.md', 'chart.html']) {
     await copyFile(join(dir, f), join(dest, f));
   }
-  let slim = (await readFile(join(dir, 'results.jsonl'), 'utf8'))
-    .trim()
-    .split('\n')
-    .map((line) => {
-      let r = JSON.parse(line);
-      delete r.run.modelRequests;
-      if (r.run.trace) {
-        delete r.run.trace.source;
-        delete r.run.trace.transformedSource;
-      }
-      return JSON.stringify(r);
-    });
-  await writeFile(join(dest, 'results.jsonl'), slim.join('\n') + '\n');
-  console.log(`pinned to ${dest}`);
+  let records = await slimResults(join(dir, 'results.jsonl'), join(dest, 'results.jsonl'));
+  if (manifest?.records !== undefined) assert.equal(records, manifest.records, `${id}: results.jsonl holds ${records} records, run.json says ${manifest.records}`);
+  console.log(`pinned to ${dest} (${records} records)`);
 }
 
 let pinned = (await readdir(join('runs', 'pinned'), { withFileTypes: true }))
