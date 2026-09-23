@@ -155,8 +155,9 @@ method, metrics, decision gates, and review checklist are in
 Development results stay in the ignored run directory for review. They are not
 published from `docs/` or treated as reportable benchmark claims. The generated
 report also replays a deterministic immediate-neighbor context expansion over
-the stored rankings. That diagnostic reports the added passage and word budget
-and is not presented as a same-budget retrieval improvement.
+the stored rankings, capped at 3,000 words. That diagnostic reports the added
+passage and word budget and is not presented as a same-budget retrieval
+improvement.
 
 ## Current experiment
 

@@ -18,10 +18,11 @@ class QualityMetrics:
 def metrics_for_case(case: RetrievalCase, ranked: Sequence[int]) -> QualityMetrics | None:
     if not case.positive:
         return None
-    clause_hit = {
-        limit: mean(1.0 if clause & set(ranked[:limit]) else 0.0 for clause in case.clauses)
-        for limit in (1, 3, 5, 10)
-    }
+    clause_hit: dict[int, float] = {}
+    for limit in (1, 3, 5, 10):
+        score = clause_hit_for_passages(case, ranked[:limit])
+        assert score is not None
+        clause_hit[limit] = score
     gold = case.gold_passages
     passage_recall = {
         limit: len(gold & set(ranked[:limit])) / len(gold)
@@ -31,6 +32,13 @@ def metrics_for_case(case: RetrievalCase, ranked: Sequence[int]) -> QualityMetri
     reciprocal_rank = 0.0 if first is None else 1.0 / first
     gold_density = len(gold & set(ranked[:5])) / 5
     return QualityMetrics(clause_hit, passage_recall, reciprocal_rank, gold_density)
+
+
+def clause_hit_for_passages(case: RetrievalCase, passage_ids: Sequence[int]) -> float | None:
+    if not case.positive:
+        return None
+    selected = set(passage_ids)
+    return mean(1.0 if clause & selected else 0.0 for clause in case.clauses)
 
 
 def mean_metrics(rows: Iterable[QualityMetrics]) -> QualityMetrics:

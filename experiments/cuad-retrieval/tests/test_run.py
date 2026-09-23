@@ -54,6 +54,9 @@ def test_bm25_case_record_has_strict_top_ten_and_metrics() -> None:
     assert [item["passageId"] for item in record["ranked"]][0] == 7
     assert len(record["ranked"]) == 10
     assert record["metrics"]["clauseHitAt"]["5"] == 1.0
+    assert record["context"]["clauseHit"] == 1.0
+    assert record["context"]["seedPassageIds"] == [7, 1, 2, 3, 4]
+    assert 6 in record["context"]["passageIds"]
     assert record["error"] is None
 
 
@@ -64,6 +67,7 @@ def test_all_lanes_share_one_case_and_produce_complete_records() -> None:
         assert len(record["ranked"]) == 10
         assert record["metrics"]["clauseHitAt"]["5"] == 1.0
         assert record["truncations"] == 0
+        assert record["context"] is not None
         assert record["repetition"] == 2
 
 
@@ -79,6 +83,7 @@ def test_truncation_emits_a_row_for_every_lane_before_fail_fast() -> None:
     for record in records[1:]:
         assert record["error"]["type"] == "InputTruncationError"
         assert record["truncations"] == 1
+        assert record["context"] is None
         assert record["ranked"] == []
 
 
@@ -143,3 +148,6 @@ def test_manifest_counts_repetitions_without_inflating_case_inventory() -> None:
     assert manifest["cases"] == ["synthetic"]
     assert manifest["expectedRecords"] == 12
     assert manifest["config"]["repetitions"] == 3
+    assert manifest["config"]["contextSeedLimit"] == 5
+    assert manifest["config"]["contextRadius"] == 1
+    assert manifest["config"]["contextWordBudget"] == 3000

@@ -1,7 +1,9 @@
 from __future__ import annotations
 
-import numpy as np
 from typing import Sequence
+
+import numpy as np
+import pytest
 
 from retrieval_bench.cases import RetrievalCase
 from retrieval_bench.core import Passage
@@ -51,7 +53,7 @@ def test_report_is_generated_from_complete_case_records() -> None:
     assert "Development evidence only" in report
     assert "BGE-M3 dense" in report
     assert "Paired clause-hit comparison with BM25" in report
-    assert "Adjacent-context replay" in report
+    assert "Budgeted adjacent-context replay" in report
     assert "not a same-budget retrieval improvement" in report
     assert "Result hash: `results`" in report
 
@@ -101,10 +103,21 @@ def test_adjacent_context_replay_recovers_boundary_evidence_and_reports_cost() -
         {"passageId": passage_id, "rank": rank, "score": 1.0, "bm25Rank": rank, "denseRank": None}
         for rank, passage_id in enumerate((5, 1, 2, 3, 4, 7, 8, 9, 10, 6), start=1)
     ]
-    summary = adjacent_context_summary(records, "bm25", [case])
+    records[0]["context"] = None
+    summary = adjacent_context_summary(records, "bm25", [case], word_budget=60)
     assert summary.seed_clause_hit == 0
     assert summary.expanded_clause_hit == 1
     assert summary.mean_expanded_passages == 6
     assert summary.mean_seed_words == 50
     assert summary.mean_expanded_words == 60
+    assert summary.max_expanded_words == 60
     assert summary.word_multiplier == 1.2
+
+
+def test_adjacent_context_replay_rejects_a_tampered_stored_selection() -> None:
+    passages = tuple(Passage(index, f"part {index}", "word " * 10) for index in range(1, 11))
+    case = RetrievalCase("synthetic", "termination", passages, (frozenset({3}),), "source")
+    records = evaluate_case(case, ("bm25",), None)
+    records[0]["context"]["wordCount"] += 1
+    with pytest.raises(ValueError, match="invalid stored context selection"):
+        adjacent_context_summary(records, "bm25", [case])

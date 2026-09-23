@@ -5,7 +5,13 @@ from statistics import mean
 from typing import Any, Sequence
 
 from .cases import RetrievalCase
-from .metrics import bootstrap_difference
+from .context import (
+    CONTEXT_RADIUS,
+    CONTEXT_SEED_LIMIT,
+    CONTEXT_WORD_BUDGET,
+    select_adjacent_context,
+)
+from .metrics import bootstrap_difference, clause_hit_for_passages
 
 
 LANE_LABELS = {
@@ -22,6 +28,7 @@ class AdjacentContextSummary:
     expanded_clause_hit: float
     mean_seed_words: float
     mean_expanded_words: float
+    max_expanded_words: int
     mean_expanded_passages: float
 
     @property
@@ -100,23 +107,34 @@ def build_report(
     lines.extend(
         [
             "",
-            "## Adjacent-context replay",
+            "## Budgeted adjacent-context replay",
             "",
-            "| Lane | Seed clause hit@5 | Clause hit with ±1 passage | Mean passages exposed | Mean words exposed | Word multiplier |",
-            "| --- | ---: | ---: | ---: | ---: | ---: |",
+            "| Lane | Seed clause hit@5 | Clause hit with context | Mean passages exposed | Mean words exposed | Max words exposed | Word multiplier |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
+    context_seed_limit = manifest["config"].get("contextSeedLimit", CONTEXT_SEED_LIMIT)
+    context_radius = manifest["config"].get("contextRadius", CONTEXT_RADIUS)
+    context_word_budget = manifest["config"].get("contextWordBudget", CONTEXT_WORD_BUDGET)
     for lane in manifest["lanes"]:
-        context = adjacent_context_summary(records, lane, positives)
+        context = adjacent_context_summary(
+            records,
+            lane,
+            positives,
+            rank=context_seed_limit,
+            radius=context_radius,
+            word_budget=context_word_budget,
+        )
         lines.append(
             f"| {LANE_LABELS[lane]} | {pct(context.seed_clause_hit)} | "
             f"{pct(context.expanded_clause_hit)} | {context.mean_expanded_passages:.1f} | "
-            f"{context.mean_expanded_words:.0f} | {context.word_multiplier:.2f}× |"
+            f"{context.mean_expanded_words:.0f} | {context.max_expanded_words} | "
+            f"{context.word_multiplier:.2f}× |"
         )
     lines.extend(
         [
             "",
-            "This is a deterministic replay of the stored top-five rankings. Each seed exposes itself and its immediate previous and next passage, with duplicates removed. It diagnoses passage-boundary failures but increases the context budget, so it is not a same-budget retrieval improvement or a new benchmark run.",
+            f"This is a deterministic replay of the stored top-{context_seed_limit} rankings. It adds immediate neighboring passages in seed-rank and document order, removes duplicates, and never exceeds {context_word_budget} words. It diagnoses passage-boundary failures but increases the context budget, so it is not a same-budget retrieval improvement or a new benchmark run.",
         ]
     )
 
@@ -260,14 +278,14 @@ def adjacent_context_summary(
     cases: Sequence[RetrievalCase],
     rank: int = 5,
     radius: int = 1,
+    word_budget: int = CONTEXT_WORD_BUDGET,
 ) -> AdjacentContextSummary:
-    if rank <= 0 or radius < 0:
-        raise ValueError("context replay rank must be positive and radius must be non-negative")
     by_case = group_rows_by_case(positive_rows(records, lane))
     seed_hits: list[float] = []
     expanded_hits: list[float] = []
     seed_words: list[float] = []
     expanded_words: list[float] = []
+    max_expanded_words = 0
     expanded_passages: list[float] = []
     for case in cases:
         case_rows = by_case.get(case.id)
@@ -279,17 +297,34 @@ def adjacent_context_summary(
         row_expanded_words: list[int] = []
         row_expanded_passages: list[int] = []
         for row in case_rows:
-            seeds = {item["passageId"] for item in row["ranked"][:rank]}
-            expanded = {
-                passage_id
-                for seed in seeds
-                for passage_id in range(max(1, seed - radius), min(len(case.passages), seed + radius) + 1)
-            }
-            row_seed_hits.append(clause_hit(case, seeds))
-            row_expanded_hits.append(clause_hit(case, expanded))
-            row_seed_words.append(context_words(case, seeds))
-            row_expanded_words.append(context_words(case, expanded))
-            row_expanded_passages.append(len(expanded))
+            selection = select_adjacent_context(
+                case.passages,
+                [item["passageId"] for item in row["ranked"]],
+                seed_limit=rank,
+                radius=radius,
+                word_budget=word_budget,
+            )
+            context_clause_hit = clause_hit_for_passages(case, selection.passage_ids)
+            assert context_clause_hit is not None
+            stored = row.get("context")
+            if stored is not None:
+                expected = {
+                    "seedPassageIds": list(selection.seed_passage_ids),
+                    "passageIds": list(selection.passage_ids),
+                    "seedWordCount": selection.seed_word_count,
+                    "wordCount": selection.word_count,
+                    "clauseHit": context_clause_hit,
+                }
+                if stored != expected:
+                    raise ValueError(f"invalid stored context selection for {case.id} in lane {lane}")
+            seed_clause_hit = clause_hit_for_passages(case, selection.seed_passage_ids)
+            assert seed_clause_hit is not None
+            row_seed_hits.append(seed_clause_hit)
+            row_expanded_hits.append(context_clause_hit)
+            row_seed_words.append(selection.seed_word_count)
+            row_expanded_words.append(selection.word_count)
+            row_expanded_passages.append(len(selection.passage_ids))
+            max_expanded_words = max(max_expanded_words, selection.word_count)
         seed_hits.append(mean(row_seed_hits))
         expanded_hits.append(mean(row_expanded_hits))
         seed_words.append(mean(row_seed_words))
@@ -300,16 +335,9 @@ def adjacent_context_summary(
         expanded_clause_hit=mean(expanded_hits),
         mean_seed_words=mean(seed_words),
         mean_expanded_words=mean(expanded_words),
+        max_expanded_words=max_expanded_words,
         mean_expanded_passages=mean(expanded_passages),
     )
-
-
-def clause_hit(case: RetrievalCase, passage_ids: set[int]) -> float:
-    return mean(1.0 if clause & passage_ids else 0.0 for clause in case.clauses)
-
-
-def context_words(case: RetrievalCase, passage_ids: set[int]) -> int:
-    return sum(len(case.passages[passage_id - 1].text.split()) for passage_id in passage_ids)
 
 
 def percentile(values: Sequence[float], quantile: float) -> float:

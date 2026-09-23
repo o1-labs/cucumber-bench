@@ -17,8 +17,9 @@ import numpy as np
 
 from .cases import RetrievalCase, load_cases
 from .chart import build_chart
+from .context import CONTEXT_RADIUS, CONTEXT_SEED_LIMIT, CONTEXT_WORD_BUDGET, select_adjacent_context
 from .core import Bm25Retriever, RankedPassage, RetrievalRequest, passage_ids, rank_dense, reciprocal_rank_fusion, rerank
-from .metrics import QualityMetrics, metrics_for_case
+from .metrics import QualityMetrics, clause_hit_for_passages, metrics_for_case
 from .models import BGE_MODEL, BGE_REVISION, MAX_LENGTH, RERANKER_MODEL, RERANKER_REVISION, LocalModels
 from .report import build_report
 from .timing import elapsed_ms
@@ -232,6 +233,7 @@ def evaluate_case(
         ranked = rankings[lane]
         validate_ranking(case, ranked)
         quality = metrics_for_case(case, passage_ids(ranked))
+        context = select_adjacent_context(passages, passage_ids(ranked))
         candidate_ids = set(passage_ids(candidate_pools[lane]))
         candidate_clause_hit = (
             sum(1.0 if clause & candidate_ids else 0.0 for clause in case.clauses) / len(case.clauses)
@@ -248,6 +250,13 @@ def evaluate_case(
                 "candidatePoolPassageIds": passage_ids(candidate_pools[lane]),
                 "candidatePoolClauseHit": candidate_clause_hit,
                 "metrics": quality_json(quality),
+                "context": {
+                    "seedPassageIds": list(context.seed_passage_ids),
+                    "passageIds": list(context.passage_ids),
+                    "seedWordCount": context.seed_word_count,
+                    "wordCount": context.word_count,
+                    "clauseHit": clause_hit_for_passages(case, context.passage_ids),
+                },
                 "timings": timings[lane],
                 "truncations": truncations[lane],
                 "error": None,
@@ -297,6 +306,7 @@ def failure_records(
             "candidatePoolPassageIds": [],
             "candidatePoolClauseHit": None,
             "metrics": None,
+            "context": None,
             "timings": {"indexMs": 0.0, "queryMs": 0.0},
             "truncations": truncations.get(lane, 0),
             "error": error_json,
@@ -395,6 +405,9 @@ def build_manifest(
             "candidateLimit": CANDIDATE_LIMIT,
             "fusionLimit": FUSION_LIMIT,
             "rrfConstant": RRF_CONSTANT,
+            "contextSeedLimit": CONTEXT_SEED_LIMIT,
+            "contextRadius": CONTEXT_RADIUS,
+            "contextWordBudget": CONTEXT_WORD_BUDGET,
             "batchSize": config.batch_size,
             "repetitions": config.repetitions,
             "maxLength": MAX_LENGTH,

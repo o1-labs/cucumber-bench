@@ -4,7 +4,7 @@ import pytest
 
 from retrieval_bench.cases import RetrievalCase
 from retrieval_bench.core import Passage
-from retrieval_bench.metrics import bootstrap_difference, mean_metrics, metrics_for_case
+from retrieval_bench.metrics import bootstrap_difference, clause_hit_for_passages, mean_metrics, metrics_for_case
 
 
 def case(clauses: tuple[frozenset[int], ...]) -> RetrievalCase:
@@ -24,6 +24,12 @@ def test_metrics_score_clauses_before_averaging_cases() -> None:
 
 def test_absence_case_is_not_scored_as_retrieval_quality() -> None:
     assert metrics_for_case(case(()), list(range(1, 11))) is None
+    assert clause_hit_for_passages(case(()), list(range(1, 11))) is None
+
+
+def test_clause_hit_scores_all_selected_passages_without_a_rank_cutoff() -> None:
+    value = clause_hit_for_passages(case((frozenset({2}), frozenset({8, 9}))), [2, 8])
+    assert value == 1.0
 
 
 def test_mean_metrics_averages_case_metrics() -> None:
