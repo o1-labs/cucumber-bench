@@ -6,12 +6,16 @@ export { resolveModelConfig, keyFromEnv };
 function resolveModelConfig() {
   let baseUrl = env('BENCH_BASE_URL') ?? 'http://localhost:11434/v1';
   let apiKey = env('BENCH_API_KEY') ?? 'none';
+  let judgeBaseUrl = env('BENCH_JUDGE_BASE_URL') ?? baseUrl;
+  let judgeApiKey = env('BENCH_JUDGE_API_KEY') ?? apiKey;
+  requireOpenRouterKey(baseUrl, apiKey, 'BENCH_API_KEY', 'BENCH_BASE_URL');
+  requireOpenRouterKey(judgeBaseUrl, judgeApiKey, 'BENCH_JUDGE_API_KEY', 'BENCH_JUDGE_BASE_URL');
   return {
     baseUrl,
     apiKey,
     judgeModel: env('BENCH_JUDGE_MODEL') ?? 'qwen3:8b',
-    judgeBaseUrl: env('BENCH_JUDGE_BASE_URL') ?? baseUrl,
-    judgeApiKey: env('BENCH_JUDGE_API_KEY') ?? apiKey,
+    judgeBaseUrl,
+    judgeApiKey,
     temperature: Number(env('BENCH_TEMPERATURE') ?? 0),
     timeoutMs: Number(env('BENCH_TIMEOUT_MS') ?? 120_000),
   };
@@ -32,4 +36,14 @@ function keyFromEnv(keyEnv: string | undefined, context: string): string {
 function env(name: string): string | undefined {
   let v = process.env[name]?.trim();
   return v ? v : undefined;
+}
+
+function requireOpenRouterKey(url: string, key: string, keyName: string, urlName: string) {
+  let hostname: string | undefined;
+  try {
+    hostname = new URL(url).hostname;
+  } catch {}
+  if (hostname === 'openrouter.ai' && key === 'none') {
+    throw Error(`${keyName} is required when ${urlName} uses OpenRouter`);
+  }
 }

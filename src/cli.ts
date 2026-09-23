@@ -25,14 +25,11 @@ let { values } = parseArgs({
 // locked test set that is shared. results.jsonl always has them
 let details = !values['no-details'];
 
-let project = await loadProject();
+let requestedSystems = values.systems?.split(',').map((name) => name.trim());
+let project = await loadProject({ systemNames: requestedSystems });
 let { cfg, benchmarks, graders, help } = project;
 let cases = project.cases;
-let systems = (values.systems?.split(',') ?? [...project.systems.keys()]).map((name) => {
-  let s = project.systems.get(name.trim());
-  if (!s) throw Error(`unknown system: ${name}. available: ${[...project.systems.keys()].join(', ')}`);
-  return s;
-});
+let systems = [...project.systems.values()];
 if (values.suites) {
   let wanted = values.suites.split(',').map((s) => s.trim());
   cases = cases.filter((c) => wanted.includes(c.pub.suite));
