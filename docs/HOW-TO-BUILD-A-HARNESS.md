@@ -12,15 +12,15 @@ The harness is a program. It reads one JSON object from stdin and writes one to 
 ```json
 {
   "publicCase": { "id": "...", "suite": "...", "task": "...", "instructions": "...", "input": "...",
-                  "docs": [{ "title": "...", "text": "..." }], "examples": [{ "q": "...", "a": "..." }],
-                  "question": "...", "choices": ["..."] },
+                  "docs": [{ "title": "...", "text": "...", "date": "..." }], "examples": [{ "q": "...", "a": "..." }],
+                  "question": "...", "choices": ["..."], "currentDate": "..." },
   "proxyUrl": "http://127.0.0.1:PORT",
   "token": "the bearer token of this run",
   "models": { "main": "...", "safety": "...", "compose": "..." }
 }
 ```
 
-`docs` are passages the answer may cite as `[1][2]`, numbered from 1. `examples` are worked
+`docs` are passages the answer may cite as `[1][2]`, numbered from 1. A passage's `date` and the case's `currentDate` are set only by suites that date them (longmemeval: each session's date, and when the question is asked). `examples` are worked
 examples. `question` and `choices` exist for label tasks only. `models` are the manifest's,
 extra roles included.
 

@@ -48,9 +48,15 @@ function buildCase(item: Item, suite: string, source: string): { pub: PublicCase
     task: 'longmemeval',
     instructions: PREAMBLE,
     input: `\nHistory Chats:\n\n${formatHistory(item)}\n\nCurrent Date: ${item.question_date}\nQuestion: ${item.question}\nAnswer:`,
-    // one passage per session, for a harness that retrieves; the title carries the date
-    docs: item.haystack_sessions.map((s, i) => ({ title: `Session ${i + 1} (${item.haystack_dates[i]})`, text: formatSession(s).trim() })),
+    // one passage per session, for a harness that retrieves. the date is also a field, so a
+    // harness can filter and order by it (the paper's own retrieval does, section 5)
+    docs: item.haystack_sessions.map((s, i) => ({
+      title: `Session ${i + 1} (${item.haystack_dates[i]})`,
+      text: formatSession(s).trim(),
+      date: item.haystack_dates[i],
+    })),
     question: item.question,
+    currentDate: item.question_date,
     _source: source,
   };
   let priv: PrivateCase & LongMemEvalGold = {

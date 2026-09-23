@@ -41,6 +41,8 @@ describe('buildCase', () => {
     );
     assert.equal(pub.docs?.length, 2);
     assert.equal(pub.docs?.[1].text, 'user: And one more shirt yesterday.');
+    assert.deepEqual(pub.docs?.map((d) => d.date), item.haystack_dates);
+    assert.equal(pub.currentDate, item.question_date);
     let leaked = JSON.stringify(pub);
     assert.ok(!leaked.includes('has_answer') && !leaked.includes('answer_1'), 'evidence marks in the public case');
     assert.deepEqual(priv, { id: pub.id, graders: ['longmemeval'], answer: '3', questionType: 'multi-session', abstention: false });

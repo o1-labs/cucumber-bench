@@ -23,12 +23,15 @@ type PublicCase = {
   instructions: string;
   // the case-specific text: a fact pattern, a document, ...
   input: string;
-  // context passages the answer may cite, numbered from 1 in order (asqa; cuad later)
-  docs?: { title: string; text: string }[];
+  // context passages the answer may cite, numbered from 1 in order (asqa; cuad later).
+  // date: when the passage was written, as the source gives it (longmemeval's session dates)
+  docs?: { title: string; text: string; date?: string }[];
   // worked examples (few-shot); label tasks also carry the question and the allowed labels
   examples?: { q: string; a: string }[];
   question?: string;
   choices?: string[];
+  // when the question is asked, as the source gives it, for suites that date it (longmemeval)
+  currentDate?: string;
 };
 
 // never passed to a system under test. graders[0] is the primary (task) grader. the file also
