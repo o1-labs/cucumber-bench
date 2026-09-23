@@ -87,6 +87,7 @@ each case in a fresh hardened container (read-only, no capabilities, resource ca
 | `legal-v1` | legalbench, redaction | input safety → agent → output safety; safety is regex plus a trusted safety model (Vercel AI SDK) |
 | `cite-v1` | asqa, cuad | the few-shot answer, then a check of every sentence's citations; an unsupported sentence is dropped |
 | `review-v1` | cuad | scan every passage and quote what answers the question; compose the answer from the quotes; check every cited sentence against its passages |
+| `review-bm25-v1` | cuad-hard-dev | development-only BM25 preselection with bounded neighboring context, followed by the same review and citation checks as `review-v1` |
 | `direct-4b` | cuad-hard | `direct` with the plain Qwen3-4B-Instruct-2507, hosted on nscale: the finetune's baseline |
 | `direct-4b-ft` | cuad-hard | `direct` with `cuad-qwen3`, the CUAD finetune on the local server |
 | `review-ft` | cuad-hard | the review pipeline with `cuad-qwen3` as the scan extractor and a general model for compose and check |
@@ -158,6 +159,18 @@ report also replays a deterministic immediate-neighbor context expansion over
 the stored rankings, capped at 3,000 words. That diagnostic reports the added
 passage and word budget and is not presented as a same-budget retrieval
 improvement.
+
+## Retrieval-assisted review study
+
+`review-bm25-v1` is the first deployable bridge from the retrieval study to the
+answer-and-citation benchmark. It ranks passages with dependency-free BM25, keeps the top
+five plus immediate neighbors within 3,000 words, and passes those original passage numbers
+through the same scan, compose, and citation-check module as `review-v1`. When that context
+yields no verified quote, it scans every remaining passage before claiming absence. It is
+deliberately limited to `cuad-hard-dev` while the quality/cost tradeoff is reviewed.
+
+The comparison, development gates, exhaustive-fallback rule, and run commands are in
+[`docs/RETRIEVAL-REVIEW-EXPERIMENT.md`](docs/RETRIEVAL-REVIEW-EXPERIMENT.md).
 
 ## Current experiment
 

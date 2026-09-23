@@ -1,0 +1,12 @@
+{
+  "name": "review-bm25-v1",
+  "description": "Development-only retrieval-assisted review: BM25 selects five passages, immediate neighbors are added within a 3,000-word budget, and the shared review pipeline scans that context first. If it finds no verified quote, it scans the remaining passages before claiming absence.",
+  "entry": "../review-v1/src/bm25-entry.ts",
+  "suites": ["cuad-hard-dev"],
+  "models": {
+    "main": "qwen/qwen3.6-35b-a3b"
+  },
+  "maxCalls": 30,
+  "image": "cucumber-harness-review-v1",
+  "imageEntry": "/app/dist/bm25-entry.js"
+}
