@@ -1,0 +1,62 @@
+<!doctype html>
+<!-- generated from RETRIEVAL-REVIEW-EXPERIMENT.md by npm run site; edit the markdown, not this file -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retrieval-assisted review development experiment · cucumber-bench</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 760px; margin: 3rem auto; padding: 0 1rem; color: #1b1f24; }
+  h1 { font-size: 1.6rem; } h2 { font-size: 1.2rem; margin-top: 2rem; } h3 { font-size: 1.05rem; }
+  a { color: #2a78d6; }
+  code { background: rgba(0,0,0,0.05); padding: 1px 4px; border-radius: 4px; font-size: 0.9em; }
+  pre { background: rgba(0,0,0,0.05); padding: 12px; border-radius: 8px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e1e0d9; vertical-align: top; }
+  .top { color: #57606a; font-size: 14px; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #0f1115; color: #e6e8eb; } a { color: #3987e5; }
+    code, pre { background: rgba(255,255,255,0.08); } th, td { border-color: #2c2c2a; }
+    .top { color: #9aa0aa; }
+  }
+</style>
+<p class="top"><a href="index.html">cucumber-bench</a></p>
+<h1>Retrieval-assisted review development experiment</h1>
+<p>This plan connects the local retrieval study to the answer-and-citation benchmark without pretending that retrieval coverage is answer quality. The generated run receipt and report, not this document, remain the source of truth for what actually ran.</p>
+<h2>Decision</h2>
+<p>Can a deployable retrieval stage reduce the full-document review harness's model work while preserving clause recall, clause precision, and citation support on <code>cuad-hard-dev</code>?</p>
+<p>This is a development decision only. The treatment is not eligible for <code>cuad-hard</code> until its implementation and development result have been reviewed and frozen.</p>
+<h2>Comparable lanes</h2>
+<table><thead><tr><th>Lane</th><th>System</th><th>Role</th></tr></thead><tbody><tr><td>Control</td><td><code>review-v1</code></td><td>Exhaustively scans every passage before compose and citation check.</td></tr><tr><td>Treatment</td><td><code>review-bm25-v1</code></td><td>Selects bounded context with BM25, then uses the same scan, compose, and citation-check module.</td></tr></tbody></table>
+<p>Both lanes use <code>qwen/qwen3.6-35b-a3b</code>, temperature 0, the same cases, examples, graders, repetitions, provider, and runner. The shared review module keeps the post-retrieval prompts and citation checks aligned. The intentional difference is which passages enter the scan.</p>
+<h2>Frozen treatment</h2>
+<p>For each public case, the treatment:</p>
+<ol><li>extracts the question before <code>Document [1]</code>;</li><li>ranks passage text with BM25 (<code>k1 = 1.2</code>, <code>b = 0.75</code>);</li><li>keeps the top five passages;</li><li>considers the immediate previous and next passage in seed-rank order;</li><li>skips a neighbor that would take the selection above 3,000 whitespace-delimited words;</li><li>restores document order while preserving the original passage numbers;</li><li>scans only the selected passages, composes only from verified verbatim quotes, and checks every cited sentence against its original passages;</li><li>if the selected passages yield no verified quote, scans every remaining passage before composing, so an absence answer is based on the complete contract.</li></ol>
+<p>The trace records seed passage numbers, selected passage count, word count, scan-call count, fallback use, quotes, and citation-check decisions. With at most 15 selected passages, a positive retrieval path needs at most three scan calls; <code>review-v1</code> needs up to 21 for a 104-passage development contract. A no-quote path is deliberately slower because it scans the remainder before making an exhaustive absence claim.</p>
+<h2>Why BM25 is the first integrated adapter</h2>
+<p>The local study's BGE-M3 and reranker weights require a separate Python runtime and several gigabytes of model storage. The isolated harness currently has a 1 GiB memory limit. Bundling that stack into this lane would change retrieval, deployment footprint, memory, startup time, and review behavior at once.</p>
+<p>BM25 is dependency-free, deterministic, and small enough to run inside the existing sandbox. This experiment therefore isolates the value and cost of retrieval-assisted review. A dense or hybrid adapter is a follow-up only after it has a reviewed lifecycle that preserves the same selection interface and reports its resource cost.</p>
+<h2>Metrics and development gates</h2>
+<p>The primary quality metric is mean <code>clause-recall</code>. <code>clause-precision</code> and <code>citation-support</code> must not regress materially. Operational metrics are model calls, input tokens, cost, latency, and run errors.</p>
+<p>Development promotion requires all of the following:</p>
+<ul><li>zero run or grader errors;</li><li>every absence claim follows a complete scan, recorded in the trace;</li><li>at least 40% fewer scan calls and model-input tokens than <code>review-v1</code>;</li><li>no more than a five-point mean regression in clause recall, clause precision, or citation support;</li><li>source-level review of every treatment loss and win;</li><li>an uncertainty interval and an explicit warning that 15 cases are exploratory evidence.</li></ul>
+<p>If the treatment misses these gates, do not compensate by tuning on <code>cuad-hard</code>. Diagnose candidate-generation misses separately from scan, compose, and citation-check failures.</p>
+<h2>Run sequence</h2>
+<p>The repository owner runs benchmark commands after committing a clean revision.</p>
+<pre><code>npm test
+npm run typecheck
+
+# Positive fast path plus absence fallback plumbing and cost smoke test.
+BENCH_SANDBOX=docker npm run bench -- --systems review-v1,review-bm25-v1 --cases cuad-hard-dev-100,cuad-hard-dev-102 --reps 1 --concurrency 1
+
+# Development comparison. This is not a locked-test run.
+BENCH_SANDBOX=docker npm run bench -- --systems review-v1,review-bm25-v1 --suites cuad-hard-dev --reps 3 --concurrency 2</code></pre>
+<p>Review <code>run.json</code> before interpreting the report: it must show a clean commit, both systems, the same model and provider, temperature 0, 15 cases, three repetitions, and the expected 90 records. Keep the resulting directory ignored and unpinned while tuning.</p>
+<h2>Development result: 2026-09-23</h2>
+<p>Run <code>2026-09-23T06-16-00-136Z</code> compared the two lanes on all 15 <code>cuad-hard-dev</code> cases with three repetitions. The receipt recorded a clean commit, Docker isolation, temperature 0, 90/90 records, <code>qwen/qwen3.6-35b-a3b</code> for both lanes, and <code>deepseek/deepseek-v4-flash-0731</code> as judge. This is development evidence, not a locked-test claim. The generated report remains ignored because it contains case-level gold-derived failure details.</p>
+<table><thead><tr><th>Measure</th><th>Full review</th><th>BM25-assisted</th><th>Treatment difference</th></tr></thead><tbody><tr><td>Mean clause recall</td><td>67.8%</td><td>61.7%</td><td>−6.1 points</td></tr><tr><td>Mean clause precision</td><td>83.0%</td><td>77.8%</td><td>−5.2 points</td></tr><tr><td>Mean citation support</td><td>93.4%</td><td>88.3%</td><td>−5.1 points</td></tr><tr><td>Model input tokens per run</td><td>20,324</td><td>10,738</td><td>−47.2%</td></tr><tr><td>Scan calls per run</td><td>8.78</td><td>4.93</td><td>−43.8%</td></tr><tr><td>Total model calls per run</td><td>12.11</td><td>7.40</td><td>−38.9%</td></tr><tr><td>Harness cost per run</td><td>$0.0191</td><td>$0.0121</td><td>−36.8%</td></tr><tr><td>Run errors</td><td>1/45</td><td>0/45</td><td>one fewer</td></tr></tbody></table>
+<p>The paired 95% intervals all included zero: full review minus BM25-assisted was <code>+6 [−11, +24]</code> points for recall, <code>+5 [−10, +21]</code> for precision, and <code>+5 [−4, +16]</code> for citation support. The treatment therefore does not show a clear quality change, but its point estimates exceed the experiment's maximum five-point regression. It passes the scan-call and input-token gates and fails the zero-error and quality gates, so it is <b>not promoted</b> to <code>cuad-hard</code>.</p>
+<p>The failure review found that the selected context contained every relevant passage in six of eleven positive development cases, some in three, and none in two. A partial or incorrect quote currently prevents the exhaustive fallback, which explains the largest recall losses. The next experiment should preserve this frozen treatment and test a separately named expanded or progressive retrieval policy before another answer-level run.</p>
+<h2>Follow-up boundary</h2>
+<p>If BM25-assisted review passes the development gates, freeze it before considering a dense adapter. If quality fails because relevant clauses never enter the candidate set, evaluate contextual indexing or query expansion. If relevant clauses enter the candidate set but the scan misses them, improve the scan/reranking stage instead. Do not change both in one comparison.</p>
+<p>The fallback currently triggers only when retrieval yields zero verified quotes. A partial hit on a multi-instance question does not prove that every instance was found and does not trigger fallback. Treat any resulting clause-recall loss as a known design limitation, not as model noise.</p>

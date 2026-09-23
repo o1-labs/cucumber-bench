@@ -171,6 +171,9 @@ deliberately limited to `cuad-hard-dev` while the quality/cost tradeoff is revie
 
 The comparison, development gates, exhaustive-fallback rule, and run commands are in
 [`docs/RETRIEVAL-REVIEW-EXPERIMENT.md`](docs/RETRIEVAL-REVIEW-EXPERIMENT.md).
+The [2026-09-23 development result](docs/RETRIEVAL-REVIEW-EXPERIMENT.md#development-result-2026-09-23)
+reduced model input and cost, but exceeded the allowed quality regressions and was not
+promoted to the locked benchmark.
 
 ## Current experiment
 

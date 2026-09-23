@@ -71,16 +71,23 @@ try {
 <h2>4. A benchmark</h2>
 <p><code>benchmarks/&lt;suite&gt;/benchmark.json</code> names the graders and, when they need one, the judge:</p>
 <pre><code>{ &quot;name&quot;: &quot;asqa&quot;, &quot;graders&quot;: [&quot;str-em&quot;, &quot;./graders.ts&quot;], &quot;judge&quot;: { &quot;model&quot;: &quot;deepseek/deepseek-v4-flash-0731&quot; } }</code></pre>
-<p>A grader is a core grader by name (<code>exact</code>, <code>str-em</code>) or a module exporting <code>{ graders }</code>:</p>
-<pre><code>let graders: Grader[] = [{
+<p>A grader is a core grader by name (<code>exact</code>, <code>str-em</code>) or a module exporting <code>{ graders }</code>. A grader owns its gold: it declares the type, and <code>gold(raw, id)</code> builds it from the raw private case, checking every field. The runner calls <code>gold</code> for every case before the first model call, so a malformed case stops the run before anything is paid for, and <code>grade</code> gets the checked, typed gold:</p>
+<pre><code>type MyGold = { answer: string };
+
+let graders: Grader&lt;MyGold&gt;[] = [{
   name: 'my-grader',
   description: 'One sentence that says what passes; it goes into the glossary.',
-  async grade(pub, priv, result, ctx) {
-    return { grader: 'my-grader', pass: true, score: 1, detail: 'why' };
+  gold(raw, id) {
+    let { answer } = fieldsOf(raw, id, 'my-grader'); // src/gold.ts: the raw case as unknown fields
+    assert(typeof answer === 'string', `my-grader: case ${id} needs an answer`);
+    return { answer };
+  },
+  async grade(pub, gold, result, ctx) {
+    return { grader: 'my-grader', pass: result.output.includes(gold.answer), score: 1, detail: 'why' };
   },
 }];</code></pre>
-<p><code>ctx.judge(prompt)</code> asks the judge model; its usage is counted apart from the harness. A grader never sees an errored run: the runner fails those itself.</p>
-<p>Cases are two files in <code>cases/</code>: <code>&lt;id&gt;.public.json</code> (what the system sees) and <code>&lt;id&gt;.private.json</code> (<code>graders</code> and the gold data). The file name is the id, the folder is the suite, and the loader checks both. An <code>import.ts</code> rebuilds the cases deterministically from a pinned source; raw data stays out of Git.</p>
+<p>A grader that reads no gold is a <code>Grader&lt;undefined&gt;</code> with <code>gold: () =&gt; undefined</code>. <code>ctx.judge(prompt)</code> asks the judge model; its usage is counted apart from the harness. A grader never sees an errored run: the runner fails those itself.</p>
+<p>Cases are two files in <code>cases/</code>: <code>&lt;id&gt;.public.json</code> (what the system sees) and <code>&lt;id&gt;.private.json</code> (<code>graders</code> and the gold data). The file name is the id, the folder is the suite, and the loader checks both. The core types only <code>id</code> and <code>graders</code> of a private case; the other fields are the gold of the graders the case lists. An <code>import.ts</code> rebuilds the cases deterministically from a pinned source; raw data stays out of Git.</p>
 <h2>5. The trace</h2>
 <p>A harness records its stages, <code>input safety → agent → output safety</code>:</p>
 <pre><code>{

@@ -94,6 +94,39 @@ Review `run.json` before interpreting the report: it must show a clean commit, b
 the same model and provider, temperature 0, 15 cases, three repetitions, and the expected
 90 records. Keep the resulting directory ignored and unpinned while tuning.
 
+## Development result: 2026-09-23
+
+Run `2026-09-23T06-16-00-136Z` compared the two lanes on all 15 `cuad-hard-dev`
+cases with three repetitions. The receipt recorded a clean commit, Docker isolation,
+temperature 0, 90/90 records, `qwen/qwen3.6-35b-a3b` for both lanes, and
+`deepseek/deepseek-v4-flash-0731` as judge. This is development evidence, not a locked-test
+claim. The generated report remains ignored because it contains case-level gold-derived
+failure details.
+
+| Measure | Full review | BM25-assisted | Treatment difference |
+| --- | ---: | ---: | ---: |
+| Mean clause recall | 67.8% | 61.7% | −6.1 points |
+| Mean clause precision | 83.0% | 77.8% | −5.2 points |
+| Mean citation support | 93.4% | 88.3% | −5.1 points |
+| Model input tokens per run | 20,324 | 10,738 | −47.2% |
+| Scan calls per run | 8.78 | 4.93 | −43.8% |
+| Total model calls per run | 12.11 | 7.40 | −38.9% |
+| Harness cost per run | $0.0191 | $0.0121 | −36.8% |
+| Run errors | 1/45 | 0/45 | one fewer |
+
+The paired 95% intervals all included zero: full review minus BM25-assisted was
+`+6 [−11, +24]` points for recall, `+5 [−10, +21]` for precision, and
+`+5 [−4, +16]` for citation support. The treatment therefore does not show a clear quality
+change, but its point estimates exceed the experiment's maximum five-point regression.
+It passes the scan-call and input-token gates and fails the zero-error and quality gates,
+so it is **not promoted** to `cuad-hard`.
+
+The failure review found that the selected context contained every relevant passage in six
+of eleven positive development cases, some in three, and none in two. A partial or incorrect
+quote currently prevents the exhaustive fallback, which explains the largest recall losses.
+The next experiment should preserve this frozen treatment and test a separately named
+expanded or progressive retrieval policy before another answer-level run.
+
 ## Follow-up boundary
 
 If BM25-assisted review passes the development gates, freeze it before considering a dense
