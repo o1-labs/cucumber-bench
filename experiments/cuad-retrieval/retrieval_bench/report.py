@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from statistics import mean
 from typing import Any, Sequence
 
@@ -13,6 +14,19 @@ LANE_LABELS = {
     "hybrid": "BM25 + dense RRF",
     "rerank": "Hybrid + BGE reranker",
 }
+
+
+@dataclass(frozen=True)
+class AdjacentContextSummary:
+    seed_clause_hit: float
+    expanded_clause_hit: float
+    mean_seed_words: float
+    mean_expanded_words: float
+    mean_expanded_passages: float
+
+    @property
+    def word_multiplier(self) -> float:
+        return self.mean_expanded_words / self.mean_seed_words
 
 
 def build_report(
@@ -80,6 +94,34 @@ def build_report(
             "",
             "The interval resamples 11 source documents. It is necessarily wide and is development guidance, not confirmatory evidence.",
             "Repeated executions are averaged within each source document before resampling; they do not increase the number of independent cases.",
+        ]
+    )
+
+    lines.extend(
+        [
+            "",
+            "## Adjacent-context replay",
+            "",
+            "| Lane | Seed clause hit@5 | Clause hit with ±1 passage | Mean passages exposed | Mean words exposed | Word multiplier |",
+            "| --- | ---: | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for lane in manifest["lanes"]:
+        context = adjacent_context_summary(records, lane, positives)
+        lines.append(
+            f"| {LANE_LABELS[lane]} | {pct(context.seed_clause_hit)} | "
+            f"{pct(context.expanded_clause_hit)} | {context.mean_expanded_passages:.1f} | "
+            f"{context.mean_expanded_words:.0f} | {context.word_multiplier:.2f}× |"
+        )
+    lines.extend(
+        [
+            "",
+            "This is a deterministic replay of the stored top-five rankings. Each seed exposes itself and its immediate previous and next passage, with duplicates removed. It diagnoses passage-boundary failures but increases the context budget, so it is not a same-budget retrieval improvement or a new benchmark run.",
+        ]
+    )
+
+    lines.extend(
+        [
             "",
             "## Performance",
             "",
@@ -210,6 +252,64 @@ def ranking_consistency(records: Sequence[dict[str, Any]], lane: str) -> tuple[i
         for case_rows in grouped.values()
     )
     return stable, len(grouped)
+
+
+def adjacent_context_summary(
+    records: Sequence[dict[str, Any]],
+    lane: str,
+    cases: Sequence[RetrievalCase],
+    rank: int = 5,
+    radius: int = 1,
+) -> AdjacentContextSummary:
+    if rank <= 0 or radius < 0:
+        raise ValueError("context replay rank must be positive and radius must be non-negative")
+    by_case = group_rows_by_case(positive_rows(records, lane))
+    seed_hits: list[float] = []
+    expanded_hits: list[float] = []
+    seed_words: list[float] = []
+    expanded_words: list[float] = []
+    expanded_passages: list[float] = []
+    for case in cases:
+        case_rows = by_case.get(case.id)
+        if not case_rows:
+            raise ValueError(f"missing positive record for {case.id} in lane {lane}")
+        row_seed_hits: list[float] = []
+        row_expanded_hits: list[float] = []
+        row_seed_words: list[int] = []
+        row_expanded_words: list[int] = []
+        row_expanded_passages: list[int] = []
+        for row in case_rows:
+            seeds = {item["passageId"] for item in row["ranked"][:rank]}
+            expanded = {
+                passage_id
+                for seed in seeds
+                for passage_id in range(max(1, seed - radius), min(len(case.passages), seed + radius) + 1)
+            }
+            row_seed_hits.append(clause_hit(case, seeds))
+            row_expanded_hits.append(clause_hit(case, expanded))
+            row_seed_words.append(context_words(case, seeds))
+            row_expanded_words.append(context_words(case, expanded))
+            row_expanded_passages.append(len(expanded))
+        seed_hits.append(mean(row_seed_hits))
+        expanded_hits.append(mean(row_expanded_hits))
+        seed_words.append(mean(row_seed_words))
+        expanded_words.append(mean(row_expanded_words))
+        expanded_passages.append(mean(row_expanded_passages))
+    return AdjacentContextSummary(
+        seed_clause_hit=mean(seed_hits),
+        expanded_clause_hit=mean(expanded_hits),
+        mean_seed_words=mean(seed_words),
+        mean_expanded_words=mean(expanded_words),
+        mean_expanded_passages=mean(expanded_passages),
+    )
+
+
+def clause_hit(case: RetrievalCase, passage_ids: set[int]) -> float:
+    return mean(1.0 if clause & passage_ids else 0.0 for clause in case.clauses)
+
+
+def context_words(case: RetrievalCase, passage_ids: set[int]) -> int:
+    return sum(len(case.passages[passage_id - 1].text.split()) for passage_id in passage_ids)
 
 
 def percentile(values: Sequence[float], quantile: float) -> float:

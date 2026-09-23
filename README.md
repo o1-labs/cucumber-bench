@@ -153,7 +153,10 @@ cases; they do not triple the accuracy sample size. The
 method, metrics, decision gates, and review checklist are in
 [`docs/RETRIEVAL-EVALUATION-PLAN.md`](docs/RETRIEVAL-EVALUATION-PLAN.md).
 Development results stay in the ignored run directory for review. They are not
-published from `docs/` or treated as reportable benchmark claims.
+published from `docs/` or treated as reportable benchmark claims. The generated
+report also replays a deterministic immediate-neighbor context expansion over
+the stored rankings. That diagnostic reports the added passage and word budget
+and is not presented as a same-budget retrieval improvement.
 
 ## Current experiment
 

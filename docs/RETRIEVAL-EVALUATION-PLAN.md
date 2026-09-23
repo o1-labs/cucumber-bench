@@ -240,7 +240,8 @@ One development command creates `runs/retrieval-<UTC timestamp>/` containing:
 - `results.jsonl`: one record per case and lane with rankings, component ranks,
   quality metrics, timing, truncations, and error field;
 - `report.md`: development warning, aggregate table, paired intervals,
-  performance table, misses at five, and reproduction receipt.
+  performance table, adjacent-context replay, misses at five, and reproduction
+  receipt.
 - `chart.html`: a generated aggregate view for reviewing the same run without
   copying a hand-maintained report into public documentation.
 
@@ -248,6 +249,12 @@ The report is generated from case-level records. It is never hand-edited into
 a more favorable result. The development run remains local, unpinned, and
 non-reportable until review. No hand-maintained report or run data is copied
 into the publicly served `docs/` directory.
+
+The adjacent-context replay exposes the immediate previous and next passage
+around each top-five seed, removes duplicates, and reports both clause coverage
+and the resulting passage and word budget. It is a boundary diagnostic over
+stored rankings, not a same-budget lane and not evidence that retrieval itself
+improved.
 
 ## 9. One-pull-request implementation
 
