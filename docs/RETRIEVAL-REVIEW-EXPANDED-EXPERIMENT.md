@@ -106,6 +106,44 @@ The smoke receipt must contain six records; the full receipt must contain 90. Bo
 a clean commit, Docker isolation, the same model and provider for both lanes, temperature 0,
 and the configured cases and repetitions. Keep development runs ignored and unpinned.
 
+## Development result: 2026-09-23
+
+Run `2026-09-23T08-15-38-571Z` compared the two lanes on all 15 `cuad-hard-dev`
+cases with three repetitions. The receipt recorded a clean commit, Docker isolation,
+temperature 0, 90/90 records, `qwen/qwen3.6-35b-a3b` for both lanes, and
+`deepseek/deepseek-v4-flash-0731` as judge. All 90 runs completed without a sandbox or
+grader error. This remains development evidence from 15 independent cases, not a locked-test
+claim; the three repetitions measure run variability rather than increasing the case count.
+
+| Measure | Full review | Expanded BM25 | Treatment difference |
+| --- | ---: | ---: | ---: |
+| Mean clause recall | 72.2% | 69.6% | −2.6 points |
+| Mean clause precision | 78.7% | 80.6% | +1.9 points |
+| Mean citation support | 90.0% | 96.7% | +6.7 points |
+| Scan calls per run | 9.00 | 5.78 | −35.8% |
+| Model input tokens per run | 20,293 | 13,177 | −35.1% |
+| Total model calls per run | 11.73 | 8.67 | −26.1% |
+| Harness cost per run | $0.0192 | $0.0138 | −28.1% |
+| Latency per run | 73.1 s | 76.6 s | +4.7% |
+| Run or grader errors | 0/45 | 0/45 | no change |
+
+The paired 95% intervals all included zero: full review minus expanded BM25 was
+`+3 [−4, +9]` points for recall, `−2 [−11, +7]` for precision, and
+`−7 [−16, 0]` for citation support. The run therefore does not establish a quality
+difference. The treatment does pass the declared development thresholds for scan calls,
+input tokens, harness cost, errors, and mean-score non-regression.
+
+Trace review preserved the earlier candidate-coverage diagnosis: the expanded policy selected
+16 of 20 unique relevant development locations, with complete coverage in nine positive
+cases and partial coverage in two. The remaining failures are not retrieval-only. The scanner
+can miss a relevant clause even when its passage is selected, and an incorrect partial quote
+can still suppress the exhaustive fallback. Citation-support gains also require caution: an
+unsupported absence answer can pass citation support while failing clause recall.
+
+The treatment is therefore an efficiency candidate, not an accuracy improvement. Freeze this
+policy rather than tuning it again on the same development cases. It may proceed to review for
+a single locked comparison only after the implementation and experiment result are accepted.
+
 ## Stop conditions
 
 Do not compensate for a failed result by changing the graders, cases, full-review control,
