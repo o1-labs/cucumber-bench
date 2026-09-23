@@ -130,6 +130,31 @@ headers). The raw data is not in the repository.
 - **consistency**: with repetitions, the share of repetitions that gave the same answer.
 - An incomplete run is marked at the top of the report and in `run.json`.
 
+## Local CUAD retrieval study
+
+`experiments/cuad-retrieval/` is a development-only comparison of BM25,
+BGE-M3 dense retrieval, reciprocal-rank fusion, and BGE reranking on the 15
+committed `cuad-hard-dev` cases. It is a suite-scoped local runner rather than a
+chat harness so the embedding and reranking models load once per comparison.
+It uses no provider key and does not call a judge model.
+
+```sh
+uv sync --project experiments/cuad-retrieval --locked --python 3.12
+npm run retrieval:test
+npm run retrieval:dev -- --device mps --batch-size 2 --repetitions 3
+```
+
+The development command writes `run.json`, `results.jsonl`, `report.md`, and `chart.html`
+under a new ignored `runs/retrieval-*` directory. The first invocation
+downloads model revisions pinned in the run receipt. Use `--device cpu` for a
+complete CPU comparison; do not combine records from different devices. The
+three repetitions check ranking and latency stability but remain the same 15
+cases; they do not triple the accuracy sample size. The
+method, metrics, decision gates, and review checklist are in
+[`docs/RETRIEVAL-EVALUATION-PLAN.md`](docs/RETRIEVAL-EVALUATION-PLAN.md).
+Development results stay in the ignored run directory for review. They are not
+published from `docs/` or treated as reportable benchmark claims.
+
 ## Current experiment
 
 The study compares `qwen/qwen3.6-35b-a3b` used directly (control) with the same model in a
