@@ -52,6 +52,8 @@ type Stage = {
   policy?: string;
   mode: 'passthrough' | 'regex' | 'llm' | 'hybrid';
   findings: string[];
+  // Structured, non-secret diagnostics owned by the stage's module.
+  metadata?: Record<string, unknown>;
   decision: 'pass' | 'modified' | 'blocked';
 };
 

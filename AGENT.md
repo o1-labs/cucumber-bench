@@ -16,6 +16,8 @@ is a harness better than the plain model, and at what cost?
 | `legal-v1` | legalbench, redaction | same | input safety → agent → output safety (AI SDK, own docker image) |
 | `cite-v1` | asqa*, cuad* | same | few-shot answer, then a check of every sentence's citations |
 | `review-v1` | cuad* | same | scan every passage → compose from the quotes → check every cited sentence |
+| `review-bm25-v1` | cuad-hard-dev | same | frozen 3,000-word BM25 candidate treatment; failed its quality gates |
+| `review-bm25-expanded-v1` | cuad-hard-dev | same | registered follow-up: ten BM25 seeds plus neighbors within 6,000 words |
 | `direct-4b` | cuad-hard* | `Qwen/Qwen3-4B-Instruct-2507:nscale` via the HF router (key: `HF_TOKEN` in `.env`) | the finetune's base model, plain call |
 | `direct-4b-ft` | cuad-hard* | `cuad-qwen3-128k` on the local Ollama server | the raw finetune, plain call: fails on whole contracts (memorized answer) |
 | `review-ft` | cuad-hard* | scan `cuad-qwen3:latest` (Ollama) + compose/check `qwen/qwen3.6-35b-a3b` | the finetune as a per-excerpt extractor inside the review pipeline |

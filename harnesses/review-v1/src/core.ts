@@ -56,9 +56,14 @@ type Stage = {
   version: string;
   mode: 'passthrough' | 'regex' | 'llm' | 'hybrid';
   findings: string[];
+  metadata?: Record<string, unknown>;
   decision: 'pass' | 'modified' | 'blocked';
 };
-type ReviewSelection = { passageIndexes: number[]; finding: string };
+type ReviewSelection = {
+  passageIndexes: number[];
+  finding: string;
+  metadata?: Record<string, unknown>;
+};
 type ReviewResult = {
   output: string;
   trace: {
@@ -86,7 +91,7 @@ async function reviewSelected(
 ): Promise<ReviewResult> {
   let docs = c.docs ?? [];
   validateSelection(selection.passageIndexes, docs.length);
-  return review(c, generate, selection.passageIndexes, false, [selection.finding]);
+  return review(c, generate, selection.passageIndexes, false, [selection.finding], selection.metadata);
 }
 
 async function review(
@@ -95,6 +100,7 @@ async function review(
   passageIndexes: number[],
   exhaustive: boolean,
   selectionFindings: string[],
+  selectionMetadata?: Record<string, unknown>,
 ): Promise<ReviewResult> {
   let docs = c.docs ?? [];
   let question = questionOf(c);
@@ -125,6 +131,7 @@ async function review(
       version: VERSION,
       mode: exhaustive ? 'llm' : 'hybrid',
       findings: [...selectionFindings, ...scanFindings],
+      metadata: selectionMetadata,
       decision: 'pass',
     },
     {

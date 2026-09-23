@@ -33,7 +33,11 @@ describe('shared review pipeline', () => {
         examples: [],
       },
       generate,
-      { passageIndexes: [0], finding: 'selected one passage' },
+      {
+        passageIndexes: [0],
+        finding: 'selected one passage',
+        metadata: { retrieval: { policy: 'test-policy', selectedPassageIds: [1] } },
+      },
     );
 
     assert.equal(prompts.length, 3);
@@ -45,5 +49,8 @@ describe('shared review pipeline', () => {
       'retrieval produced no verified quote; scanned all 5 remaining passages before composing',
       'scanned 5 fallback passages in 1 calls: 1 quote(s) from [2]',
     ]);
+    assert.deepEqual(result.trace.stages[1].metadata, {
+      retrieval: { policy: 'test-policy', selectedPassageIds: [1] },
+    });
   });
 });

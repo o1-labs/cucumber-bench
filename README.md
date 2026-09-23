@@ -88,6 +88,7 @@ each case in a fresh hardened container (read-only, no capabilities, resource ca
 | `cite-v1` | asqa, cuad | the few-shot answer, then a check of every sentence's citations; an unsupported sentence is dropped |
 | `review-v1` | cuad | scan every passage and quote what answers the question; compose the answer from the quotes; check every cited sentence against its passages |
 | `review-bm25-v1` | cuad-hard-dev | development-only BM25 preselection with bounded neighboring context, followed by the same review and citation checks as `review-v1` |
+| `review-bm25-expanded-v1` | cuad-hard-dev | separately named follow-up with ten BM25 seeds and neighbors within 6,000 words; the old treatment remains frozen |
 | `direct-4b` | cuad-hard | `direct` with the plain Qwen3-4B-Instruct-2507, hosted on nscale: the finetune's baseline |
 | `direct-4b-ft` | cuad-hard | `direct` with `cuad-qwen3`, the CUAD finetune on the local server |
 | `review-ft` | cuad-hard | the review pipeline with `cuad-qwen3` as the scan extractor and a general model for compose and check |
@@ -174,6 +175,8 @@ The comparison, development gates, exhaustive-fallback rule, and run commands ar
 The [2026-09-23 development result](docs/RETRIEVAL-REVIEW-EXPERIMENT.md#development-result-2026-09-23)
 reduced model input and cost, but exceeded the allowed quality regressions and was not
 promoted to the locked benchmark.
+The next treatment and its predeclared gates are in
+[docs/RETRIEVAL-REVIEW-EXPANDED-EXPERIMENT.md](docs/RETRIEVAL-REVIEW-EXPANDED-EXPERIMENT.md).
 
 ## Current experiment
 

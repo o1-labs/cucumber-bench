@@ -1,0 +1,12 @@
+{
+  "name": "review-bm25-expanded-v1",
+  "description": "Development-only expanded BM25 review: ten seeds plus immediate neighbors within 6,000 words enter the shared scan, compose, and citation-check pipeline. This is a separately named follow-up to the frozen 3,000-word treatment.",
+  "entry": "../review-v1/src/bm25-expanded-entry.ts",
+  "suites": ["cuad-hard-dev"],
+  "models": {
+    "main": "qwen/qwen3.6-35b-a3b"
+  },
+  "maxCalls": 40,
+  "image": "cucumber-harness-review-v1",
+  "imageEntry": "/app/dist/bm25-expanded-entry.js"
+}

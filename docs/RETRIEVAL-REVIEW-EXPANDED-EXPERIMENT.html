@@ -1,0 +1,65 @@
+<!doctype html>
+<!-- generated from RETRIEVAL-REVIEW-EXPANDED-EXPERIMENT.md by npm run site; edit the markdown, not this file -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expanded retrieval-assisted review development experiment · cucumber-bench</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 760px; margin: 3rem auto; padding: 0 1rem; color: #1b1f24; }
+  h1 { font-size: 1.6rem; } h2 { font-size: 1.2rem; margin-top: 2rem; } h3 { font-size: 1.05rem; }
+  a { color: #2a78d6; }
+  code { background: rgba(0,0,0,0.05); padding: 1px 4px; border-radius: 4px; font-size: 0.9em; }
+  pre { background: rgba(0,0,0,0.05); padding: 12px; border-radius: 8px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e1e0d9; vertical-align: top; }
+  .top { color: #57606a; font-size: 14px; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #0f1115; color: #e6e8eb; } a { color: #3987e5; }
+    code, pre { background: rgba(255,255,255,0.08); } th, td { border-color: #2c2c2a; }
+    .top { color: #9aa0aa; }
+  }
+</style>
+<p class="top"><a href="index.html">cucumber-bench</a></p>
+<h1>Expanded retrieval-assisted review development experiment</h1>
+<p>This follow-up is registered after <code>review-bm25-v1</code> failed its quality gates. It preserves that treatment and changes only the candidate-selection policy. The generated run receipt and report, not this document, remain the source of truth for what actually ran.</p>
+<h2>Decision</h2>
+<p>Can a wider BM25 candidate set recover the quality lost by the 3,000-word treatment while retaining a meaningful reduction in model work relative to full-document review?</p>
+<p>This is a development decision on <code>cuad-hard-dev</code>. The treatment is ineligible for the locked <code>cuad-hard</code> suite until its implementation and development result have been reviewed and frozen.</p>
+<h2>Comparable lanes</h2>
+<table><thead><tr><th>Lane</th><th>System</th><th>Role</th></tr></thead><tbody><tr><td>Control</td><td><code>review-v1</code></td><td>Exhaustively scans every passage.</td></tr><tr><td>Treatment</td><td><code>review-bm25-expanded-v1</code></td><td>Scans an expanded BM25 candidate set, with the same compose and citation-check stages.</td></tr></tbody></table>
+<p>Both lanes use <code>qwen/qwen3.6-35b-a3b</code>, temperature 0, the same provider, cases, examples, graders, repetitions, and runner. They share the model adapter and review module. Candidate selection is the only intentional difference.</p>
+<h2>Frozen treatment</h2>
+<p>For each public case, the treatment:</p>
+<ol><li>extracts the question before <code>Document [1]</code>;</li><li>ranks passage text with the existing BM25 implementation (<code>k1 = 1.2</code>, <code>b = 0.75</code>);</li><li>keeps the top ten passages;</li><li>considers each seed's immediate previous and next passage in seed-rank order;</li><li>skips a neighbor that would take the selection above 6,000 whitespace-delimited words;</li><li>restores document order and preserves original passage numbers;</li><li>runs the unchanged scan, compose, and citation-check stages;</li><li>scans every remaining passage before an absence claim when the candidate scan yields no verified quote.</li></ol>
+<p>The trace records the policy, seed limit, radius, budget, seed passage IDs, complete selected passage IDs, and word counts as structured metadata. Existing trace findings record fallback, quotes, and citation-check decisions. The earlier <code>review-bm25-v1</code> policy remains five seeds, radius one, and 3,000 words.</p>
+<h2>Why this treatment</h2>
+<p>The frozen treatment selected 11 of 20 unique relevant passage locations in the positive development cases: complete coverage in six cases, partial in three, and none in two. An offline sensitivity diagnostic on the same development cases found that ten seeds plus neighbors under 6,000 words selected 16 of 20 locations: complete coverage in nine cases, partial in two, and none in zero. Average selected context increased from 2,666 to 5,052 words.</p>
+<p>Those numbers motivate this treatment but do not validate it: they use the same 15-case development set and say nothing about scan, answer, or citation quality. The parameters are frozen here before the answer-level run. Do not tune them against <code>cuad-hard</code>.</p>
+<h2>Metrics and development gates</h2>
+<p>The primary metric is mean <code>clause-recall</code>; <code>clause-precision</code> and <code>citation-support</code> are co-equal non-regression metrics. Operational metrics are scan calls, model-input tokens, cost, latency, fallback rate, and run errors.</p>
+<p>Promotion requires all of the following:</p>
+<ul><li>zero run or grader errors;</li><li>every absence claim follows a complete scan recorded in the trace;</li><li>at least 20% fewer scan calls, model-input tokens, and harness cost than <code>review-v1</code>;</li><li>no more than a five-point mean regression in clause recall, clause precision, or citation support;</li><li>source-level review of every treatment loss and win;</li><li>an uncertainty interval and an explicit warning that 15 cases are exploratory evidence.</li></ul>
+<p>The lower 20% efficiency threshold is declared before the run because the candidate word budget intentionally doubled to address the observed coverage failure. If the treatment misses any gate, keep it development-only and diagnose candidate coverage separately from scan, compose, and citation checking.</p>
+<h2>Run sequence</h2>
+<p>The repository owner runs benchmark commands after reviewing the change and committing a clean revision.</p>
+<pre><code>npm test
+npm run typecheck
+npm run sandbox:build
+
+# Positive retrieval, exhaustive absence, and known partial-coverage plumbing.
+BENCH_SANDBOX=docker npm run bench -- \
+  --systems review-v1,review-bm25-expanded-v1 \
+  --cases cuad-hard-dev-100,cuad-hard-dev-102,cuad-hard-dev-111 \
+  --reps 1 \
+  --concurrency 1
+
+# Development comparison. This is not a locked-test run.
+BENCH_SANDBOX=docker npm run bench -- \
+  --systems review-v1,review-bm25-expanded-v1 \
+  --suites cuad-hard-dev \
+  --reps 3 \
+  --concurrency 2</code></pre>
+<p>The smoke receipt must contain six records; the full receipt must contain 90. Both must show a clean commit, Docker isolation, the same model and provider for both lanes, temperature 0, and the configured cases and repetitions. Keep development runs ignored and unpinned.</p>
+<h2>Stop conditions</h2>
+<p>Do not compensate for a failed result by changing the graders, cases, full-review control, or locked suite. If candidate coverage is adequate but the scan misses a clause, the next experiment belongs at the scan seam. If coverage remains inadequate, compare another retrieval adapter behind the same selection interface rather than changing the review pipeline at the same time.</p>

@@ -127,6 +127,10 @@ quote currently prevents the exhaustive fallback, which explains the largest rec
 The next experiment should preserve this frozen treatment and test a separately named
 expanded or progressive retrieval policy before another answer-level run.
 
+The registered follow-up is
+[`review-bm25-expanded-v1`](RETRIEVAL-REVIEW-EXPANDED-EXPERIMENT.md). It changes candidate
+selection only; this treatment and its result remain unchanged.
+
 ## Follow-up boundary
 
 If BM25-assisted review passes the development gates, freeze it before considering a dense
