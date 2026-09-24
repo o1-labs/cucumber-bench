@@ -21,7 +21,7 @@ for (let dir of runDirs) {
   let jsonl = await readFile(join(dir, 'results.jsonl'), 'utf8');
   records.push(...jsonl.trim().split('\n').map((line): RunRecord => JSON.parse(line)));
 }
-let { cases, help } = await loadProject();
+let { cases, help } = await loadProject({ systemNames: [] });
 if (combine) {
   let used = new Set(records.map((r) => r.run.caseId));
   let suites = [...new Set(cases.filter((c) => used.has(c.pub.id)).map((c) => c.pub.suite))];

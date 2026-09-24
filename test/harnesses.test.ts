@@ -176,6 +176,8 @@ describe('review-v1 (review harness)', () => {
     assert.equal(result.error, undefined);
     assert.equal(result.modelCalls, batches + 2);
     assert.ok(seen.slice(-(batches + 2)).every((r) => r.temperature === 0));
+    assert.ok(result.modelRequests![0].includes('then read every passage on its own'));
+    assert.ok(!result.modelRequests![0].includes('candidate passages retrieved'));
     let quote = pub.docs![1].text.split(' ').slice(0, 8).join(' ');
     // the composed draft is two sentences; the uncited "Yes." is dropped by the check
     assert.equal(result.trace!.rawOutput, `Yes. The contract contains the clause: "${quote}" [2].`);
@@ -186,5 +188,92 @@ describe('review-v1 (review harness)', () => {
     assert.equal(check.module, 'citation-check');
     assert.deepEqual(check.findings, ['s1: uncited dropped, not about the documents', 's2: [2] quote verified']);
     assert.equal(check.decision, 'modified');
+  });
+});
+
+describe('review-bm25-v1 (retrieval-assisted review harness)', () => {
+  it('retrieves bounded context, preserves original citations, then uses the shared review pipeline', async () => {
+    let docs = Array.from({ length: 20 }, (_, index) => ({
+      title: `Contract, part ${index + 1} of 20`,
+      text: index === 1
+        ? 'The supplier may terminate the agreement after material breach.'
+        : `Unrelated filler passage number ${index + 1} has no relevant language.`,
+    }));
+    let pub = {
+      id: 'synthetic-retrieval-review',
+      suite: 'cuad-hard-dev',
+      task: 'cuad',
+      instructions: 'Answer from quoted contract language and cite its original passage number.',
+      input: 'Question: Does the agreement contain a termination clause?\n\nDocument [1]: omitted',
+      docs,
+      examples: [],
+    };
+    let system = sandboxedSystem('review-bm25-v1', tsx('harnesses/review-v1/src/bm25-entry.ts'), models, undefined, 10);
+    let result = await system.run(pub, { runId: 't', repetition: 1, proxy });
+    assert.equal(result.error, undefined);
+    assert.equal(result.modelCalls, 4);
+    assert.equal(result.output, 'The contract contains the clause: "The supplier may terminate the agreement after material" [2].');
+    let agent = result.trace!.stages[1];
+    assert.equal(agent.module, 'retrieve-scan-compose');
+    assert.equal(agent.mode, 'hybrid');
+    assert.match(agent.findings[0], /^BM25 seeds \[2,1,3,4,5\]; selected 6\/20 passages in document order, \d+\/3000 words$/);
+    assert.equal(agent.findings[1], 'scanned 6 retrieved passages in 2 calls: 1 quote(s) from [2]');
+    assert.ok(result.modelRequests![2].includes('after reviewing the retrieved candidate passages'));
+    assert.ok(!result.modelRequests!.some((prompt) => prompt.includes('passage number 20')));
+    assert.deepEqual((agent.metadata as any).retrieval, {
+      policy: 'bm25-v1',
+      seedLimit: 5,
+      radius: 1,
+      wordBudget: 3000,
+      seedPassageIds: [2, 1, 3, 4, 5],
+      selectedPassageIds: [1, 2, 3, 4, 5, 6],
+      seedWordCount: 45,
+      selectedWordCount: 54,
+      totalPassages: 20,
+    });
+  });
+
+  it('runs the separately named expanded policy through the same review pipeline', async () => {
+    let docs = Array.from({ length: 30 }, (_, index) => ({
+      title: `Contract, part ${index + 1} of 30`,
+      text: index === 1
+        ? 'The supplier may terminate the agreement after material breach.'
+        : `Unrelated filler passage number ${index + 1} has no relevant language.`,
+    }));
+    let pub = {
+      id: 'synthetic-expanded-retrieval-review',
+      suite: 'cuad-hard-dev',
+      task: 'cuad',
+      instructions: 'Answer from quoted contract language and cite its original passage number.',
+      input: 'Question: Does the agreement contain a termination clause?\n\nDocument [1]: omitted',
+      docs,
+      examples: [],
+    };
+    let system = sandboxedSystem(
+      'review-bm25-expanded-v1',
+      tsx('harnesses/review-v1/src/bm25-expanded-entry.ts'),
+      models,
+      undefined,
+      10,
+    );
+    let result = await system.run(pub, { runId: 't', repetition: 1, proxy });
+    assert.equal(result.error, undefined);
+    assert.equal(result.modelCalls, 5);
+    assert.equal(result.output, 'The contract contains the clause: "The supplier may terminate the agreement after material" [2].');
+    let agent = result.trace!.stages[1];
+    assert.equal(agent.module, 'retrieve-scan-compose');
+    assert.match(agent.findings[0], /^BM25 seeds \[2,1,3,4,5,6,7,8,9,10\]; selected 11\/30 passages in document order, \d+\/6000 words$/);
+    assert.equal(agent.findings[1], 'scanned 11 retrieved passages in 3 calls: 1 quote(s) from [2]');
+    assert.deepEqual((agent.metadata as any).retrieval, {
+      policy: 'bm25-expanded-v1',
+      seedLimit: 10,
+      radius: 1,
+      wordBudget: 6000,
+      seedPassageIds: [2, 1, 3, 4, 5, 6, 7, 8, 9, 10],
+      selectedPassageIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      seedWordCount: 90,
+      selectedWordCount: 99,
+      totalPassages: 30,
+    });
   });
 });

@@ -22,18 +22,26 @@ type Project = {
   help: { systems: { [name: string]: string }; graders: { [name: string]: string } };
 };
 
-async function loadProject(opts: { judgeOverride?: string } = {}): Promise<Project> {
+async function loadProject(opts: { judgeOverride?: string; systemNames?: string[] } = {}): Promise<Project> {
   let cfg = resolveModelConfig();
   let harnesses = await loadHarnesses('harnesses');
   let benchmarks = await loadBenchmarks('benchmarks');
   let cases = await loadCases('benchmarks');
   let graders = uniqueGraders(benchmarks);
 
+  let harnessByName = new Map(harnesses.map((h) => [h.name, h]));
+  let unknownSystems = opts.systemNames?.filter((name) => !harnessByName.has(name)) ?? [];
+  if (unknownSystems.length) {
+    throw Error(`unknown system: ${unknownSystems.join(', ')}. available: ${harnesses.map((h) => h.name).join(', ')}`);
+  }
+  let selectedHarnesses = opts.systemNames?.map((name) => harnessByName.get(name)!) ?? harnesses;
+
   // a harness names its models; the safety model defaults to the main one. a model with a
   // provider goes to that upstream instead of BENCH_BASE_URL; the key stays in the env
-  // variable the manifest names
+  // variable the manifest names. Only materialize selected systems: credentials belonging
+  // to an unrelated harness must not prevent a targeted run or a read-only command.
   let systems = new Map(
-    harnesses.map((h) => {
+    selectedHarnesses.map((h) => {
       let models = { ...h.models, safety: h.models.safety ?? h.models.main } as Models;
       let upstreams =
         h.providers &&

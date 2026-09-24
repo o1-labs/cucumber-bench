@@ -22,7 +22,7 @@ assert(runDir, 'usage: npm run regrade -- runs/<runId> [--judge <model>] [--conc
 
 let jsonl = await readFile(join(runDir, 'results.jsonl'), 'utf8');
 let old: RunRecord[] = jsonl.trim().split('\n').map((line) => JSON.parse(line));
-let project = await loadProject({ judgeOverride: values.judge });
+let project = await loadProject({ judgeOverride: values.judge, systemNames: [] });
 let { cfg, cases, graders, help, judgeFor } = project;
 let caseOf = new Map(cases.map((c) => [c.pub.id, c]));
 let proxy = await startProxyFor(cfg);

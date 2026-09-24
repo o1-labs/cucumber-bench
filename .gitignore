@@ -3,5 +3,8 @@ node_modules/
 !/runs/pinned/
 .env
 .omc
+.pytest_cache/
+**/.venv/
+**/__pycache__/
 *.pdf
 harnesses/*/dist/

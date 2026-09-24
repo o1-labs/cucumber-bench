@@ -1,0 +1,127 @@
+<!doctype html>
+<!-- generated from RETRIEVAL-EVALUATION-PLAN.md by npm run site; edit the markdown, not this file -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retrieval evaluation plan · cucumber-bench</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 760px; margin: 3rem auto; padding: 0 1rem; color: #1b1f24; }
+  h1 { font-size: 1.6rem; } h2 { font-size: 1.2rem; margin-top: 2rem; } h3 { font-size: 1.05rem; }
+  a { color: #2a78d6; }
+  code { background: rgba(0,0,0,0.05); padding: 1px 4px; border-radius: 4px; font-size: 0.9em; }
+  pre { background: rgba(0,0,0,0.05); padding: 12px; border-radius: 8px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e1e0d9; vertical-align: top; }
+  .top { color: #57606a; font-size: 14px; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #0f1115; color: #e6e8eb; } a { color: #3987e5; }
+    code, pre { background: rgba(255,255,255,0.08); } th, td { border-color: #2c2c2a; }
+    .top { color: #9aa0aa; }
+  }
+</style>
+<p class="top"><a href="index.html">cucumber-bench</a></p>
+<h1>Retrieval evaluation plan</h1>
+<p>Status: implemented. The implementation, tests, and methodology belong in one pull request. Local development results remain under ignored <code>runs/</code> paths; the locked test and any published benchmark claim are explicitly outside this pull request.</p>
+<p>Base: <code>o1-labs/cucumber-bench</code> <code>main</code> at <code>dc1bdfed401008dd92c0e0c3b9b03712421151d7</code>, verified against <code>origin/main</code> on 2026-09-22.</p>
+<p>Related work: pull request #5, <code>florian/long-context</code>, reviewed at <code>9dd3b4ab1c04a00265e8d69a3477249623274cb0</code>. It remains independent of this branch. This study reimplements only the small BM25 reference algorithm needed for a controlled retrieval comparison; it does not copy PR #5's answer generation pipeline.</p>
+<h2>1. Decision and scope</h2>
+<p>The product question is:</p>
+<p>&gt; At a fixed five-passage review budget, does semantic or hybrid retrieval find &gt; more annotated contract clauses than BM25 alone, and what latency and memory &gt; does that improvement cost?</p>
+<p>For each long CUAD contract and clause question, the runner returns ten ranked passage IDs. Quality is evaluated at ranks 1, 3, 5, and 10, while rank 5 is the primary professional-review budget.</p>
+<p>The development comparison contains four frozen lanes:</p>
+<ol><li>BM25 keyword retrieval;</li><li>BGE-M3 dense retrieval;</li><li>reciprocal-rank fusion of BM25 and dense retrieval; and</li><li>the hybrid candidate pool reordered by BGE reranker v2 M3.</li></ol>
+<p>This study measures evidence retrieval only. It does not generate an answer, verify a citation, determine the legal meaning of a clause, establish that a clause is absent, compare vector databases, or evaluate document parsing. Those are later experiments and must not be mixed into this result.</p>
+<h2>2. How this fits cucumber-bench</h2>
+<p>cucumber-bench normally runs one sandboxed harness per case. A harness receives public input, may call a guarded chat-model proxy, and returns an answer that is graded against private gold. Each run records its configuration, case-level results, aggregate report, latency, and cost.</p>
+<p>Large local retrieval models have a different lifecycle. Loading BGE-M3 and the reranker separately for each case would pay multi-gigabyte model startup at least 15 times and make the latency result meaningless. Pretending they are chat models would also make the receipt inaccurate.</p>
+<p>The retrieval benchmark therefore uses a suite-scoped Python runner under <code>experiments/cuad-retrieval/</code>:</p>
+<pre><code>cuad-hard-dev public docs + query ----&gt; one local model process
+             private clause passages ----&gt; deterministic metrics
+                                             |
+                                             v
+                    run.json + results.jsonl + report.md + chart.html</code></pre>
+<p>The process loads each requested model once, executes every lane over the same cases, and writes cucumber-style artifacts under <code>runs/</code>. It never calls a hosted model, never uses provider credentials, and never gives private gold to the retrieval code. The benchmark-specific orchestration is intentionally isolated from the TypeScript chat-harness core.</p>
+<h2>3. Verified development corpus</h2>
+<p>The implementation reuses the committed <code>cuad-hard-dev</code> cases rather than duplicating a second suite:</p>
+<ul><li>15 cases from 15 contracts;</li><li>11 positive and 4 clause-absence cases;</li><li>24 annotated clauses;</li><li>20 distinct annotated passages;</li><li>26 to 104 passages per case, mean 42.9;</li><li>no development contract overlap with the locked <code>cuad-hard</code> split.</li></ul>
+<p>The runner validates the first four inventory values before doing model work. It deterministically extracts the question from the existing public input and converts the private zero-based passage indices to the public one-based IDs. It hashes the exact public and private case bytes in the run receipt.</p>
+<p>A tokenizer-only preflight resolved both pinned revisions and checked every development input. BGE-M3 saw 658 query/passage inputs with a maximum of 1,531 tokens; the reranker saw 643 query/passage pairs with a maximum of 1,626 tokens. Neither had an input above the frozen 8,192-token limit. Both resolved to the expected XLM-RoBERTa architecture with 8,194 configured positions.</p>
+<p>The 100-case <code>cuad-hard</code> suite is locked. It must not be executed, inspected for model selection, or added to the development command in this pull request.</p>
+<h2>4. Retrieval contract</h2>
+<p>The internal request contains only public information:</p>
+<pre><code>RetrievalRequest(
+    query: str,
+    passages: tuple[Passage, ...],
+    limit: int,
+)</code></pre>
+<p>Every returned item contains a one-based passage ID, score, and any component ranks needed for audit. Observable invariants are:</p>
+<ul><li>exactly ten unique passage IDs per case and lane;</li><li>IDs are within the public passage array;</li><li>scores are finite;</li><li>rank order is deterministic for equal scores;</li><li>quality metrics are computed after retrieval from private gold;</li><li>negative cases receive no retrieval-quality score.</li></ul>
+<p>Core ranking operations are pure and separately tested. <code>LocalModels</code> owns the Hugging Face loading, batching, device placement, tokenization, and inference boundary. That seam lets unit tests exercise ranking and metrics without model downloads.</p>
+<h2>5. Frozen lanes</h2>
+<h3>BM25 control</h3>
+<ul><li>Unicode word tokenizer, lowercased;</li><li><code>k1 = 1.2</code>, <code>b = 0.75</code>;</li><li>query terms de-duplicated;</li><li>ties resolved by ascending passage ID;</li><li>top 15 retained for fusion and top 10 recorded for the lane.</li></ul>
+<h3>BGE-M3 dense</h3>
+<ul><li>model <code>BAAI/bge-m3</code>;</li><li>revision <code>5617a9f61b028005a4858fdac845db406aefb181</code>;</li><li>MIT license recorded in the receipt;</li><li>CLS pooling from the final hidden state;</li><li>L2-normalized float32 vectors;</li><li>dot product ranking, equivalent to cosine similarity after normalization;</li><li>maximum sequence length 8,192;</li><li>any truncation fails the run rather than silently changing the input;</li><li>ties resolved by ascending passage ID;</li><li>top 15 retained for fusion and top 10 recorded for the lane.</li></ul>
+<p>BGE-M3 also supports learned sparse and multi-vector retrieval. They are not enabled here because they would add variables to the BM25-versus-dense question.</p>
+<h3>Hybrid RRF</h3>
+<p>The union of the top 15 BM25 and top 15 dense results contains at most 30 passages. It is ranked with equal-weight reciprocal-rank fusion:</p>
+<pre><code>score(p) = 1 / (60 + bm25_rank(p)) + 1 / (60 + dense_rank(p))</code></pre>
+<p>A missing component contributes zero. Ties use the best component rank and then passage ID. The lane records the first ten. Raw BM25 and cosine scores are not normalized or mixed because their scales have unrelated meanings.</p>
+<h3>Hybrid plus reranker</h3>
+<ul><li>candidate set: the complete RRF union, at most 30 passages;</li><li>model <code>BAAI/bge-reranker-v2-m3</code>;</li><li>revision <code>953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e</code>;</li><li>Apache-2.0 license recorded in the receipt;</li><li>each <code>(query, passage)</code> pair scored together once;</li><li>float32 inference and maximum sequence length 8,192;</li><li>any truncation fails the run;</li><li>equal scores retain hybrid order, then passage ID;</li><li>first ten recorded.</li></ul>
+<p>The reranker is loaded only when this lane is requested. Dense-only experiments must not pay its startup or memory cost.</p>
+<h2>6. Metrics and statistics</h2>
+<p>The primary metric is macro clause hit rate at five over the 11 positive development cases. A clause is a hit when any one of its annotated passages is in the first five. Clauses are averaged within a case and cases are then averaged, preventing contracts with several annotations from dominating.</p>
+<p>Secondary metrics are:</p>
+<ul><li>clause hit rate at 1, 3, and 10;</li><li>unique annotated-passage recall at 1, 3, 5, and 10;</li><li>reciprocal rank of the first annotated passage;</li><li>annotated-passage density in the first five.</li></ul>
+<p>Density is not called precision: CUAD does not annotate every passage that may be useful background, a definition, or an exception.</p>
+<p>The four absence cases remain in the run as operational diagnostics but are excluded from retrieval quality. Returning a low-scoring top-k list cannot prove that a clause is absent from the full contract.</p>
+<p>Each non-control lane is compared with BM25 by paired document-level bootstrap over clause hit@5. The seed is fixed at <code>20260830</code> and the report uses 10,000 resamples. With only 11 positive cases, the interval is expected to be wide; the development result guides selection and is not a confirmatory claim.</p>
+<h2>7. Performance accounting</h2>
+<p>The runner separates:</p>
+<ul><li>dense and reranker model-load time;</li><li>passage encoding or BM25 indexing time per case;</li><li>warm query, scoring, fusion, and reranking time;</li><li>mean, p95, and maximum warm latency;</li><li>peak process resident memory;</li><li>errors and input truncations.</li></ul>
+<p>If a case fails, the runner writes one row for every requested lane for that case before stopping. Unaffected lanes retain their valid result; affected lanes carry an empty ranking, the truncation count when applicable, and a structured error. The incomplete manifest records how many rows were written.</p>
+<p>Model load is paid once per suite and is never divided into or hidden inside per-query latency. The reference machine model and chip, Python version, operating system, CPU count, total memory, device, dtype, batch size, and sequence limit are captured in <code>run.json</code>.</p>
+<p>The initial reference run uses Apple MPS on the declared machine. CPU is also a supported explicit device, but CPU and MPS numbers must not be mixed in one comparison.</p>
+<h2>8. Reproducibility and artifacts</h2>
+<p><code>pyproject.toml</code> and <code>uv.lock</code> pin the Python 3.12 dependency graph. Model IDs are paired with immutable revisions. Model weights stay in the Hugging Face cache and are not committed.</p>
+<p>One development command creates <code>runs/retrieval-&lt;UTC timestamp&gt;/</code> containing:</p>
+<ul><li><code>run.json</code>: schema, command, expected and completed record counts, case hash, Git revision and dirty files, dependency lock hash, model revisions, configuration, hardware, timings, peak RSS, and result hash;</li><li><code>results.jsonl</code>: one record per case and lane with rankings, component ranks, quality metrics, the budgeted adjacent-context selection and coverage, timing, truncations, and error field;</li><li><code>report.md</code>: development warning, aggregate table, paired intervals, performance table, adjacent-context replay, misses at five, and reproduction receipt.</li><li><code>chart.html</code>: a generated aggregate view for reviewing the same run without copying a hand-maintained report into public documentation.</li></ul>
+<p>The report is generated from case-level records. It is never hand-edited into a more favorable result. The development run remains local, unpinned, and non-reportable until review. No hand-maintained report or run data is copied into the publicly served <code>docs/</code> directory.</p>
+<p>The adjacent-context replay exposes the immediate previous and next passage around each top-five seed in deterministic seed-rank and document order, removes duplicates, and stops at a frozen 3,000-word budget. It reports both clause coverage and the resulting passage and word cost. It is a boundary diagnostic over stored rankings, not a same-budget lane and not evidence that retrieval itself improved.</p>
+<h2>9. One-pull-request implementation</h2>
+<p>All related changes belong in one reviewable pull request, in this order:</p>
+<ol><li>Add the local retrieval package, exact lockfile, and ignored local caches.</li><li>Add validated loading of the existing development cases.</li><li>Add pure BM25, dense ranking, RRF, and reranking operations.</li><li>Add pinned local model adapters with explicit truncation failure.</li><li>Add deterministic metrics and paired bootstrap comparison.</li><li>Add the suite-scoped runner, receipt, JSONL output, and generated report.</li><li>Add unit and synthetic integration tests.</li><li>Add root npm commands and operator documentation.</li><li>Run the full permitted validation suite.</li><li>Run the development benchmark, then review its receipt and every miss locally. Do not publish the result from a non-Docker development run.</li></ol>
+<p>The repository agent policy says the user performs benchmark commands and Git commits. The implementation agent prepares and validates the command but does not bypass that ownership rule. Remote push and PR creation happen only after the user reviews the local diff and generated development artifacts.</p>
+<p>Suggested atomic commit sequence for the user, still within one PR:</p>
+<ol><li><code>add reproducible cuad retrieval runner</code></li><li><code>document retrieval development experiment</code></li></ol>
+<h2>10. Validation and runbook</h2>
+<p>Install and validate:</p>
+<pre><code>npm ci
+npm run harness:install
+uv sync --project experiments/cuad-retrieval --locked --python 3.12
+npm run retrieval:test
+npm test
+npm run typecheck</code></pre>
+<p>Then the user runs the complete development comparison:</p>
+<pre><code>npm run retrieval:dev -- --device mps --batch-size 2 --repetitions 3</code></pre>
+<p>The first invocation downloads the two pinned models. The three repetitions are an operational ranking-consistency check; quality uncertainty still comes from the 11 independent positive contracts. A lower batch size can reduce peak memory without changing ranking semantics. If MPS reports an unsupported operation, rerun the entire comparison on <code>--device cpu</code>; do not mix partial MPS and CPU records.</p>
+<p>Review before sharing:</p>
+<ol><li><code>run.json</code> says <code>complete: true</code> and contains exactly 180 records for the three-repetition run.</li><li>All four lanes and exactly the expected 15 case IDs are present.</li><li><code>truncations</code> and <code>error</code> are zero/null for every record.</li><li>The case and result hashes are present.</li><li>The Git dirty list contains only reviewed pull-request files.</li><li>The report clearly says development evidence only.</li><li>Every miss at five is inspected against the source before proposing a fix.</li></ol>
+<h2>11. Development decision gates</h2>
+<p>Choose at most one semantic treatment for future work:</p>
+<ul><li>prefer hybrid to BM25 only if clause hit@5 improves by at least 5 absolute percentage points;</li><li>retain the reranker only if it improves reciprocal rank and reduces clause hit@5 by no more than 2 points;</li><li>report candidate-pool misses separately because reranking cannot recover a passage it never sees;</li><li>if no semantic lane improves retrieval, inspect query construction and passage boundaries before changing models or adding a vector database.</li></ul>
+<p>Do not over-interpret a bootstrap interval from 11 positive cases. A treatment can be promising enough to investigate even when this development interval crosses zero, but it cannot be presented as a proven improvement.</p>
+<h2>12. Failure analysis</h2>
+<p>For each positive-case miss, assign one primary cause:</p>
+<ul><li>lexical mismatch or paraphrase;</li><li>irrelevant exact-term repetition;</li><li>definition in another passage;</li><li>exception or limitation elsewhere;</li><li>multiple conflicting passages required;</li><li>decisive text split at a passage boundary;</li><li>question definition adds distracting terms;</li><li>gold entered the candidate union but the reranker removed it;</li><li>source annotation is ambiguous or incomplete.</li></ul>
+<p>The next experiment follows the dominant failure, one variable at a time:</p>
+<ul><li>definition/exception/conflict misses: deterministic adjacent-section and referenced-definition expansion;</li><li>boundary misses: structure-aware parsing and segmentation;</li><li>lexical plus semantic misses: query construction ablation;</li><li>reranker removals: candidate depth and reranker analysis;</li><li>good retrieval but bad answers: a separate citation-support experiment.</li></ul>
+<h2>13. Locked-test boundary</h2>
+<p>No locked run is part of this pull request. Before one is authorized, freeze the selected lane, package lock, model revisions, candidate sizes, fusion constant, sequence limit, dtype, batch size, device, and resource gates in the experiment protocol.</p>
+<p>A later locked claim requires a clean committed revision, reviewed run receipt, document-disjoint cases, no post-result tuning, paired case-level uncertainty, zero invalid outputs, and zero hidden truncations. It must state that the result measures evidence retrieval rather than answer or citation correctness.</p>
+<h2>14. Explicitly rejected shortcuts</h2>
+<ul><li>Do not tune on <code>cuad-hard</code>.</li><li>Do not score absence cases as successful retrieval.</li><li>Do not use a judge model when passage IDs allow deterministic grading.</li><li>Do not reload multi-gigabyte models for every case.</li><li>Do not merge raw BM25 and cosine scores.</li><li>Do not silently truncate passages.</li><li>Do not add MongoDB before reference algorithms have known rankings.</li><li>Do not add contextual retrieval, follow-up search, generation, or citation verification to this comparison.</li><li>Do not present the 15-case development result as a locked benchmark.</li><li>Do not create several PRs for this implementation.</li></ul>
+<h2>Sources</h2>
+<ul><li>cucumber-bench: https://github.com/o1-labs/cucumber-bench</li><li>Florian's long-context pull request: https://github.com/o1-labs/cucumber-bench/pull/5</li><li>CUAD: https://github.com/TheAtticusProject/cuad</li><li>FlagEmbedding: https://github.com/FlagOpen/FlagEmbedding</li><li>BGE-M3: https://huggingface.co/BAAI/bge-m3</li><li>BGE reranker v2 M3: https://huggingface.co/BAAI/bge-reranker-v2-m3</li></ul>

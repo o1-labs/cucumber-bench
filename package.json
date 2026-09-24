@@ -6,6 +6,8 @@
     "bench": "tsx --env-file-if-exists=.env src/cli.ts",
     "chart": "tsx --env-file-if-exists=.env src/chartCli.ts",
     "regrade": "tsx --env-file-if-exists=.env src/regradeCli.ts",
+    "retrieval:dev": "uv run --project experiments/cuad-retrieval retrieval-bench",
+    "retrieval:test": "uv run --project experiments/cuad-retrieval pytest",
     "sandbox:build": "tsx src/buildCli.ts",
     "harness:install": "for d in harnesses/*/package.json; do npm --prefix $(dirname $d) ci; done",
     "test": "vitest run",
