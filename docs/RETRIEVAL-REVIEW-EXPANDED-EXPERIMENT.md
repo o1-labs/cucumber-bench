@@ -127,6 +127,26 @@ claim; the three repetitions measure run variability rather than increasing the 
 | Latency per run | 73.1 s | 76.6 s | +4.7% |
 | Run or grader errors | 0/45 | 0/45 | no change |
 
+### Exact token and cost totals
+
+The table above reports per-run averages. Summing the 90 case-level records gives:
+
+| Usage across 45 runs per lane | Full review | Expanded BM25 |
+| --- | ---: | ---: |
+| Harness input tokens | 913,171 | 592,986 |
+| Harness output tokens | 859,108 | 614,722 |
+| Harness model calls | 528 | 390 |
+| Harness provider cost | $0.8632 | $0.6209 |
+| Judge input tokens | 34,191 | 29,908 |
+| Judge output tokens | 13,780 | 11,459 |
+| Judge provider cost | $0.0085 | $0.0070 |
+
+Across both lanes, including judges, the complete development run consumed **1,570,256 input
+tokens** and **1,499,069 output tokens** at a recorded provider cost of **$1.4996**. The harnesses
+alone consumed 1,506,157 input and 1,473,830 output tokens. As with the first treatment, estimates
+for a replacement frontier model should use the relevant lane's harness totals and exact reviewed
+model rates; observed token counts are not guaranteed to transfer across tokenizers or models.
+
 The paired 95% intervals all included zero: full review minus expanded BM25 was
 `+3 [−4, +9]` points for recall, `−2 [−11, +7]` for precision, and
 `−7 [−16, 0]` for citation support. The run therefore does not establish a quality

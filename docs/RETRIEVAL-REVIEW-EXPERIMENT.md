@@ -114,6 +114,30 @@ failure details.
 | Harness cost per run | $0.0191 | $0.0121 | −36.8% |
 | Run errors | 1/45 | 0/45 | one fewer |
 
+### Exact token and cost totals
+
+The table above reports per-run averages. Summing the 90 case-level records gives the exact
+provider usage below. Harness usage is the relevant starting point for estimating a replacement
+answer-model baseline; judge usage belongs to the unchanged benchmark grader.
+
+| Usage across 45 runs per lane | Full review | BM25-assisted |
+| --- | ---: | ---: |
+| Harness input tokens | 914,559 | 483,203 |
+| Harness output tokens | 854,201 | 523,497 |
+| Harness model calls | 545 | 333 |
+| Harness provider cost | $0.8610 | $0.5443 |
+| Judge input tokens | 36,742 | 26,578 |
+| Judge output tokens | 12,942 | 13,198 |
+| Judge provider cost | $0.0088 | $0.0087 |
+
+Across both lanes, including judges, the complete development run consumed **1,461,082 input
+tokens** and **1,403,838 output tokens** at a recorded provider cost of **$1.4228**. The harnesses
+alone consumed 1,397,762 input and 1,377,698 output tokens. For a frontier-model control estimate,
+use the full-review harness totals (914,559 input and 854,201 output tokens), not the two-lane total.
+That estimate is only a planning approximation: a different tokenizer, output length, routing, or
+reasoning-token policy can change actual usage. Record the exact model ID and reviewed input/output
+rates before quoting a dollar estimate.
+
 The paired 95% intervals all included zero: full review minus BM25-assisted was
 `+6 [−11, +24]` points for recall, `+5 [−10, +21]` for precision, and
 `+5 [−4, +16]` for citation support. The treatment therefore does not show a clear quality
